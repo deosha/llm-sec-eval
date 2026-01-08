@@ -1,5 +1,5 @@
 {
-  "generated": "2026-01-08T23:23:36.525786",
+  "generated": "2026-01-08T23:45:00.000000",
   "static_analysis": {
     "aisec": {
       "tp": 39,
@@ -34,5 +34,54 @@
     "total": 29,
     "exact_pct": 89.7,
     "accuracy": 0.897
+  },
+  "real_world_repos": {
+    "langchain": {
+      "aisec_findings": 313,
+      "bandit_findings_high_med": 7,
+      "audit_score": 33.1,
+      "maturity": "Developing"
+    },
+    "llamaindex": {
+      "aisec_findings": 499,
+      "bandit_findings_high_med": 17,
+      "audit_score": 37.6,
+      "maturity": "Developing"
+    },
+    "haystack": {
+      "aisec_findings": 322,
+      "bandit_findings_high_med": 18,
+      "audit_score": 18.8,
+      "maturity": "Initial"
+    },
+    "litellm": {
+      "aisec_findings": 5661,
+      "bandit_findings_high_med": 73,
+      "audit_score": 28.3,
+      "maturity": "Developing"
+    },
+    "dspy": {
+      "aisec_findings": 218,
+      "bandit_findings_high_med": 25,
+      "audit_score": 19.6,
+      "maturity": "Initial"
+    },
+    "totals": {
+      "aisec_total": 7013,
+      "bandit_total": 140,
+      "ratio": "50x"
+    }
+  },
+  "category_distribution": {
+    "LLM05_supply_chain": 3131,
+    "LLM02_insecure_output": 1144,
+    "LLM04_model_dos": 1000,
+    "LLM09_overreliance": 920,
+    "LLM08_excessive_agency": 657,
+    "LLM01_prompt_injection": 114,
+    "LLM03_training_poisoning": 22,
+    "LLM10_model_theft": 15,
+    "LLM06_sensitive_info": 6,
+    "LLM07_insecure_plugin": 4
   }
 }

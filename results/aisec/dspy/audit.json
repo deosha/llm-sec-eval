@@ -1,0 +1,2235 @@
+{
+  "audit_id": "c9c1b03d",
+  "project_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy",
+  "timestamp": "2026-01-08T23:45:19.754701",
+  "overall_score": 19.6,
+  "maturity_level": "Initial",
+  "files_scanned": 269,
+  "scan_duration_seconds": 0.39,
+  "detected_controls": 22,
+  "total_controls": 61,
+  "categories": {
+    "prompt_security": {
+      "category_id": "prompt_security",
+      "category_name": "Prompt Security",
+      "score": 21.9,
+      "max_score": 100.0,
+      "percentage": 21.9,
+      "detected_count": 3,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "PS-01",
+          "control_name": "Prompt Sanitization",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/reliability/generate/utils.py",
+              "line_number": 569,
+              "snippet": "cleaned_prop = _clean_schema(prop)",
+              "description": "Sanitization function call: _clean_schema",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/reliability/generate/utils.py",
+              "line_number": 602,
+              "snippet": "k: (_clean_schema(v) if isinstance(v, dict) else v)  # Recurse if value is a dict",
+              "description": "Sanitization function call: _clean_schema",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/reliability/generate/utils.py",
+              "line_number": 142,
+              "snippet": "data=_clean_schema(_get_json_schema(loaded_program.signature)),",
+              "description": "Sanitization function call: _clean_schema",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 197,
+              "snippet": "warnings.simplefilter(\"always\")",
+              "description": "Sanitization function call: warnings.simplefilter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/adapters/test_tool.py",
+              "line_number": 384,
+              "snippet": "@pytest.mark.filterwarnings(\"ignore::RuntimeWarning\")",
+              "description": "Sanitization function call: pytest.mark.filterwarnings",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/lm_local.py",
+              "line_number": 245,
+              "snippet": "tokenized_dataset = tokenized_dataset.filter(lambda example: (example[\"labels\"] != -100).any())",
+              "description": "Sanitization function call: tokenized_dataset.filter",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-02",
+          "control_name": "Rate Limiting",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "PS-03",
+          "control_name": "Input Validation",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8642857142857142,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "pydantic",
+              "description": "Validation library pydantic found",
+              "confidence": 0.95
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 10,
+              "snippet": "pydantic",
+              "description": "Pydantic validation library imported",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 965,
+              "snippet": "class TestModel(pydantic.BaseModel):",
+              "description": "Validation model class: TestModel",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_cache.py",
+              "line_number": 104,
+              "snippet": "class TestModel(pydantic.BaseModel):",
+              "description": "Validation model class: TestModel",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/signatures/test_adapter_image.py",
+              "line_number": 291,
+              "snippet": "class ImageModel(pydantic.BaseModel):",
+              "description": "Validation model class: ImageModel",
+              "confidence": 0.8
+            },
+            {
+              "type": "decorator",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/adapters/types/citation.py",
+              "line_number": 131,
+              "snippet": "@pydantic.model_validator",
+              "description": "Pydantic validator decorator",
+              "confidence": 0.9
+            },
+            {
+              "type": "decorator",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/adapters/types/code.py",
+              "line_number": 86,
+              "snippet": "@pydantic.model_validator",
+              "description": "Pydantic validator decorator",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-04",
+          "control_name": "Output Filtering",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "basic",
+          "confidence": 0.8,
+          "score": 25,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/base_lm.py",
+              "line_number": 56,
+              "snippet": "outputs = self._process_response(response)",
+              "description": "Response processing: self._process_response",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-05",
+          "control_name": "Context Window Protection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "PS-06",
+          "control_name": "Red Team Testing",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'"
+          ]
+        },
+        {
+          "control_id": "PS-07",
+          "control_name": "Prompt Anomaly Detection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement statistical analysis on prompt patterns",
+            "Use ML-based anomaly detection for unusual inputs",
+            "Set up alerts for prompt anomaly detection"
+          ]
+        },
+        {
+          "control_id": "PS-08",
+          "control_name": "System Prompt Protection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        }
+      ]
+    },
+    "model_security": {
+      "category_id": "model_security",
+      "category_name": "Model Security",
+      "score": 21.9,
+      "max_score": 100.0,
+      "percentage": 21.9,
+      "detected_count": 3,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "MS-01",
+          "control_name": "Access Control",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "MS-02",
+          "control_name": "Model Versioning",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "MS-03",
+          "control_name": "Dependency Scanning",
+          "category": "model_security",
+          "detected": true,
+          "level": "basic",
+          "confidence": 0.7,
+          "score": 25,
+          "evidence": [
+            {
+              "type": "file",
+              "file_path": ".pre-commit-config.yaml",
+              "line_number": null,
+              "snippet": null,
+              "description": "Pre-commit hooks configured",
+              "confidence": 0.7
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "MS-04",
+          "control_name": "API Security",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "MS-05",
+          "control_name": "Model Source Verification",
+          "category": "model_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8666666666666667,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Hash verification library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Hash verification library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Hash verification library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Hash verification library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/utils/test_asyncify.py",
+              "line_number": 50,
+              "snippet": "await verify_asyncify(4, 10)",
+              "description": "Verification function: verify_asyncify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/utils/test_asyncify.py",
+              "line_number": 51,
+              "snippet": "await verify_asyncify(8, 15)",
+              "description": "Verification function: verify_asyncify",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "MS-06",
+          "control_name": "Differential Privacy",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Opacus or TensorFlow Privacy for differential privacy",
+            "Implement privacy budgets for model queries",
+            "Monitor epsilon values for privacy guarantees"
+          ]
+        },
+        {
+          "control_id": "MS-07",
+          "control_name": "Model Watermarking",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement watermarking for model outputs",
+            "Use cryptographic watermarks for model weights",
+            "Track watermark verification for model theft detection"
+          ]
+        },
+        {
+          "control_id": "MS-08",
+          "control_name": "Secure Model Loading",
+          "category": "model_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/reliability/utils.py",
+              "line_number": 125,
+              "snippet": "conf = yaml.safe_load(file)",
+              "description": "Safe loading: yaml.safe_load",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/datasets/alfworld/alfworld.py",
+              "line_number": 29,
+              "snippet": "config = yaml.safe_load(f)",
+              "description": "Safe loading: yaml.safe_load",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "data_privacy": {
+      "category_id": "data_privacy",
+      "category_name": "Data Privacy",
+      "score": 25.0,
+      "max_score": 100.0,
+      "percentage": 25.0,
+      "detected_count": 3,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "DP-01",
+          "control_name": "PII Detection",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/teleprompt/test_gepa_tool_optimization.py",
+              "line_number": 171,
+              "snippet": "return self.analyzer(data=results.results)",
+              "description": "PII detection function: self.analyzer",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/teleprompt/gepa/instruction_proposal.py",
+              "line_number": 104,
+              "snippet": "feedback_analysis = self._analyze_feedback_patterns(reflective_dataset)",
+              "description": "PII detection function: self._analyze_feedback_patterns",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-02",
+          "control_name": "Data Redaction",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/lm_local.py",
+              "line_number": 435,
+              "snippet": "\"attention_mask\": attention_mask.flatten(),",
+              "description": "Redaction function: attention_mask.flatten",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/predict/refine.py",
+              "line_number": 210,
+              "snippet": "return {k: recursive_mask(v) for k, v in o.items()}",
+              "description": "Redaction function: recursive_mask",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/predict/refine.py",
+              "line_number": 213,
+              "snippet": "return [recursive_mask(v) for v in o]",
+              "description": "Redaction function: recursive_mask",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/lm_local.py",
+              "line_number": 217,
+              "snippet": "tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path=model_name)",
+              "description": "Redaction function: AutoTokenizer.from_pretrained",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/lm_local.py",
+              "line_number": 244,
+              "snippet": "tokenized_dataset.set_format(type=\"torch\")",
+              "description": "Redaction function: tokenized_dataset.set_format",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/lm_local.py",
+              "line_number": 245,
+              "snippet": "tokenized_dataset = tokenized_dataset.filter(lambda example: (example[\"labels\"] != -100).any())",
+              "description": "Redaction function: tokenized_dataset.filter",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-03",
+          "control_name": "Data Encryption",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use cryptography library for data encryption",
+            "Implement Fernet for symmetric encryption",
+            "Encrypt sensitive data before storage"
+          ]
+        },
+        {
+          "control_id": "DP-04",
+          "control_name": "Audit Logging",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8500000000000001,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/__init__.py",
+              "line_number": 10,
+              "snippet": "dspy.utils.logging_utils.configure_dspy_loggers",
+              "description": "Logging module imported: dspy.utils.logging_utils.configure_dspy_loggers",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/__init__.py",
+              "line_number": 10,
+              "snippet": "dspy.utils.logging_utils.configure_dspy_loggers",
+              "description": "Logging module imported: dspy.utils.logging_utils.configure_dspy_loggers",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/propose/test_grounded_proposer.py",
+              "line_number": 45,
+              "snippet": "prompt_model = TrackingDummyLM([{\"proposed_instruction\": \"instruction\"}] * 10)",
+              "description": "Audit logging: TrackingDummyLM",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 88,
+              "snippet": "with track_usage() as usage_tracker:",
+              "description": "Audit logging: track_usage",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-05",
+          "control_name": "Consent Management",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "DP-06",
+          "control_name": "NER PII Detection",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Presidio or SpaCy for NER-based PII detection",
+            "Implement custom NER models for domain-specific PII",
+            "Run PII detection on all inputs and outputs"
+          ]
+        },
+        {
+          "control_id": "DP-07",
+          "control_name": "Data Retention Policy",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "DP-08",
+          "control_name": "GDPR Compliance",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        }
+      ]
+    },
+    "owasp_llm": {
+      "category_id": "owasp_llm",
+      "category_name": "OWASP LLM Top 10",
+      "score": 35.0,
+      "max_score": 100.0,
+      "percentage": 35.0,
+      "detected_count": 6,
+      "total_count": 10,
+      "controls": [
+        {
+          "control_id": "OWASP-01",
+          "control_name": "LLM01: Prompt Injection Defense",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8214285714285714,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 197,
+              "snippet": "warnings.simplefilter(\"always\")",
+              "description": "Input sanitization: warnings.simplefilter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/adapters/test_tool.py",
+              "line_number": 384,
+              "snippet": "@pytest.mark.filterwarnings(\"ignore::RuntimeWarning\")",
+              "description": "Input sanitization: pytest.mark.filterwarnings",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/reliability/generate/utils.py",
+              "line_number": 569,
+              "snippet": "cleaned_prop = _clean_schema(prop)",
+              "description": "Input sanitization: _clean_schema",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/reliability/generate/utils.py",
+              "line_number": 602,
+              "snippet": "k: (_clean_schema(v) if isinstance(v, dict) else v)  # Recurse if value is a dict",
+              "description": "Input sanitization: _clean_schema",
+              "confidence": 0.8
+            },
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "pydantic",
+              "description": "Input validation with Pydantic",
+              "confidence": 0.95
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/lm_local.py",
+              "line_number": 375,
+              "snippet": "input_ids = tokenizer.apply_chat_template(",
+              "description": "Prompt template usage: tokenizer.apply_chat_template",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/lm_local.py",
+              "line_number": 392,
+              "snippet": "message_start_idx = tokenizer.apply_chat_template(",
+              "description": "Prompt template usage: tokenizer.apply_chat_template",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-02",
+          "control_name": "LLM02: Insecure Output Handling",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Escape LLM output before rendering in HTML",
+            "Never use eval() or exec() with LLM output",
+            "Use parameterized queries for database operations"
+          ]
+        },
+        {
+          "control_id": "OWASP-03",
+          "control_name": "LLM03: Training Data Poisoning",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/openai.py",
+              "line_number": 73,
+              "snippet": "OpenAIProvider.validate_data_format(train_data_format)",
+              "description": "Data validation: OpenAIProvider.validate_data_format",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/teleprompt/mipro_optimizer_v2.py",
+              "line_number": 162,
+              "snippet": "trainset, valset = self._set_and_validate_datasets(trainset, valset)",
+              "description": "Data validation: self._set_and_validate_datasets",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-04",
+          "control_name": "LLM04: Model Denial of Service",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "OWASP-05",
+          "control_name": "LLM05: Supply Chain Vulnerabilities",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.9,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Integrity verification: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Integrity verification: hashlib.sha256",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-06",
+          "control_name": "LLM06: Sensitive Information Disclosure",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/lm_local.py",
+              "line_number": 435,
+              "snippet": "\"attention_mask\": attention_mask.flatten(),",
+              "description": "Data filtering: attention_mask.flatten",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/predict/refine.py",
+              "line_number": 210,
+              "snippet": "return {k: recursive_mask(v) for k, v in o.items()}",
+              "description": "Data filtering: recursive_mask",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-07",
+          "control_name": "LLM07: Insecure Plugin Design",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 974,
+              "snippet": "TestModel.model_validate_json(lm_result[0][\"text\"])",
+              "description": "Plugin validation: TestModel.model_validate_json",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/adapters/test_tool.py",
+              "line_number": 463,
+              "snippet": "tc = ToolCalls.model_validate(data_single)",
+              "description": "Plugin validation: ToolCalls.model_validate",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-08",
+          "control_name": "LLM08: Excessive Agency",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement human-in-the-loop for critical actions",
+            "Use principle of least privilege for LLM access",
+            "Add approval workflows for sensitive operations"
+          ]
+        },
+        {
+          "control_id": "OWASP-09",
+          "control_name": "LLM09: Overreliance",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/signatures/signature.py",
+              "line_number": 802,
+              "snippet": "words = with_underscores_around_numbers.split(\"_\")",
+              "description": "Confidence scoring: with_underscores_around_numbers.split",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/evaluate/metrics.py",
+              "line_number": 36,
+              "snippet": "return max(em_score(prediction, ans) for ans in answers_list)",
+              "description": "Confidence scoring: em_score",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/utils/test_asyncify.py",
+              "line_number": 50,
+              "snippet": "await verify_asyncify(4, 10)",
+              "description": "Output verification: verify_asyncify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/utils/test_asyncify.py",
+              "line_number": 51,
+              "snippet": "await verify_asyncify(8, 15)",
+              "description": "Output verification: verify_asyncify",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-10",
+          "control_name": "LLM10: Model Theft",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement rate limiting on API endpoints",
+            "Add query logging and anomaly detection",
+            "Monitor for extraction patterns"
+          ]
+        }
+      ]
+    },
+    "blue_team": {
+      "category_id": "blue_team",
+      "category_name": "Blue Team Operations",
+      "score": 21.4,
+      "max_score": 100.0,
+      "percentage": 21.4,
+      "detected_count": 2,
+      "total_count": 7,
+      "controls": [
+        {
+          "control_id": "BT-01",
+          "control_name": "Model Monitoring",
+          "category": "blue_team",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/evaluate/evaluate.py",
+              "line_number": 282,
+              "snippet": "df_to_display = stylize_metric_name(df_to_display, metric_name)",
+              "description": "Metrics tracking: stylize_metric_name",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/evaluate/evaluate.py",
+              "line_number": 172,
+              "snippet": "score = metric(example, prediction)",
+              "description": "Metrics tracking: metric",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 394,
+              "snippet": "time_counter.append(time.time())",
+              "description": "Metrics tracking: time_counter.append",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/teleprompt/test_grpo.py",
+              "line_number": 32,
+              "snippet": "counter = Counter()",
+              "description": "Metrics tracking: Counter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/propose/test_grounded_proposer.py",
+              "line_number": 45,
+              "snippet": "prompt_model = TrackingDummyLM([{\"proposed_instruction\": \"instruction\"}] * 10)",
+              "description": "Metrics tracking: TrackingDummyLM",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 88,
+              "snippet": "with track_usage() as usage_tracker:",
+              "description": "Metrics tracking: track_usage",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "BT-02",
+          "control_name": "Drift Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement drift detection with evidently or alibi-detect",
+            "Monitor input data distribution changes",
+            "Set up automated alerts for drift events"
+          ]
+        },
+        {
+          "control_id": "BT-03",
+          "control_name": "Anomaly Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement anomaly detection on model inputs",
+            "Monitor for unusual query patterns",
+            "Use statistical methods or ML-based detection"
+          ]
+        },
+        {
+          "control_id": "BT-04",
+          "control_name": "Adversarial Attack Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement adversarial input detection",
+            "Use adversarial robustness toolkits",
+            "Add input perturbation analysis"
+          ]
+        },
+        {
+          "control_id": "BT-05",
+          "control_name": "AI Incident Response",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "BT-06",
+          "control_name": "Model Drift Monitoring",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Evidently or alibi-detect for drift monitoring",
+            "Set up automated alerts for significant drift",
+            "Implement automatic retraining pipelines"
+          ]
+        },
+        {
+          "control_id": "BT-07",
+          "control_name": "Data Quality Monitoring",
+          "category": "blue_team",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.85,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "pydantic",
+              "description": "Data quality library pydantic found",
+              "confidence": 0.95
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/openai.py",
+              "line_number": 73,
+              "snippet": "OpenAIProvider.validate_data_format(train_data_format)",
+              "description": "Data quality check: OpenAIProvider.validate_data_format",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/teleprompt/mipro_optimizer_v2.py",
+              "line_number": 162,
+              "snippet": "trainset, valset = self._set_and_validate_datasets(trainset, valset)",
+              "description": "Data quality check: self._set_and_validate_datasets",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "governance": {
+      "category_id": "governance",
+      "category_name": "AI Governance",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 5,
+      "controls": [
+        {
+          "control_id": "GV-01",
+          "control_name": "Model Explainability",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use SHAP or LIME for model explanations",
+            "Provide decision explanations in outputs",
+            "Implement feature attribution tracking"
+          ]
+        },
+        {
+          "control_id": "GV-02",
+          "control_name": "Bias Detection",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Fairlearn or AIF360 for bias detection",
+            "Implement fairness metrics tracking",
+            "Test for demographic parity and equalized odds"
+          ]
+        },
+        {
+          "control_id": "GV-03",
+          "control_name": "Model Documentation",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "GV-04",
+          "control_name": "Compliance Tracking",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "GV-05",
+          "control_name": "Human Oversight",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        }
+      ]
+    },
+    "supply_chain": {
+      "category_id": "supply_chain",
+      "category_name": "Supply Chain Security",
+      "score": 41.7,
+      "max_score": 100.0,
+      "percentage": 41.7,
+      "detected_count": 2,
+      "total_count": 3,
+      "controls": [
+        {
+          "control_id": "SC-01",
+          "control_name": "Dependency Scanning",
+          "category": "supply_chain",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "SC-02",
+          "control_name": "Model Provenance Tracking",
+          "category": "supply_chain",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/retrievers/databricks_rm.py",
+              "line_number": 164,
+              "snippet": "mlflow.models.set_retriever_schema(",
+              "description": "Model tracking: mlflow.models.set_retriever_schema",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "SC-03",
+          "control_name": "Model Integrity Verification",
+          "category": "supply_chain",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8500000000000001,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Hash library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Hash library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Hash library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/clients/cache.py",
+              "line_number": 6,
+              "snippet": "hashlib.sha256",
+              "description": "Hash library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/utils/test_asyncify.py",
+              "line_number": 50,
+              "snippet": "await verify_asyncify(4, 10)",
+              "description": "Verification: verify_asyncify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/utils/test_asyncify.py",
+              "line_number": 51,
+              "snippet": "await verify_asyncify(8, 15)",
+              "description": "Verification: verify_asyncify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 974,
+              "snippet": "TestModel.model_validate_json(lm_result[0][\"text\"])",
+              "description": "Verification: TestModel.model_validate_json",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/adapters/test_tool.py",
+              "line_number": 463,
+              "snippet": "tc = ToolCalls.model_validate(data_single)",
+              "description": "Verification: ToolCalls.model_validate",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "hallucination": {
+      "category_id": "hallucination",
+      "category_name": "Hallucination Mitigation",
+      "score": 35.0,
+      "max_score": 100.0,
+      "percentage": 35.0,
+      "detected_count": 3,
+      "total_count": 5,
+      "controls": [
+        {
+          "control_id": "HM-01",
+          "control_name": "RAG Implementation",
+          "category": "hallucination",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8000000000000002,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/retrievers/test_embeddings.py",
+              "line_number": 38,
+              "snippet": "result = retriever(query)",
+              "description": "Retrieval pattern: retriever",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/retrievers/test_embeddings.py",
+              "line_number": 65,
+              "snippet": "result = retriever(query_text)",
+              "description": "Retrieval pattern: retriever",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/retrievers/databricks_rm.py",
+              "line_number": 386,
+              "snippet": "return databricks_client.vector_search_indexes.query_index(",
+              "description": "Retrieval pattern: databricks_client.vector_search_indexes.query_index",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "HM-02",
+          "control_name": "Confidence Scoring",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "HM-03",
+          "control_name": "Source Attribution",
+          "category": "hallucination",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/adapters/test_code.py",
+              "line_number": 21,
+              "snippet": "code_source = inspect.getsource(foo)",
+              "description": "Citation pattern: inspect.getsource",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/dspy/propose/utils.py",
+              "line_number": 154,
+              "snippet": "base_code = inspect.getsource(type(module))",
+              "description": "Citation pattern: inspect.getsource",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "HM-04",
+          "control_name": "Temperature Control",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "HM-05",
+          "control_name": "Fact Checking",
+          "category": "hallucination",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/utils/test_asyncify.py",
+              "line_number": 50,
+              "snippet": "await verify_asyncify(4, 10)",
+              "description": "Fact checking: verify_asyncify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/utils/test_asyncify.py",
+              "line_number": 51,
+              "snippet": "await verify_asyncify(8, 15)",
+              "description": "Fact checking: verify_asyncify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/clients/test_lm.py",
+              "line_number": 974,
+              "snippet": "TestModel.model_validate_json(lm_result[0][\"text\"])",
+              "description": "Fact checking: TestModel.model_validate_json",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/dspy/tests/adapters/test_tool.py",
+              "line_number": 463,
+              "snippet": "tc = ToolCalls.model_validate(data_single)",
+              "description": "Fact checking: ToolCalls.model_validate",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "ethical_ai": {
+      "category_id": "ethical_ai",
+      "category_name": "Ethical AI & Bias",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 4,
+      "controls": [
+        {
+          "control_id": "EA-01",
+          "control_name": "Fairness Metrics",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Fairlearn or AIF360 for fairness metrics",
+            "Implement demographic parity testing",
+            "Monitor fairness metrics in production"
+          ]
+        },
+        {
+          "control_id": "EA-02",
+          "control_name": "Model Explainability",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use SHAP or LIME for model explanations",
+            "Implement feature attribution for predictions",
+            "Provide human-readable explanations"
+          ]
+        },
+        {
+          "control_id": "EA-03",
+          "control_name": "Bias Testing",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement adversarial testing for bias",
+            "Test across demographic groups",
+            "Use TextAttack or CheckList for NLP bias testing"
+          ]
+        },
+        {
+          "control_id": "EA-04",
+          "control_name": "Model Cards",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'"
+          ]
+        }
+      ]
+    },
+    "incident_response": {
+      "category_id": "incident_response",
+      "category_name": "Incident Response",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 3,
+      "controls": [
+        {
+          "control_id": "IR-01",
+          "control_name": "Monitoring Integration",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "IR-02",
+          "control_name": "Audit Logging",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "IR-03",
+          "control_name": "Rollback Capability",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        }
+      ]
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-02",
+      "title": "Rate Limiting",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-05",
+      "title": "Context Window Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-06",
+      "title": "Red Team Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement statistical analysis on prompt patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use ML-based anomaly detection for unusual inputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up alerts for prompt anomaly detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-08",
+      "title": "System Prompt Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-01",
+      "title": "Access Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-02",
+      "title": "Model Versioning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-04",
+      "title": "API Security",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Opacus or TensorFlow Privacy for differential privacy",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement privacy budgets for model queries",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor epsilon values for privacy guarantees",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement watermarking for model outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use cryptographic watermarks for model weights",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Track watermark verification for model theft detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-03",
+      "title": "Data Encryption",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use cryptography library for data encryption",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-03",
+      "title": "Data Encryption",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement Fernet for symmetric encryption",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-03",
+      "title": "Data Encryption",
+      "description": "Control not detected or below threshold",
+      "remediation": "Encrypt sensitive data before storage",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-05",
+      "title": "Consent Management",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Presidio or SpaCy for NER-based PII detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement custom NER models for domain-specific PII",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Run PII detection on all inputs and outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-07",
+      "title": "Data Retention Policy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-08",
+      "title": "GDPR Compliance",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-02",
+      "title": "LLM02: Insecure Output Handling",
+      "description": "Control not detected or below threshold",
+      "remediation": "Escape LLM output before rendering in HTML",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-02",
+      "title": "LLM02: Insecure Output Handling",
+      "description": "Control not detected or below threshold",
+      "remediation": "Never use eval() or exec() with LLM output",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-02",
+      "title": "LLM02: Insecure Output Handling",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use parameterized queries for database operations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-04",
+      "title": "LLM04: Model Denial of Service",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement human-in-the-loop for critical actions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use principle of least privilege for LLM access",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add approval workflows for sensitive operations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement rate limiting on API endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add query logging and anomaly detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for extraction patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement drift detection with evidently or alibi-detect",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor input data distribution changes",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated alerts for drift events",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement anomaly detection on model inputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for unusual query patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use statistical methods or ML-based detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement adversarial input detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use adversarial robustness toolkits",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add input perturbation analysis",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-05",
+      "title": "AI Incident Response",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Evidently or alibi-detect for drift monitoring",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated alerts for significant drift",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement automatic retraining pipelines",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use SHAP or LIME for model explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide decision explanations in outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement feature attribution tracking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Fairlearn or AIF360 for bias detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement fairness metrics tracking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Test for demographic parity and equalized odds",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-03",
+      "title": "Model Documentation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-04",
+      "title": "Compliance Tracking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-05",
+      "title": "Human Oversight",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-01",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-02",
+      "title": "Confidence Scoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-04",
+      "title": "Temperature Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Fairlearn or AIF360 for fairness metrics",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement demographic parity testing",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor fairness metrics in production",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use SHAP or LIME for model explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement feature attribution for predictions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide human-readable explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement adversarial testing for bias",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Test across demographic groups",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use TextAttack or CheckList for NLP bias testing",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-04",
+      "title": "Model Cards",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-01",
+      "title": "Monitoring Integration",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-02",
+      "title": "Audit Logging",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-03",
+      "title": "Rollback Capability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    }
+  ]
+}

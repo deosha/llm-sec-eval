@@ -1,0 +1,2709 @@
+{
+  "audit_id": "003315be",
+  "project_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm",
+  "timestamp": "2026-01-08T23:45:15.955077",
+  "overall_score": 28.3,
+  "maturity_level": "Developing",
+  "files_scanned": 3052,
+  "scan_duration_seconds": 6.38,
+  "detected_controls": 29,
+  "total_controls": 61,
+  "categories": {
+    "prompt_security": {
+      "category_id": "prompt_security",
+      "category_name": "Prompt Security",
+      "score": 34.4,
+      "max_score": 100.0,
+      "percentage": 34.4,
+      "detected_count": 4,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "PS-01",
+          "control_name": "Prompt Sanitization",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/litellm_pre_call_utils.py",
+              "line_number": 602,
+              "snippet": "LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key(",
+              "description": "Sanitization function call: LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/litellm_pre_call_utils.py",
+              "line_number": 430,
+              "snippet": "LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key(",
+              "description": "Sanitization function call: LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/utils.py",
+              "line_number": 1621,
+              "snippet": "LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key(",
+              "description": "Sanitization function call: LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_resource_cleanup.py",
+              "line_number": 115,
+              "snippet": "asyncio.run(test_acompletion_resource_cleanup())",
+              "description": "Sanitization function call: test_acompletion_resource_cleanup",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/__init__.py",
+              "line_number": 1588,
+              "snippet": "register_async_client_cleanup()",
+              "description": "Sanitization function call: register_async_client_cleanup",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 7284,
+              "snippet": "cleaned_message = cleanup_none_field_in_message(message=convert_msg_to_dict)",
+              "description": "Sanitization function call: cleanup_none_field_in_message",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_resource_cleanup.py",
+              "line_number": 19,
+              "snippet": "warnings.simplefilter(\"always\")",
+              "description": "Sanitization function call: warnings.simplefilter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_resource_cleanup.py",
+              "line_number": 60,
+              "snippet": "warnings.simplefilter(\"always\")",
+              "description": "Sanitization function call: warnings.simplefilter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/local_testing/test_pydantic_namespaces.py",
+              "line_number": 7,
+              "snippet": "warnings.simplefilter(\"always\")  # Capture all warnings",
+              "description": "Sanitization function call: warnings.simplefilter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/utils.py",
+              "line_number": 678,
+              "snippet": "rf\"['\\\"]?{re.escape(key)}['\\\"]?\\s*:\\s*['\\\"]?([^,'\\\"]*)['\\\"]?\"",
+              "description": "Sanitization function call: re.escape",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router_utils/pattern_match_deployments.py",
+              "line_number": 100,
+              "snippet": "return re.escape(pattern).replace(r\"\\*\", \"(.*)\")",
+              "description": "Sanitization function call: re.escape",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/guardrails/guardrail_hooks/litellm_content_filter/content_filter.py",
+              "line_number": 453,
+              "snippet": "keyword_pattern = r\"\\b\" + re.escape(keyword) + r\"\\b\"",
+              "description": "Sanitization function call: re.escape",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-02",
+          "control_name": "Rate Limiting",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "PS-03",
+          "control_name": "Input Validation",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.875,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "pydantic",
+              "description": "Validation library pydantic found",
+              "confidence": 0.95
+            },
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "jsonschema",
+              "description": "Validation library jsonschema found",
+              "confidence": 0.95
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_openai_endpoints.py",
+              "line_number": 432,
+              "snippet": "pydantic",
+              "description": "Pydantic validation library imported",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 5034,
+              "snippet": "class PotentialModelNamesAndCustomLLMProvider(TypedDict):",
+              "description": "Validation model class: PotentialModelNamesAndCustomLLMProvider",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 6770,
+              "snippet": "class AvailableModelsCache(InMemoryCache):",
+              "description": "Validation model class: AvailableModelsCache",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 7056,
+              "snippet": "class ModelResponseIterator:",
+              "description": "Validation model class: ModelResponseIterator",
+              "confidence": 0.8
+            },
+            {
+              "type": "decorator",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/types/utils.py",
+              "line_number": 3207,
+              "snippet": "@model_validator",
+              "description": "Pydantic validator decorator",
+              "confidence": 0.9
+            },
+            {
+              "type": "decorator",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/_types.py",
+              "line_number": 662,
+              "snippet": "@model_validator",
+              "description": "Pydantic validator decorator",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-04",
+          "control_name": "Output Filtering",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_litellm/proxy/guardrails/test_pillar_guardrails.py",
+              "line_number": 448,
+              "snippet": "assert metadata.get(\"pillar_session_id_response\") == pillar_clean_response.json()[\"session_id\"]",
+              "description": "Output filtering function: pillar_clean_response.json",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_litellm/proxy/guardrails/test_pillar_guardrails.py",
+              "line_number": 449,
+              "snippet": "assert metadata.get(\"pillar_scanners\") == pillar_clean_response.json().get(\"scanners\", {})",
+              "description": "Output filtering function: pillar_clean_response.json",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_litellm/proxy/guardrails/test_pillar_guardrails.py",
+              "line_number": 450,
+              "snippet": "assert metadata.get(\"pillar_evidence\") == pillar_clean_response.json().get(\"evidence\", [])",
+              "description": "Output filtering function: pillar_clean_response.json",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/enterprise/enterprise_hooks/google_text_moderation.py",
+              "line_number": 104,
+              "snippet": "request = self.moderate_text_request(",
+              "description": "Output filtering function: self.moderate_text_request",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/enterprise/enterprise_hooks/google_text_moderation.py",
+              "line_number": 109,
+              "snippet": "response = self.client.moderate_text(request=request)",
+              "description": "Output filtering function: self.client.moderate_text",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/interactions/streaming_iterator.py",
+              "line_number": 69,
+              "snippet": "self._hidden_params[\"additional_headers\"] = process_response_headers(",
+              "description": "Response processing: process_response_headers",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/responses/streaming_iterator.py",
+              "line_number": 80,
+              "snippet": "self._hidden_params[\"additional_headers\"] = process_response_headers(",
+              "description": "Response processing: process_response_headers",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/batches/batch_utils.py",
+              "line_number": 173,
+              "snippet": "response_dict = openai_format_response.dict() if hasattr(openai_format_response, 'dict') else {}",
+              "description": "Response processing: openai_format_response.dict",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-05",
+          "control_name": "Context Window Protection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "PS-06",
+          "control_name": "Red Team Testing",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'"
+          ]
+        },
+        {
+          "control_id": "PS-07",
+          "control_name": "Prompt Anomaly Detection",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/llm_cost_calc/utils.py",
+              "line_number": 189,
+              "snippet": "threshold = float(threshold_str.replace(\"k\", \"\")) * (",
+              "description": "Statistical analysis: threshold_str.replace",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/common_utils/debug_utils.py",
+              "line_number": 42,
+              "snippet": "configure_gc_thresholds()",
+              "description": "Statistical analysis: configure_gc_thresholds",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-08",
+          "control_name": "System Prompt Protection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        }
+      ]
+    },
+    "model_security": {
+      "category_id": "model_security",
+      "category_name": "Model Security",
+      "score": 18.8,
+      "max_score": 100.0,
+      "percentage": 18.8,
+      "detected_count": 2,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "MS-01",
+          "control_name": "Access Control",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "MS-02",
+          "control_name": "Model Versioning",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "MS-03",
+          "control_name": "Dependency Scanning",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "MS-04",
+          "control_name": "API Security",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "MS-05",
+          "control_name": "Model Source Verification",
+          "category": "model_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8333333333333334,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 11,
+              "snippet": "hashlib",
+              "description": "Hash verification library: hashlib",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router.py",
+              "line_number": 13,
+              "snippet": "hashlib",
+              "description": "Hash verification library: hashlib",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 131,
+              "snippet": "assert verify_member_in_team(",
+              "description": "Verification function: verify_member_in_team",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 258,
+              "snippet": "assert verify_member_in_team(",
+              "description": "Verification function: verify_member_in_team",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_server.py",
+              "line_number": 4988,
+              "snippet": "validate_model_access(model_id=model_id, available_models=all_models)",
+              "description": "Verification function: validate_model_access",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/management_endpoints/key_management_endpoints.py",
+              "line_number": 2141,
+              "snippet": "validate_model_max_budget(model_max_budget)",
+              "description": "Verification function: validate_model_max_budget",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "MS-06",
+          "control_name": "Differential Privacy",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Opacus or TensorFlow Privacy for differential privacy",
+            "Implement privacy budgets for model queries",
+            "Monitor epsilon values for privacy guarantees"
+          ]
+        },
+        {
+          "control_id": "MS-07",
+          "control_name": "Model Watermarking",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement watermarking for model outputs",
+            "Use cryptographic watermarks for model weights",
+            "Track watermark verification for model theft detection"
+          ]
+        },
+        {
+          "control_id": "MS-08",
+          "control_name": "Secure Model Loading",
+          "category": "model_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_server.py",
+              "line_number": 1796,
+              "snippet": "config = yaml.safe_load(config_file)",
+              "description": "Safe loading: yaml.safe_load",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_server.py",
+              "line_number": 1773,
+              "snippet": "return yaml.safe_load(file) or {}",
+              "description": "Safe loading: yaml.safe_load",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "data_privacy": {
+      "category_id": "data_privacy",
+      "category_name": "Data Privacy",
+      "score": 46.9,
+      "max_score": 100.0,
+      "percentage": 46.9,
+      "detected_count": 5,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "DP-01",
+          "control_name": "PII Detection",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8666666666666667,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/common_utils/callback_utils.py",
+              "line_number": 51,
+              "snippet": "litellm.proxy.guardrails.guardrail_hooks.presidio._OPTIONAL_PresidioPIIMasking",
+              "description": "PII library imported: litellm.proxy.guardrails.guardrail_hooks.presidio._OPTIONAL_PresidioPIIMasking",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/guardrails/guardrail_initializers.py",
+              "line_number": 75,
+              "snippet": "litellm.proxy.guardrails.guardrail_hooks.presidio._OPTIONAL_PresidioPIIMasking",
+              "description": "PII library imported: litellm.proxy.guardrails.guardrail_hooks.presidio._OPTIONAL_PresidioPIIMasking",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/custom_guardrail.py",
+              "line_number": 25,
+              "snippet": "litellm.types.utils.GenericGuardrailAPIInputs",
+              "description": "PII library imported: litellm.types.utils.GenericGuardrailAPIInputs",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/openai/responses/guardrail_translation/handler.py",
+              "line_number": 54,
+              "snippet": "litellm.types.utils.GenericGuardrailAPIInputs",
+              "description": "PII library imported: litellm.types.utils.GenericGuardrailAPIInputs",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/azure_ai/ocr/document_intelligence/transformation.py",
+              "line_number": 541,
+              "snippet": "azure_pages = analyze_result.get(\"pages\", [])",
+              "description": "PII detection function: analyze_result.get",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/azure_ai/ocr/document_intelligence/transformation.py",
+              "line_number": 653,
+              "snippet": "azure_pages = analyze_result.get(\"pages\", [])",
+              "description": "PII detection function: analyze_result.get",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-02",
+          "control_name": "Data Redaction",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/custom_logger.py",
+              "line_number": 775,
+              "snippet": "self._redact_base64(value=v, depth=depth + 1, max_depth=max_depth)",
+              "description": "Redaction function: self._redact_base64",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/custom_logger.py",
+              "line_number": 781,
+              "snippet": "k: self._redact_base64(value=v, depth=depth + 1, max_depth=max_depth)",
+              "description": "Redaction function: self._redact_base64",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/custom_logger.py",
+              "line_number": 815,
+              "snippet": "msg[\"content\"] = self._redact_base64(",
+              "description": "Redaction function: self._redact_base64",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router.py",
+              "line_number": 1192,
+              "snippet": "masker = SensitiveDataMasker(visible_prefix=2, visible_suffix=0)",
+              "description": "Redaction function: SensitiveDataMasker",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/_redis.py",
+              "line_number": 492,
+              "snippet": "masker = SensitiveDataMasker()",
+              "description": "Redaction function: SensitiveDataMasker",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/_redis.py",
+              "line_number": 557,
+              "snippet": "masker = SensitiveDataMasker()",
+              "description": "Redaction function: SensitiveDataMasker",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/guardrails/guardrail_hooks/presidio.py",
+              "line_number": 159,
+              "snippet": "if not self.presidio_anonymizer_api_base.endswith(\"/\"):",
+              "description": "Redaction function: self.presidio_anonymizer_api_base.endswith",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/guardrails/guardrail_hooks/presidio.py",
+              "line_number": 162,
+              "snippet": "self.presidio_anonymizer_api_base.startswith(\"http://\")",
+              "description": "Redaction function: self.presidio_anonymizer_api_base.startswith",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/guardrails/guardrail_hooks/presidio.py",
+              "line_number": 163,
+              "snippet": "or self.presidio_anonymizer_api_base.startswith(\"https://\")",
+              "description": "Redaction function: self.presidio_anonymizer_api_base.startswith",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 2002,
+              "snippet": "return _select_tokenizer_helper(model=model)",
+              "description": "Redaction function: _select_tokenizer_helper",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_litellm/litellm_core_utils/test_token_counter.py",
+              "line_number": 501,
+              "snippet": "result = _select_tokenizer_helper(\"llama-3-7b\")",
+              "description": "Redaction function: _select_tokenizer_helper",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_litellm/litellm_core_utils/test_token_counter.py",
+              "line_number": 519,
+              "snippet": "result = _select_tokenizer_helper(\"command-r-v1\")",
+              "description": "Redaction function: _select_tokenizer_helper",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/litellm_logging.py",
+              "line_number": 376,
+              "snippet": "litellm_params = scrub_sensitive_keys_in_metadata(litellm_params)",
+              "description": "Redaction function: scrub_sensitive_keys_in_metadata",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/litellm_logging.py",
+              "line_number": 514,
+              "snippet": "**scrub_sensitive_keys_in_metadata(litellm_params),",
+              "description": "Redaction function: scrub_sensitive_keys_in_metadata",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/logging_callback_tests/test_langfuse_unit_tests.py",
+              "line_number": 484,
+              "snippet": "result = scrub_sensitive_keys_in_metadata(litellm_params)",
+              "description": "Redaction function: scrub_sensitive_keys_in_metadata",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-03",
+          "control_name": "Data Encryption",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8576923076923078,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "cryptography",
+              "description": "Encryption library cryptography found",
+              "confidence": 0.95
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/app_crypto.py",
+              "line_number": 6,
+              "snippet": "cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+              "description": "Encryption module imported: cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/app_crypto.py",
+              "line_number": 6,
+              "snippet": "cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+              "description": "Encryption module imported: cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/app_crypto.py",
+              "line_number": 6,
+              "snippet": "cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+              "description": "Encryption module imported: cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/app_crypto.py",
+              "line_number": 6,
+              "snippet": "cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+              "description": "Encryption module imported: cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/oci/chat/transformation.py",
+              "line_number": 126,
+              "snippet": "cryptography.hazmat.primitives.asymmetric.rsa",
+              "description": "Encryption module imported: cryptography.hazmat.primitives.asymmetric.rsa",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/proxy_unit_tests/test_jwt.py",
+              "line_number": 118,
+              "snippet": "cryptography.hazmat.primitives.asymmetric.rsa",
+              "description": "Encryption module imported: cryptography.hazmat.primitives.asymmetric.rsa",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_server.py",
+              "line_number": 3182,
+              "snippet": "encrypted_value = encrypt_value_helper(",
+              "description": "Encryption function: encrypt_value_helper",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_server.py",
+              "line_number": 9216,
+              "snippet": "encrypted_value = encrypt_value_helper(value=v)",
+              "description": "Encryption function: encrypt_value_helper",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_entrypoint.py",
+              "line_number": 24,
+              "snippet": "decrypt_and_reset_env_var()",
+              "description": "Encryption function: decrypt_and_reset_env_var",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_cli.py",
+              "line_number": 649,
+              "snippet": "new_env_var = decrypt_env_var()",
+              "description": "Encryption function: decrypt_env_var",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/custom_httpx/http_handler.py",
+              "line_number": 127,
+              "snippet": "custom_ssl_context.set_ciphers(ssl_security_level)",
+              "description": "Encryption function: custom_ssl_context.set_ciphers",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/custom_httpx/http_handler.py",
+              "line_number": 131,
+              "snippet": "custom_ssl_context.set_ciphers(DEFAULT_SSL_CIPHERS)",
+              "description": "Encryption function: custom_ssl_context.set_ciphers",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-04",
+          "control_name": "Audit Logging",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8333333333333334,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 5,
+              "snippet": "logging",
+              "description": "Logging module imported: logging",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/_logging.py",
+              "line_number": 2,
+              "snippet": "logging",
+              "description": "Logging module imported: logging",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/management_helpers/audit_logs.py",
+              "line_number": 50,
+              "snippet": "await create_audit_log_for_update(",
+              "description": "Audit logging: create_audit_log_for_update",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/hooks/key_management_event_hooks.py",
+              "line_number": 60,
+              "snippet": "create_audit_log_for_update(",
+              "description": "Audit logging: create_audit_log_for_update",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/cost_calculator.py",
+              "line_number": 1311,
+              "snippet": "StandardBuiltInToolCostTracking.get_cost_for_built_in_tools(",
+              "description": "Audit logging: StandardBuiltInToolCostTracking.get_cost_for_built_in_tools",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_litellm/litellm_core_utils/llm_cost_calc/test_tool_call_cost_tracking.py",
+              "line_number": 93,
+              "snippet": "cost = StandardBuiltInToolCostTracking.get_cost_for_built_in_tools(",
+              "description": "Audit logging: StandardBuiltInToolCostTracking.get_cost_for_built_in_tools",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-05",
+          "control_name": "Consent Management",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "DP-06",
+          "control_name": "NER PII Detection",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/common_utils/callback_utils.py",
+              "line_number": 73,
+              "snippet": "pii_masking_object = _OPTIONAL_PresidioPIIMasking(**params)",
+              "description": "Presidio PII detection: _OPTIONAL_PresidioPIIMasking",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/guardrails/guardrail_initializers.py",
+              "line_number": 99,
+              "snippet": "callback = _OPTIONAL_PresidioPIIMasking(**params)",
+              "description": "Presidio PII detection: _OPTIONAL_PresidioPIIMasking",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-07",
+          "control_name": "Data Retention Policy",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "DP-08",
+          "control_name": "GDPR Compliance",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        }
+      ]
+    },
+    "owasp_llm": {
+      "category_id": "owasp_llm",
+      "category_name": "OWASP LLM Top 10",
+      "score": 50.0,
+      "max_score": 100.0,
+      "percentage": 50.0,
+      "detected_count": 7,
+      "total_count": 10,
+      "controls": [
+        {
+          "control_id": "OWASP-01",
+          "control_name": "LLM01: Prompt Injection Defense",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8115384615384615,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/litellm_pre_call_utils.py",
+              "line_number": 602,
+              "snippet": "LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key(",
+              "description": "Input sanitization: LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/litellm_pre_call_utils.py",
+              "line_number": 430,
+              "snippet": "LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key(",
+              "description": "Input sanitization: LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/utils.py",
+              "line_number": 678,
+              "snippet": "rf\"['\\\"]?{re.escape(key)}['\\\"]?\\s*:\\s*['\\\"]?([^,'\\\"]*)['\\\"]?\"",
+              "description": "Input sanitization: re.escape",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router_utils/pattern_match_deployments.py",
+              "line_number": 100,
+              "snippet": "return re.escape(pattern).replace(r\"\\*\", \"(.*)\")",
+              "description": "Input sanitization: re.escape",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_resource_cleanup.py",
+              "line_number": 19,
+              "snippet": "warnings.simplefilter(\"always\")",
+              "description": "Input sanitization: warnings.simplefilter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_resource_cleanup.py",
+              "line_number": 60,
+              "snippet": "warnings.simplefilter(\"always\")",
+              "description": "Input sanitization: warnings.simplefilter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_resource_cleanup.py",
+              "line_number": 115,
+              "snippet": "asyncio.run(test_acompletion_resource_cleanup())",
+              "description": "Input sanitization: test_acompletion_resource_cleanup",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/__init__.py",
+              "line_number": 1588,
+              "snippet": "register_async_client_cleanup()",
+              "description": "Input sanitization: register_async_client_cleanup",
+              "confidence": 0.8
+            },
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "pydantic",
+              "description": "Input validation with Pydantic",
+              "confidence": 0.95
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/dotprompt/prompt_manager.py",
+              "line_number": 158,
+              "snippet": "return PromptTemplate(",
+              "description": "Prompt template usage: PromptTemplate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/dotprompt/prompt_manager.py",
+              "line_number": 305,
+              "snippet": "template = PromptTemplate(",
+              "description": "Prompt template usage: PromptTemplate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_server.py",
+              "line_number": 5957,
+              "snippet": "scope = REALTIME_REQUEST_SCOPE_TEMPLATE.copy()",
+              "description": "Prompt template usage: REALTIME_REQUEST_SCOPE_TEMPLATE.copy",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_server.py",
+              "line_number": 5945,
+              "snippet": "RealtimeQueryParams, dict(_realtime_query_params_template(model, intent))",
+              "description": "Prompt template usage: _realtime_query_params_template",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-02",
+          "control_name": "LLM02: Insecure Output Handling",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/utils.py",
+              "line_number": 678,
+              "snippet": "rf\"['\\\"]?{re.escape(key)}['\\\"]?\\s*:\\s*['\\\"]?([^,'\\\"]*)['\\\"]?\"",
+              "description": "Output escaping: re.escape",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router_utils/pattern_match_deployments.py",
+              "line_number": 100,
+              "snippet": "return re.escape(pattern).replace(r\"\\*\", \"(.*)\")",
+              "description": "Output escaping: re.escape",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-03",
+          "control_name": "LLM03: Training Data Poisoning",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement data validation pipelines",
+            "Verify data source integrity",
+            "Monitor for anomalies in training data"
+          ]
+        },
+        {
+          "control_id": "OWASP-04",
+          "control_name": "LLM04: Model Denial of Service",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "OWASP-05",
+          "control_name": "LLM05: Supply Chain Vulnerabilities",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.9,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 11,
+              "snippet": "hashlib",
+              "description": "Integrity verification: hashlib",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router.py",
+              "line_number": 13,
+              "snippet": "hashlib",
+              "description": "Integrity verification: hashlib",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/experimental_mcp_client/client.py",
+              "line_number": 29,
+              "snippet": "litellm.types.llms.custom_http.VerifyTypes",
+              "description": "Integrity verification: litellm.types.llms.custom_http.VerifyTypes",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/experimental_mcp_client/client.py",
+              "line_number": 29,
+              "snippet": "litellm.types.llms.custom_http.VerifyTypes",
+              "description": "Integrity verification: litellm.types.llms.custom_http.VerifyTypes",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-06",
+          "control_name": "LLM06: Sensitive Information Disclosure",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/custom_logger.py",
+              "line_number": 775,
+              "snippet": "self._redact_base64(value=v, depth=depth + 1, max_depth=max_depth)",
+              "description": "Data filtering: self._redact_base64",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/custom_logger.py",
+              "line_number": 781,
+              "snippet": "k: self._redact_base64(value=v, depth=depth + 1, max_depth=max_depth)",
+              "description": "Data filtering: self._redact_base64",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router.py",
+              "line_number": 1192,
+              "snippet": "masker = SensitiveDataMasker(visible_prefix=2, visible_suffix=0)",
+              "description": "Data filtering: SensitiveDataMasker",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/_redis.py",
+              "line_number": 492,
+              "snippet": "masker = SensitiveDataMasker()",
+              "description": "Data filtering: SensitiveDataMasker",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/litellm_pre_call_utils.py",
+              "line_number": 602,
+              "snippet": "LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key(",
+              "description": "Data filtering: LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/litellm_pre_call_utils.py",
+              "line_number": 430,
+              "snippet": "LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key(",
+              "description": "Data filtering: LiteLLMProxyRequestSetup.get_sanitized_user_information_from_key",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-07",
+          "control_name": "LLM07: Insecure Plugin Design",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 7305,
+              "snippet": "return validate_chat_completion_user_messages(messages=new_messages)",
+              "description": "Plugin validation: validate_chat_completion_user_messages",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/litellm_utils_tests/test_utils.py",
+              "line_number": 1332,
+              "snippet": "validate_chat_completion_user_messages(messages=messages)",
+              "description": "Plugin validation: validate_chat_completion_user_messages",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/litellm_proxy/skills/code_execution.py",
+              "line_number": 149,
+              "snippet": "executor = SkillsSandboxExecutor(timeout=self.sandbox_timeout)",
+              "description": "Sandboxing: SkillsSandboxExecutor",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/hooks/litellm_skills/main.py",
+              "line_number": 463,
+              "snippet": "executor = SkillsSandboxExecutor(timeout=self.sandbox_timeout)",
+              "description": "Sandboxing: SkillsSandboxExecutor",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/management_endpoints/ui_sso.py",
+              "line_number": 2064,
+              "snippet": "SSOAuthenticationHandler.verify_user_in_restricted_sso_group(",
+              "description": "Sandboxing: SSOAuthenticationHandler.verify_user_in_restricted_sso_group",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/proxy_server.py",
+              "line_number": 2612,
+              "snippet": "RoleBasedPermissions(**role_permission)",
+              "description": "Sandboxing: RoleBasedPermissions",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/proxy_unit_tests/test_user_api_key_auth.py",
+              "line_number": 948,
+              "snippet": "RoleBasedPermissions(",
+              "description": "Sandboxing: RoleBasedPermissions",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-08",
+          "control_name": "LLM08: Excessive Agency",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/cookbook/misc/migrate_proxy_config.py",
+              "line_number": 66,
+              "snippet": "if confirm.lower() != \"y\":",
+              "description": "Approval workflow: confirm.lower",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/vector_store_files_endpoints/endpoints.py",
+              "line_number": 137,
+              "snippet": "_maybe_check_permissions(",
+              "description": "Permission check: _maybe_check_permissions",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/vector_store_files_endpoints/endpoints.py",
+              "line_number": 217,
+              "snippet": "_maybe_check_permissions(",
+              "description": "Permission check: _maybe_check_permissions",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/vertex_ai/vertex_llm_base.py",
+              "line_number": 159,
+              "snippet": "return google.oauth2.credentials.Credentials.from_authorized_user_info(",
+              "description": "Permission check: google.oauth2.credentials.Credentials.from_authorized_user_info",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/vertex_ai/vertex_llm_base.py",
+              "line_number": 104,
+              "snippet": "creds = self._credentials_from_authorized_user(",
+              "description": "Permission check: self._credentials_from_authorized_user",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-09",
+          "control_name": "LLM09: Overreliance",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/guardrails/guardrail_hooks/presidio.py",
+              "line_number": 367,
+              "snippet": "threshold = self.presidio_score_thresholds.get(entity_type)",
+              "description": "Confidence scoring: self.presidio_score_thresholds.get",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/guardrails/guardrail_hooks/presidio.py",
+              "line_number": 369,
+              "snippet": "threshold = self.presidio_score_thresholds.get(\"ALL\")",
+              "description": "Confidence scoring: self.presidio_score_thresholds.get",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 131,
+              "snippet": "assert verify_member_in_team(",
+              "description": "Output verification: verify_member_in_team",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 258,
+              "snippet": "assert verify_member_in_team(",
+              "description": "Output verification: verify_member_in_team",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-10",
+          "control_name": "LLM10: Model Theft",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement rate limiting on API endpoints",
+            "Add query logging and anomaly detection",
+            "Monitor for extraction patterns"
+          ]
+        }
+      ]
+    },
+    "blue_team": {
+      "category_id": "blue_team",
+      "category_name": "Blue Team Operations",
+      "score": 17.9,
+      "max_score": 100.0,
+      "percentage": 17.9,
+      "detected_count": 2,
+      "total_count": 7,
+      "controls": [
+        {
+          "control_id": "BT-01",
+          "control_name": "Model Monitoring",
+          "category": "blue_team",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8250000000000001,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "prometheus-client",
+              "description": "Monitoring library: prometheus-client",
+              "confidence": 0.95
+            },
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "opentelemetry-sdk",
+              "description": "Monitoring library: opentelemetry-sdk",
+              "confidence": 0.95
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/scripts/benchmark_proxy_vs_provider.py",
+              "line_number": 477,
+              "snippet": "print(f\"   {metric.upper():8s}: Proxy={proxy_val:.4f}s, Provider={provider_val:.4f}s, Diff={diff:+.4f}s ({diff_pct:+.2f}%)\")",
+              "description": "Metrics tracking: metric.upper",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/cost_calculator.py",
+              "line_number": 276,
+              "snippet": "cost_metric = select_cost_metric_for_model(speech_model_info)",
+              "description": "Metrics tracking: select_cost_metric_for_model",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/prometheus_services.py",
+              "line_number": 136,
+              "snippet": "return self.Gauge(",
+              "description": "Metrics tracking: self.Gauge",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/prometheus_services.py",
+              "line_number": 173,
+              "snippet": "gauge.labels(labels).set(amount)",
+              "description": "Metrics tracking: gauge.labels",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_keys.py",
+              "line_number": 277,
+              "snippet": "prompt_tokens = litellm.token_counter(model=\"gpt-35-turbo\", messages=messages)",
+              "description": "Metrics tracking: litellm.token_counter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_keys.py",
+              "line_number": 291,
+              "snippet": "completion_tokens = litellm.token_counter(",
+              "description": "Metrics tracking: litellm.token_counter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/prometheus_services.py",
+              "line_number": 124,
+              "snippet": "return self.Histogram(",
+              "description": "Metrics tracking: self.Histogram",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/prometheus_services.py",
+              "line_number": 164,
+              "snippet": "histogram.labels(labels).observe(amount)",
+              "description": "Metrics tracking: histogram.labels",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/cost_calculator.py",
+              "line_number": 1311,
+              "snippet": "StandardBuiltInToolCostTracking.get_cost_for_built_in_tools(",
+              "description": "Metrics tracking: StandardBuiltInToolCostTracking.get_cost_for_built_in_tools",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_litellm/litellm_core_utils/llm_cost_calc/test_tool_call_cost_tracking.py",
+              "line_number": 93,
+              "snippet": "cost = StandardBuiltInToolCostTracking.get_cost_for_built_in_tools(",
+              "description": "Metrics tracking: StandardBuiltInToolCostTracking.get_cost_for_built_in_tools",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "BT-02",
+          "control_name": "Drift Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement drift detection with evidently or alibi-detect",
+            "Monitor input data distribution changes",
+            "Set up automated alerts for drift events"
+          ]
+        },
+        {
+          "control_id": "BT-03",
+          "control_name": "Anomaly Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement anomaly detection on model inputs",
+            "Monitor for unusual query patterns",
+            "Use statistical methods or ML-based detection"
+          ]
+        },
+        {
+          "control_id": "BT-04",
+          "control_name": "Adversarial Attack Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement adversarial input detection",
+            "Use adversarial robustness toolkits",
+            "Add input perturbation analysis"
+          ]
+        },
+        {
+          "control_id": "BT-05",
+          "control_name": "AI Incident Response",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "BT-06",
+          "control_name": "Model Drift Monitoring",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Evidently or alibi-detect for drift monitoring",
+            "Set up automated alerts for significant drift",
+            "Implement automatic retraining pipelines"
+          ]
+        },
+        {
+          "control_id": "BT-07",
+          "control_name": "Data Quality Monitoring",
+          "category": "blue_team",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.875,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "pydantic",
+              "description": "Data quality library pydantic found",
+              "confidence": 0.95
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/proxy/utils.py",
+              "line_number": 3322,
+              "snippet": "health_check_data.update(",
+              "description": "Data quality check: health_check_data.update",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "governance": {
+      "category_id": "governance",
+      "category_name": "AI Governance",
+      "score": 20.0,
+      "max_score": 100.0,
+      "percentage": 20.0,
+      "detected_count": 2,
+      "total_count": 5,
+      "controls": [
+        {
+          "control_id": "GV-01",
+          "control_name": "Model Explainability",
+          "category": "governance",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.9,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/github_copilot/authenticator.py",
+              "line_number": 12,
+              "snippet": "common_utils.RefreshAPIKeyError",
+              "description": "Explainability import: common_utils.RefreshAPIKeyError",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/github_copilot/authenticator.py",
+              "line_number": 12,
+              "snippet": "common_utils.RefreshAPIKeyError",
+              "description": "Explainability import: common_utils.RefreshAPIKeyError",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "GV-02",
+          "control_name": "Bias Detection",
+          "category": "governance",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/litellm_logging.py",
+              "line_number": 1972,
+              "snippet": "weightsBiasesLogger.log_event(",
+              "description": "Bias detection: weightsBiasesLogger.log_event",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/litellm_logging.py",
+              "line_number": 3454,
+              "snippet": "weightsBiasesLogger = WeightsBiasesLogger()",
+              "description": "Bias detection: WeightsBiasesLogger",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "GV-03",
+          "control_name": "Model Documentation",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "GV-04",
+          "control_name": "Compliance Tracking",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "GV-05",
+          "control_name": "Human Oversight",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        }
+      ]
+    },
+    "supply_chain": {
+      "category_id": "supply_chain",
+      "category_name": "Supply Chain Security",
+      "score": 50.0,
+      "max_score": 100.0,
+      "percentage": 50.0,
+      "detected_count": 2,
+      "total_count": 3,
+      "controls": [
+        {
+          "control_id": "SC-01",
+          "control_name": "Dependency Scanning",
+          "category": "supply_chain",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "SC-02",
+          "control_name": "Model Provenance Tracking",
+          "category": "supply_chain",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8187500000000001,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "dependency",
+              "file_path": "",
+              "line_number": null,
+              "snippet": "mlflow",
+              "description": "Model versioning tool mlflow found",
+              "confidence": 0.95
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/mlflow.py",
+              "line_number": 18,
+              "snippet": "self._client = MlflowClient()",
+              "description": "Model tracking: MlflowClient",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/integrations/mlflow.py",
+              "line_number": 254,
+              "snippet": "if active_span := mlflow.get_current_active_span():  # type: ignore",
+              "description": "Model tracking: mlflow.get_current_active_span",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/__init__.py",
+              "line_number": 799,
+              "snippet": "wandb_models.add(key)",
+              "description": "Model tracking: wandb_models.add",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 7631,
+              "snippet": "return litellm.WandbConfig()",
+              "description": "Model tracking: litellm.WandbConfig",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/litellm_logging.py",
+              "line_number": 2724,
+              "snippet": "await callback.log_model_group_rate_limit_error(",
+              "description": "Model tracking: callback.log_model_group_rate_limit_error",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router.py",
+              "line_number": 5621,
+              "snippet": "litellm.register_model(",
+              "description": "Model tracking: litellm.register_model",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router.py",
+              "line_number": 5608,
+              "snippet": "litellm.register_model(",
+              "description": "Model tracking: litellm.register_model",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "SC-03",
+          "control_name": "Model Integrity Verification",
+          "category": "supply_chain",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8500000000000001,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 11,
+              "snippet": "hashlib",
+              "description": "Hash library: hashlib",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router.py",
+              "line_number": 13,
+              "snippet": "hashlib",
+              "description": "Hash library: hashlib",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/experimental_mcp_client/client.py",
+              "line_number": 29,
+              "snippet": "litellm.types.llms.custom_http.VerifyTypes",
+              "description": "Hash library: litellm.types.llms.custom_http.VerifyTypes",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/experimental_mcp_client/client.py",
+              "line_number": 29,
+              "snippet": "litellm.types.llms.custom_http.VerifyTypes",
+              "description": "Hash library: litellm.types.llms.custom_http.VerifyTypes",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 131,
+              "snippet": "assert verify_member_in_team(",
+              "description": "Verification: verify_member_in_team",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 258,
+              "snippet": "assert verify_member_in_team(",
+              "description": "Verification: verify_member_in_team",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 7305,
+              "snippet": "return validate_chat_completion_user_messages(messages=new_messages)",
+              "description": "Verification: validate_chat_completion_user_messages",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/litellm_utils_tests/test_utils.py",
+              "line_number": 1332,
+              "snippet": "validate_chat_completion_user_messages(messages=messages)",
+              "description": "Verification: validate_chat_completion_user_messages",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "hallucination": {
+      "category_id": "hallucination",
+      "category_name": "Hallucination Mitigation",
+      "score": 35.0,
+      "max_score": 100.0,
+      "percentage": 35.0,
+      "detected_count": 3,
+      "total_count": 5,
+      "controls": [
+        {
+          "control_id": "HM-01",
+          "control_name": "RAG Implementation",
+          "category": "hallucination",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 6168,
+              "snippet": "openai.models.retrieve(model)",
+              "description": "Retrieval pattern: openai.models.retrieve",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/router.py",
+              "line_number": 3797,
+              "snippet": "return await litellm.aretrieve_batch(",
+              "description": "Retrieval pattern: litellm.aretrieve_batch",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "HM-02",
+          "control_name": "Confidence Scoring",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "HM-03",
+          "control_name": "Source Attribution",
+          "category": "hallucination",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_resource_cleanup.py",
+              "line_number": 115,
+              "snippet": "asyncio.run(test_acompletion_resource_cleanup())",
+              "description": "Citation pattern: test_acompletion_resource_cleanup",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 219,
+              "snippet": "with resources.open_text(",
+              "description": "Citation pattern: resources.open_text",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "HM-04",
+          "control_name": "Temperature Control",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "HM-05",
+          "control_name": "Fact Checking",
+          "category": "hallucination",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 131,
+              "snippet": "assert verify_member_in_team(",
+              "description": "Fact checking: verify_member_in_team",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/test_team_members.py",
+              "line_number": 258,
+              "snippet": "assert verify_member_in_team(",
+              "description": "Fact checking: verify_member_in_team",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/utils.py",
+              "line_number": 7305,
+              "snippet": "return validate_chat_completion_user_messages(messages=new_messages)",
+              "description": "Fact checking: validate_chat_completion_user_messages",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/tests/litellm_utils_tests/test_utils.py",
+              "line_number": 1332,
+              "snippet": "validate_chat_completion_user_messages(messages=messages)",
+              "description": "Fact checking: validate_chat_completion_user_messages",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/rag/ingestion/bedrock_ingestion.py",
+              "line_number": 490,
+              "snippet": "response = bedrock_agent.create_knowledge_base(",
+              "description": "Knowledge source: bedrock_agent.create_knowledge_base",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/rag/ingestion/bedrock_ingestion.py",
+              "line_number": 225,
+              "snippet": "self.knowledge_base_id = await self._create_knowledge_base(",
+              "description": "Knowledge source: self._create_knowledge_base",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "ethical_ai": {
+      "category_id": "ethical_ai",
+      "category_name": "Ethical AI & Bias",
+      "score": 25.0,
+      "max_score": 100.0,
+      "percentage": 25.0,
+      "detected_count": 2,
+      "total_count": 4,
+      "controls": [
+        {
+          "control_id": "EA-01",
+          "control_name": "Fairness Metrics",
+          "category": "ethical_ai",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/litellm_logging.py",
+              "line_number": 1972,
+              "snippet": "weightsBiasesLogger.log_event(",
+              "description": "Fairness metric: weightsBiasesLogger.log_event",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/litellm_core_utils/litellm_logging.py",
+              "line_number": 3454,
+              "snippet": "weightsBiasesLogger = WeightsBiasesLogger()",
+              "description": "Fairness metric: WeightsBiasesLogger",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "EA-02",
+          "control_name": "Model Explainability",
+          "category": "ethical_ai",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/github_copilot/authenticator.py",
+              "line_number": 187,
+              "snippet": "raise RefreshAPIKeyError(",
+              "description": "Explainability: RefreshAPIKeyError",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "/Users/deo/secscan-cli/llm-sec-eval/repos/litellm/litellm/llms/bedrock/common_utils.py",
+              "line_number": 670,
+              "snippet": "self._response_stream_shape_cache = bedrock_service_model.shape_for(",
+              "description": "Explainability: bedrock_service_model.shape_for",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "EA-03",
+          "control_name": "Bias Testing",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement adversarial testing for bias",
+            "Test across demographic groups",
+            "Use TextAttack or CheckList for NLP bias testing"
+          ]
+        },
+        {
+          "control_id": "EA-04",
+          "control_name": "Model Cards",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'"
+          ]
+        }
+      ]
+    },
+    "incident_response": {
+      "category_id": "incident_response",
+      "category_name": "Incident Response",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 3,
+      "controls": [
+        {
+          "control_id": "IR-01",
+          "control_name": "Monitoring Integration",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "IR-02",
+          "control_name": "Audit Logging",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        },
+        {
+          "control_id": "IR-03",
+          "control_name": "Rollback Capability",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'bool' object has no attribute 'lower'"
+          ]
+        }
+      ]
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-02",
+      "title": "Rate Limiting",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-05",
+      "title": "Context Window Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-06",
+      "title": "Red Team Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-08",
+      "title": "System Prompt Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-01",
+      "title": "Access Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-02",
+      "title": "Model Versioning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-03",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-04",
+      "title": "API Security",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Opacus or TensorFlow Privacy for differential privacy",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement privacy budgets for model queries",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor epsilon values for privacy guarantees",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement watermarking for model outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use cryptographic watermarks for model weights",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Track watermark verification for model theft detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-05",
+      "title": "Consent Management",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-07",
+      "title": "Data Retention Policy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-08",
+      "title": "GDPR Compliance",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement data validation pipelines",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Verify data source integrity",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for anomalies in training data",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-04",
+      "title": "LLM04: Model Denial of Service",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement rate limiting on API endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add query logging and anomaly detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for extraction patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement drift detection with evidently or alibi-detect",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor input data distribution changes",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated alerts for drift events",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement anomaly detection on model inputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for unusual query patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use statistical methods or ML-based detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement adversarial input detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use adversarial robustness toolkits",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add input perturbation analysis",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-05",
+      "title": "AI Incident Response",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Evidently or alibi-detect for drift monitoring",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated alerts for significant drift",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement automatic retraining pipelines",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-03",
+      "title": "Model Documentation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-04",
+      "title": "Compliance Tracking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-05",
+      "title": "Human Oversight",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-01",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-02",
+      "title": "Confidence Scoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-04",
+      "title": "Temperature Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement adversarial testing for bias",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Test across demographic groups",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use TextAttack or CheckList for NLP bias testing",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-04",
+      "title": "Model Cards",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-01",
+      "title": "Monitoring Integration",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-02",
+      "title": "Audit Logging",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-03",
+      "title": "Rollback Capability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'bool' object has no attribute 'lower'",
+      "docs_url": null
+    }
+  ]
+}
