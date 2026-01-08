@@ -8,35 +8,63 @@ Evaluation framework for [AI Security CLI](https://github.com/deosha/ai-security
 
 | Tool | Precision | Recall | F1 Score | TP | FP | FN |
 |------|-----------|--------|----------|----|----|-----|
-| **AI Security CLI** | 17.0% | **60.9%** | 26.5% | 39 | 191 | 25 |
+| **AI Security CLI** | 20.0% | **57.8%** | 29.7% | 37 | 148 | 27 |
 | Semgrep | 83.3% | 7.8% | 14.3% | 5 | 1 | 59 |
 | Bandit | 69.2% | 42.2% | 52.4% | 27 | 12 | 37 |
 
-### Real-World Repositories
+### Per-Category Detection Rates
 
-| Repository | AI-Sec Findings | Bandit (H+M) | Ratio | Audit Score | Maturity |
-|------------|-----------------|--------------|-------|-------------|----------|
-| LangChain | 313 | 6 | 52x | 33.1% | Developing |
-| LlamaIndex | 499 | 6 | 83x | 37.6% | Developing |
-| Haystack | 322 | 18 | 18x | 18.8% | Initial |
-| LiteLLM | 5,661 | 73 | 78x | 28.3% | Developing |
-| DSPy | 218 | 25 | 9x | 19.6% | Initial |
-| **Total** | **7,013** | **128** | **55x** | | |
+| Category | Recall | Precision | F1 | Status |
+|----------|--------|-----------|-----|--------|
+| **LLM01**: Prompt Injection | 100% | 16.1% | 27.8% | Excellent |
+| **LLM04**: Model DoS | 100% | 20.0% | 33.3% | Excellent |
+| **LLM08**: Excessive Agency | 100% | 17.1% | 29.3% | Excellent |
+| **LLM09**: Overreliance | 100% | 20.6% | 34.1% | Excellent |
+| **LLM10**: Model Theft | 86% | 26.1% | 40.0% | Good |
+| **LLM06**: Sensitive Info | 71% | 22.7% | 34.5% | Moderate |
+| **LLM05**: Supply Chain | 14% | 100% | 25.0% | Improving |
+| **LLM07**: Insecure Plugin | 14% | 50.0% | 22.2% | Improving |
+| **LLM02**: Insecure Output | 0% | 0% | 0% | In Development |
+| **LLM03**: Training Poisoning | 0% | 0% | 0% | In Development |
+
+### Real-World Repositories (10 repos, 14,991 files)
+
+| Repository | Files | Findings | Findings/File |
+|------------|-------|----------|---------------|
+| LangChain | 2,501 | 268 | 0.11 |
+| LlamaIndex | 4,088 | 1,454 | 0.36 |
+| Haystack | 523 | 47 | 0.09 |
+| LiteLLM | 2,792 | 2,902 | 1.04 |
+| DSPy | 231 | 122 | 0.53 |
+| OpenAI Python | 1,134 | 60 | 0.05 |
+| Guidance | 149 | 38 | 0.26 |
+| vLLM | 2,239 | 1,572 | 0.70 |
+| Semantic Kernel | 1,241 | 40 | 0.03 |
+| Text Gen WebUI | 93 | 165 | 1.77 |
+| **Total** | **14,991** | **6,668** | **0.44** |
+
+### Category Distribution (Real-World)
+
+| Category | Findings | % |
+|----------|----------|---|
+| LLM04: Model DoS | 1,963 | 29.4% |
+| LLM09: Overreliance | 1,387 | 20.8% |
+| LLM02: Insecure Output | 1,223 | 18.3% |
+| LLM08: Excessive Agency | 1,113 | 16.7% |
+| LLM05: Supply Chain | 619 | 9.3% |
+| LLM01: Prompt Injection | 262 | 3.9% |
+| Others | 101 | 1.5% |
 
 ### Unique Coverage
 
 AI Security CLI is the **only tool** detecting these OWASP LLM categories (0% coverage by Semgrep/Bandit):
 
-| Category | AI-Sec F1 | Semgrep F1 | Bandit F1 |
-|----------|-----------|------------|-----------|
-| **LLM04**: Model DoS | 27.9% | 0% | 0% |
-| **LLM09**: Overreliance | 31.8% | 0% | 0% |
-| **LLM10**: Model Theft | 37.8% | 0% | 0% |
-
-### Security Audit Accuracy
-
-- **89.7%** control detection accuracy (26/29 exact matches)
-- 3 over-detections, 0 under-detections
+| Category | AI-Sec Recall | Semgrep | Bandit |
+|----------|---------------|---------|--------|
+| **LLM04**: Model DoS | 100% | 0% | 0% |
+| **LLM08**: Excessive Agency | 100% | 0% | 0% |
+| **LLM09**: Overreliance | 100% | 0% | 0% |
+| **LLM10**: Model Theft | 86% | 0% | 0% |
 
 ## Repository Structure
 
@@ -48,19 +76,26 @@ llm-sec-eval/
 │   │   └── labels.yaml         # Ground truth labels
 │   ├── llm02_insecure_output/
 │   └── ...
+├── repos/                      # Real-world repositories
+│   ├── langchain/
+│   ├── llama_index/
+│   ├── haystack/
+│   ├── litellm/
+│   ├── dspy/
+│   ├── openai-python/
+│   ├── guidance/
+│   ├── vllm/
+│   ├── semantic-kernel/
+│   └── text-gen-webui/
 ├── results/
 │   ├── aisec/                  # AI Security CLI results
 │   ├── bandit/                 # Bandit results
 │   ├── semgrep/                # Semgrep results
-│   ├── aggregated/             # Computed metrics
-│   ├── summary.json            # Overall summary
-│   └── full_comparison.txt     # Detailed comparison
+│   └── aggregated/             # Computed metrics
 ├── scripts/
 │   ├── aggregate_static.py     # Compute P/R/F1
-│   ├── aggregate_audit.py      # Audit accuracy
 │   └── compare_baselines.py    # Generate comparisons
-├── Makefile                    # Reproducible evaluation
-└── Dockerfile                  # Isolated environment
+└── Makefile                    # Reproducible evaluation
 ```
 
 ## Running the Evaluation
@@ -76,14 +111,9 @@ pip install ai-security-cli bandit semgrep
 ```bash
 # Synthetic testbed
 make eval-testbed-static
-make eval-testbed-audit
 
 # Real-world repos
-make eval-langchain
-make eval-llamaindex
-make eval-haystack
-make eval-litellm
-make eval-dspy
+make eval-repos
 
 # Aggregate results
 make aggregate
@@ -95,8 +125,8 @@ make aggregate
 # Static scan
 ai-security-cli scan ./testbed/llm01_prompt_injection -o json -f results.json
 
-# Security audit
-ai-security-cli audit ./testbed/llm01_prompt_injection -o json -f audit.json
+# Scan real-world repo
+ai-security-cli scan ./repos/langchain -o json -f langchain_scan.json
 
 # Compare with Bandit
 bandit -r ./testbed/llm01_prompt_injection -f json -o bandit.json
@@ -109,8 +139,7 @@ Each testbed project contains:
 - **app.py**: Vulnerable Python code with labeled lines
 - **labels.yaml**: Ground truth with:
   - Static findings: file, line, category, severity
-  - Live tests: prompts, expected behavior, vulnerable indicators
-  - Audit expectations: control presence/level
+  - Expected detection for each vulnerability
 
 ### Label Format
 
@@ -123,11 +152,6 @@ static_findings:
     category: LLM01
     severity: high
     description: "F-string interpolation in system prompt"
-
-audit_expectations:
-  controls:
-    - control_id: PS-01
-      expected_level: none
 ```
 
 ## Metrics Explained
@@ -135,15 +159,15 @@ audit_expectations:
 - **Precision**: TP / (TP + FP) - How many findings are real issues
 - **Recall**: TP / (TP + FN) - How many real issues are found
 - **F1 Score**: Harmonic mean of precision and recall
-- **Audit Accuracy**: % of security controls correctly identified
+- **Findings/File**: Average findings per file (lower = less noise)
 
 ## Key Findings
 
-1. **AI Security CLI has highest recall (60.9%)** for LLM-specific vulnerabilities
-2. **55x more findings** than Bandit on real-world LLM codebases
-3. **Unique coverage** for LLM04, LLM09, LLM10 (not detected by any other tool)
-4. **89.7% audit accuracy** for security posture assessment
-5. **Precision tradeoff**: 17% precision (optimized for recall, reducing FPs in progress)
+1. **100% recall** on Prompt Injection, Model DoS, Excessive Agency, Overreliance
+2. **Unique coverage** for LLM04, LLM08, LLM09, LLM10 (not detected by any other tool)
+3. **0.44 findings/file** on real-world repos (manageable for review)
+4. **20% precision, 57.8% recall, 29.7% F1** overall
+5. **In Development**: LLM02 (Insecure Output), LLM03 (Training Poisoning)
 
 ## Tools & Baselines
 

@@ -1,18 +1,18 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-08T17:49:21.647111Z",
+  "generated_at": "2026-01-08T19:25:38.101702Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos",
     "files_scanned": 1,
     "overall_score": 0.0,
-    "confidence": 0.56,
-    "duration_seconds": 0.006,
-    "findings_count": 37,
+    "confidence": 0.57,
+    "duration_seconds": 0.007,
+    "findings_count": 30,
     "severity_breakdown": {
       "CRITICAL": 2,
       "HIGH": 17,
       "MEDIUM": 10,
-      "LOW": 8,
+      "LOW": 1,
       "INFO": 0
     }
   },
@@ -169,7 +169,7 @@
         "LLM07": 100,
         "LLM08": 79,
         "LLM09": 0,
-        "LLM10": 76
+        "LLM10": 80
       },
       "detected_controls": [
         "Prompt Injection (no vulnerabilities found)",
@@ -182,8 +182,8 @@
         "Model Denial of Service: 2 critical, 2 high",
         "Supply Chain Vulnerabilities: 7 medium",
         "Excessive Agency: 3 medium",
-        "Overreliance: 7 high, 6 low",
-        "Model Theft: 1 high, 2 low"
+        "Overreliance: 7 high",
+        "Model Theft: 1 high, 1 low"
       ]
     }
   ],
@@ -450,7 +450,7 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
       "line_number": 16,
       "code_snippet": "# VULN:LLM04:HIGH:LINE=17 - No input length limits\n@app.route(\"/chat\", methods=[\"POST\"])\ndef vulnerable_no_input_limit():\n    \"\"\"Vulnerable: No limit on input size.\"\"\"\n    user_input = request.json.get(\"message\", \"\")\n    # VULNERABLE - accepts arbitrarily long input",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
     },
     {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_28_critical_decision",
@@ -462,7 +462,7 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
       "line_number": 28,
       "code_snippet": "\n# VULN:LLM04:HIGH:LINE=29 - No output token limits\ndef vulnerable_no_output_limit(prompt: str) -> str:\n    \"\"\"Vulnerable: No max_tokens set, allows maximum generation.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
     },
     {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_40_critical_decision",
@@ -474,7 +474,7 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
       "line_number": 40,
       "code_snippet": "# VULN:LLM04:MEDIUM:LINE=40 - No rate limiting\n@app.route(\"/unlimited\", methods=[\"POST\"])\ndef vulnerable_no_rate_limit():\n    \"\"\"Vulnerable: No rate limiting on API endpoint.\"\"\"\n    # VULNERABLE - no rate limiting\n    user_input = request.json.get(\"message\", \"\")",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
     },
     {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_52_critical_decision",
@@ -486,7 +486,7 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
       "line_number": 52,
       "code_snippet": "\n# VULN:LLM04:HIGH:LINE=53 - No timeout handling\ndef vulnerable_no_timeout(prompt: str) -> str:\n    \"\"\"Vulnerable: No timeout on LLM API call.\"\"\"\n    # VULNERABLE - no timeout, can hang indefinitely\n    response = client.chat.completions.create(",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
     },
     {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_63_critical_decision",
@@ -498,7 +498,7 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
       "line_number": 63,
       "code_snippet": "\n# VULN:LLM04:MEDIUM:LINE=64 - Recursive prompt generation\ndef vulnerable_recursive_generation(prompt: str, depth: int = 0) -> str:\n    \"\"\"Vulnerable: Allows recursive/chained prompt generation.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
     },
     {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_97_critical_decision",
@@ -522,79 +522,7 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
       "line_number": 84,
       "code_snippet": "        self.messages = []\n\n    def chat(self, user_input: str) -> str:\n        self.messages.append({\"role\": \"user\", \"content\": user_input})\n        # VULNERABLE - context grows indefinitely\n        response = client.chat.completions.create(",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_16_missing_verification",
-      "category": "LLM09: Overreliance",
-      "severity": "LOW",
-      "confidence": 0.7,
-      "title": "LLM output returned without verification in 'vulnerable_no_input_limit'",
-      "description": "Function 'vulnerable_no_input_limit' on line 16 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
-      "line_number": 16,
-      "code_snippet": "# VULN:LLM04:HIGH:LINE=17 - No input length limits\n@app.route(\"/chat\", methods=[\"POST\"])\ndef vulnerable_no_input_limit():\n    \"\"\"Vulnerable: No limit on input size.\"\"\"\n    user_input = request.json.get(\"message\", \"\")\n    # VULNERABLE - accepts arbitrarily long input",
-      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_28_missing_verification",
-      "category": "LLM09: Overreliance",
-      "severity": "LOW",
-      "confidence": 0.7,
-      "title": "LLM output returned without verification in 'vulnerable_no_output_limit'",
-      "description": "Function 'vulnerable_no_output_limit' on line 28 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
-      "line_number": 28,
-      "code_snippet": "\n# VULN:LLM04:HIGH:LINE=29 - No output token limits\ndef vulnerable_no_output_limit(prompt: str) -> str:\n    \"\"\"Vulnerable: No max_tokens set, allows maximum generation.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
-      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_40_missing_verification",
-      "category": "LLM09: Overreliance",
-      "severity": "LOW",
-      "confidence": 0.7,
-      "title": "LLM output returned without verification in 'vulnerable_no_rate_limit'",
-      "description": "Function 'vulnerable_no_rate_limit' on line 40 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
-      "line_number": 40,
-      "code_snippet": "# VULN:LLM04:MEDIUM:LINE=40 - No rate limiting\n@app.route(\"/unlimited\", methods=[\"POST\"])\ndef vulnerable_no_rate_limit():\n    \"\"\"Vulnerable: No rate limiting on API endpoint.\"\"\"\n    # VULNERABLE - no rate limiting\n    user_input = request.json.get(\"message\", \"\")",
-      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_52_missing_verification",
-      "category": "LLM09: Overreliance",
-      "severity": "LOW",
-      "confidence": 0.7,
-      "title": "LLM output returned without verification in 'vulnerable_no_timeout'",
-      "description": "Function 'vulnerable_no_timeout' on line 52 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
-      "line_number": 52,
-      "code_snippet": "\n# VULN:LLM04:HIGH:LINE=53 - No timeout handling\ndef vulnerable_no_timeout(prompt: str) -> str:\n    \"\"\"Vulnerable: No timeout on LLM API call.\"\"\"\n    # VULNERABLE - no timeout, can hang indefinitely\n    response = client.chat.completions.create(",
-      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_63_missing_verification",
-      "category": "LLM09: Overreliance",
-      "severity": "LOW",
-      "confidence": 0.7,
-      "title": "LLM output returned without verification in 'vulnerable_recursive_generation'",
-      "description": "Function 'vulnerable_recursive_generation' on line 63 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
-      "line_number": 63,
-      "code_snippet": "\n# VULN:LLM04:MEDIUM:LINE=64 - Recursive prompt generation\ndef vulnerable_recursive_generation(prompt: str, depth: int = 0) -> str:\n    \"\"\"Vulnerable: Allows recursive/chained prompt generation.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
-      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_84_missing_verification",
-      "category": "LLM09: Overreliance",
-      "severity": "LOW",
-      "confidence": 0.7,
-      "title": "LLM output returned without verification in 'chat'",
-      "description": "Function 'chat' on line 84 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
-      "line_number": 84,
-      "code_snippet": "        self.messages = []\n\n    def chat(self, user_input: str) -> str:\n        self.messages.append({\"role\": \"user\", \"content\": user_input})\n        # VULNERABLE - context grows indefinitely\n        response = client.chat.completions.create(",
-      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
     },
     {
       "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_16_unrestricted_api",
@@ -606,19 +534,7 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
       "line_number": 16,
       "code_snippet": "# VULN:LLM04:HIGH:LINE=17 - No input length limits\n@app.route(\"/chat\", methods=[\"POST\"])\ndef vulnerable_no_input_limit():\n    \"\"\"Vulnerable: No limit on input size.\"\"\"\n    user_input = request.json.get(\"message\", \"\")\n    # VULNERABLE - accepts arbitrarily long input",
-      "recommendation": "Implement rate limiting to prevent model extraction:\n\n1. Add rate limiting:\n   - Use Flask-Limiter, fastapi-limiter, or similar\n   - Set per-IP and per-user limits\n   - Example: @limiter.limit(\"100/hour\")\n\n2. Implement request quotas:\n   - Track API usage per user\n   - Enforce monthly/daily quotas\n   - Alert on suspicious patterns\n\n3. Add authentication:\n   - Require API keys for access\n   - Track usage by authenticated user\n   - Revoke keys for abuse\n\n4. Monitor for extraction attempts:\n   - Log all requests with metadata\n   - Detect unusual query patterns\n   - Alert on high-frequency access\n\n5. Implement CAPTCHA:\n   - For public endpoints\n   - Triggered after N requests\n   - Prevents automated extraction"
-    },
-    {
-      "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_16_missing_protection",
-      "category": "LLM10: Model Theft",
-      "severity": "LOW",
-      "confidence": 0.7,
-      "title": "Model output without protection in 'vulnerable_no_input_limit'",
-      "description": "API endpoint 'vulnerable_no_input_limit' on line 16 returns model output without watermarking or obfuscation. Consider adding output protection to make model extraction more difficult and traceable.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
-      "line_number": 16,
-      "code_snippet": "# VULN:LLM04:HIGH:LINE=17 - No input length limits\n@app.route(\"/chat\", methods=[\"POST\"])\ndef vulnerable_no_input_limit():\n    \"\"\"Vulnerable: No limit on input size.\"\"\"\n    user_input = request.json.get(\"message\", \"\")\n    # VULNERABLE - accepts arbitrarily long input",
-      "recommendation": "Add output protection mechanisms:\n\n1. Watermarking:\n   - Embed invisible markers in outputs\n   - Make responses traceable\n   - Detect if outputs are reused\n\n2. Output obfuscation:\n   - Add controlled noise to predictions\n   - Implement differential privacy\n   - Return confidence ranges not exact values\n\n3. Response filtering:\n   - Limit information in responses\n   - Remove sensitive metadata\n   - Aggregate results when possible\n\n4. Query restrictions:\n   - Limit types of allowed queries\n   - Block probing/extraction patterns\n   - Implement query complexity limits\n\n5. Legal notices:\n   - Include usage terms in responses\n   - Add copyright notices\n   - Document intended use only"
+      "recommendation": "Implement rate limiting to prevent model extraction:\n\n1. Add rate limiting:\n   - Use Flask-Limiter, fastapi-limiter, or similar\n   - Set per-IP and per-user limits\n   - Example: @limiter.limit(\"100/hour\")\n\n2. Implement request quotas:\n   - Track API usage per user\n   - Enforce monthly/daily quotas\n   - Alert on suspicious patterns\n\n3. Add authentication:\n   - Require API keys for access\n   - Track usage by authenticated user\n   - Revoke keys for abuse\n\n4. Monitor for extraction attempts:\n   - Log all requests with metadata\n   - Detect unusual query patterns\n   - Alert on high-frequency access\n\n5. Implement CAPTCHA:\n   - For public endpoints\n   - Triggered after N requests\n   - Prevents automated extraction\n\nAdd output protection mechanisms:\n\n1. Watermarking:\n   - Embed invisible markers in outputs\n   - Make responses traceable\n   - Detect if outputs are reused\n\n2. Output obfuscation:\n   - Add controlled noise to predictions\n   - Implement differential privacy\n   - Return confidence ranges not exact values\n\n3. Response filtering:\n   - Limit information in responses\n   - Remove sensitive metadata\n   - Aggregate results when possible\n\n4. Query restrictions:\n   - Limit types of allowed queries\n   - Block probing/extraction patterns\n   - Implement query complexity limits\n\n5. Legal notices:\n   - Include usage terms in responses\n   - Add copyright notices\n   - Document intended use only"
     },
     {
       "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py_40_missing_protection",

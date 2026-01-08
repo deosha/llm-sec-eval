@@ -1,18 +1,18 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-08T17:49:21.244368Z",
+  "generated_at": "2026-01-08T19:25:37.897299Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output",
     "files_scanned": 1,
-    "overall_score": 6.65,
+    "overall_score": 7.7,
     "confidence": 0.57,
     "duration_seconds": 0.006,
-    "findings_count": 6,
+    "findings_count": 5,
     "severity_breakdown": {
       "CRITICAL": 0,
       "HIGH": 4,
       "MEDIUM": 1,
-      "LOW": 1,
+      "LOW": 0,
       "INFO": 0
     }
   },
@@ -156,7 +156,7 @@
     {
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
-      "score": 26,
+      "score": 30,
       "confidence": 0.78,
       "subscores": {
         "LLM01": 100,
@@ -167,7 +167,7 @@
         "LLM06": 100,
         "LLM07": 100,
         "LLM08": 100,
-        "LLM09": 79,
+        "LLM09": 82,
         "LLM10": 100
       },
       "detected_controls": [
@@ -182,7 +182,7 @@
         "Insecure Output Handling: 1 high",
         "Model Denial of Service: 1 high",
         "Supply Chain Vulnerabilities: 1 high, 1 medium",
-        "Overreliance: 1 high, 1 low"
+        "Overreliance: 1 high"
       ]
     }
   ],
@@ -245,19 +245,7 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
       "line_number": 16,
       "code_snippet": "\n\ndef get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_16_missing_verification",
-      "category": "LLM09: Overreliance",
-      "severity": "LOW",
-      "confidence": 0.7,
-      "title": "LLM output returned without verification in 'get_llm_response'",
-      "description": "Function 'get_llm_response' on line 16 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
-      "line_number": 16,
-      "code_snippet": "\n\ndef get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
-      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
     }
   ],
   "metadata": {}

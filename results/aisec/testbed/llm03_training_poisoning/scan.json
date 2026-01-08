@@ -1,17 +1,17 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-08T17:49:21.447800Z",
+  "generated_at": "2026-01-08T19:25:37.999068Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning",
     "files_scanned": 1,
-    "overall_score": 11.06,
-    "confidence": 0.59,
+    "overall_score": 13.26,
+    "confidence": 0.62,
     "duration_seconds": 0.005,
-    "findings_count": 3,
+    "findings_count": 2,
     "severity_breakdown": {
       "CRITICAL": 1,
       "HIGH": 1,
-      "MEDIUM": 1,
+      "MEDIUM": 0,
       "LOW": 0,
       "INFO": 0
     }
@@ -156,14 +156,14 @@
     {
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
-      "score": 40,
-      "confidence": 0.86,
+      "score": 47,
+      "confidence": 0.88,
       "subscores": {
         "LLM01": 100,
         "LLM02": 100,
         "LLM03": 100,
         "LLM04": 100,
-        "LLM05": 76,
+        "LLM05": 83,
         "LLM06": 100,
         "LLM07": 100,
         "LLM08": 100,
@@ -181,24 +181,12 @@
         "Overreliance (no vulnerabilities found)"
       ],
       "gaps": [
-        "Supply Chain Vulnerabilities: 1 high, 1 medium",
+        "Supply Chain Vulnerabilities: 1 high",
         "Model Theft: 1 critical"
       ]
     }
   ],
   "findings": [
-    {
-      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_81_local_path",
-      "category": "LLM05: Supply Chain Vulnerabilities",
-      "severity": "MEDIUM",
-      "confidence": 0.7,
-      "title": "Untrusted model source: local_path",
-      "description": "Local file path '\"/tmp/model.pt\"' found on line 81. Loading models from local paths without verification can introduce compromised models if the filesystem is not properly secured.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
-      "line_number": 81,
-      "code_snippet": "def download_file(url: str) -> str:\n    \"\"\"Download file from URL.\"\"\"\n    return \"/tmp/model.pt\"\n\n\n# SAFE: Validated data loading (for comparison)",
-      "recommendation": "Secure Model Loading:\n1. Only load models from trusted registries (HuggingFace, official repos)\n2. Verify model checksums/signatures before loading\n3. Use allowlists for permitted models\n4. Implement content scanning for downloaded models\n5. Never allow user-controlled model paths\n6. Use isolated environments for model loading\n7. Maintain an SBOM (Software Bill of Materials) for AI components"
-    },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_7_pickle",
       "category": "LLM05: Supply Chain Vulnerabilities",
