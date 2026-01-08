@@ -1,0 +1,2595 @@
+{
+  "audit_id": "d4aa6100",
+  "project_path": "testbed/llm04_model_dos",
+  "timestamp": "2026-01-08T23:20:43.515678",
+  "overall_score": 3.4,
+  "maturity_level": "Initial",
+  "files_scanned": 2,
+  "scan_duration_seconds": 0.01,
+  "detected_controls": 2,
+  "total_controls": 61,
+  "categories": {
+    "prompt_security": {
+      "category_id": "prompt_security",
+      "category_name": "Prompt Security",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "PS-01",
+          "control_name": "Prompt Sanitization",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement input sanitization before constructing prompts",
+            "Use libraries like bleach or markupsafe for HTML sanitization",
+            "Create custom sanitization functions for prompt-specific threats"
+          ]
+        },
+        {
+          "control_id": "PS-02",
+          "control_name": "Rate Limiting",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement rate limiting using fastapi-limiter, flask-limiter, or slowapi",
+            "Configure per-user and per-endpoint rate limits",
+            "Add exponential backoff for repeated violations"
+          ]
+        },
+        {
+          "control_id": "PS-03",
+          "control_name": "Input Validation",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Pydantic for request/input validation",
+            "Implement JSON schema validation for API inputs",
+            "Add type hints and runtime type checking"
+          ]
+        },
+        {
+          "control_id": "PS-04",
+          "control_name": "Output Filtering",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement output validation after receiving LLM responses",
+            "Filter PII and sensitive information from outputs",
+            "Add content moderation for harmful content"
+          ]
+        },
+        {
+          "control_id": "PS-05",
+          "control_name": "Context Window Protection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement token counting before sending to LLM",
+            "Set maximum input length limits",
+            "Use tiktoken or similar for accurate token counting"
+          ]
+        },
+        {
+          "control_id": "PS-06",
+          "control_name": "Red Team Testing",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'"
+          ]
+        },
+        {
+          "control_id": "PS-07",
+          "control_name": "Prompt Anomaly Detection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement statistical analysis on prompt patterns",
+            "Use ML-based anomaly detection for unusual inputs",
+            "Set up alerts for prompt anomaly detection"
+          ]
+        },
+        {
+          "control_id": "PS-08",
+          "control_name": "System Prompt Protection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ASTAnalyzer' object has no attribute 'find_string_literals'"
+          ]
+        }
+      ]
+    },
+    "model_security": {
+      "category_id": "model_security",
+      "category_name": "Model Security",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "MS-01",
+          "control_name": "Access Control",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement authentication on all model endpoints",
+            "Use OAuth 2.0 or API keys for access control",
+            "Implement role-based access control (RBAC)"
+          ]
+        },
+        {
+          "control_id": "MS-02",
+          "control_name": "Model Versioning",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use MLflow or DVC for model versioning",
+            "Implement model registry for production models",
+            "Track model lineage and metadata"
+          ]
+        },
+        {
+          "control_id": "MS-03",
+          "control_name": "Dependency Scanning",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use safety or pip-audit for dependency scanning",
+            "Integrate vulnerability scanning in CI/CD",
+            "Set up automated dependency updates with Dependabot"
+          ]
+        },
+        {
+          "control_id": "MS-04",
+          "control_name": "API Security",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Enforce HTTPS for all API endpoints",
+            "Implement proper CORS configuration",
+            "Add security headers (CSP, HSTS, etc.)"
+          ]
+        },
+        {
+          "control_id": "MS-05",
+          "control_name": "Model Source Verification",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Verify model checksums before loading",
+            "Use cryptographic signatures for model files",
+            "Download models only from trusted sources"
+          ]
+        },
+        {
+          "control_id": "MS-06",
+          "control_name": "Differential Privacy",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Opacus or TensorFlow Privacy for differential privacy",
+            "Implement privacy budgets for model queries",
+            "Monitor epsilon values for privacy guarantees"
+          ]
+        },
+        {
+          "control_id": "MS-07",
+          "control_name": "Model Watermarking",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement watermarking for model outputs",
+            "Use cryptographic watermarks for model weights",
+            "Track watermark verification for model theft detection"
+          ]
+        },
+        {
+          "control_id": "MS-08",
+          "control_name": "Secure Model Loading",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use safetensors instead of pickle for model weights",
+            "Set weights_only=True when using torch.load",
+            "Validate model files before loading"
+          ]
+        }
+      ]
+    },
+    "data_privacy": {
+      "category_id": "data_privacy",
+      "category_name": "Data Privacy",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "DP-01",
+          "control_name": "PII Detection",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Presidio or similar for PII detection",
+            "Implement NER-based PII detection with spaCy",
+            "Add custom regex patterns for domain-specific PII"
+          ]
+        },
+        {
+          "control_id": "DP-02",
+          "control_name": "Data Redaction",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement data masking for sensitive fields",
+            "Use tokenization for reversible anonymization",
+            "Apply redaction before logging or storage"
+          ]
+        },
+        {
+          "control_id": "DP-03",
+          "control_name": "Data Encryption",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use cryptography library for data encryption",
+            "Implement Fernet for symmetric encryption",
+            "Encrypt sensitive data before storage"
+          ]
+        },
+        {
+          "control_id": "DP-04",
+          "control_name": "Audit Logging",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement structured logging with structlog or loguru",
+            "Log all data access operations",
+            "Include user context in audit logs"
+          ]
+        },
+        {
+          "control_id": "DP-05",
+          "control_name": "Consent Management",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement consent tracking for data collection",
+            "Provide opt-out mechanisms for users",
+            "Store consent records with timestamps"
+          ]
+        },
+        {
+          "control_id": "DP-06",
+          "control_name": "NER PII Detection",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Presidio or SpaCy for NER-based PII detection",
+            "Implement custom NER models for domain-specific PII",
+            "Run PII detection on all inputs and outputs"
+          ]
+        },
+        {
+          "control_id": "DP-07",
+          "control_name": "Data Retention Policy",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Define data retention policies for AI training data",
+            "Implement automated data deletion after retention period",
+            "Maintain data inventory with retention metadata"
+          ]
+        },
+        {
+          "control_id": "DP-08",
+          "control_name": "GDPR Compliance",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ASTAnalyzer' object has no attribute 'find_string_literals'"
+          ]
+        }
+      ]
+    },
+    "owasp_llm": {
+      "category_id": "owasp_llm",
+      "category_name": "OWASP LLM Top 10",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 10,
+      "controls": [
+        {
+          "control_id": "OWASP-01",
+          "control_name": "LLM01: Prompt Injection Defense",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement input validation and sanitization",
+            "Use parameterized prompts instead of string interpolation",
+            "Add output filtering to detect injected instructions"
+          ]
+        },
+        {
+          "control_id": "OWASP-02",
+          "control_name": "LLM02: Insecure Output Handling",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Escape LLM output before rendering in HTML",
+            "Never use eval() or exec() with LLM output",
+            "Use parameterized queries for database operations"
+          ]
+        },
+        {
+          "control_id": "OWASP-03",
+          "control_name": "LLM03: Training Data Poisoning",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement data validation pipelines",
+            "Verify data source integrity",
+            "Monitor for anomalies in training data"
+          ]
+        },
+        {
+          "control_id": "OWASP-04",
+          "control_name": "LLM04: Model Denial of Service",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement rate limiting on API endpoints",
+            "Set maximum token limits for inputs and outputs",
+            "Add timeout mechanisms for LLM calls"
+          ]
+        },
+        {
+          "control_id": "OWASP-05",
+          "control_name": "LLM05: Supply Chain Vulnerabilities",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Scan dependencies for vulnerabilities",
+            "Verify model checksums before loading",
+            "Use only trusted model sources"
+          ]
+        },
+        {
+          "control_id": "OWASP-06",
+          "control_name": "LLM06: Sensitive Information Disclosure",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement PII detection and filtering",
+            "Never include secrets in prompts",
+            "Add output filtering for sensitive patterns"
+          ]
+        },
+        {
+          "control_id": "OWASP-07",
+          "control_name": "LLM07: Insecure Plugin Design",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Validate all inputs to plugins",
+            "Implement allowlists for permitted operations",
+            "Sandbox plugin execution environments"
+          ]
+        },
+        {
+          "control_id": "OWASP-08",
+          "control_name": "LLM08: Excessive Agency",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement human-in-the-loop for critical actions",
+            "Use principle of least privilege for LLM access",
+            "Add approval workflows for sensitive operations"
+          ]
+        },
+        {
+          "control_id": "OWASP-09",
+          "control_name": "LLM09: Overreliance",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Add confidence scores to LLM outputs",
+            "Implement human review for critical decisions",
+            "Provide source citations where possible"
+          ]
+        },
+        {
+          "control_id": "OWASP-10",
+          "control_name": "LLM10: Model Theft",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement rate limiting on API endpoints",
+            "Add query logging and anomaly detection",
+            "Monitor for extraction patterns"
+          ]
+        }
+      ]
+    },
+    "blue_team": {
+      "category_id": "blue_team",
+      "category_name": "Blue Team Operations",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 7,
+      "controls": [
+        {
+          "control_id": "BT-01",
+          "control_name": "Model Monitoring",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement model performance metrics tracking",
+            "Set up alerting for performance degradation",
+            "Use tools like Prometheus or DataDog for monitoring"
+          ]
+        },
+        {
+          "control_id": "BT-02",
+          "control_name": "Drift Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement drift detection with evidently or alibi-detect",
+            "Monitor input data distribution changes",
+            "Set up automated alerts for drift events"
+          ]
+        },
+        {
+          "control_id": "BT-03",
+          "control_name": "Anomaly Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement anomaly detection on model inputs",
+            "Monitor for unusual query patterns",
+            "Use statistical methods or ML-based detection"
+          ]
+        },
+        {
+          "control_id": "BT-04",
+          "control_name": "Adversarial Attack Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement adversarial input detection",
+            "Use adversarial robustness toolkits",
+            "Add input perturbation analysis"
+          ]
+        },
+        {
+          "control_id": "BT-05",
+          "control_name": "AI Incident Response",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Create AI-specific incident response playbooks",
+            "Implement model rollback capabilities",
+            "Set up automated incident alerting"
+          ]
+        },
+        {
+          "control_id": "BT-06",
+          "control_name": "Model Drift Monitoring",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Evidently or alibi-detect for drift monitoring",
+            "Set up automated alerts for significant drift",
+            "Implement automatic retraining pipelines"
+          ]
+        },
+        {
+          "control_id": "BT-07",
+          "control_name": "Data Quality Monitoring",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Great Expectations for data validation",
+            "Implement data quality checks in pipeline",
+            "Set up alerts for data quality issues"
+          ]
+        }
+      ]
+    },
+    "governance": {
+      "category_id": "governance",
+      "category_name": "AI Governance",
+      "score": 10.0,
+      "max_score": 100.0,
+      "percentage": 10.0,
+      "detected_count": 1,
+      "total_count": 5,
+      "controls": [
+        {
+          "control_id": "GV-01",
+          "control_name": "Model Explainability",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use SHAP or LIME for model explanations",
+            "Provide decision explanations in outputs",
+            "Implement feature attribution tracking"
+          ]
+        },
+        {
+          "control_id": "GV-02",
+          "control_name": "Bias Detection",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Fairlearn or AIF360 for bias detection",
+            "Implement fairness metrics tracking",
+            "Test for demographic parity and equalized odds"
+          ]
+        },
+        {
+          "control_id": "GV-03",
+          "control_name": "Model Documentation",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Create model cards for all production models",
+            "Document model limitations and known issues",
+            "Maintain changelog for model updates"
+          ]
+        },
+        {
+          "control_id": "GV-04",
+          "control_name": "Compliance Tracking",
+          "category": "governance",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.85,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "config",
+              "file_path": "testbed/llm04_model_dos/labels.yaml",
+              "line_number": null,
+              "snippet": "audit_expectations: dict",
+              "description": "Compliance configuration: audit_expectations",
+              "confidence": 0.85
+            },
+            {
+              "type": "config",
+              "file_path": "testbed/llm04_model_dos/labels.yaml",
+              "line_number": null,
+              "snippet": "audit_expectations.controls: list",
+              "description": "Compliance configuration: audit_expectations.controls",
+              "confidence": 0.85
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "GV-05",
+          "control_name": "Human Oversight",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement human-in-the-loop for critical decisions",
+            "Add manual review workflows for high-risk outputs",
+            "Create escalation procedures for edge cases"
+          ]
+        }
+      ]
+    },
+    "supply_chain": {
+      "category_id": "supply_chain",
+      "category_name": "Supply Chain Security",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 3,
+      "controls": [
+        {
+          "control_id": "SC-01",
+          "control_name": "Dependency Scanning",
+          "category": "supply_chain",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Add safety or pip-audit to your dependencies",
+            "Configure CI/CD to run security scans on every commit",
+            "Set up Dependabot or Renovate for automatic updates"
+          ]
+        },
+        {
+          "control_id": "SC-02",
+          "control_name": "Model Provenance Tracking",
+          "category": "supply_chain",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use MLflow, DVC, or Weights & Biases for model tracking",
+            "Implement model versioning with metadata",
+            "Maintain model registry with provenance information"
+          ]
+        },
+        {
+          "control_id": "SC-03",
+          "control_name": "Model Integrity Verification",
+          "category": "supply_chain",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Verify model checksums before loading",
+            "Use safetensors for safe model serialization",
+            "Implement cryptographic signatures for model files"
+          ]
+        }
+      ]
+    },
+    "hallucination": {
+      "category_id": "hallucination",
+      "category_name": "Hallucination Mitigation",
+      "score": 15.0,
+      "max_score": 100.0,
+      "percentage": 15.0,
+      "detected_count": 1,
+      "total_count": 5,
+      "controls": [
+        {
+          "control_id": "HM-01",
+          "control_name": "RAG Implementation",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement RAG using LangChain or LlamaIndex",
+            "Use vector databases like Pinecone, Chroma, or Weaviate",
+            "Ground LLM responses with retrieved context"
+          ]
+        },
+        {
+          "control_id": "HM-02",
+          "control_name": "Confidence Scoring",
+          "category": "hallucination",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.85,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "config",
+              "file_path": "testbed/llm04_model_dos/labels.yaml",
+              "line_number": null,
+              "snippet": "static_findings[0].confidence: 0.8",
+              "description": "Confidence config: static_findings[0].confidence",
+              "confidence": 0.85
+            },
+            {
+              "type": "config",
+              "file_path": "testbed/llm04_model_dos/labels.yaml",
+              "line_number": null,
+              "snippet": "static_findings[1].confidence: 0.85",
+              "description": "Confidence config: static_findings[1].confidence",
+              "confidence": 0.85
+            },
+            {
+              "type": "config",
+              "file_path": "testbed/llm04_model_dos/labels.yaml",
+              "line_number": null,
+              "snippet": "audit_expectations.overall_category_score: dict",
+              "description": "Confidence config: audit_expectations.overall_category_score",
+              "confidence": 0.85
+            },
+            {
+              "type": "config",
+              "file_path": "testbed/llm04_model_dos/labels.yaml",
+              "line_number": null,
+              "snippet": "audit_expectations.overall_category_score.blue_team: 0.0",
+              "description": "Confidence config: audit_expectations.overall_category_score.blue_team",
+              "confidence": 0.85
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "HM-03",
+          "control_name": "Source Attribution",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Include source citations in LLM outputs",
+            "Track and display source documents from RAG",
+            "Implement citation verification"
+          ]
+        },
+        {
+          "control_id": "HM-04",
+          "control_name": "Temperature Control",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use lower temperature (0-0.3) for factual tasks",
+            "Make temperature configurable per use case",
+            "Document temperature settings for different tasks"
+          ]
+        },
+        {
+          "control_id": "HM-05",
+          "control_name": "Fact Checking",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement fact-checking against knowledge bases",
+            "Use cross-validation with multiple sources",
+            "Add human review for critical factual claims"
+          ]
+        }
+      ]
+    },
+    "ethical_ai": {
+      "category_id": "ethical_ai",
+      "category_name": "Ethical AI & Bias",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 4,
+      "controls": [
+        {
+          "control_id": "EA-01",
+          "control_name": "Fairness Metrics",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Fairlearn or AIF360 for fairness metrics",
+            "Implement demographic parity testing",
+            "Monitor fairness metrics in production"
+          ]
+        },
+        {
+          "control_id": "EA-02",
+          "control_name": "Model Explainability",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use SHAP or LIME for model explanations",
+            "Implement feature attribution for predictions",
+            "Provide human-readable explanations"
+          ]
+        },
+        {
+          "control_id": "EA-03",
+          "control_name": "Bias Testing",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement adversarial testing for bias",
+            "Test across demographic groups",
+            "Use TextAttack or CheckList for NLP bias testing"
+          ]
+        },
+        {
+          "control_id": "EA-04",
+          "control_name": "Model Cards",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'"
+          ]
+        }
+      ]
+    },
+    "incident_response": {
+      "category_id": "incident_response",
+      "category_name": "Incident Response",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 3,
+      "controls": [
+        {
+          "control_id": "IR-01",
+          "control_name": "Monitoring Integration",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Prometheus or DataDog for metrics collection",
+            "Set up alerts for model latency and error rates",
+            "Implement health checks for AI endpoints"
+          ]
+        },
+        {
+          "control_id": "IR-02",
+          "control_name": "Audit Logging",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use structlog or python-json-logger for structured logs",
+            "Log all AI model inputs and outputs",
+            "Implement log retention policies"
+          ]
+        },
+        {
+          "control_id": "IR-03",
+          "control_name": "Rollback Capability",
+          "category": "incident_response",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use MLflow or DVC for model versioning",
+            "Implement blue-green deployments for models",
+            "Maintain rollback procedures documentation"
+          ]
+        }
+      ]
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-01",
+      "title": "Prompt Sanitization",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement input sanitization before constructing prompts",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-01",
+      "title": "Prompt Sanitization",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use libraries like bleach or markupsafe for HTML sanitization",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-01",
+      "title": "Prompt Sanitization",
+      "description": "Control not detected or below threshold",
+      "remediation": "Create custom sanitization functions for prompt-specific threats",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-02",
+      "title": "Rate Limiting",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement rate limiting using fastapi-limiter, flask-limiter, or slowapi",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-02",
+      "title": "Rate Limiting",
+      "description": "Control not detected or below threshold",
+      "remediation": "Configure per-user and per-endpoint rate limits",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-02",
+      "title": "Rate Limiting",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add exponential backoff for repeated violations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-03",
+      "title": "Input Validation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Pydantic for request/input validation",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-03",
+      "title": "Input Validation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement JSON schema validation for API inputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-03",
+      "title": "Input Validation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add type hints and runtime type checking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-04",
+      "title": "Output Filtering",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement output validation after receiving LLM responses",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-04",
+      "title": "Output Filtering",
+      "description": "Control not detected or below threshold",
+      "remediation": "Filter PII and sensitive information from outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-04",
+      "title": "Output Filtering",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add content moderation for harmful content",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-05",
+      "title": "Context Window Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement token counting before sending to LLM",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-05",
+      "title": "Context Window Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set maximum input length limits",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-05",
+      "title": "Context Window Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use tiktoken or similar for accurate token counting",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-06",
+      "title": "Red Team Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement statistical analysis on prompt patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use ML-based anomaly detection for unusual inputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up alerts for prompt anomaly detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-08",
+      "title": "System Prompt Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ASTAnalyzer' object has no attribute 'find_string_literals'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-01",
+      "title": "Access Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement authentication on all model endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-01",
+      "title": "Access Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use OAuth 2.0 or API keys for access control",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-01",
+      "title": "Access Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement role-based access control (RBAC)",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-02",
+      "title": "Model Versioning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use MLflow or DVC for model versioning",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-02",
+      "title": "Model Versioning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement model registry for production models",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-02",
+      "title": "Model Versioning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Track model lineage and metadata",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-03",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use safety or pip-audit for dependency scanning",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-03",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Integrate vulnerability scanning in CI/CD",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-03",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated dependency updates with Dependabot",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-04",
+      "title": "API Security",
+      "description": "Control not detected or below threshold",
+      "remediation": "Enforce HTTPS for all API endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-04",
+      "title": "API Security",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement proper CORS configuration",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-04",
+      "title": "API Security",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add security headers (CSP, HSTS, etc.)",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-05",
+      "title": "Model Source Verification",
+      "description": "Control not detected or below threshold",
+      "remediation": "Verify model checksums before loading",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-05",
+      "title": "Model Source Verification",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use cryptographic signatures for model files",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-05",
+      "title": "Model Source Verification",
+      "description": "Control not detected or below threshold",
+      "remediation": "Download models only from trusted sources",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Opacus or TensorFlow Privacy for differential privacy",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement privacy budgets for model queries",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor epsilon values for privacy guarantees",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement watermarking for model outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use cryptographic watermarks for model weights",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Track watermark verification for model theft detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-08",
+      "title": "Secure Model Loading",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use safetensors instead of pickle for model weights",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-08",
+      "title": "Secure Model Loading",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set weights_only=True when using torch.load",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-08",
+      "title": "Secure Model Loading",
+      "description": "Control not detected or below threshold",
+      "remediation": "Validate model files before loading",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-01",
+      "title": "PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Presidio or similar for PII detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-01",
+      "title": "PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement NER-based PII detection with spaCy",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-01",
+      "title": "PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add custom regex patterns for domain-specific PII",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-02",
+      "title": "Data Redaction",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement data masking for sensitive fields",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-02",
+      "title": "Data Redaction",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use tokenization for reversible anonymization",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-02",
+      "title": "Data Redaction",
+      "description": "Control not detected or below threshold",
+      "remediation": "Apply redaction before logging or storage",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-03",
+      "title": "Data Encryption",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use cryptography library for data encryption",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-03",
+      "title": "Data Encryption",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement Fernet for symmetric encryption",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-03",
+      "title": "Data Encryption",
+      "description": "Control not detected or below threshold",
+      "remediation": "Encrypt sensitive data before storage",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-04",
+      "title": "Audit Logging",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement structured logging with structlog or loguru",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-04",
+      "title": "Audit Logging",
+      "description": "Control not detected or below threshold",
+      "remediation": "Log all data access operations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-04",
+      "title": "Audit Logging",
+      "description": "Control not detected or below threshold",
+      "remediation": "Include user context in audit logs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-05",
+      "title": "Consent Management",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement consent tracking for data collection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-05",
+      "title": "Consent Management",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide opt-out mechanisms for users",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-05",
+      "title": "Consent Management",
+      "description": "Control not detected or below threshold",
+      "remediation": "Store consent records with timestamps",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Presidio or SpaCy for NER-based PII detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement custom NER models for domain-specific PII",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Run PII detection on all inputs and outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-07",
+      "title": "Data Retention Policy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Define data retention policies for AI training data",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-07",
+      "title": "Data Retention Policy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement automated data deletion after retention period",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-07",
+      "title": "Data Retention Policy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Maintain data inventory with retention metadata",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-08",
+      "title": "GDPR Compliance",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ASTAnalyzer' object has no attribute 'find_string_literals'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-01",
+      "title": "LLM01: Prompt Injection Defense",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement input validation and sanitization",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-01",
+      "title": "LLM01: Prompt Injection Defense",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use parameterized prompts instead of string interpolation",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-01",
+      "title": "LLM01: Prompt Injection Defense",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add output filtering to detect injected instructions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-02",
+      "title": "LLM02: Insecure Output Handling",
+      "description": "Control not detected or below threshold",
+      "remediation": "Escape LLM output before rendering in HTML",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-02",
+      "title": "LLM02: Insecure Output Handling",
+      "description": "Control not detected or below threshold",
+      "remediation": "Never use eval() or exec() with LLM output",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-02",
+      "title": "LLM02: Insecure Output Handling",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use parameterized queries for database operations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement data validation pipelines",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Verify data source integrity",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for anomalies in training data",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-04",
+      "title": "LLM04: Model Denial of Service",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement rate limiting on API endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-04",
+      "title": "LLM04: Model Denial of Service",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set maximum token limits for inputs and outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-04",
+      "title": "LLM04: Model Denial of Service",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add timeout mechanisms for LLM calls",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-05",
+      "title": "LLM05: Supply Chain Vulnerabilities",
+      "description": "Control not detected or below threshold",
+      "remediation": "Scan dependencies for vulnerabilities",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-05",
+      "title": "LLM05: Supply Chain Vulnerabilities",
+      "description": "Control not detected or below threshold",
+      "remediation": "Verify model checksums before loading",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-05",
+      "title": "LLM05: Supply Chain Vulnerabilities",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use only trusted model sources",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-06",
+      "title": "LLM06: Sensitive Information Disclosure",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement PII detection and filtering",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-06",
+      "title": "LLM06: Sensitive Information Disclosure",
+      "description": "Control not detected or below threshold",
+      "remediation": "Never include secrets in prompts",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-06",
+      "title": "LLM06: Sensitive Information Disclosure",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add output filtering for sensitive patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-07",
+      "title": "LLM07: Insecure Plugin Design",
+      "description": "Control not detected or below threshold",
+      "remediation": "Validate all inputs to plugins",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-07",
+      "title": "LLM07: Insecure Plugin Design",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement allowlists for permitted operations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-07",
+      "title": "LLM07: Insecure Plugin Design",
+      "description": "Control not detected or below threshold",
+      "remediation": "Sandbox plugin execution environments",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement human-in-the-loop for critical actions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use principle of least privilege for LLM access",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add approval workflows for sensitive operations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-09",
+      "title": "LLM09: Overreliance",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add confidence scores to LLM outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-09",
+      "title": "LLM09: Overreliance",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement human review for critical decisions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-09",
+      "title": "LLM09: Overreliance",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide source citations where possible",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement rate limiting on API endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add query logging and anomaly detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for extraction patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-01",
+      "title": "Model Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement model performance metrics tracking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-01",
+      "title": "Model Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up alerting for performance degradation",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-01",
+      "title": "Model Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use tools like Prometheus or DataDog for monitoring",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement drift detection with evidently or alibi-detect",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor input data distribution changes",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated alerts for drift events",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement anomaly detection on model inputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for unusual query patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use statistical methods or ML-based detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement adversarial input detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use adversarial robustness toolkits",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add input perturbation analysis",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-05",
+      "title": "AI Incident Response",
+      "description": "Control not detected or below threshold",
+      "remediation": "Create AI-specific incident response playbooks",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-05",
+      "title": "AI Incident Response",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement model rollback capabilities",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-05",
+      "title": "AI Incident Response",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated incident alerting",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Evidently or alibi-detect for drift monitoring",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated alerts for significant drift",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement automatic retraining pipelines",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-07",
+      "title": "Data Quality Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Great Expectations for data validation",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-07",
+      "title": "Data Quality Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement data quality checks in pipeline",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-07",
+      "title": "Data Quality Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up alerts for data quality issues",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use SHAP or LIME for model explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide decision explanations in outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement feature attribution tracking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Fairlearn or AIF360 for bias detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement fairness metrics tracking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Test for demographic parity and equalized odds",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-03",
+      "title": "Model Documentation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Create model cards for all production models",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-03",
+      "title": "Model Documentation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Document model limitations and known issues",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-03",
+      "title": "Model Documentation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Maintain changelog for model updates",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-05",
+      "title": "Human Oversight",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement human-in-the-loop for critical decisions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-05",
+      "title": "Human Oversight",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add manual review workflows for high-risk outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-05",
+      "title": "Human Oversight",
+      "description": "Control not detected or below threshold",
+      "remediation": "Create escalation procedures for edge cases",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-01",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add safety or pip-audit to your dependencies",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-01",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Configure CI/CD to run security scans on every commit",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-01",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up Dependabot or Renovate for automatic updates",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-02",
+      "title": "Model Provenance Tracking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use MLflow, DVC, or Weights & Biases for model tracking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-02",
+      "title": "Model Provenance Tracking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement model versioning with metadata",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-02",
+      "title": "Model Provenance Tracking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Maintain model registry with provenance information",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-03",
+      "title": "Model Integrity Verification",
+      "description": "Control not detected or below threshold",
+      "remediation": "Verify model checksums before loading",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-03",
+      "title": "Model Integrity Verification",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use safetensors for safe model serialization",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-03",
+      "title": "Model Integrity Verification",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement cryptographic signatures for model files",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-01",
+      "title": "RAG Implementation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement RAG using LangChain or LlamaIndex",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-01",
+      "title": "RAG Implementation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use vector databases like Pinecone, Chroma, or Weaviate",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-01",
+      "title": "RAG Implementation",
+      "description": "Control not detected or below threshold",
+      "remediation": "Ground LLM responses with retrieved context",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-03",
+      "title": "Source Attribution",
+      "description": "Control not detected or below threshold",
+      "remediation": "Include source citations in LLM outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-03",
+      "title": "Source Attribution",
+      "description": "Control not detected or below threshold",
+      "remediation": "Track and display source documents from RAG",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-03",
+      "title": "Source Attribution",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement citation verification",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-04",
+      "title": "Temperature Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use lower temperature (0-0.3) for factual tasks",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-04",
+      "title": "Temperature Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Make temperature configurable per use case",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-04",
+      "title": "Temperature Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Document temperature settings for different tasks",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-05",
+      "title": "Fact Checking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement fact-checking against knowledge bases",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-05",
+      "title": "Fact Checking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use cross-validation with multiple sources",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-05",
+      "title": "Fact Checking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add human review for critical factual claims",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Fairlearn or AIF360 for fairness metrics",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement demographic parity testing",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor fairness metrics in production",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use SHAP or LIME for model explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement feature attribution for predictions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide human-readable explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement adversarial testing for bias",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Test across demographic groups",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use TextAttack or CheckList for NLP bias testing",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-04",
+      "title": "Model Cards",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-01",
+      "title": "Monitoring Integration",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Prometheus or DataDog for metrics collection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-01",
+      "title": "Monitoring Integration",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up alerts for model latency and error rates",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-01",
+      "title": "Monitoring Integration",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement health checks for AI endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-02",
+      "title": "Audit Logging",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use structlog or python-json-logger for structured logs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-02",
+      "title": "Audit Logging",
+      "description": "Control not detected or below threshold",
+      "remediation": "Log all AI model inputs and outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-02",
+      "title": "Audit Logging",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement log retention policies",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-03",
+      "title": "Rollback Capability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use MLflow or DVC for model versioning",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-03",
+      "title": "Rollback Capability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement blue-green deployments for models",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "incident_response",
+      "control_id": "IR-03",
+      "title": "Rollback Capability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Maintain rollback procedures documentation",
+      "docs_url": null
+    }
+  ]
+}

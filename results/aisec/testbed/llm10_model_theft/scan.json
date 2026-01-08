@@ -1,0 +1,557 @@
+{
+  "report_type": "static_scan",
+  "generated_at": "2026-01-08T17:49:22.880742Z",
+  "summary": {
+    "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft",
+    "files_scanned": 1,
+    "overall_score": 0.0,
+    "confidence": 0.56,
+    "duration_seconds": 0.007,
+    "findings_count": 30,
+    "severity_breakdown": {
+      "CRITICAL": 1,
+      "HIGH": 15,
+      "MEDIUM": 6,
+      "LOW": 8,
+      "INFO": 0
+    }
+  },
+  "category_scores": [
+    {
+      "category_id": "1_prompt_security",
+      "category_name": "Prompt Security",
+      "score": 0,
+      "confidence": 0.42,
+      "subscores": {
+        "input_validation": 0,
+        "jailbreak_prevention": 0,
+        "monitoring_response": 0,
+        "prompt_injection_defense": 0,
+        "context_isolation": 0,
+        "prompt_templates": 0,
+        "output_filtering": 0,
+        "jailbreak_detection": 0
+      },
+      "detected_controls": [
+        "1 jailbreak prevention mechanisms active"
+      ],
+      "gaps": [
+        "No input validation detected",
+        "Missing behavioral analysis/guardrails library",
+        "No red team testing detected",
+        "No context window protection detected",
+        "No attack detection tools found"
+      ]
+    },
+    {
+      "category_id": "2_model_security",
+      "category_name": "Model Security & Integrity",
+      "score": 0,
+      "confidence": 0.37,
+      "subscores": {
+        "model_protection": 0,
+        "extraction_defense": 35,
+        "supply_chain_security": 0,
+        "api_key_security": 0,
+        "model_access_control": 0,
+        "rate_limiting_defense": 0,
+        "model_encryption": 0,
+        "model_provenance": 0,
+        "supply_chain_verification": 0
+      },
+      "detected_controls": [
+        "Rate limiting"
+      ],
+      "gaps": [
+        "Model protection needs improvement",
+        "Consider implementing encryption and access controls",
+        "Extraction defense is weak",
+        "Implement rate limiting and output protections",
+        "Supply chain security needs attention",
+        "Add model verification and dependency scanning"
+      ]
+    },
+    {
+      "category_id": "3_data_privacy",
+      "category_name": "Data Privacy & PII Protection",
+      "score": 0,
+      "confidence": 0.37,
+      "subscores": {
+        "pii_handling": 0,
+        "consent_management": 0,
+        "compliance_auditing": 0,
+        "pii_detection": 0,
+        "pii_redaction": 0,
+        "data_encryption": 0,
+        "consent_management_comprehensive": 0,
+        "data_lifecycle": 0,
+        "gdpr_compliance": 0,
+        "audit_logging": 0
+      },
+      "detected_controls": [
+        "Audit logging"
+      ],
+      "gaps": [
+        "PII detection and handling needs improvement",
+        "Consider implementing PII detection tools (Presidio, spaCy NER)",
+        "Consent management is weak",
+        "Implement user consent mechanisms and user rights endpoints",
+        "Regulatory compliance controls missing",
+        "Add audit logging and compliance documentation"
+      ]
+    },
+    {
+      "category_id": "4_hallucination_mitigation",
+      "category_name": "Hallucination Detection & Mitigation",
+      "score": 0,
+      "confidence": 0.35,
+      "subscores": {
+        "factual_consistency": 0,
+        "output_validation": 0,
+        "user_feedback": 0,
+        "rag_integration": 0,
+        "citation_tracking": 0,
+        "confidence_scoring": 0,
+        "fact_checking": 0,
+        "consistency_checks": 0,
+        "grounding": 0
+      },
+      "detected_controls": [],
+      "gaps": [
+        "Missing controls: Citation tracking / RAG, Confidence scoring, Consistency checks, Constraint checking, Cross-validation",
+        "Plus 9 more controls need implementation"
+      ]
+    },
+    {
+      "category_id": "5_ethical_ai",
+      "category_name": "Ethical AI & Bias Detection",
+      "score": 0,
+      "confidence": 0.4,
+      "subscores": {
+        "bias_testing": 0,
+        "fairness_metrics": 0,
+        "explainability": 0,
+        "harmful_content_filtering": 0,
+        "diverse_training": 0,
+        "transparency": 0,
+        "legacy_bias_detection": 0,
+        "legacy_fairness": 0
+      },
+      "detected_controls": [],
+      "gaps": []
+    },
+    {
+      "category_id": "6_governance",
+      "category_name": "Governance & Compliance",
+      "score": 0,
+      "confidence": 0.4,
+      "subscores": {
+        "plugin_security": 0,
+        "authorization_controls": 0,
+        "audit_logging": 0,
+        "incident_response": 0,
+        "model_documentation": 0,
+        "risk_assessment": 0,
+        "user_consent": 0,
+        "legacy_governance": 0
+      },
+      "detected_controls": [],
+      "gaps": []
+    },
+    {
+      "category_id": "0_owasp_vulnerabilities",
+      "category_name": "OWASP LLM Vulnerabilities",
+      "score": 0,
+      "confidence": 0.76,
+      "subscores": {
+        "LLM01": 100,
+        "LLM02": 30,
+        "LLM03": 100,
+        "LLM04": 12,
+        "LLM05": 56,
+        "LLM06": 100,
+        "LLM07": 100,
+        "LLM08": 100,
+        "LLM09": 14,
+        "LLM10": 52
+      },
+      "detected_controls": [
+        "Prompt Injection (no vulnerabilities found)",
+        "Training Data Poisoning (no vulnerabilities found)",
+        "Sensitive Information Disclosure (no vulnerabilities found)",
+        "Insecure Plugin Design (no vulnerabilities found)",
+        "Excessive Agency (no vulnerabilities found)"
+      ],
+      "gaps": [
+        "Insecure Output Handling: 5 high",
+        "Model Denial of Service: 1 critical, 4 high",
+        "Supply Chain Vulnerabilities: 6 medium",
+        "Overreliance: 4 high, 4 low",
+        "Model Theft: 2 high, 4 low"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_20",
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "LLM output used in dangerous xss sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 20 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 20,
+      "code_snippet": "    # VULNERABLE - unlimited queries for extraction\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]",
+      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+    },
+    {
+      "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_48",
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "LLM output used in dangerous xss sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 48 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 48,
+      "code_snippet": "    prompt = request.json.get(\"prompt\", \"\")\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]",
+      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+    },
+    {
+      "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_74",
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "LLM output used in dangerous xss sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 74 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 74,
+      "code_snippet": "    # VULNERABLE - logprobs can be used for distillation\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}],",
+      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+    },
+    {
+      "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_131",
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "LLM output used in dangerous xss sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 131 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 131,
+      "code_snippet": "    prompt = request.json.get(\"prompt\", \"\")\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]",
+      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+    },
+    {
+      "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_107",
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "LLM output used in dangerous xss sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 107 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 107,
+      "code_snippet": "        # VULNERABLE - no logging of queries\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
+      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+    },
+    {
+      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_16",
+      "category": "LLM04: Model Denial of Service",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Model DoS vulnerability: LLM calls in loops, No timeout configuration, No token/context limits",
+      "description": "Function 'vulnerable_no_rate_limit' on line 16 has 3 DoS risk(s): LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 16,
+      "code_snippet": "def vulnerable_no_rate_limit():\n    \"\"\"Vulnerable: No rate limiting allows model extraction queries.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - unlimited queries for extraction\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return jsonify({\"response\": response.choices[0].message.content})\n\n",
+      "recommendation": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+    },
+    {
+      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_44",
+      "category": "LLM04: Model Denial of Service",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits",
+      "description": "Function 'vulnerable_no_auth' on line 44 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 44,
+      "code_snippet": "def vulnerable_no_auth():\n    \"\"\"Vulnerable: API endpoint without authentication.\"\"\"\n    # VULNERABLE - no API key or auth required\n    prompt = request.json.get(\"prompt\", \"\")\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return jsonify({\"response\": response.choices[0].message.content})\n\n",
+      "recommendation": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+    },
+    {
+      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_70",
+      "category": "LLM04: Model Denial of Service",
+      "severity": "CRITICAL",
+      "confidence": 0.8,
+      "title": "Model DoS vulnerability: No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits",
+      "description": "Function 'vulnerable_logprobs' on line 70 has 4 DoS risk(s): No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 70,
+      "code_snippet": "def vulnerable_logprobs():\n    \"\"\"Vulnerable: Returns logprobs enabling model distillation.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - logprobs can be used for distillation\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n        logprobs=True,\n        top_logprobs=5\n    )\n    return jsonify({",
+      "recommendation": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+    },
+    {
+      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_116",
+      "category": "LLM04: Model Denial of Service",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Model DoS vulnerability: LLM calls in loops, No timeout configuration, No token/context limits",
+      "description": "Function 'safe_protected_api' on line 116 has 3 DoS risk(s): LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 116,
+      "code_snippet": "def safe_protected_api():\n    \"\"\"Safe: Properly protected model API.\"\"\"\n    # Authentication\n    api_key = request.headers.get(\"X-API-Key\")\n    if not api_key or not validate_api_key(api_key):\n        return jsonify({\"error\": \"Unauthorized\"}), 401\n\n    # Rate limiting\n    if is_rate_limited(api_key):\n        return jsonify({\"error\": \"Rate limited\"}), 429\n",
+      "recommendation": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+    },
+    {
+      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_105",
+      "category": "LLM04: Model Denial of Service",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits",
+      "description": "Function 'query' on line 105 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 105,
+      "code_snippet": "    def query(self, prompt: str) -> str:\n        # VULNERABLE - no logging of queries\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )\n        return response.choices[0].message.content\n\n\n# SAFE: Protected model API (for comparison)\n@app.route(\"/api/protected/chat\", methods=[\"POST\"])",
+      "recommendation": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_20_unpinned",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "title": "Unpinned model version in API call",
+      "description": "Model ''gpt-4'' is used without version pinning on line 20. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 20,
+      "code_snippet": "    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - unlimited queries for extraction\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_48_unpinned",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "title": "Unpinned model version in API call",
+      "description": "Model ''gpt-4'' is used without version pinning on line 48. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 48,
+      "code_snippet": "    # VULNERABLE - no API key or auth required\n    prompt = request.json.get(\"prompt\", \"\")\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_74_unpinned",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "title": "Unpinned model version in API call",
+      "description": "Model ''gpt-4'' is used without version pinning on line 74. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 74,
+      "code_snippet": "    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - logprobs can be used for distillation\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n        logprobs=True,",
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_131_unpinned",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "title": "Unpinned model version in API call",
+      "description": "Model ''gpt-4'' is used without version pinning on line 131. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 131,
+      "code_snippet": "\n    prompt = request.json.get(\"prompt\", \"\")\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_107_unpinned",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "title": "Unpinned model version in API call",
+      "description": "Model ''gpt-4'' is used without version pinning on line 107. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 107,
+      "code_snippet": "    def query(self, prompt: str) -> str:\n        # VULNERABLE - no logging of queries\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )",
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_91_local_path",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "title": "Untrusted model source: local_path",
+      "description": "Local file path '\"/models/custom_model.pt\"' found on line 91. Loading models from local paths without verification can introduce compromised models if the filesystem is not properly secured.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 91,
+      "code_snippet": "    \"\"\"Vulnerable: Endpoint that could expose model weights.\"\"\"\n    # VULNERABLE - model weights accessible\n    model_path = \"/models/custom_model.pt\"\n    return {\"path\": model_path, \"accessible\": True}\n\n",
+      "recommendation": "Secure Model Loading:\n1. Only load models from trusted registries (HuggingFace, official repos)\n2. Verify model checksums/signatures before loading\n3. Use allowlists for permitted models\n4. Implement content scanning for downloaded models\n5. Never allow user-controlled model paths\n6. Use isolated environments for model loading\n7. Maintain an SBOM (Software Bill of Materials) for AI components"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_16_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "HIGH",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'vulnerable_no_rate_limit'",
+      "description": "Function 'vulnerable_no_rate_limit' on line 16 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 16,
+      "code_snippet": "# VULN:LLM10:HIGH:LINE=16 - No rate limiting on model API\n@app.route(\"/api/generate\", methods=[\"POST\"])\ndef vulnerable_no_rate_limit():\n    \"\"\"Vulnerable: No rate limiting allows model extraction queries.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - unlimited queries for extraction",
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_44_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "HIGH",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'vulnerable_no_auth'",
+      "description": "Function 'vulnerable_no_auth' on line 44 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 44,
+      "code_snippet": "# VULN:LLM10:MEDIUM:LINE=44 - No authentication on API\n@app.route(\"/api/chat\", methods=[\"POST\"])\ndef vulnerable_no_auth():\n    \"\"\"Vulnerable: API endpoint without authentication.\"\"\"\n    # VULNERABLE - no API key or auth required\n    prompt = request.json.get(\"prompt\", \"\")",
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_70_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "HIGH",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'vulnerable_logprobs'",
+      "description": "Function 'vulnerable_logprobs' on line 70 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 70,
+      "code_snippet": "# VULN:LLM10:HIGH:LINE=72 - Exposing logprobs for extraction\n@app.route(\"/api/logprobs\", methods=[\"POST\"])\ndef vulnerable_logprobs():\n    \"\"\"Vulnerable: Returns logprobs enabling model distillation.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - logprobs can be used for distillation",
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_105_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "HIGH",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'query'",
+      "description": "Function 'query' on line 105 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 105,
+      "code_snippet": "        return None  # Placeholder\n\n    def query(self, prompt: str) -> str:\n        # VULNERABLE - no logging of queries\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_16_missing_verification",
+      "category": "LLM09: Overreliance",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "title": "LLM output returned without verification in 'vulnerable_no_rate_limit'",
+      "description": "Function 'vulnerable_no_rate_limit' on line 16 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 16,
+      "code_snippet": "# VULN:LLM10:HIGH:LINE=16 - No rate limiting on model API\n@app.route(\"/api/generate\", methods=[\"POST\"])\ndef vulnerable_no_rate_limit():\n    \"\"\"Vulnerable: No rate limiting allows model extraction queries.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - unlimited queries for extraction",
+      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_44_missing_verification",
+      "category": "LLM09: Overreliance",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "title": "LLM output returned without verification in 'vulnerable_no_auth'",
+      "description": "Function 'vulnerable_no_auth' on line 44 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 44,
+      "code_snippet": "# VULN:LLM10:MEDIUM:LINE=44 - No authentication on API\n@app.route(\"/api/chat\", methods=[\"POST\"])\ndef vulnerable_no_auth():\n    \"\"\"Vulnerable: API endpoint without authentication.\"\"\"\n    # VULNERABLE - no API key or auth required\n    prompt = request.json.get(\"prompt\", \"\")",
+      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_70_missing_verification",
+      "category": "LLM09: Overreliance",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "title": "LLM output returned without verification in 'vulnerable_logprobs'",
+      "description": "Function 'vulnerable_logprobs' on line 70 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 70,
+      "code_snippet": "# VULN:LLM10:HIGH:LINE=72 - Exposing logprobs for extraction\n@app.route(\"/api/logprobs\", methods=[\"POST\"])\ndef vulnerable_logprobs():\n    \"\"\"Vulnerable: Returns logprobs enabling model distillation.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - logprobs can be used for distillation",
+      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_105_missing_verification",
+      "category": "LLM09: Overreliance",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "title": "LLM output returned without verification in 'query'",
+      "description": "Function 'query' on line 105 returns LLM output without verification, validation, or oversight mechanisms. Consider adding output validation or including disclaimers.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 105,
+      "code_snippet": "        return None  # Placeholder\n\n    def query(self, prompt: str) -> str:\n        # VULNERABLE - no logging of queries\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
+      "recommendation": "Add verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+    },
+    {
+      "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_44_unrestricted_api",
+      "category": "LLM10: Model Theft",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "title": "Model API without rate limiting in 'vulnerable_no_auth'",
+      "description": "API endpoint 'vulnerable_no_auth' on line 44 provides model access without rate limiting. This allows attackers to make unlimited queries to extract model knowledge, potentially stealing intellectual property or sensitive training data.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 44,
+      "code_snippet": "# VULN:LLM10:MEDIUM:LINE=44 - No authentication on API\n@app.route(\"/api/chat\", methods=[\"POST\"])\ndef vulnerable_no_auth():\n    \"\"\"Vulnerable: API endpoint without authentication.\"\"\"\n    # VULNERABLE - no API key or auth required\n    prompt = request.json.get(\"prompt\", \"\")",
+      "recommendation": "Implement rate limiting to prevent model extraction:\n\n1. Add rate limiting:\n   - Use Flask-Limiter, fastapi-limiter, or similar\n   - Set per-IP and per-user limits\n   - Example: @limiter.limit(\"100/hour\")\n\n2. Implement request quotas:\n   - Track API usage per user\n   - Enforce monthly/daily quotas\n   - Alert on suspicious patterns\n\n3. Add authentication:\n   - Require API keys for access\n   - Track usage by authenticated user\n   - Revoke keys for abuse\n\n4. Monitor for extraction attempts:\n   - Log all requests with metadata\n   - Detect unusual query patterns\n   - Alert on high-frequency access\n\n5. Implement CAPTCHA:\n   - For public endpoints\n   - Triggered after N requests\n   - Prevents automated extraction"
+    },
+    {
+      "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_70_unrestricted_api",
+      "category": "LLM10: Model Theft",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "title": "Model API without rate limiting in 'vulnerable_logprobs'",
+      "description": "API endpoint 'vulnerable_logprobs' on line 70 provides model access without rate limiting. This allows attackers to make unlimited queries to extract model knowledge, potentially stealing intellectual property or sensitive training data.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 70,
+      "code_snippet": "# VULN:LLM10:HIGH:LINE=72 - Exposing logprobs for extraction\n@app.route(\"/api/logprobs\", methods=[\"POST\"])\ndef vulnerable_logprobs():\n    \"\"\"Vulnerable: Returns logprobs enabling model distillation.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - logprobs can be used for distillation",
+      "recommendation": "Implement rate limiting to prevent model extraction:\n\n1. Add rate limiting:\n   - Use Flask-Limiter, fastapi-limiter, or similar\n   - Set per-IP and per-user limits\n   - Example: @limiter.limit(\"100/hour\")\n\n2. Implement request quotas:\n   - Track API usage per user\n   - Enforce monthly/daily quotas\n   - Alert on suspicious patterns\n\n3. Add authentication:\n   - Require API keys for access\n   - Track usage by authenticated user\n   - Revoke keys for abuse\n\n4. Monitor for extraction attempts:\n   - Log all requests with metadata\n   - Detect unusual query patterns\n   - Alert on high-frequency access\n\n5. Implement CAPTCHA:\n   - For public endpoints\n   - Triggered after N requests\n   - Prevents automated extraction"
+    },
+    {
+      "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_16_missing_protection",
+      "category": "LLM10: Model Theft",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "title": "Model output without protection in 'vulnerable_no_rate_limit'",
+      "description": "API endpoint 'vulnerable_no_rate_limit' on line 16 returns model output without watermarking or obfuscation. Consider adding output protection to make model extraction more difficult and traceable.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 16,
+      "code_snippet": "# VULN:LLM10:HIGH:LINE=16 - No rate limiting on model API\n@app.route(\"/api/generate\", methods=[\"POST\"])\ndef vulnerable_no_rate_limit():\n    \"\"\"Vulnerable: No rate limiting allows model extraction queries.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - unlimited queries for extraction",
+      "recommendation": "Add output protection mechanisms:\n\n1. Watermarking:\n   - Embed invisible markers in outputs\n   - Make responses traceable\n   - Detect if outputs are reused\n\n2. Output obfuscation:\n   - Add controlled noise to predictions\n   - Implement differential privacy\n   - Return confidence ranges not exact values\n\n3. Response filtering:\n   - Limit information in responses\n   - Remove sensitive metadata\n   - Aggregate results when possible\n\n4. Query restrictions:\n   - Limit types of allowed queries\n   - Block probing/extraction patterns\n   - Implement query complexity limits\n\n5. Legal notices:\n   - Include usage terms in responses\n   - Add copyright notices\n   - Document intended use only"
+    },
+    {
+      "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_44_missing_protection",
+      "category": "LLM10: Model Theft",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "title": "Model output without protection in 'vulnerable_no_auth'",
+      "description": "API endpoint 'vulnerable_no_auth' on line 44 returns model output without watermarking or obfuscation. Consider adding output protection to make model extraction more difficult and traceable.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 44,
+      "code_snippet": "# VULN:LLM10:MEDIUM:LINE=44 - No authentication on API\n@app.route(\"/api/chat\", methods=[\"POST\"])\ndef vulnerable_no_auth():\n    \"\"\"Vulnerable: API endpoint without authentication.\"\"\"\n    # VULNERABLE - no API key or auth required\n    prompt = request.json.get(\"prompt\", \"\")",
+      "recommendation": "Add output protection mechanisms:\n\n1. Watermarking:\n   - Embed invisible markers in outputs\n   - Make responses traceable\n   - Detect if outputs are reused\n\n2. Output obfuscation:\n   - Add controlled noise to predictions\n   - Implement differential privacy\n   - Return confidence ranges not exact values\n\n3. Response filtering:\n   - Limit information in responses\n   - Remove sensitive metadata\n   - Aggregate results when possible\n\n4. Query restrictions:\n   - Limit types of allowed queries\n   - Block probing/extraction patterns\n   - Implement query complexity limits\n\n5. Legal notices:\n   - Include usage terms in responses\n   - Add copyright notices\n   - Document intended use only"
+    },
+    {
+      "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_70_missing_protection",
+      "category": "LLM10: Model Theft",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "title": "Model output without protection in 'vulnerable_logprobs'",
+      "description": "API endpoint 'vulnerable_logprobs' on line 70 returns model output without watermarking or obfuscation. Consider adding output protection to make model extraction more difficult and traceable.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 70,
+      "code_snippet": "# VULN:LLM10:HIGH:LINE=72 - Exposing logprobs for extraction\n@app.route(\"/api/logprobs\", methods=[\"POST\"])\ndef vulnerable_logprobs():\n    \"\"\"Vulnerable: Returns logprobs enabling model distillation.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - logprobs can be used for distillation",
+      "recommendation": "Add output protection mechanisms:\n\n1. Watermarking:\n   - Embed invisible markers in outputs\n   - Make responses traceable\n   - Detect if outputs are reused\n\n2. Output obfuscation:\n   - Add controlled noise to predictions\n   - Implement differential privacy\n   - Return confidence ranges not exact values\n\n3. Response filtering:\n   - Limit information in responses\n   - Remove sensitive metadata\n   - Aggregate results when possible\n\n4. Query restrictions:\n   - Limit types of allowed queries\n   - Block probing/extraction patterns\n   - Implement query complexity limits\n\n5. Legal notices:\n   - Include usage terms in responses\n   - Add copyright notices\n   - Document intended use only"
+    },
+    {
+      "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_116_missing_protection",
+      "category": "LLM10: Model Theft",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "title": "Model output without protection in 'safe_protected_api'",
+      "description": "API endpoint 'safe_protected_api' on line 116 returns model output without watermarking or obfuscation. Consider adding output protection to make model extraction more difficult and traceable.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
+      "line_number": 116,
+      "code_snippet": "# SAFE: Protected model API (for comparison)\n@app.route(\"/api/protected/chat\", methods=[\"POST\"])\ndef safe_protected_api():\n    \"\"\"Safe: Properly protected model API.\"\"\"\n    # Authentication\n    api_key = request.headers.get(\"X-API-Key\")",
+      "recommendation": "Add output protection mechanisms:\n\n1. Watermarking:\n   - Embed invisible markers in outputs\n   - Make responses traceable\n   - Detect if outputs are reused\n\n2. Output obfuscation:\n   - Add controlled noise to predictions\n   - Implement differential privacy\n   - Return confidence ranges not exact values\n\n3. Response filtering:\n   - Limit information in responses\n   - Remove sensitive metadata\n   - Aggregate results when possible\n\n4. Query restrictions:\n   - Limit types of allowed queries\n   - Block probing/extraction patterns\n   - Implement query complexity limits\n\n5. Legal notices:\n   - Include usage terms in responses\n   - Add copyright notices\n   - Document intended use only"
+    }
+  ],
+  "metadata": {}
+}

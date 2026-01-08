@@ -91,11 +91,20 @@ def aggregate_testbed():
 
         # Extract detected controls
         detected_controls = {}
-        for cat_result in audit_results.get("categories", []):
-            for control in cat_result.get("controls", []):
-                control_id = control.get("control_id", "")
-                level = control.get("level", "none")
-                detected_controls[control_id] = level
+        categories = audit_results.get("categories", {})
+        # Handle both dict and list formats
+        if isinstance(categories, dict):
+            for cat_id, cat_result in categories.items():
+                for control in cat_result.get("controls", []):
+                    control_id = control.get("control_id", "")
+                    level = control.get("level", "none")
+                    detected_controls[control_id] = level
+        else:
+            for cat_result in categories:
+                for control in cat_result.get("controls", []):
+                    control_id = control.get("control_id", "")
+                    level = control.get("level", "none")
+                    detected_controls[control_id] = level
 
         # Compare ground truth vs detected
         project_results = {

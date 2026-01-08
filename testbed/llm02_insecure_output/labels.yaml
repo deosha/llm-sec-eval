@@ -38,7 +38,7 @@ static_findings:
     confidence: 0.9
     description: "SQL query built with LLM output"
     pattern: "SQL injection"
-    vulnerable_code: 'f"SELECT * FROM users WHERE {where_clause}"'
+    vulnerable_code: "f-string SQL query with LLM output"
 
   - id: LLM02-STATIC-004
     file: app.py
@@ -49,7 +49,7 @@ static_findings:
     confidence: 0.85
     description: "Unescaped LLM output in HTML response"
     pattern: "XSS"
-    vulnerable_code: 'f"<div class=\'response\'>{llm_response}</div>"'
+    vulnerable_code: "f-string HTML with unescaped LLM response"
 
   - id: LLM02-STATIC-005
     file: app.py

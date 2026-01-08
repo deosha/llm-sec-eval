@@ -1,0 +1,645 @@
+{
+  "by_project": {
+    "llm01_prompt_injection": {
+      "project": "llm01_prompt_injection",
+      "category": "LLM01",
+      "controls": [
+        {
+          "control_id": "PS-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "PS-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "PS-03",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "PS-07",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 7.0,
+      "maturity_level": "Initial"
+    },
+    "llm02_insecure_output": {
+      "project": "llm02_insecure_output",
+      "category": "LLM02",
+      "controls": [
+        {
+          "control_id": "OW-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "DP-03",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 0.3,
+      "maturity_level": "Initial"
+    },
+    "llm03_training_poisoning": {
+      "project": "llm03_training_poisoning",
+      "category": "LLM03",
+      "controls": [
+        {
+          "control_id": "MS-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "SC-01",
+          "expected": "none",
+          "detected": "intermediate",
+          "match": "over"
+        },
+        {
+          "control_id": "SC-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 12.6,
+      "maturity_level": "Initial"
+    },
+    "llm04_model_dos": {
+      "project": "llm04_model_dos",
+      "category": "LLM04",
+      "controls": [
+        {
+          "control_id": "OW-04",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "BT-05",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 3.4,
+      "maturity_level": "Initial"
+    },
+    "llm05_supply_chain": {
+      "project": "llm05_supply_chain",
+      "category": "LLM05",
+      "controls": [
+        {
+          "control_id": "SC-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "SC-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "SC-03",
+          "expected": "none",
+          "detected": "intermediate",
+          "match": "over"
+        },
+        {
+          "control_id": "MS-06",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 9.3,
+      "maturity_level": "Initial"
+    },
+    "llm06_sensitive_info": {
+      "project": "llm06_sensitive_info",
+      "category": "LLM06",
+      "controls": [
+        {
+          "control_id": "DP-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "DP-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "OW-06",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 8.7,
+      "maturity_level": "Initial"
+    },
+    "llm07_insecure_plugin": {
+      "project": "llm07_insecure_plugin",
+      "category": "LLM07",
+      "controls": [
+        {
+          "control_id": "OW-07",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "PS-03",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 7.0,
+      "maturity_level": "Initial"
+    },
+    "llm08_excessive_agency": {
+      "project": "llm08_excessive_agency",
+      "category": "LLM08",
+      "controls": [
+        {
+          "control_id": "OW-08",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "BT-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "GV-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 3.4,
+      "maturity_level": "Initial"
+    },
+    "llm09_overreliance": {
+      "project": "llm09_overreliance",
+      "category": "LLM09",
+      "controls": [
+        {
+          "control_id": "OW-09",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "HM-02",
+          "expected": "none",
+          "detected": "advanced",
+          "match": "over"
+        },
+        {
+          "control_id": "HM-03",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 3.4,
+      "maturity_level": "Initial"
+    },
+    "llm10_model_theft": {
+      "project": "llm10_model_theft",
+      "category": "LLM10",
+      "controls": [
+        {
+          "control_id": "OW-10",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "MS-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "BT-05",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 12.8,
+      "maturity_level": "Initial"
+    }
+  },
+  "by_category": {
+    "LLM01": {
+      "scores": [
+        7.0
+      ],
+      "control_matches": {
+        "exact": 4,
+        "over": 0,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 7.0
+    },
+    "LLM02": {
+      "scores": [
+        0.3
+      ],
+      "control_matches": {
+        "exact": 2,
+        "over": 0,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 0.3
+    },
+    "LLM03": {
+      "scores": [
+        12.6
+      ],
+      "control_matches": {
+        "exact": 2,
+        "over": 1,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 12.6
+    },
+    "LLM04": {
+      "scores": [
+        3.4
+      ],
+      "control_matches": {
+        "exact": 2,
+        "over": 0,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 3.4
+    },
+    "LLM05": {
+      "scores": [
+        9.3
+      ],
+      "control_matches": {
+        "exact": 3,
+        "over": 1,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 9.3
+    },
+    "LLM06": {
+      "scores": [
+        8.7
+      ],
+      "control_matches": {
+        "exact": 3,
+        "over": 0,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 8.7
+    },
+    "LLM07": {
+      "scores": [
+        7.0
+      ],
+      "control_matches": {
+        "exact": 2,
+        "over": 0,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 7.0
+    },
+    "LLM08": {
+      "scores": [
+        3.4
+      ],
+      "control_matches": {
+        "exact": 3,
+        "over": 0,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 3.4
+    },
+    "LLM09": {
+      "scores": [
+        3.4
+      ],
+      "control_matches": {
+        "exact": 2,
+        "over": 1,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 3.4
+    },
+    "LLM10": {
+      "scores": [
+        12.8
+      ],
+      "control_matches": {
+        "exact": 3,
+        "over": 0,
+        "under": 0,
+        "unknown": 0
+      },
+      "avg_score": 12.8
+    }
+  },
+  "control_accuracy": {
+    "exact": 26,
+    "over": 3,
+    "under": 0,
+    "unknown": 0,
+    "total": 29,
+    "exact_pct": 89.7,
+    "accuracy": 0.897
+  },
+  "details": [
+    {
+      "project": "llm01_prompt_injection",
+      "category": "LLM01",
+      "controls": [
+        {
+          "control_id": "PS-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "PS-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "PS-03",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "PS-07",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 7.0,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm02_insecure_output",
+      "category": "LLM02",
+      "controls": [
+        {
+          "control_id": "OW-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "DP-03",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 0.3,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm03_training_poisoning",
+      "category": "LLM03",
+      "controls": [
+        {
+          "control_id": "MS-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "SC-01",
+          "expected": "none",
+          "detected": "intermediate",
+          "match": "over"
+        },
+        {
+          "control_id": "SC-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 12.6,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm04_model_dos",
+      "category": "LLM04",
+      "controls": [
+        {
+          "control_id": "OW-04",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "BT-05",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 3.4,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm05_supply_chain",
+      "category": "LLM05",
+      "controls": [
+        {
+          "control_id": "SC-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "SC-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "SC-03",
+          "expected": "none",
+          "detected": "intermediate",
+          "match": "over"
+        },
+        {
+          "control_id": "MS-06",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 9.3,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm06_sensitive_info",
+      "category": "LLM06",
+      "controls": [
+        {
+          "control_id": "DP-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "DP-02",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "OW-06",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 8.7,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm07_insecure_plugin",
+      "category": "LLM07",
+      "controls": [
+        {
+          "control_id": "OW-07",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "PS-03",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 7.0,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm08_excessive_agency",
+      "category": "LLM08",
+      "controls": [
+        {
+          "control_id": "OW-08",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "BT-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "GV-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 3.4,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm09_overreliance",
+      "category": "LLM09",
+      "controls": [
+        {
+          "control_id": "OW-09",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "HM-02",
+          "expected": "none",
+          "detected": "advanced",
+          "match": "over"
+        },
+        {
+          "control_id": "HM-03",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 3.4,
+      "maturity_level": "Initial"
+    },
+    {
+      "project": "llm10_model_theft",
+      "category": "LLM10",
+      "controls": [
+        {
+          "control_id": "OW-10",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "MS-01",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        },
+        {
+          "control_id": "BT-05",
+          "expected": "none",
+          "detected": "none",
+          "match": "exact"
+        }
+      ],
+      "overall_score": 12.8,
+      "maturity_level": "Initial"
+    }
+  ]
+}

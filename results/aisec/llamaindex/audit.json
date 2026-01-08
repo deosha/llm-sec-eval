@@ -1,0 +1,2625 @@
+{
+  "audit_id": "5d2bbade",
+  "project_path": "repos/llama_index/llama-index-core/llama_index/core",
+  "timestamp": "2026-01-08T23:32:23.614560",
+  "overall_score": 37.6,
+  "maturity_level": "Developing",
+  "files_scanned": 505,
+  "scan_duration_seconds": 0.44,
+  "detected_controls": 29,
+  "total_controls": 61,
+  "categories": {
+    "prompt_security": {
+      "category_id": "prompt_security",
+      "category_name": "Prompt Security",
+      "score": 34.4,
+      "max_score": 100.0,
+      "percentage": 34.4,
+      "detected_count": 4,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "PS-01",
+          "control_name": "Prompt Sanitization",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/tools/types.py",
+              "line_number": 84,
+              "snippet": "\"name\": self._sanitize_name(self.name),",
+              "description": "Sanitization function call: self._sanitize_name",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/tools/types.py",
+              "line_number": 99,
+              "snippet": "\"name\": self._sanitize_name(self.name),",
+              "description": "Sanitization function call: self._sanitize_name",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/graph_stores/utils.py",
+              "line_number": 30,
+              "snippet": "sanitized_value = value_sanitize(value)",
+              "description": "Sanitization function call: value_sanitize",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/postprocessor/rankGPT_rerank.py",
+              "line_number": 198,
+              "snippet": "response = self._clean_response(permutation)",
+              "description": "Sanitization function call: self._clean_response",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/evaluation/batch_runner.py",
+              "line_number": 220,
+              "snippet": "queries, response_strs, contexts_list = self._validate_and_clean_inputs(",
+              "description": "Sanitization function call: self._validate_and_clean_inputs",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/evaluation/batch_runner.py",
+              "line_number": 282,
+              "snippet": "queries, responses = self._validate_and_clean_inputs(queries, responses)",
+              "description": "Sanitization function call: self._validate_and_clean_inputs",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/vector_stores/types.py",
+              "line_number": 129,
+              "snippet": "return MetadataFilter.model_validate(filter_dict)",
+              "description": "Sanitization function call: MetadataFilter.model_validate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/vector_stores/types.py",
+              "line_number": 158,
+              "snippet": "for k, v in filter_dict.items():",
+              "description": "Sanitization function call: filter_dict.items",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/vector_stores/types.py",
+              "line_number": 159,
+              "snippet": "filter = MetadataFilter(key=k, value=v, operator=FilterOperator.EQ)",
+              "description": "Sanitization function call: MetadataFilter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/output_parsers/selection.py",
+              "line_number": 104,
+              "snippet": "return prompt_template + \"\\n\\n\" + _escape_curly_braces(FORMAT_STR)",
+              "description": "Sanitization function call: _escape_curly_braces",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/evaluation/batch_runner.py",
+              "line_number": 220,
+              "snippet": "queries, response_strs, contexts_list = self._validate_and_clean_inputs(",
+              "description": "Custom sanitization function: self._validate_and_clean_inputs",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/evaluation/batch_runner.py",
+              "line_number": 282,
+              "snippet": "queries, responses = self._validate_and_clean_inputs(queries, responses)",
+              "description": "Custom sanitization function: self._validate_and_clean_inputs",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-02",
+          "control_name": "Rate Limiting",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement rate limiting using fastapi-limiter, flask-limiter, or slowapi",
+            "Configure per-user and per-endpoint rate limits",
+            "Add exponential backoff for repeated violations"
+          ]
+        },
+        {
+          "control_id": "PS-03",
+          "control_name": "Input Validation",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.86,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/types.py",
+              "line_number": 23,
+              "snippet": "pydantic",
+              "description": "Pydantic validation library imported",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/data_structs/data_structs.py",
+              "line_number": 218,
+              "snippet": "class MultiModelIndexDict(IndexDict):",
+              "description": "Validation model class: MultiModelIndexDict",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/program/utils.py",
+              "line_number": 23,
+              "snippet": "class FlexibleModel(BaseModel):",
+              "description": "Validation model class: FlexibleModel",
+              "confidence": 0.8
+            },
+            {
+              "type": "decorator",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 529,
+              "snippet": "@field_validator",
+              "description": "Pydantic validator decorator",
+              "confidence": 0.9
+            },
+            {
+              "type": "decorator",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 554,
+              "snippet": "@field_validator",
+              "description": "Pydantic validator decorator",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-04",
+          "control_name": "Output Filtering",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8000000000000002,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/postprocessor/rankGPT_rerank.py",
+              "line_number": 198,
+              "snippet": "response = self._clean_response(permutation)",
+              "description": "Output filtering function: self._clean_response",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/response_synthesizers/accumulate.py",
+              "line_number": 83,
+              "snippet": "return self._format_response(outputs, separator)",
+              "description": "Response processing: self._format_response",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/response_synthesizers/accumulate.py",
+              "line_number": 108,
+              "snippet": "return self._format_response(outputs, separator)",
+              "description": "Response processing: self._format_response",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-05",
+          "control_name": "Context Window Protection",
+          "category": "prompt_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8250000000000001,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/utils.py",
+              "line_number": 150,
+              "snippet": "tiktoken",
+              "description": "tiktoken imported for token counting",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 455,
+              "snippet": "source_text_truncated = truncate_text(",
+              "description": "Token/length handling: truncate_text",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1092,
+              "snippet": "source_text_truncated = truncate_text(",
+              "description": "Token/length handling: truncate_text",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/extractors/document_context.py",
+              "line_number": 271,
+              "snippet": "token_count = self._count_tokens(doc.get_content())",
+              "description": "Token/length handling: self._count_tokens",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "PS-06",
+          "control_name": "Red Team Testing",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'"
+          ]
+        },
+        {
+          "control_id": "PS-07",
+          "control_name": "Prompt Anomaly Detection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement statistical analysis on prompt patterns",
+            "Use ML-based anomaly detection for unusual inputs",
+            "Set up alerts for prompt anomaly detection"
+          ]
+        },
+        {
+          "control_id": "PS-08",
+          "control_name": "System Prompt Protection",
+          "category": "prompt_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ASTAnalyzer' object has no attribute 'find_string_literals'"
+          ]
+        }
+      ]
+    },
+    "model_security": {
+      "category_id": "model_security",
+      "category_name": "Model Security",
+      "score": 21.9,
+      "max_score": 100.0,
+      "percentage": 21.9,
+      "detected_count": 3,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "MS-01",
+          "control_name": "Access Control",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement authentication on all model endpoints",
+            "Use OAuth 2.0 or API keys for access control",
+            "Implement role-based access control (RBAC)"
+          ]
+        },
+        {
+          "control_id": "MS-02",
+          "control_name": "Model Versioning",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use MLflow or DVC for model versioning",
+            "Implement model registry for production models",
+            "Track model lineage and metadata"
+          ]
+        },
+        {
+          "control_id": "MS-03",
+          "control_name": "Dependency Scanning",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use safety or pip-audit for dependency scanning",
+            "Integrate vulnerability scanning in CI/CD",
+            "Set up automated dependency updates with Dependabot"
+          ]
+        },
+        {
+          "control_id": "MS-04",
+          "control_name": "API Security",
+          "category": "model_security",
+          "detected": true,
+          "level": "basic",
+          "confidence": 0.7,
+          "score": 25,
+          "evidence": [
+            {
+              "type": "file",
+              "file_path": "",
+              "line_number": null,
+              "snippet": null,
+              "description": "Security headers configuration (csp)",
+              "confidence": 0.7
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "MS-05",
+          "control_name": "Model Source Verification",
+          "category": "model_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8666666666666667,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 15,
+              "snippet": "hashlib.sha256",
+              "description": "Hash verification library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/ingestion/pipeline.py",
+              "line_number": 10,
+              "snippet": "hashlib.sha256",
+              "description": "Hash verification library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 15,
+              "snippet": "hashlib.sha256",
+              "description": "Hash verification library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/ingestion/pipeline.py",
+              "line_number": 10,
+              "snippet": "hashlib.sha256",
+              "description": "Hash verification library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1239,
+              "snippet": "img.verify()",
+              "description": "Verification function: img.verify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1227,
+              "snippet": "img.verify()  # Verify it's a valid image",
+              "description": "Verification function: img.verify",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "MS-06",
+          "control_name": "Differential Privacy",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Opacus or TensorFlow Privacy for differential privacy",
+            "Implement privacy budgets for model queries",
+            "Monitor epsilon values for privacy guarantees"
+          ]
+        },
+        {
+          "control_id": "MS-07",
+          "control_name": "Model Watermarking",
+          "category": "model_security",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement watermarking for model outputs",
+            "Use cryptographic watermarks for model weights",
+            "Track watermark verification for model theft detection"
+          ]
+        },
+        {
+          "control_id": "MS-08",
+          "control_name": "Secure Model Loading",
+          "category": "model_security",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/output_parsers/utils.py",
+              "line_number": 53,
+              "snippet": "json_obj = yaml.safe_load(json_string)",
+              "description": "Safe loading: yaml.safe_load",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/output_parsers/selection.py",
+              "line_number": 84,
+              "snippet": "json_obj = yaml.safe_load(json_string)",
+              "description": "Safe loading: yaml.safe_load",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "data_privacy": {
+      "category_id": "data_privacy",
+      "category_name": "Data Privacy",
+      "score": 31.2,
+      "max_score": 100.0,
+      "percentage": 31.2,
+      "detected_count": 4,
+      "total_count": 8,
+      "controls": [
+        {
+          "control_id": "DP-01",
+          "control_name": "PII Detection",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.9,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/indices/postprocessor.py",
+              "line_number": 2,
+              "snippet": "llama_index.core.postprocessor.NERPIINodePostprocessor",
+              "description": "PII library imported: llama_index.core.postprocessor.NERPIINodePostprocessor",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/indices/postprocessor.py",
+              "line_number": 2,
+              "snippet": "llama_index.core.postprocessor.NERPIINodePostprocessor",
+              "description": "PII library imported: llama_index.core.postprocessor.NERPIINodePostprocessor",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-02",
+          "control_name": "Data Redaction",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/postprocessor/pii.py",
+              "line_number": 85,
+              "snippet": "new_text, mapping_info = self.mask_pii(",
+              "description": "Redaction function: self.mask_pii",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/postprocessor/pii.py",
+              "line_number": 137,
+              "snippet": "new_text, mapping_info = self.mask_pii(",
+              "description": "Redaction function: self.mask_pii",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/utils.py",
+              "line_number": 401,
+              "snippet": "tokenizer = get_tokenizer()",
+              "description": "Redaction function: get_tokenizer",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/settings.py",
+              "line_number": 114,
+              "snippet": "return get_tokenizer()",
+              "description": "Redaction function: get_tokenizer",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/memory/memory.py",
+              "line_number": 261,
+              "snippet": "values[\"tokenizer_fn\"] = get_tokenizer()",
+              "description": "Redaction function: get_tokenizer",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-03",
+          "control_name": "Data Encryption",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.9,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/bridge/langchain.py",
+              "line_number": 23,
+              "snippet": "langchain.memory.ConversationBufferMemory",
+              "description": "Encryption module imported: langchain.memory.ConversationBufferMemory",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/bridge/langchain.py",
+              "line_number": 23,
+              "snippet": "langchain.memory.ConversationBufferMemory",
+              "description": "Encryption module imported: langchain.memory.ConversationBufferMemory",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-04",
+          "control_name": "Audit Logging",
+          "category": "data_privacy",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8500000000000001,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/__init__.py",
+              "line_number": 3,
+              "snippet": "logging",
+              "description": "Logging module imported: logging",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/__init__.py",
+              "line_number": 5,
+              "snippet": "logging.NullHandler",
+              "description": "Logging module imported: logging.NullHandler",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/llama_pack/download.py",
+              "line_number": 65,
+              "snippet": "track_download(llama_pack_class, \"llamapack\")",
+              "description": "Audit logging: track_download",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/llama_dataset/download.py",
+              "line_number": 83,
+              "snippet": "track_download(llama_dataset_class, MODULE_TYPE.DATASETS)",
+              "description": "Audit logging: track_download",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "DP-05",
+          "control_name": "Consent Management",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement consent tracking for data collection",
+            "Provide opt-out mechanisms for users",
+            "Store consent records with timestamps"
+          ]
+        },
+        {
+          "control_id": "DP-06",
+          "control_name": "NER PII Detection",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Presidio or SpaCy for NER-based PII detection",
+            "Implement custom NER models for domain-specific PII",
+            "Run PII detection on all inputs and outputs"
+          ]
+        },
+        {
+          "control_id": "DP-07",
+          "control_name": "Data Retention Policy",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Define data retention policies for AI training data",
+            "Implement automated data deletion after retention period",
+            "Maintain data inventory with retention metadata"
+          ]
+        },
+        {
+          "control_id": "DP-08",
+          "control_name": "GDPR Compliance",
+          "category": "data_privacy",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ASTAnalyzer' object has no attribute 'find_string_literals'"
+          ]
+        }
+      ]
+    },
+    "owasp_llm": {
+      "category_id": "owasp_llm",
+      "category_name": "OWASP LLM Top 10",
+      "score": 35.0,
+      "max_score": 100.0,
+      "percentage": 35.0,
+      "detected_count": 6,
+      "total_count": 10,
+      "controls": [
+        {
+          "control_id": "OWASP-01",
+          "control_name": "LLM01: Prompt Injection Defense",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/tools/types.py",
+              "line_number": 84,
+              "snippet": "\"name\": self._sanitize_name(self.name),",
+              "description": "Input sanitization: self._sanitize_name",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/tools/types.py",
+              "line_number": 99,
+              "snippet": "\"name\": self._sanitize_name(self.name),",
+              "description": "Input sanitization: self._sanitize_name",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/output_parsers/selection.py",
+              "line_number": 104,
+              "snippet": "return prompt_template + \"\\n\\n\" + _escape_curly_braces(FORMAT_STR)",
+              "description": "Input sanitization: _escape_curly_braces",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/vector_stores/types.py",
+              "line_number": 129,
+              "snippet": "return MetadataFilter.model_validate(filter_dict)",
+              "description": "Input sanitization: MetadataFilter.model_validate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/vector_stores/types.py",
+              "line_number": 158,
+              "snippet": "for k, v in filter_dict.items():",
+              "description": "Input sanitization: filter_dict.items",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/postprocessor/rankGPT_rerank.py",
+              "line_number": 198,
+              "snippet": "response = self._clean_response(permutation)",
+              "description": "Input sanitization: self._clean_response",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/evaluation/batch_runner.py",
+              "line_number": 220,
+              "snippet": "queries, response_strs, contexts_list = self._validate_and_clean_inputs(",
+              "description": "Input sanitization: self._validate_and_clean_inputs",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/retrievers/fusion_retriever.py",
+              "line_number": 74,
+              "snippet": "return {\"query_gen_prompt\": PromptTemplate(self.query_gen_prompt)}",
+              "description": "Prompt template usage: PromptTemplate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/postprocessor/node.py",
+              "line_number": 324,
+              "snippet": "infer_prev_next_prompt = PromptTemplate(",
+              "description": "Prompt template usage: PromptTemplate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/prompts/chat_prompts.py",
+              "line_number": 38,
+              "snippet": "CHAT_TEXT_QA_PROMPT = ChatPromptTemplate(message_templates=TEXT_QA_PROMPT_TMPL_MSGS)",
+              "description": "Prompt template usage: ChatPromptTemplate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/prompts/chat_prompts.py",
+              "line_number": 58,
+              "snippet": "CHAT_TREE_SUMMARIZE_PROMPT = ChatPromptTemplate(",
+              "description": "Prompt template usage: ChatPromptTemplate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 347,
+              "snippet": "self.metadata_template.format(key=key, value=str(value))",
+              "description": "Prompt template usage: self.metadata_template.format",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 772,
+              "snippet": "self.metadata_template.format(key=key, value=str(value))",
+              "description": "Prompt template usage: self.metadata_template.format",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-02",
+          "control_name": "LLM02: Insecure Output Handling",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "basic",
+          "confidence": 0.8,
+          "score": 25,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/output_parsers/selection.py",
+              "line_number": 104,
+              "snippet": "return prompt_template + \"\\n\\n\" + _escape_curly_braces(FORMAT_STR)",
+              "description": "Output escaping: _escape_curly_braces",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-03",
+          "control_name": "LLM03: Training Data Poisoning",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement data validation pipelines",
+            "Verify data source integrity",
+            "Monitor for anomalies in training data"
+          ]
+        },
+        {
+          "control_id": "OWASP-04",
+          "control_name": "LLM04: Model Denial of Service",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement rate limiting on API endpoints",
+            "Set maximum token limits for inputs and outputs",
+            "Add timeout mechanisms for LLM calls"
+          ]
+        },
+        {
+          "control_id": "OWASP-05",
+          "control_name": "LLM05: Supply Chain Vulnerabilities",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.9,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 15,
+              "snippet": "hashlib.sha256",
+              "description": "Integrity verification: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/ingestion/pipeline.py",
+              "line_number": 10,
+              "snippet": "hashlib.sha256",
+              "description": "Integrity verification: hashlib.sha256",
+              "confidence": 0.9
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-06",
+          "control_name": "LLM06: Sensitive Information Disclosure",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/postprocessor/pii.py",
+              "line_number": 85,
+              "snippet": "new_text, mapping_info = self.mask_pii(",
+              "description": "Data filtering: self.mask_pii",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/postprocessor/pii.py",
+              "line_number": 137,
+              "snippet": "new_text, mapping_info = self.mask_pii(",
+              "description": "Data filtering: self.mask_pii",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/tools/types.py",
+              "line_number": 84,
+              "snippet": "\"name\": self._sanitize_name(self.name),",
+              "description": "Data filtering: self._sanitize_name",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/tools/types.py",
+              "line_number": 99,
+              "snippet": "\"name\": self._sanitize_name(self.name),",
+              "description": "Data filtering: self._sanitize_name",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-07",
+          "control_name": "LLM07: Insecure Plugin Design",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1049,
+              "snippet": "else MediaResource.model_validate(data[\"text_resource\"])",
+              "description": "Plugin validation: MediaResource.model_validate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/vector_stores/types.py",
+              "line_number": 129,
+              "snippet": "return MetadataFilter.model_validate(filter_dict)",
+              "description": "Plugin validation: MetadataFilter.model_validate",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-08",
+          "control_name": "LLM08: Excessive Agency",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement human-in-the-loop for critical actions",
+            "Use principle of least privilege for LLM access",
+            "Add approval workflows for sensitive operations"
+          ]
+        },
+        {
+          "control_id": "OWASP-09",
+          "control_name": "LLM09: Overreliance",
+          "category": "owasp_llm",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/retrievers/recursive_retriever.py",
+              "line_number": 107,
+              "snippet": "new_nodes_with_score.append(node_with_score)",
+              "description": "Confidence scoring: new_nodes_with_score.append",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/retrievers/recursive_retriever.py",
+              "line_number": 105,
+              "snippet": "new_nodes_with_score.append(node_with_score)",
+              "description": "Confidence scoring: new_nodes_with_score.append",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1239,
+              "snippet": "img.verify()",
+              "description": "Output verification: img.verify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1227,
+              "snippet": "img.verify()  # Verify it's a valid image",
+              "description": "Output verification: img.verify",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "OWASP-10",
+          "control_name": "LLM10: Model Theft",
+          "category": "owasp_llm",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement rate limiting on API endpoints",
+            "Add query logging and anomaly detection",
+            "Monitor for extraction patterns"
+          ]
+        }
+      ]
+    },
+    "blue_team": {
+      "category_id": "blue_team",
+      "category_name": "Blue Team Operations",
+      "score": 10.7,
+      "max_score": 100.0,
+      "percentage": 10.7,
+      "detected_count": 1,
+      "total_count": 7,
+      "controls": [
+        {
+          "control_id": "BT-01",
+          "control_name": "Model Monitoring",
+          "category": "blue_team",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/evaluation/notebook_utils.py",
+              "line_number": 32,
+              "snippet": "metric_dicts.append(metric_dict)",
+              "description": "Metrics tracking: metric_dicts.append",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/evaluation/retrieval/metrics.py",
+              "line_number": 80,
+              "snippet": "return RetrievalMetricResult(score=score)",
+              "description": "Metrics tracking: RetrievalMetricResult",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/indices/prompt_helper.py",
+              "line_number": 106,
+              "snippet": "self._token_counter = TokenCounter(tokenizer=tokenizer)",
+              "description": "Metrics tracking: TokenCounter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/callbacks/token_counting.py",
+              "line_number": 168,
+              "snippet": "self._token_counter = TokenCounter(tokenizer=self.tokenizer)",
+              "description": "Metrics tracking: TokenCounter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/llama_pack/download.py",
+              "line_number": 65,
+              "snippet": "track_download(llama_pack_class, \"llamapack\")",
+              "description": "Metrics tracking: track_download",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/llama_dataset/download.py",
+              "line_number": 83,
+              "snippet": "track_download(llama_dataset_class, MODULE_TYPE.DATASETS)",
+              "description": "Metrics tracking: track_download",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "BT-02",
+          "control_name": "Drift Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement drift detection with evidently or alibi-detect",
+            "Monitor input data distribution changes",
+            "Set up automated alerts for drift events"
+          ]
+        },
+        {
+          "control_id": "BT-03",
+          "control_name": "Anomaly Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement anomaly detection on model inputs",
+            "Monitor for unusual query patterns",
+            "Use statistical methods or ML-based detection"
+          ]
+        },
+        {
+          "control_id": "BT-04",
+          "control_name": "Adversarial Attack Detection",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement adversarial input detection",
+            "Use adversarial robustness toolkits",
+            "Add input perturbation analysis"
+          ]
+        },
+        {
+          "control_id": "BT-05",
+          "control_name": "AI Incident Response",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Create AI-specific incident response playbooks",
+            "Implement model rollback capabilities",
+            "Set up automated incident alerting"
+          ]
+        },
+        {
+          "control_id": "BT-06",
+          "control_name": "Model Drift Monitoring",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Evidently or alibi-detect for drift monitoring",
+            "Set up automated alerts for significant drift",
+            "Implement automatic retraining pipelines"
+          ]
+        },
+        {
+          "control_id": "BT-07",
+          "control_name": "Data Quality Monitoring",
+          "category": "blue_team",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Great Expectations for data validation",
+            "Implement data quality checks in pipeline",
+            "Set up alerts for data quality issues"
+          ]
+        }
+      ]
+    },
+    "governance": {
+      "category_id": "governance",
+      "category_name": "AI Governance",
+      "score": 20.0,
+      "max_score": 100.0,
+      "percentage": 20.0,
+      "detected_count": 2,
+      "total_count": 5,
+      "controls": [
+        {
+          "control_id": "GV-01",
+          "control_name": "Model Explainability",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use SHAP or LIME for model explanations",
+            "Provide decision explanations in outputs",
+            "Implement feature attribution tracking"
+          ]
+        },
+        {
+          "control_id": "GV-02",
+          "control_name": "Bias Detection",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Fairlearn or AIF360 for bias detection",
+            "Implement fairness metrics tracking",
+            "Test for demographic parity and equalized odds"
+          ]
+        },
+        {
+          "control_id": "GV-03",
+          "control_name": "Model Documentation",
+          "category": "governance",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.7666666666666666,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/data_structs/data_structs.py",
+              "line_number": 218,
+              "snippet": "class MultiModelIndexDict(IndexDict):",
+              "description": "Model class with documentation: MultiModelIndexDict",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/program/utils.py",
+              "line_number": 23,
+              "snippet": "class FlexibleModel(BaseModel):",
+              "description": "Model class with documentation: FlexibleModel",
+              "confidence": 0.8
+            },
+            {
+              "type": "file",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/command_line/mappings.json",
+              "line_number": null,
+              "snippet": null,
+              "description": "Documentation files present",
+              "confidence": 0.7
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "GV-04",
+          "control_name": "Compliance Tracking",
+          "category": "governance",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement compliance checklists for AI systems",
+            "Track EU AI Act and other regulatory requirements",
+            "Maintain audit logs for compliance evidence"
+          ]
+        },
+        {
+          "control_id": "GV-05",
+          "control_name": "Human Oversight",
+          "category": "governance",
+          "detected": true,
+          "level": "basic",
+          "confidence": 0.85,
+          "score": 25,
+          "evidence": [
+            {
+              "type": "config",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/command_line/mappings.json",
+              "line_number": null,
+              "snippet": "IMDBReviews: llama_index.readers.imdb_review",
+              "description": "Review configuration: IMDBReviews",
+              "confidence": 0.85
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "supply_chain": {
+      "category_id": "supply_chain",
+      "category_name": "Supply Chain Security",
+      "score": 41.7,
+      "max_score": 100.0,
+      "percentage": 41.7,
+      "detected_count": 2,
+      "total_count": 3,
+      "controls": [
+        {
+          "control_id": "SC-01",
+          "control_name": "Dependency Scanning",
+          "category": "supply_chain",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Add safety or pip-audit to your dependencies",
+            "Configure CI/CD to run security scans on every commit",
+            "Set up Dependabot or Renovate for automatic updates"
+          ]
+        },
+        {
+          "control_id": "SC-02",
+          "control_name": "Model Provenance Tracking",
+          "category": "supply_chain",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/callbacks/global_handlers.py",
+              "line_number": 31,
+              "snippet": "handler = WandbCallbackHandler(**eval_params)",
+              "description": "Model tracking: WandbCallbackHandler",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "SC-03",
+          "control_name": "Model Integrity Verification",
+          "category": "supply_chain",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8500000000000001,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 15,
+              "snippet": "hashlib.sha256",
+              "description": "Hash library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/ingestion/pipeline.py",
+              "line_number": 10,
+              "snippet": "hashlib.sha256",
+              "description": "Hash library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 15,
+              "snippet": "hashlib.sha256",
+              "description": "Hash library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "import",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/ingestion/pipeline.py",
+              "line_number": 10,
+              "snippet": "hashlib.sha256",
+              "description": "Hash library: hashlib.sha256",
+              "confidence": 0.9
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1239,
+              "snippet": "img.verify()",
+              "description": "Verification: img.verify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1227,
+              "snippet": "img.verify()  # Verify it's a valid image",
+              "description": "Verification: img.verify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1049,
+              "snippet": "else MediaResource.model_validate(data[\"text_resource\"])",
+              "description": "Verification: MediaResource.model_validate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/vector_stores/types.py",
+              "line_number": 129,
+              "snippet": "return MetadataFilter.model_validate(filter_dict)",
+              "description": "Verification: MetadataFilter.model_validate",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "hallucination": {
+      "category_id": "hallucination",
+      "category_name": "Hallucination Mitigation",
+      "score": 50.0,
+      "max_score": 100.0,
+      "percentage": 50.0,
+      "detected_count": 4,
+      "total_count": 5,
+      "controls": [
+        {
+          "control_id": "HM-01",
+          "control_name": "RAG Implementation",
+          "category": "hallucination",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/image_retriever.py",
+              "line_number": 26,
+              "snippet": "return self._text_to_image_retrieve(str_or_query_bundle)",
+              "description": "Retrieval pattern: self._text_to_image_retrieve",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/indices/multi_modal/retriever.py",
+              "line_number": 189,
+              "snippet": "return self._text_to_image_retrieve(str_or_query_bundle)",
+              "description": "Retrieval pattern: self._text_to_image_retrieve",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "HM-02",
+          "control_name": "Confidence Scoring",
+          "category": "hallucination",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.85,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "config",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/command_line/mappings.json",
+              "line_number": null,
+              "snippet": "NodeWithScore: llama_index.core.schema",
+              "description": "Confidence config: NodeWithScore",
+              "confidence": 0.85
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "HM-03",
+          "control_name": "Source Attribution",
+          "category": "hallucination",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8000000000000002,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 665,
+              "snippet": "self.text_resource = MediaResource(text=value)",
+              "description": "Citation pattern: MediaResource",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1282,
+              "snippet": "self.image_resource = MediaResource(data=image.encode(\"utf-8\"))",
+              "description": "Citation pattern: MediaResource",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/indices/struct_store/container_builder.py",
+              "line_number": 112,
+              "snippet": "context_docs.append(doc)",
+              "description": "Source documents: context_docs.append",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "HM-04",
+          "control_name": "Temperature Control",
+          "category": "hallucination",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use lower temperature (0-0.3) for factual tasks",
+            "Make temperature configurable per use case",
+            "Document temperature settings for different tasks"
+          ]
+        },
+        {
+          "control_id": "HM-05",
+          "control_name": "Fact Checking",
+          "category": "hallucination",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1239,
+              "snippet": "img.verify()",
+              "description": "Fact checking: img.verify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1227,
+              "snippet": "img.verify()  # Verify it's a valid image",
+              "description": "Fact checking: img.verify",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 1049,
+              "snippet": "else MediaResource.model_validate(data[\"text_resource\"])",
+              "description": "Fact checking: MediaResource.model_validate",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/vector_stores/types.py",
+              "line_number": 129,
+              "snippet": "return MetadataFilter.model_validate(filter_dict)",
+              "description": "Fact checking: MetadataFilter.model_validate",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    },
+    "ethical_ai": {
+      "category_id": "ethical_ai",
+      "category_name": "Ethical AI & Bias",
+      "score": 0.0,
+      "max_score": 100.0,
+      "percentage": 0.0,
+      "detected_count": 0,
+      "total_count": 4,
+      "controls": [
+        {
+          "control_id": "EA-01",
+          "control_name": "Fairness Metrics",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use Fairlearn or AIF360 for fairness metrics",
+            "Implement demographic parity testing",
+            "Monitor fairness metrics in production"
+          ]
+        },
+        {
+          "control_id": "EA-02",
+          "control_name": "Model Explainability",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Use SHAP or LIME for model explanations",
+            "Implement feature attribution for predictions",
+            "Provide human-readable explanations"
+          ]
+        },
+        {
+          "control_id": "EA-03",
+          "control_name": "Bias Testing",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Implement adversarial testing for bias",
+            "Test across demographic groups",
+            "Use TextAttack or CheckList for NLP bias testing"
+          ]
+        },
+        {
+          "control_id": "EA-04",
+          "control_name": "Model Cards",
+          "category": "ethical_ai",
+          "detected": false,
+          "level": "none",
+          "confidence": 0.0,
+          "score": 0,
+          "evidence": [],
+          "recommendations": [
+            "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'"
+          ]
+        }
+      ]
+    },
+    "incident_response": {
+      "category_id": "incident_response",
+      "category_name": "Incident Response",
+      "score": 66.7,
+      "max_score": 100.0,
+      "percentage": 66.7,
+      "detected_count": 3,
+      "total_count": 3,
+      "controls": [
+        {
+          "control_id": "IR-01",
+          "control_name": "Monitoring Integration",
+          "category": "incident_response",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8125,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/indices/prompt_helper.py",
+              "line_number": 106,
+              "snippet": "self._token_counter = TokenCounter(tokenizer=tokenizer)",
+              "description": "Monitoring pattern: TokenCounter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/callbacks/token_counting.py",
+              "line_number": 168,
+              "snippet": "self._token_counter = TokenCounter(tokenizer=self.tokenizer)",
+              "description": "Monitoring pattern: TokenCounter",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/evaluation/retrieval/base.py",
+              "line_number": 97,
+              "snippet": "metric_types = resolve_metrics(metric_names)",
+              "description": "Monitoring pattern: resolve_metrics",
+              "confidence": 0.8
+            },
+            {
+              "type": "config",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/command_line/mappings.json",
+              "line_number": null,
+              "snippet": "resolve_metrics: llama_index.core.evaluation",
+              "description": "Monitoring config: resolve_metrics",
+              "confidence": 0.85
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "IR-02",
+          "control_name": "Audit Logging",
+          "category": "incident_response",
+          "detected": true,
+          "level": "advanced",
+          "confidence": 0.8,
+          "score": 75,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/__init__.py",
+              "line_number": 91,
+              "snippet": "logging.getLogger(__name__).addHandler(NullHandler())",
+              "description": "Logging pattern: logging.getLogger",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 73,
+              "snippet": "logger = logging.getLogger(__name__)",
+              "description": "Logging pattern: logging.getLogger",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/__init__.py",
+              "line_number": 91,
+              "snippet": "logging.getLogger(__name__).addHandler(NullHandler())",
+              "description": "Logging pattern: logging.getLogger",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/schema.py",
+              "line_number": 73,
+              "snippet": "logger = logging.getLogger(__name__)",
+              "description": "Logging pattern: logging.getLogger",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        },
+        {
+          "control_id": "IR-03",
+          "control_name": "Rollback Capability",
+          "category": "incident_response",
+          "detected": true,
+          "level": "intermediate",
+          "confidence": 0.8,
+          "score": 50,
+          "evidence": [
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/__init__.py",
+              "line_number": 9,
+              "snippet": "__version__ = version(\"llama-index-core\")",
+              "description": "Rollback pattern: version",
+              "confidence": 0.8
+            },
+            {
+              "type": "ast",
+              "file_path": "repos/llama_index/llama-index-core/llama_index/core/workflow/drawing.py",
+              "line_number": 86,
+              "snippet": "if Version(version(\"workflows\")) >= Version(\"2.9.0\"):",
+              "description": "Rollback pattern: version",
+              "confidence": 0.8
+            }
+          ],
+          "recommendations": []
+        }
+      ]
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-02",
+      "title": "Rate Limiting",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement rate limiting using fastapi-limiter, flask-limiter, or slowapi",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-02",
+      "title": "Rate Limiting",
+      "description": "Control not detected or below threshold",
+      "remediation": "Configure per-user and per-endpoint rate limits",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-02",
+      "title": "Rate Limiting",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add exponential backoff for repeated violations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-06",
+      "title": "Red Team Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement statistical analysis on prompt patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use ML-based anomaly detection for unusual inputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-07",
+      "title": "Prompt Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up alerts for prompt anomaly detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "prompt_security",
+      "control_id": "PS-08",
+      "title": "System Prompt Protection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ASTAnalyzer' object has no attribute 'find_string_literals'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-01",
+      "title": "Access Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement authentication on all model endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-01",
+      "title": "Access Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use OAuth 2.0 or API keys for access control",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-01",
+      "title": "Access Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement role-based access control (RBAC)",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-02",
+      "title": "Model Versioning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use MLflow or DVC for model versioning",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-02",
+      "title": "Model Versioning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement model registry for production models",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-02",
+      "title": "Model Versioning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Track model lineage and metadata",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-03",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use safety or pip-audit for dependency scanning",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-03",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Integrate vulnerability scanning in CI/CD",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-03",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated dependency updates with Dependabot",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Opacus or TensorFlow Privacy for differential privacy",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement privacy budgets for model queries",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-06",
+      "title": "Differential Privacy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor epsilon values for privacy guarantees",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement watermarking for model outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use cryptographic watermarks for model weights",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "model_security",
+      "control_id": "MS-07",
+      "title": "Model Watermarking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Track watermark verification for model theft detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-05",
+      "title": "Consent Management",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement consent tracking for data collection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-05",
+      "title": "Consent Management",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide opt-out mechanisms for users",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-05",
+      "title": "Consent Management",
+      "description": "Control not detected or below threshold",
+      "remediation": "Store consent records with timestamps",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Presidio or SpaCy for NER-based PII detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement custom NER models for domain-specific PII",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-06",
+      "title": "NER PII Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Run PII detection on all inputs and outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-07",
+      "title": "Data Retention Policy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Define data retention policies for AI training data",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-07",
+      "title": "Data Retention Policy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement automated data deletion after retention period",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-07",
+      "title": "Data Retention Policy",
+      "description": "Control not detected or below threshold",
+      "remediation": "Maintain data inventory with retention metadata",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "data_privacy",
+      "control_id": "DP-08",
+      "title": "GDPR Compliance",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ASTAnalyzer' object has no attribute 'find_string_literals'",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement data validation pipelines",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Verify data source integrity",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-03",
+      "title": "LLM03: Training Data Poisoning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for anomalies in training data",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-04",
+      "title": "LLM04: Model Denial of Service",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement rate limiting on API endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-04",
+      "title": "LLM04: Model Denial of Service",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set maximum token limits for inputs and outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-04",
+      "title": "LLM04: Model Denial of Service",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add timeout mechanisms for LLM calls",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement human-in-the-loop for critical actions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use principle of least privilege for LLM access",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-08",
+      "title": "LLM08: Excessive Agency",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add approval workflows for sensitive operations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement rate limiting on API endpoints",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add query logging and anomaly detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "owasp_llm",
+      "control_id": "OWASP-10",
+      "title": "LLM10: Model Theft",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for extraction patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement drift detection with evidently or alibi-detect",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor input data distribution changes",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-02",
+      "title": "Drift Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated alerts for drift events",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement anomaly detection on model inputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor for unusual query patterns",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-03",
+      "title": "Anomaly Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use statistical methods or ML-based detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement adversarial input detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use adversarial robustness toolkits",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-04",
+      "title": "Adversarial Attack Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add input perturbation analysis",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-05",
+      "title": "AI Incident Response",
+      "description": "Control not detected or below threshold",
+      "remediation": "Create AI-specific incident response playbooks",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-05",
+      "title": "AI Incident Response",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement model rollback capabilities",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-05",
+      "title": "AI Incident Response",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated incident alerting",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Evidently or alibi-detect for drift monitoring",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up automated alerts for significant drift",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-06",
+      "title": "Model Drift Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement automatic retraining pipelines",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-07",
+      "title": "Data Quality Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Great Expectations for data validation",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-07",
+      "title": "Data Quality Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement data quality checks in pipeline",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "blue_team",
+      "control_id": "BT-07",
+      "title": "Data Quality Monitoring",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up alerts for data quality issues",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use SHAP or LIME for model explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide decision explanations in outputs",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-01",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement feature attribution tracking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Fairlearn or AIF360 for bias detection",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement fairness metrics tracking",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-02",
+      "title": "Bias Detection",
+      "description": "Control not detected or below threshold",
+      "remediation": "Test for demographic parity and equalized odds",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-04",
+      "title": "Compliance Tracking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement compliance checklists for AI systems",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-04",
+      "title": "Compliance Tracking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Track EU AI Act and other regulatory requirements",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "governance",
+      "control_id": "GV-04",
+      "title": "Compliance Tracking",
+      "description": "Control not detected or below threshold",
+      "remediation": "Maintain audit logs for compliance evidence",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-01",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Add safety or pip-audit to your dependencies",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-01",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Configure CI/CD to run security scans on every commit",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "supply_chain",
+      "control_id": "SC-01",
+      "title": "Dependency Scanning",
+      "description": "Control not detected or below threshold",
+      "remediation": "Set up Dependabot or Renovate for automatic updates",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-04",
+      "title": "Temperature Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use lower temperature (0-0.3) for factual tasks",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-04",
+      "title": "Temperature Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Make temperature configurable per use case",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "hallucination",
+      "control_id": "HM-04",
+      "title": "Temperature Control",
+      "description": "Control not detected or below threshold",
+      "remediation": "Document temperature settings for different tasks",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use Fairlearn or AIF360 for fairness metrics",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement demographic parity testing",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-01",
+      "title": "Fairness Metrics",
+      "description": "Control not detected or below threshold",
+      "remediation": "Monitor fairness metrics in production",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use SHAP or LIME for model explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement feature attribution for predictions",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-02",
+      "title": "Model Explainability",
+      "description": "Control not detected or below threshold",
+      "remediation": "Provide human-readable explanations",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Implement adversarial testing for bias",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Test across demographic groups",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-03",
+      "title": "Bias Testing",
+      "description": "Control not detected or below threshold",
+      "remediation": "Use TextAttack or CheckList for NLP bias testing",
+      "docs_url": null
+    },
+    {
+      "priority": "critical",
+      "category": "ethical_ai",
+      "control_id": "EA-04",
+      "title": "Model Cards",
+      "description": "Control not detected or below threshold",
+      "remediation": "Detection failed: 'ConfigAnalyzer' object has no attribute 'file_exists'",
+      "docs_url": null
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "report_type": "static_scan",
+  "generated_at": "2026-01-08T17:49:22.260768Z",
+  "summary": {
+    "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin",
+    "files_scanned": 1,
+    "overall_score": 5.4,
+    "confidence": 0.57,
+    "duration_seconds": 0.006,
+    "findings_count": 4,
+    "severity_breakdown": {
+      "CRITICAL": 1,
+      "HIGH": 3,
+      "MEDIUM": 0,
+      "LOW": 0,
+      "INFO": 0
+    }
+  },
+  "category_scores": [
+    {
+      "category_id": "1_prompt_security",
+      "category_name": "Prompt Security",
+      "score": 0,
+      "confidence": 0.42,
+      "subscores": {
+        "input_validation": 0,
+        "jailbreak_prevention": 0,
+        "monitoring_response": 0,
+        "prompt_injection_defense": 0,
+        "context_isolation": 0,
+        "prompt_templates": 0,
+        "output_filtering": 0,
+        "jailbreak_detection": 0
+      },
+      "detected_controls": [
+        "Context protection: Sandboxing"
+      ],
+      "gaps": [
+        "No input validation detected",
+        "No jailbreak prevention mechanisms detected",
+        "No attack detection tools found"
+      ]
+    },
+    {
+      "category_id": "2_model_security",
+      "category_name": "Model Security & Integrity",
+      "score": 0,
+      "confidence": 0.37,
+      "subscores": {
+        "model_protection": 16,
+        "extraction_defense": 25,
+        "supply_chain_security": 0,
+        "api_key_security": 0,
+        "model_access_control": 0,
+        "rate_limiting_defense": 0,
+        "model_encryption": 0,
+        "model_provenance": 0,
+        "supply_chain_verification": 0
+      },
+      "detected_controls": [
+        "Encryption in transit"
+      ],
+      "gaps": [
+        "Model protection needs improvement",
+        "Consider implementing encryption and access controls",
+        "Extraction defense is weak",
+        "Implement rate limiting and output protections",
+        "Supply chain security needs attention",
+        "Add model verification and dependency scanning"
+      ]
+    },
+    {
+      "category_id": "3_data_privacy",
+      "category_name": "Data Privacy & PII Protection",
+      "score": 0,
+      "confidence": 0.35,
+      "subscores": {
+        "pii_handling": 0,
+        "consent_management": 0,
+        "compliance_auditing": 0,
+        "pii_detection": 0,
+        "pii_redaction": 0,
+        "data_encryption": 0,
+        "consent_management_comprehensive": 0,
+        "data_lifecycle": 0,
+        "gdpr_compliance": 0,
+        "audit_logging": 0
+      },
+      "detected_controls": [],
+      "gaps": [
+        "PII detection and handling needs improvement",
+        "Consider implementing PII detection tools (Presidio, spaCy NER)",
+        "Consent management is weak",
+        "Implement user consent mechanisms and user rights endpoints",
+        "Regulatory compliance controls missing",
+        "Add audit logging and compliance documentation"
+      ]
+    },
+    {
+      "category_id": "4_hallucination_mitigation",
+      "category_name": "Hallucination Detection & Mitigation",
+      "score": 0,
+      "confidence": 0.35,
+      "subscores": {
+        "factual_consistency": 0,
+        "output_validation": 0,
+        "user_feedback": 0,
+        "rag_integration": 0,
+        "citation_tracking": 0,
+        "confidence_scoring": 0,
+        "fact_checking": 0,
+        "consistency_checks": 0,
+        "grounding": 0
+      },
+      "detected_controls": [],
+      "gaps": [
+        "Missing controls: Citation tracking / RAG, Confidence scoring, Consistency checks, Constraint checking, Cross-validation",
+        "Plus 9 more controls need implementation"
+      ]
+    },
+    {
+      "category_id": "5_ethical_ai",
+      "category_name": "Ethical AI & Bias Detection",
+      "score": 0,
+      "confidence": 0.4,
+      "subscores": {
+        "bias_testing": 0,
+        "fairness_metrics": 0,
+        "explainability": 0,
+        "harmful_content_filtering": 0,
+        "diverse_training": 0,
+        "transparency": 0,
+        "legacy_bias_detection": 0,
+        "legacy_fairness": 0
+      },
+      "detected_controls": [],
+      "gaps": []
+    },
+    {
+      "category_id": "6_governance",
+      "category_name": "Governance & Compliance",
+      "score": 0,
+      "confidence": 0.4,
+      "subscores": {
+        "plugin_security": 0,
+        "authorization_controls": 0,
+        "audit_logging": 0,
+        "incident_response": 0,
+        "model_documentation": 0,
+        "risk_assessment": 0,
+        "user_consent": 0,
+        "legacy_governance": 0
+      },
+      "detected_controls": [],
+      "gaps": []
+    },
+    {
+      "category_id": "0_owasp_vulnerabilities",
+      "category_name": "OWASP LLM Vulnerabilities",
+      "score": 21,
+      "confidence": 0.79,
+      "subscores": {
+        "LLM01": 100,
+        "LLM02": 100,
+        "LLM03": 100,
+        "LLM04": 100,
+        "LLM05": 100,
+        "LLM06": 100,
+        "LLM07": 21,
+        "LLM08": 100,
+        "LLM09": 100,
+        "LLM10": 100
+      },
+      "detected_controls": [
+        "Prompt Injection (no vulnerabilities found)",
+        "Insecure Output Handling (no vulnerabilities found)",
+        "Training Data Poisoning (no vulnerabilities found)",
+        "Model Denial of Service (no vulnerabilities found)",
+        "Supply Chain Vulnerabilities (no vulnerabilities found)",
+        "Sensitive Information Disclosure (no vulnerabilities found)",
+        "Excessive Agency (no vulnerabilities found)",
+        "Overreliance (no vulnerabilities found)",
+        "Model Theft (no vulnerabilities found)"
+      ],
+      "gaps": [
+        "Insecure Plugin Design: 1 critical, 3 high"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_95_registration",
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Plugin registration without input validation in 'load_plugin'",
+      "description": "Function 'load_plugin' on line 95 registers or loads plugins without implementing input validation. This allows malicious plugins to be loaded with arbitrary parameters, potentially leading to code injection, privilege escalation, or system compromise.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 95,
+      "code_snippet": "        self.plugins = {}\n\n    def load_plugin(self, name: str, code: str):\n        \"\"\"Load and execute plugin code.\"\"\"\n        # VULNERABLE - executing arbitrary code\n        exec(code, {\"__builtins__\": __builtins__}, self.plugins)",
+      "recommendation": "Plugin Input Validation Best Practices:\n1. Validate all plugin parameters against a strict schema\n2. Use allowlists for permitted plugin names/sources\n3. Verify plugin signatures before loading\n4. Check plugin metadata and version compatibility\n5. Sanitize all user-provided plugin configuration\n6. Implement plugin capability restrictions\n7. Use type validation (Pydantic, marshmallow, JSON Schema)\n8. Reject plugins with suspicious characteristics\n9. Log all plugin registration attempts\n10. Implement rate limiting on plugin operations"
+    },
+    {
+      "id": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_95_dynamic",
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "CRITICAL",
+      "confidence": 0.85,
+      "title": "Unsafe dynamic plugin loading in 'load_plugin'",
+      "description": "Function 'load_plugin' on line 95 uses dynamic loading (__import__, eval, exec) to load plugins without validation. This creates a critical security risk where attackers can inject malicious code through plugin loading mechanisms, leading to arbitrary code execution.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 95,
+      "code_snippet": "\n    def __init__(self):\n        self.plugins = {}\n\n    def load_plugin(self, name: str, code: str):\n        \"\"\"Load and execute plugin code.\"\"\"\n        # VULNERABLE - executing arbitrary code\n        exec(code, {\"__builtins__\": __builtins__}, self.plugins)\n\n    def run_plugin(self, name: str, *args):",
+      "recommendation": "Safe Plugin Loading:\n1. NEVER use eval(), exec(), or __import__() for plugins\n2. Use importlib with strict module path validation\n3. Implement plugin allowlists (approved plugins only)\n4. Verify plugin checksums/signatures before loading\n5. Load plugins from trusted directories only\n6. Use separate Python processes for plugin isolation\n7. Implement plugin capability restrictions\n8. Validate plugin code with static analysis before loading\n9. Use virtual environments for plugin execution\n10. Monitor plugin behavior for anomalies"
+    },
+    {
+      "id": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_95_auth",
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Plugin management function without authentication in 'load_plugin'",
+      "description": "Function 'load_plugin' on line 95 manages plugins (install/enable/execute) without requiring authentication. This allows unauthorized users to manipulate the plugin system, potentially installing malicious plugins or executing arbitrary code.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 95,
+      "code_snippet": "        self.plugins = {}\n\n    def load_plugin(self, name: str, code: str):\n        \"\"\"Load and execute plugin code.\"\"\"\n        # VULNERABLE - executing arbitrary code\n        exec(code, {\"__builtins__\": __builtins__}, self.plugins)",
+      "recommendation": "Plugin Authentication & Authorization:\n1. Require authentication for all plugin management operations\n2. Implement role-based access control (RBAC)\n3. Use API keys or OAuth tokens for plugin operations\n4. Verify user permissions before plugin actions\n5. Audit all plugin management operations\n6. Implement rate limiting per user/API key\n7. Use multi-factor authentication for sensitive operations\n8. Validate plugin ownership before modifications\n9. Implement plugin signing with developer keys\n10. Log all authentication attempts and failures"
+    },
+    {
+      "id": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_100_auth",
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Plugin management function without authentication in 'run_plugin'",
+      "description": "Function 'run_plugin' on line 100 manages plugins (install/enable/execute) without requiring authentication. This allows unauthorized users to manipulate the plugin system, potentially installing malicious plugins or executing arbitrary code.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 100,
+      "code_snippet": "        exec(code, {\"__builtins__\": __builtins__}, self.plugins)\n\n    def run_plugin(self, name: str, *args):\n        \"\"\"Run a loaded plugin.\"\"\"\n        if name in self.plugins:\n            return self.plugins[name](*args)",
+      "recommendation": "Plugin Authentication & Authorization:\n1. Require authentication for all plugin management operations\n2. Implement role-based access control (RBAC)\n3. Use API keys or OAuth tokens for plugin operations\n4. Verify user permissions before plugin actions\n5. Audit all plugin management operations\n6. Implement rate limiting per user/API key\n7. Use multi-factor authentication for sensitive operations\n8. Validate plugin ownership before modifications\n9. Implement plugin signing with developer keys\n10. Log all authentication attempts and failures"
+    }
+  ],
+  "metadata": {}
+}

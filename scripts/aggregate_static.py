@@ -61,8 +61,8 @@ def match_finding(finding: Dict, ground_truth: Dict, tool: str, tolerance: int =
     gt_tolerance = ground_truth.get("line_tolerance", tolerance)
 
     if tool == "aisec":
-        finding_file = finding.get("file", "")
-        finding_line = finding.get("line", 0)
+        finding_file = finding.get("file_path", "") or finding.get("file", "")
+        finding_line = finding.get("line_number", 0) or finding.get("line", 0)
     elif tool == "semgrep":
         finding_file = finding.get("path", "")
         finding_line = finding.get("start", {}).get("line", 0)

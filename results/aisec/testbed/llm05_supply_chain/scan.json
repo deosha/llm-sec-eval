@@ -1,0 +1,220 @@
+{
+  "report_type": "static_scan",
+  "generated_at": "2026-01-08T17:49:21.852636Z",
+  "summary": {
+    "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain",
+    "files_scanned": 1,
+    "overall_score": 18.82,
+    "confidence": 0.59,
+    "duration_seconds": 0.004,
+    "findings_count": 2,
+    "severity_breakdown": {
+      "CRITICAL": 0,
+      "HIGH": 1,
+      "MEDIUM": 1,
+      "LOW": 0,
+      "INFO": 0
+    }
+  },
+  "category_scores": [
+    {
+      "category_id": "1_prompt_security",
+      "category_name": "Prompt Security",
+      "score": 0,
+      "confidence": 0.43,
+      "subscores": {
+        "input_validation": 0,
+        "jailbreak_prevention": 0,
+        "monitoring_response": 0,
+        "prompt_injection_defense": 0,
+        "context_isolation": 0,
+        "prompt_templates": 0,
+        "output_filtering": 0,
+        "jailbreak_detection": 0
+      },
+      "detected_controls": [],
+      "gaps": [
+        "No input validation detected",
+        "No jailbreak prevention mechanisms detected",
+        "No context window protection detected",
+        "No attack detection tools found"
+      ]
+    },
+    {
+      "category_id": "2_model_security",
+      "category_name": "Model Security & Integrity",
+      "score": 0,
+      "confidence": 0.43,
+      "subscores": {
+        "model_protection": 25,
+        "extraction_defense": 0,
+        "supply_chain_security": 25,
+        "api_key_security": 0,
+        "model_access_control": 0,
+        "rate_limiting_defense": 0,
+        "model_encryption": 0,
+        "model_provenance": 0,
+        "supply_chain_verification": 0
+      },
+      "detected_controls": [
+        "Encryption in transit",
+        "Checksum verification",
+        "Signature verification"
+      ],
+      "gaps": [
+        "Model protection needs improvement",
+        "Consider implementing encryption and access controls",
+        "Extraction defense is weak",
+        "Implement rate limiting and output protections",
+        "Supply chain security needs attention",
+        "Add model verification and dependency scanning"
+      ]
+    },
+    {
+      "category_id": "3_data_privacy",
+      "category_name": "Data Privacy & PII Protection",
+      "score": 0,
+      "confidence": 0.4,
+      "subscores": {
+        "pii_handling": 0,
+        "consent_management": 0,
+        "compliance_auditing": 0,
+        "pii_detection": 0,
+        "pii_redaction": 0,
+        "data_encryption": 0,
+        "consent_management_comprehensive": 0,
+        "data_lifecycle": 0,
+        "gdpr_compliance": 0,
+        "audit_logging": 0
+      },
+      "detected_controls": [
+        "NER models for PII"
+      ],
+      "gaps": [
+        "PII detection and handling needs improvement",
+        "Consider implementing PII detection tools (Presidio, spaCy NER)",
+        "Consent management is weak",
+        "Implement user consent mechanisms and user rights endpoints",
+        "Regulatory compliance controls missing",
+        "Add audit logging and compliance documentation"
+      ]
+    },
+    {
+      "category_id": "4_hallucination_mitigation",
+      "category_name": "Hallucination Detection & Mitigation",
+      "score": 0,
+      "confidence": 0.38,
+      "subscores": {
+        "factual_consistency": 0,
+        "output_validation": 0,
+        "user_feedback": 0,
+        "rag_integration": 0,
+        "citation_tracking": 0,
+        "confidence_scoring": 0,
+        "fact_checking": 0,
+        "consistency_checks": 0,
+        "grounding": 0
+      },
+      "detected_controls": [],
+      "gaps": [
+        "Missing controls: Citation tracking / RAG, Confidence scoring, Consistency checks, Constraint checking, Cross-validation",
+        "Plus 9 more controls need implementation"
+      ]
+    },
+    {
+      "category_id": "5_ethical_ai",
+      "category_name": "Ethical AI & Bias Detection",
+      "score": 0,
+      "confidence": 0.4,
+      "subscores": {
+        "bias_testing": 0,
+        "fairness_metrics": 0,
+        "explainability": 0,
+        "harmful_content_filtering": 0,
+        "diverse_training": 0,
+        "transparency": 0,
+        "legacy_bias_detection": 0,
+        "legacy_fairness": 0
+      },
+      "detected_controls": [],
+      "gaps": []
+    },
+    {
+      "category_id": "6_governance",
+      "category_name": "Governance & Compliance",
+      "score": 0,
+      "confidence": 0.4,
+      "subscores": {
+        "plugin_security": 0,
+        "authorization_controls": 0,
+        "audit_logging": 0,
+        "incident_response": 0,
+        "model_documentation": 0,
+        "risk_assessment": 0,
+        "user_consent": 0,
+        "legacy_governance": 0
+      },
+      "detected_controls": [],
+      "gaps": []
+    },
+    {
+      "category_id": "0_owasp_vulnerabilities",
+      "category_name": "OWASP LLM Vulnerabilities",
+      "score": 76,
+      "confidence": 0.8,
+      "subscores": {
+        "LLM01": 100,
+        "LLM02": 100,
+        "LLM03": 100,
+        "LLM04": 100,
+        "LLM05": 76,
+        "LLM06": 100,
+        "LLM07": 100,
+        "LLM08": 100,
+        "LLM09": 100,
+        "LLM10": 100
+      },
+      "detected_controls": [
+        "Prompt Injection (no vulnerabilities found)",
+        "Insecure Output Handling (no vulnerabilities found)",
+        "Training Data Poisoning (no vulnerabilities found)",
+        "Model Denial of Service (no vulnerabilities found)",
+        "Sensitive Information Disclosure (no vulnerabilities found)",
+        "Insecure Plugin Design (no vulnerabilities found)",
+        "Excessive Agency (no vulnerabilities found)",
+        "Overreliance (no vulnerabilities found)",
+        "Model Theft (no vulnerabilities found)"
+      ],
+      "gaps": [
+        "Supply Chain Vulnerabilities: 1 high, 1 medium"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_42_local_path",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "title": "Untrusted model source: local_path",
+      "description": "Local file path '\"/tmp/model.bin\"' found on line 42. Loading models from local paths without verification can introduce compromised models if the filesystem is not properly secured.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 42,
+      "code_snippet": "    import urllib.request\n    # VULNERABLE - could be HTTP, no certificate verification\n    local_path = \"/tmp/model.bin\"\n    urllib.request.urlretrieve(url, local_path)\n    return local_path\n",
+      "recommendation": "Secure Model Loading:\n1. Only load models from trusted registries (HuggingFace, official repos)\n2. Verify model checksums/signatures before loading\n3. Use allowlists for permitted models\n4. Implement content scanning for downloaded models\n5. Never allow user-controlled model paths\n6. Use isolated environments for model loading\n7. Maintain an SBOM (Software Bill of Materials) for AI components"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_22_pickle",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "title": "Use of pickle for model serialization",
+      "description": "Import of 'pickle' on line 22 for model serialization. This library can execute arbitrary code during deserialization, making it vulnerable to supply chain attacks if loading untrusted models.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 22,
+      "code_snippet": "import pickle",
+      "recommendation": "Secure Serialization:\n1. Use safer alternatives like safetensors for PyTorch/TensorFlow\n2. Never deserialize models from untrusted sources\n3. Scan serialized models before loading\n4. Use sandboxed environments for model loading\n5. Implement allowlists for model formats\n6. Consider using ONNX for model exchange"
+    }
+  ],
+  "metadata": {}
+}

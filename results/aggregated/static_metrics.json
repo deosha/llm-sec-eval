@@ -1,0 +1,682 @@
+{
+  "by_category": {
+    "LLM01": {
+      "aisec": {
+        "tp": 5,
+        "fp": 30,
+        "fn": 0,
+        "precision": 0.143,
+        "recall": 1.0,
+        "f1": 0.25
+      },
+      "semgrep": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 5,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "bandit": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 4,
+        "precision": 1.0,
+        "recall": 0.2,
+        "f1": 0.333
+      }
+    },
+    "LLM02": {
+      "aisec": {
+        "tp": 0,
+        "fp": 6,
+        "fn": 7,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "semgrep": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 5,
+        "precision": 0.667,
+        "recall": 0.286,
+        "f1": 0.4
+      },
+      "bandit": {
+        "tp": 6,
+        "fp": 2,
+        "fn": 1,
+        "precision": 0.75,
+        "recall": 0.857,
+        "f1": 0.8
+      }
+    },
+    "LLM03": {
+      "aisec": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 5,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "semgrep": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 5,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "bandit": {
+        "tp": 3,
+        "fp": 3,
+        "fn": 2,
+        "precision": 0.5,
+        "recall": 0.6,
+        "f1": 0.545
+      }
+    },
+    "LLM04": {
+      "aisec": {
+        "tp": 6,
+        "fp": 31,
+        "fn": 0,
+        "precision": 0.162,
+        "recall": 1.0,
+        "f1": 0.279
+      },
+      "semgrep": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 6,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "bandit": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 6,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      }
+    },
+    "LLM05": {
+      "aisec": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 5,
+        "precision": 1.0,
+        "recall": 0.286,
+        "f1": 0.444
+      },
+      "semgrep": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 7,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "bandit": {
+        "tp": 6,
+        "fp": 6,
+        "fn": 1,
+        "precision": 0.5,
+        "recall": 0.857,
+        "f1": 0.632
+      }
+    },
+    "LLM06": {
+      "aisec": {
+        "tp": 5,
+        "fp": 23,
+        "fn": 2,
+        "precision": 0.179,
+        "recall": 0.714,
+        "f1": 0.286
+      },
+      "semgrep": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 7,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "bandit": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 4,
+        "precision": 1.0,
+        "recall": 0.429,
+        "f1": 0.6
+      }
+    },
+    "LLM07": {
+      "aisec": {
+        "tp": 1,
+        "fp": 3,
+        "fn": 6,
+        "precision": 0.25,
+        "recall": 0.143,
+        "f1": 0.182
+      },
+      "semgrep": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 6,
+        "precision": 1.0,
+        "recall": 0.143,
+        "f1": 0.25
+      },
+      "bandit": {
+        "tp": 5,
+        "fp": 1,
+        "fn": 2,
+        "precision": 0.833,
+        "recall": 0.714,
+        "f1": 0.769
+      }
+    },
+    "LLM08": {
+      "aisec": {
+        "tp": 6,
+        "fp": 42,
+        "fn": 0,
+        "precision": 0.125,
+        "recall": 1.0,
+        "f1": 0.222
+      },
+      "semgrep": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 4,
+        "precision": 1.0,
+        "recall": 0.333,
+        "f1": 0.5
+      },
+      "bandit": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.667
+      }
+    },
+    "LLM09": {
+      "aisec": {
+        "tp": 7,
+        "fp": 30,
+        "fn": 0,
+        "precision": 0.189,
+        "recall": 1.0,
+        "f1": 0.318
+      },
+      "semgrep": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 7,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "bandit": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 7,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      }
+    },
+    "LLM10": {
+      "aisec": {
+        "tp": 7,
+        "fp": 23,
+        "fn": 0,
+        "precision": 0.233,
+        "recall": 1.0,
+        "f1": 0.378
+      },
+      "semgrep": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 7,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "bandit": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 7,
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      }
+    }
+  },
+  "by_tool": {
+    "aisec": {
+      "tp": 39,
+      "fp": 191,
+      "fn": 25,
+      "precision": 0.17,
+      "recall": 0.609,
+      "f1": 0.265
+    },
+    "semgrep": {
+      "tp": 5,
+      "fp": 1,
+      "fn": 59,
+      "precision": 0.833,
+      "recall": 0.078,
+      "f1": 0.143
+    },
+    "bandit": {
+      "tp": 27,
+      "fp": 12,
+      "fn": 37,
+      "precision": 0.692,
+      "recall": 0.422,
+      "f1": 0.524
+    }
+  },
+  "details": [
+    {
+      "project": "llm01_prompt_injection",
+      "category": "LLM01",
+      "tool": "aisec",
+      "precision": 0.143,
+      "recall": 1.0,
+      "f1": 0.25,
+      "tp": 5,
+      "fp": 30,
+      "fn": 0,
+      "total_findings": 35,
+      "ground_truth_count": 5
+    },
+    {
+      "project": "llm01_prompt_injection",
+      "category": "LLM01",
+      "tool": "semgrep",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "total_findings": 0,
+      "ground_truth_count": 5
+    },
+    {
+      "project": "llm01_prompt_injection",
+      "category": "LLM01",
+      "tool": "bandit",
+      "precision": 1.0,
+      "recall": 0.2,
+      "f1": 0.333,
+      "tp": 1,
+      "fp": 0,
+      "fn": 4,
+      "total_findings": 1,
+      "ground_truth_count": 5
+    },
+    {
+      "project": "llm02_insecure_output",
+      "category": "LLM02",
+      "tool": "aisec",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 6,
+      "fn": 7,
+      "total_findings": 6,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm02_insecure_output",
+      "category": "LLM02",
+      "tool": "semgrep",
+      "precision": 0.667,
+      "recall": 0.286,
+      "f1": 0.4,
+      "tp": 2,
+      "fp": 1,
+      "fn": 5,
+      "total_findings": 3,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm02_insecure_output",
+      "category": "LLM02",
+      "tool": "bandit",
+      "precision": 0.75,
+      "recall": 0.857,
+      "f1": 0.8,
+      "tp": 6,
+      "fp": 2,
+      "fn": 1,
+      "total_findings": 8,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm03_training_poisoning",
+      "category": "LLM03",
+      "tool": "aisec",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 3,
+      "fn": 5,
+      "total_findings": 3,
+      "ground_truth_count": 5
+    },
+    {
+      "project": "llm03_training_poisoning",
+      "category": "LLM03",
+      "tool": "semgrep",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "total_findings": 0,
+      "ground_truth_count": 5
+    },
+    {
+      "project": "llm03_training_poisoning",
+      "category": "LLM03",
+      "tool": "bandit",
+      "precision": 0.5,
+      "recall": 0.6,
+      "f1": 0.545,
+      "tp": 3,
+      "fp": 3,
+      "fn": 2,
+      "total_findings": 6,
+      "ground_truth_count": 5
+    },
+    {
+      "project": "llm04_model_dos",
+      "category": "LLM04",
+      "tool": "aisec",
+      "precision": 0.162,
+      "recall": 1.0,
+      "f1": 0.279,
+      "tp": 6,
+      "fp": 31,
+      "fn": 0,
+      "total_findings": 37,
+      "ground_truth_count": 6
+    },
+    {
+      "project": "llm04_model_dos",
+      "category": "LLM04",
+      "tool": "semgrep",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 6,
+      "total_findings": 0,
+      "ground_truth_count": 6
+    },
+    {
+      "project": "llm04_model_dos",
+      "category": "LLM04",
+      "tool": "bandit",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 6,
+      "total_findings": 0,
+      "ground_truth_count": 6
+    },
+    {
+      "project": "llm05_supply_chain",
+      "category": "LLM05",
+      "tool": "aisec",
+      "precision": 1.0,
+      "recall": 0.286,
+      "f1": 0.444,
+      "tp": 2,
+      "fp": 0,
+      "fn": 5,
+      "total_findings": 2,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm05_supply_chain",
+      "category": "LLM05",
+      "tool": "semgrep",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 7,
+      "total_findings": 0,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm05_supply_chain",
+      "category": "LLM05",
+      "tool": "bandit",
+      "precision": 0.5,
+      "recall": 0.857,
+      "f1": 0.632,
+      "tp": 6,
+      "fp": 6,
+      "fn": 1,
+      "total_findings": 12,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm06_sensitive_info",
+      "category": "LLM06",
+      "tool": "aisec",
+      "precision": 0.179,
+      "recall": 0.714,
+      "f1": 0.286,
+      "tp": 5,
+      "fp": 23,
+      "fn": 2,
+      "total_findings": 28,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm06_sensitive_info",
+      "category": "LLM06",
+      "tool": "semgrep",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 7,
+      "total_findings": 0,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm06_sensitive_info",
+      "category": "LLM06",
+      "tool": "bandit",
+      "precision": 1.0,
+      "recall": 0.429,
+      "f1": 0.6,
+      "tp": 3,
+      "fp": 0,
+      "fn": 4,
+      "total_findings": 3,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm07_insecure_plugin",
+      "category": "LLM07",
+      "tool": "aisec",
+      "precision": 0.25,
+      "recall": 0.143,
+      "f1": 0.182,
+      "tp": 1,
+      "fp": 3,
+      "fn": 6,
+      "total_findings": 4,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm07_insecure_plugin",
+      "category": "LLM07",
+      "tool": "semgrep",
+      "precision": 1.0,
+      "recall": 0.143,
+      "f1": 0.25,
+      "tp": 1,
+      "fp": 0,
+      "fn": 6,
+      "total_findings": 1,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm07_insecure_plugin",
+      "category": "LLM07",
+      "tool": "bandit",
+      "precision": 0.833,
+      "recall": 0.714,
+      "f1": 0.769,
+      "tp": 5,
+      "fp": 1,
+      "fn": 2,
+      "total_findings": 6,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm08_excessive_agency",
+      "category": "LLM08",
+      "tool": "aisec",
+      "precision": 0.125,
+      "recall": 1.0,
+      "f1": 0.222,
+      "tp": 6,
+      "fp": 42,
+      "fn": 0,
+      "total_findings": 48,
+      "ground_truth_count": 6
+    },
+    {
+      "project": "llm08_excessive_agency",
+      "category": "LLM08",
+      "tool": "semgrep",
+      "precision": 1.0,
+      "recall": 0.333,
+      "f1": 0.5,
+      "tp": 2,
+      "fp": 0,
+      "fn": 4,
+      "total_findings": 2,
+      "ground_truth_count": 6
+    },
+    {
+      "project": "llm08_excessive_agency",
+      "category": "LLM08",
+      "tool": "bandit",
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.667,
+      "tp": 3,
+      "fp": 0,
+      "fn": 3,
+      "total_findings": 3,
+      "ground_truth_count": 6
+    },
+    {
+      "project": "llm09_overreliance",
+      "category": "LLM09",
+      "tool": "aisec",
+      "precision": 0.189,
+      "recall": 1.0,
+      "f1": 0.318,
+      "tp": 7,
+      "fp": 30,
+      "fn": 0,
+      "total_findings": 37,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm09_overreliance",
+      "category": "LLM09",
+      "tool": "semgrep",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 7,
+      "total_findings": 0,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm09_overreliance",
+      "category": "LLM09",
+      "tool": "bandit",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 7,
+      "total_findings": 0,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm10_model_theft",
+      "category": "LLM10",
+      "tool": "aisec",
+      "precision": 0.233,
+      "recall": 1.0,
+      "f1": 0.378,
+      "tp": 7,
+      "fp": 23,
+      "fn": 0,
+      "total_findings": 30,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm10_model_theft",
+      "category": "LLM10",
+      "tool": "semgrep",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 7,
+      "total_findings": 0,
+      "ground_truth_count": 7
+    },
+    {
+      "project": "llm10_model_theft",
+      "category": "LLM10",
+      "tool": "bandit",
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 7,
+      "total_findings": 0,
+      "ground_truth_count": 7
+    }
+  ]
+}
