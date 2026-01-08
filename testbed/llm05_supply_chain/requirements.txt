@@ -1,0 +1,6 @@
+# VULN:LLM05:MEDIUM - Unpinned dependencies
+langchain
+openai
+transformers
+torch
+requests

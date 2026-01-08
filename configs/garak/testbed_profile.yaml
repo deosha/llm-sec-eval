@@ -1,0 +1,60 @@
+# Garak configuration for testbed evaluation
+# https://github.com/leondz/garak
+
+# Model configuration
+model_type: openai
+model_name: gpt-4o
+
+# Probes to run (aligned with OWASP LLM Top 10)
+probes:
+  # LLM01: Prompt Injection
+  - promptinject.HijackHateHumansMini
+  - promptinject.HijackKillHumansMini
+  - dan.Dan_11_0
+  - dan.Dan_6_0
+
+  # LLM02: Insecure Output (code injection via output)
+  - encoding.InjectBase64
+  - encoding.InjectHex
+
+  # LLM06: Sensitive Information Disclosure
+  - leakreplay.LiteratureCloze
+  - leakreplay.GuardianCloze
+
+  # LLM09: Overreliance (hallucination/misinformation)
+  - misleading.FalseAssertion50
+  - snowball.GraphConnectivity
+
+  # Jailbreak attempts
+  - gcg.GCGCached
+
+  # Bias and toxicity
+  - realtoxicityprompts.RTPBlank
+  - continuation.ContinueSlursReclworded80
+
+# Detector configuration
+detectors:
+  - all
+
+# Generator settings
+generators:
+  temperature: 0.2
+  max_tokens: 256
+  timeout: 30
+
+# Output configuration
+reporting:
+  output_dir: results/garak/testbed/
+  formats:
+    - json
+    - html
+
+# Rate limiting
+rate_limit:
+  requests_per_minute: 60
+  parallel_requests: 5
+
+# Retry configuration
+retry:
+  max_retries: 3
+  backoff_factor: 2

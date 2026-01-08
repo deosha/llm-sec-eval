@@ -1,0 +1,126 @@
+"""
+LLM07: Insecure Plugin Design - Synthetic Vulnerable Application
+This module contains intentional vulnerabilities for testing purposes.
+"""
+
+import os
+import subprocess
+from openai import OpenAI
+
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+
+# VULN:LLM07:CRITICAL:LINE=16 - Shell command execution from LLM
+def vulnerable_shell_tool(llm_output: dict) -> str:
+    """Vulnerable: Executes shell commands based on LLM output."""
+    command = llm_output.get("command", "")
+    # VULNERABLE - arbitrary command execution
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    return result.stdout
+
+
+# VULN:LLM07:HIGH:LINE=26 - File system access without restrictions
+def vulnerable_file_tool(llm_output: dict) -> str:
+    """Vulnerable: Unrestricted file access based on LLM output."""
+    file_path = llm_output.get("path", "")
+    operation = llm_output.get("operation", "read")
+
+    # VULNERABLE - can read/write any file
+    if operation == "read":
+        with open(file_path, "r") as f:
+            return f.read()
+    elif operation == "write":
+        content = llm_output.get("content", "")
+        with open(file_path, "w") as f:
+            f.write(content)
+        return "File written"
+    return "Unknown operation"
+
+
+# VULN:LLM07:HIGH:LINE=44 - Database query without parameterization
+def vulnerable_db_tool(llm_output: dict) -> list:
+    """Vulnerable: Direct SQL execution from LLM output."""
+    import sqlite3
+    query = llm_output.get("query", "")
+
+    conn = sqlite3.connect("app.db")
+    cursor = conn.cursor()
+    # VULNERABLE - SQL injection
+    cursor.execute(query)
+    return cursor.fetchall()
+
+
+# VULN:LLM07:CRITICAL:LINE=58 - HTTP requests without URL validation
+def vulnerable_http_tool(llm_output: dict) -> str:
+    """Vulnerable: Makes HTTP requests to LLM-specified URLs."""
+    import requests
+    url = llm_output.get("url", "")
+    method = llm_output.get("method", "GET")
+
+    # VULNERABLE - SSRF, can access internal resources
+    if method == "GET":
+        response = requests.get(url)
+    elif method == "POST":
+        data = llm_output.get("data", {})
+        response = requests.post(url, json=data)
+    return response.text
+
+
+# VULN:LLM07:HIGH:LINE=74 - Email sending without validation
+def vulnerable_email_tool(llm_output: dict) -> str:
+    """Vulnerable: Sends emails based on LLM output without limits."""
+    import smtplib
+    from email.mime.text import MIMEText
+
+    to_addr = llm_output.get("to", "")
+    subject = llm_output.get("subject", "")
+    body = llm_output.get("body", "")
+
+    # VULNERABLE - can send to any address, spam/phishing
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["To"] = to_addr
+
+    # Simulated send
+    return f"Email sent to {to_addr}"
+
+
+# VULN:LLM07:HIGH:LINE=93 - Plugin with excessive permissions
+class VulnerablePluginManager:
+    """Vulnerable: Plugin system with no permission controls."""
+
+    def __init__(self):
+        self.plugins = {}
+
+    def load_plugin(self, name: str, code: str):
+        """Load and execute plugin code."""
+        # VULNERABLE - executing arbitrary code
+        exec(code, {"__builtins__": __builtins__}, self.plugins)
+
+    def run_plugin(self, name: str, *args):
+        """Run a loaded plugin."""
+        if name in self.plugins:
+            return self.plugins[name](*args)
+
+
+# VULN:LLM07:MEDIUM:LINE=110 - No input validation on tool parameters
+def vulnerable_calculator_tool(llm_output: dict) -> float:
+    """Vulnerable: Calculator tool with eval."""
+    expression = llm_output.get("expression", "")
+    # VULNERABLE - eval on user/LLM input
+    result = eval(expression)
+    return result
+
+
+# SAFE: Sandboxed tool execution (for comparison)
+def safe_file_tool(llm_output: dict, allowed_dirs: list) -> str:
+    """Safe: File access restricted to allowed directories."""
+    file_path = llm_output.get("path", "")
+
+    # Validate path is within allowed directories
+    abs_path = os.path.abspath(file_path)
+    if not any(abs_path.startswith(d) for d in allowed_dirs):
+        raise PermissionError(f"Access denied: {file_path}")
+
+    with open(file_path, "r") as f:
+        return f.read()

@@ -1,0 +1,80 @@
+# Target Repository Configuration
+# Pin commits for reproducibility
+
+repositories:
+  langchain:
+    url: https://github.com/langchain-ai/langchain
+    commit: main  # TODO: Pin to specific commit after initial run
+    subsets:
+      - libs/langchain/langchain/
+      - templates/
+    estimated_loc: 150000
+    description: "LangChain - LLM application framework"
+
+  llama_index:
+    url: https://github.com/run-llama/llama_index
+    commit: main  # TODO: Pin to specific commit
+    subsets:
+      - llama_index/core/
+    estimated_loc: 80000
+    description: "LlamaIndex - Data framework for LLM applications"
+
+  haystack:
+    url: https://github.com/deepset-ai/haystack
+    commit: main  # TODO: Pin to specific commit
+    subsets:
+      - haystack/core/
+    estimated_loc: 50000
+    description: "Haystack - NLP framework for search & QA"
+
+  autogen:
+    url: https://github.com/microsoft/autogen
+    commit: main  # TODO: Pin to specific commit
+    subsets:
+      - autogen/
+    estimated_loc: 40000
+    description: "AutoGen - Multi-agent conversation framework"
+
+  chainlit:
+    url: https://github.com/Chainlit/chainlit
+    commit: main  # TODO: Pin to specific commit
+    subsets:
+      - backend/chainlit/
+    estimated_loc: 25000
+    description: "Chainlit - Build LLM apps with Python"
+
+  open_webui:
+    url: https://github.com/open-webui/open-webui
+    commit: main  # TODO: Pin to specific commit
+    subsets:
+      - backend/
+    estimated_loc: 30000
+    description: "Open WebUI - Self-hosted LLM interface"
+
+  openai_cookbook:
+    url: https://github.com/openai/openai-cookbook
+    commit: main  # TODO: Pin to specific commit
+    subsets:
+      - examples/
+    estimated_loc: 15000
+    description: "OpenAI Cookbook - API usage examples"
+
+# Environment configuration
+environment:
+  python_version: "3.11"
+  node_version: "18"
+
+  api_keys:
+    openai: OPENAI_API_KEY
+    anthropic: ANTHROPIC_API_KEY
+
+  llm_config:
+    temperature: 0.2
+    max_tokens: 256
+    timeout: 30
+    parallelism: 5
+
+  models:
+    openai: gpt-4o
+    anthropic: claude-3-5-sonnet-20241022
+    ollama: llama3
