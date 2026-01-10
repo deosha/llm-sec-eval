@@ -64,18 +64,18 @@ static_findings:
 
   - id: LLM07-STATIC-006
     file: app.py
-    line: 93
+    line: 95
     line_tolerance: 10
     category: LLM07
     severity: high
     confidence: 0.9
-    description: "Plugin system executing arbitrary code"
+    description: "Plugin system executing LLM-generated code"
     pattern: "code execution"
-    vulnerable_code: 'exec(code, ...)'
+    vulnerable_code: 'exec(code, ...) with llm_output'
 
   - id: LLM07-STATIC-007
     file: app.py
-    line: 110
+    line: 113
     line_tolerance: 5
     category: LLM07
     severity: medium

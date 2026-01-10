@@ -2,6 +2,8 @@
 
 Evaluation framework for [AI Security CLI](https://github.com/deosha/ai-security-cli) - benchmarking OWASP LLM Top 10 detection against traditional SAST tools.
 
+> **Important**: See [Comparison Analysis](results/aggregated/comparison_analysis.md) for full methodology context and limitations.
+
 ## Results Summary
 
 ### Synthetic Testbed (Ground Truth)
@@ -10,11 +12,11 @@ Evaluated against 73 ground-truth vulnerabilities across 10 OWASP LLM categories
 
 | Tool | Precision | Recall | F1 Score |
 |------|-----------|--------|----------|
-| **AI Security CLI** | **69.6%** | **53.4%** | **60.5%** |
-| Semgrep | 66.7% | 8.2% | 14.6% |
-| Bandit | 51.5% | 46.6% | 48.9% |
+| **AI Security CLI** | **68.5%** | **50.7%** | **58.3%** |
+| Semgrep | 83.3% | 6.8% | 12.7% |
+| Bandit | 58.3% | 38.4% | 46.3% |
 
-**AI Security CLI outperforms both Semgrep and Bandit on F1 score** by detecting LLM-specific vulnerabilities that generic tools miss.
+**Note**: This comparison evaluates a specialized LLM scanner against general-purpose SAST tools. Low recall for Semgrep/Bandit on LLM-specific categories is **expected behavior** - they were not designed for these patterns. See [Limitations](#limitations) below.
 
 ### Per-Category Detection Rates
 
@@ -59,16 +61,26 @@ Evaluated against 73 ground-truth vulnerabilities across 10 OWASP LLM categories
 | LLM01: Prompt Injection | 262 | 3.9% |
 | Others | 101 | 1.5% |
 
-### Unique Coverage
+### Tool Coverage by Pattern Type
 
-AI Security CLI is the **only tool** detecting these OWASP LLM categories (0% coverage by Semgrep/Bandit):
+#### LLM-Specific Patterns (Generic tools NOT expected to detect)
 
-| Category | AI-Sec Recall | Semgrep | Bandit |
-|----------|---------------|---------|--------|
-| **LLM04**: Model DoS | 100% | 0% | 0% |
-| **LLM08**: Excessive Agency | 100% | 0% | 0% |
-| **LLM09**: Overreliance | 100% | 0% | 0% |
-| **LLM10**: Model Theft | 86% | 0% | 0% |
+| Category | AI-Sec F1 | Semgrep | Bandit | Why Generic Tools Miss |
+|----------|-----------|---------|--------|------------------------|
+| **LLM01**: Prompt Injection | 60.0% | 0% | 15.4% | No rules for LLM prompt APIs |
+| **LLM04**: Model DoS | 80.0% | 0% | 0% | No rules for rate limiting |
+| **LLM06**: Sensitive Info | 62.5% | 0% | 0% | No LLM context awareness |
+| **LLM10**: Model Theft | 44.4% | 0% | 0% | No model protection rules |
+
+#### General Patterns (Generic tools SHOULD detect)
+
+| Category | AI-Sec F1 | Semgrep | Bandit | Pattern Type |
+|----------|-----------|---------|--------|--------------|
+| **LLM02**: Insecure Output | 35.3% | 42.9% | **81.8%** | eval/exec/SQL |
+| **LLM07**: Insecure Plugin | 71.4% | 25.0% | **83.3%** | shell/exec |
+| **LLM03**: Training Poisoning | 57.1% | 0% | 60.0% | pickle.load |
+
+Bandit excels at general patterns (eval/exec/shell) - **this is expected and appropriate**.
 
 ## Repository Structure
 
@@ -167,11 +179,11 @@ static_findings:
 
 ## Key Findings
 
-1. **60.5% F1 score** - Best overall performance among tested tools
-2. **69.6% precision** - Significantly reduced false positives
-3. **53.4% recall** - Detects over half of all vulnerabilities
-4. **Best categories**: LLM07 (85.7%), LLM06 (71.4%), LLM04 (66.7%)
-5. **Unique coverage** for LLM04, LLM08, LLM09, LLM10 (not detected by Semgrep/Bandit)
+1. **58.3% F1 score** - Best overall performance on LLM-specific testbed
+2. **68.5% precision** - Reduced false positives compared to Bandit
+3. **50.7% recall** - Detects half of all vulnerabilities
+4. **Unique LLM coverage**: Only tool detecting LLM01, LLM04, LLM06, LLM10
+5. **Complementary to Bandit**: Bandit excels at general patterns (LLM02, LLM07)
 
 ## Tools & Baselines
 
@@ -180,6 +192,22 @@ static_findings:
 | **AI Security CLI** | Static + Audit | Primary tool under evaluation |
 | Semgrep | SAST | Static analysis baseline |
 | Bandit | SAST | Python security linter |
+
+## Limitations
+
+> **Mandatory disclosure for fair interpretation of results**
+
+1. **Scope Mismatch**: Semgrep and Bandit are general-purpose Python security tools. They were **not designed** to detect LLM-specific vulnerability patterns such as prompt injection or missing rate limiting. Low recall on LLM-specific categories is expected behavior, not a deficiency.
+
+2. **Rule Set Asymmetry**: AI Security CLI includes custom detection rules for OWASP LLM Top 10 categories. Semgrep and Bandit were tested with default rule sets only. Results may differ with custom LLM-focused Semgrep rules.
+
+3. **Testbed Composition**: ~60% of vulnerabilities in this testbed are LLM-specific patterns with no equivalent generic detection rules. The effective recall ceiling for generic tools is approximately 40%.
+
+4. **Author-Curated Dataset**: This testbed was created by AI Security CLI authors. External validation on third-party LLM codebases would strengthen findings.
+
+5. **Complementary Tools**: This comparison demonstrates complementary coverage. **Use both generic SAST + specialized LLM scanning** for comprehensive security coverage.
+
+For detailed methodology and context, see [Comparison Analysis](results/aggregated/comparison_analysis.md).
 
 ## License
 
