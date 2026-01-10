@@ -78,7 +78,10 @@ def deduplicate_findings(findings: List[Dict], tool: str) -> List[Dict]:
             deduped.append(finding)
             continue
 
-        key = (Path(file_path).name, line)
+        # Use testbed-relative path for dedup key to avoid false matches
+        # across different testbed projects with same filename
+        rel_path = normalize_path(file_path, "") if file_path else ""
+        key = (rel_path, line)
         if key not in seen:
             seen.add(key)
             deduped.append(finding)
