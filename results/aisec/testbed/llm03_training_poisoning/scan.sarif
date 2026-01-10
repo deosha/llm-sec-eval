@@ -287,51 +287,10 @@
         {
           "ruleId": "LLM05",
           "ruleIndex": 4,
-          "level": "warning",
-          "message": {
-            "text": "Local file path '\"/tmp/model.pt\"' found on line 81. Loading models from local paths without verification can introduce compromised models if the filesystem is not properly secured.",
-            "markdown": "**Untrusted model source: local_path**\n\nLocal file path '\"/tmp/model.pt\"' found on line 81. Loading models from local paths without verification can introduce compromised models if the filesystem is not properly secured.\n\n**Code:**\n```python\ndef download_file(url: str) -> str:\n    \"\"\"Download file from URL.\"\"\"\n    return \"/tmp/model.pt\"\n\n\n# SAFE: Validated data loading (for comparison)\n```\n\n**Remediation:**\nSecure Model Loading:\n1. Only load models from trusted registries (HuggingFace, official repos)\n2. Verify model checksums/signatures before loading\n3. Use allowlists for permitted models\n4. Implement content scanning for downloaded models\n5. Never allow user-controlled model paths\n6. Use isolated environments for model loading\n7. Maintain an SBOM (Software Bill of Materials) for AI components"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 81,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "def download_file(url: str) -> str:\n    \"\"\"Download file from URL.\"\"\"\n    return \"/tmp/model.pt\"\n\n\n# SAFE: Validated data loading (for comparison)"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_81_local_path-81"
-          },
-          "properties": {
-            "security-severity": "5.0",
-            "confidence": 0.7,
-            "category": "LLM05: Supply Chain Vulnerabilities"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Secure Model Loading:\n1. Only load models from trusted registries (HuggingFace, official repos)\n2. Verify model checksums/signatures before loading\n3. Use allowlists for permitted models\n4. Implement content scanning for downloaded models\n5. Never allow user-controlled model paths\n6. Use isolated environments for model loading\n7. Maintain an SBOM (Software Bill of Materials) for AI components"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM05",
-          "ruleIndex": 4,
           "level": "error",
           "message": {
-            "text": "Import of 'pickle' on line 7 for model serialization. This library can execute arbitrary code during deserialization, making it vulnerable to supply chain attacks if loading untrusted models.",
-            "markdown": "**Use of pickle for model serialization**\n\nImport of 'pickle' on line 7 for model serialization. This library can execute arbitrary code during deserialization, making it vulnerable to supply chain attacks if loading untrusted models.\n\n**Code:**\n```python\nimport pickle\n```\n\n**Remediation:**\nSecure Serialization:\n1. Use safer alternatives like safetensors for PyTorch/TensorFlow\n2. Never deserialize models from untrusted sources\n3. Scan serialized models before loading\n4. Use sandboxed environments for model loading\n5. Implement allowlists for model formats\n6. Consider using ONNX for model exchange"
+            "text": "Import of 'pickle' on line 7. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.",
+            "markdown": "**Use of pickle for serialization**\n\nImport of 'pickle' on line 7. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.\n\n**Code:**\n```python\nimport pickle\n```\n\n**Remediation:**\nSecure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
           },
           "locations": [
             {
@@ -361,7 +320,48 @@
           "fixes": [
             {
               "description": {
-                "text": "Secure Serialization:\n1. Use safer alternatives like safetensors for PyTorch/TensorFlow\n2. Never deserialize models from untrusted sources\n3. Scan serialized models before loading\n4. Use sandboxed environments for model loading\n5. Implement allowlists for model formats\n6. Consider using ONNX for model exchange"
+                "text": "Secure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "torch.load without weights_only=True can execute arbitrary code on line 54.",
+            "markdown": "**Unsafe model loading pattern**\n\ntorch.load without weights_only=True can execute arbitrary code on line 54.\n\n**Code:**\n```python\n    # Download and load without verification\n    model_path = download_file(url)\n    model = torch.load(model_path)  # VULNERABLE - pickle under the hood\n    return model\n\n\n```\n\n**Remediation:**\nSecure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    # Download and load without verification\n    model_path = download_file(url)\n    model = torch.load(model_path)  # VULNERABLE - pickle under the hood\n    return model\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_54_unsafe_load-54"
+          },
+          "properties": {
+            "security-severity": "5.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
               }
             }
           ]
@@ -411,14 +411,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-08T17:49:21.544831+00:00",
+          "endTimeUtc": "2026-01-10T14:35:57.294085+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260108174921"
+        "id": "ai-security-cli/static-scan/20260110143557"
       }
     }
   ]

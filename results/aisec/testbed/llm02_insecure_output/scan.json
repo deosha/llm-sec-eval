@@ -1,19 +1,19 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-08T19:25:37.897299Z",
+  "generated_at": "2026-01-10T14:49:55.949154Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output",
     "files_scanned": 1,
-    "overall_score": 7.7,
-    "confidence": 0.57,
-    "duration_seconds": 0.006,
-    "findings_count": 5,
+    "overall_score": 0.0,
+    "confidence": 0.56,
+    "duration_seconds": 0.007,
+    "findings_count": 12,
     "severity_breakdown": {
-      "CRITICAL": 0,
-      "HIGH": 4,
+      "CRITICAL": 8,
+      "HIGH": 2,
       "MEDIUM": 1,
       "LOW": 0,
-      "INFO": 0
+      "INFO": 1
     }
   },
   "category_scores": [
@@ -156,18 +156,18 @@
     {
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
-      "score": 30,
-      "confidence": 0.78,
+      "score": 0,
+      "confidence": 0.73,
       "subscores": {
         "LLM01": 100,
-        "LLM02": 86,
+        "LLM02": 64,
         "LLM03": 100,
         "LLM04": 86,
-        "LLM05": 76,
+        "LLM05": 0,
         "LLM06": 100,
         "LLM07": 100,
         "LLM08": 100,
-        "LLM09": 82,
+        "LLM09": 100,
         "LLM10": 100
       },
       "detected_controls": [
@@ -179,10 +179,9 @@
         "Model Theft (no vulnerabilities found)"
       ],
       "gaps": [
-        "Insecure Output Handling: 1 high",
+        "Insecure Output Handling: 1 critical",
         "Model Denial of Service: 1 high",
-        "Supply Chain Vulnerabilities: 1 high, 1 medium",
-        "Overreliance: 1 high"
+        "Supply Chain Vulnerabilities: 7 critical, 1 high, 1 medium"
       ]
     }
   ],
@@ -190,14 +189,14 @@
     {
       "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_18",
       "category": "LLM02: Insecure Output Handling",
-      "severity": "HIGH",
-      "confidence": 0.7,
-      "title": "LLM output used in dangerous xss sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 18 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "severity": "CRITICAL",
+      "confidence": 0.9,
+      "title": "LLM output used in dangerous code_execution sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'eval(' on line 18 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
       "line_number": 18,
       "code_snippet": "    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]",
-      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+      "recommendation": "Mitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
     },
     {
       "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_16",
@@ -217,35 +216,119 @@
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 18. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "description": "Model ''gpt-4'' is used without version pinning on line 18. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
       "line_number": 18,
       "code_snippet": "def get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
-      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_87_pickle",
       "category": "LLM05: Supply Chain Vulnerabilities",
       "severity": "HIGH",
       "confidence": 0.85,
-      "title": "Use of pickle for model serialization",
-      "description": "Import of 'pickle' on line 87 for model serialization. This library can execute arbitrary code during deserialization, making it vulnerable to supply chain attacks if loading untrusted models.",
+      "title": "Use of pickle for serialization",
+      "description": "Import of 'pickle' on line 87. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
       "line_number": 87,
       "code_snippet": "import pickle",
-      "recommendation": "Secure Serialization:\n1. Use safer alternatives like safetensors for PyTorch/TensorFlow\n2. Never deserialize models from untrusted sources\n3. Scan serialized models before loading\n4. Use sandboxed environments for model loading\n5. Implement allowlists for model formats\n6. Consider using ONNX for model exchange"
+      "recommendation": "Secure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_25_fetch_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Network fetch combined with code execution",
+      "description": "This file downloads external content (lines [80]) and executes code (lines [25, 26, 27]). This pattern enables remote code execution attacks if the fetched content is not properly validated.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+      "line_number": 25,
+      "code_snippet": "    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution",
+      "recommendation": "Secure Remote Code Patterns:\n1. NEVER execute code fetched from network without verification\n2. Use cryptographic signatures to verify downloaded code\n3. Pin URLs and verify checksums\n4. Use package managers instead of direct downloads\n5. Sandbox execution in isolated environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_26_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "eval() on non-literal content on line 26. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+      "line_number": 26,
+      "code_snippet": "\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_27_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "eval() on non-literal content on line 27. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+      "line_number": 27,
+      "code_snippet": "# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_30_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "eval() on non-literal content on line 30. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+      "line_number": 30,
+      "code_snippet": "    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution\n    return str(result)\n\n",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_35_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "exec() on non-literal content on line 35. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+      "line_number": 35,
+      "code_snippet": "\n# VULN:LLM02:CRITICAL:LINE=39 - Exec with LLM output\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_36_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "exec() on non-literal content on line 36. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+      "line_number": 36,
+      "code_snippet": "# VULN:LLM02:CRITICAL:LINE=39 - Exec with LLM output\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_39_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "exec() on non-literal content on line 39. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+      "line_number": 39,
+      "code_snippet": "    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution\n\n\n# VULN:LLM02:HIGH:LINE=49 - SQL Injection via LLM output",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
     },
     {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_16_critical_decision",
       "category": "LLM09: Overreliance",
-      "severity": "HIGH",
+      "severity": "INFO",
       "confidence": 0.9,
       "title": "Critical decision without oversight in 'get_llm_response'",
-      "description": "Function 'get_llm_response' on line 16 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
+      "description": "Function 'get_llm_response' on line 16 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
       "line_number": 16,
       "code_snippet": "\n\ndef get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
     }
   ],
   "metadata": {}

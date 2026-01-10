@@ -1,17 +1,17 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-08T19:25:38.200339Z",
+  "generated_at": "2026-01-10T14:49:56.257978Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain",
     "files_scanned": 1,
-    "overall_score": 21.5,
-    "confidence": 0.62,
-    "duration_seconds": 0.004,
-    "findings_count": 1,
+    "overall_score": 0.0,
+    "confidence": 0.56,
+    "duration_seconds": 0.006,
+    "findings_count": 7,
     "severity_breakdown": {
-      "CRITICAL": 0,
-      "HIGH": 1,
-      "MEDIUM": 0,
+      "CRITICAL": 2,
+      "HIGH": 3,
+      "MEDIUM": 2,
       "LOW": 0,
       "INFO": 0
     }
@@ -160,14 +160,14 @@
     {
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
-      "score": 83,
-      "confidence": 0.85,
+      "score": 0,
+      "confidence": 0.71,
       "subscores": {
         "LLM01": 100,
         "LLM02": 100,
         "LLM03": 100,
         "LLM04": 100,
-        "LLM05": 83,
+        "LLM05": 0,
         "LLM06": 100,
         "LLM07": 100,
         "LLM08": 100,
@@ -186,7 +186,7 @@
         "Model Theft (no vulnerabilities found)"
       ],
       "gaps": [
-        "Supply Chain Vulnerabilities: 1 high"
+        "Supply Chain Vulnerabilities: 2 critical, 3 high, 2 medium"
       ]
     }
   ],
@@ -194,14 +194,86 @@
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_22_pickle",
       "category": "LLM05: Supply Chain Vulnerabilities",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "confidence": 0.85,
-      "title": "Use of pickle for model serialization",
-      "description": "Import of 'pickle' on line 22 for model serialization. This library can execute arbitrary code during deserialization, making it vulnerable to supply chain attacks if loading untrusted models.",
+      "title": "Use of pickle for serialization",
+      "description": "Import of 'pickle' on line 22. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
       "line_number": 22,
       "code_snippet": "import pickle",
-      "recommendation": "Secure Serialization:\n1. Use safer alternatives like safetensors for PyTorch/TensorFlow\n2. Never deserialize models from untrusted sources\n3. Scan serialized models before loading\n4. Use sandboxed environments for model loading\n5. Implement allowlists for model formats\n6. Consider using ONNX for model exchange"
+      "recommendation": "Secure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_24_fetch_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Network fetch combined with code execution",
+      "description": "This file downloads external content (lines [43]) and executes code (lines [24, 51, 60]). This pattern enables remote code execution attacks if the fetched content is not properly validated.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 24,
+      "code_snippet": "def vulnerable_load_pickle_model(path: str):\n    \"\"\"Vulnerable: Loading model with pickle.\"\"\"\n    import pickle\n    with open(path, \"rb\") as f:\n        model = pickle.load(f)  # VULNERABLE - arbitrary code execution\n    return model\n\n\n# VULN:LLM05:HIGH:LINE=32 - torch.load without weights_only\ndef vulnerable_torch_load(path: str):",
+      "recommendation": "Secure Remote Code Patterns:\n1. NEVER execute code fetched from network without verification\n2. Use cryptographic signatures to verify downloaded code\n3. Pin URLs and verify checksums\n4. Use package managers instead of direct downloads\n5. Sandbox execution in isolated environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_14_unsafe_load",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Unsafe model loading pattern",
+      "description": "trust_remote_code=True enables arbitrary code execution on line 14.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 14,
+      "code_snippet": "    from transformers import AutoModelForCausalLM, AutoTokenizer\n    # VULNERABLE - no checksum or signature verification\n    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)\n    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)\n    return model, tokenizer\n",
+      "recommendation": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_15_unsafe_load",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Unsafe model loading pattern",
+      "description": "trust_remote_code=True enables arbitrary code execution on line 15.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 15,
+      "code_snippet": "    # VULNERABLE - no checksum or signature verification\n    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)\n    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)\n    return model, tokenizer\n\n",
+      "recommendation": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_33_unsafe_load",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Unsafe model loading pattern",
+      "description": "torch.load without weights_only=True can execute arbitrary code on line 33.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 33,
+      "code_snippet": "    import torch\n    # VULNERABLE - pickle under the hood\n    model = torch.load(path)\n    return model\n\n",
+      "recommendation": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_65_dynamic_tool",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "title": "Dynamic tool/plugin loading",
+      "description": "Loading dynamic LangChain tools without verification on line 65.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 65,
+      "code_snippet": "    from langchain_community.tools import load_tools\n    # VULNERABLE - loading unverified community tools\n    tools = load_tools([tool_name])\n    return tools\n\n",
+      "recommendation": "Secure Tool Loading:\n1. Validate tool names against an allowlist\n2. Only load tools from trusted sources\n3. Review tool permissions before loading\n4. Sandbox tool execution"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_75_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "eval() on non-literal content on line 75. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 75,
+      "code_snippet": "        config_str = f.read()\n    # VULNERABLE - eval on config file\n    config = eval(config_str)\n    return config\n\n",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
     }
   ],
   "metadata": {}

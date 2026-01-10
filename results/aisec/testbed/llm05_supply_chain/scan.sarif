@@ -289,49 +289,8 @@
           "ruleIndex": 4,
           "level": "warning",
           "message": {
-            "text": "Local file path '\"/tmp/model.bin\"' found on line 42. Loading models from local paths without verification can introduce compromised models if the filesystem is not properly secured.",
-            "markdown": "**Untrusted model source: local_path**\n\nLocal file path '\"/tmp/model.bin\"' found on line 42. Loading models from local paths without verification can introduce compromised models if the filesystem is not properly secured.\n\n**Code:**\n```python\n    import urllib.request\n    # VULNERABLE - could be HTTP, no certificate verification\n    local_path = \"/tmp/model.bin\"\n    urllib.request.urlretrieve(url, local_path)\n    return local_path\n\n```\n\n**Remediation:**\nSecure Model Loading:\n1. Only load models from trusted registries (HuggingFace, official repos)\n2. Verify model checksums/signatures before loading\n3. Use allowlists for permitted models\n4. Implement content scanning for downloaded models\n5. Never allow user-controlled model paths\n6. Use isolated environments for model loading\n7. Maintain an SBOM (Software Bill of Materials) for AI components"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 42,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "    import urllib.request\n    # VULNERABLE - could be HTTP, no certificate verification\n    local_path = \"/tmp/model.bin\"\n    urllib.request.urlretrieve(url, local_path)\n    return local_path\n"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_42_local_path-42"
-          },
-          "properties": {
-            "security-severity": "5.0",
-            "confidence": 0.7,
-            "category": "LLM05: Supply Chain Vulnerabilities"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Secure Model Loading:\n1. Only load models from trusted registries (HuggingFace, official repos)\n2. Verify model checksums/signatures before loading\n3. Use allowlists for permitted models\n4. Implement content scanning for downloaded models\n5. Never allow user-controlled model paths\n6. Use isolated environments for model loading\n7. Maintain an SBOM (Software Bill of Materials) for AI components"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM05",
-          "ruleIndex": 4,
-          "level": "error",
-          "message": {
-            "text": "Import of 'pickle' on line 22 for model serialization. This library can execute arbitrary code during deserialization, making it vulnerable to supply chain attacks if loading untrusted models.",
-            "markdown": "**Use of pickle for model serialization**\n\nImport of 'pickle' on line 22 for model serialization. This library can execute arbitrary code during deserialization, making it vulnerable to supply chain attacks if loading untrusted models.\n\n**Code:**\n```python\nimport pickle\n```\n\n**Remediation:**\nSecure Serialization:\n1. Use safer alternatives like safetensors for PyTorch/TensorFlow\n2. Never deserialize models from untrusted sources\n3. Scan serialized models before loading\n4. Use sandboxed environments for model loading\n5. Implement allowlists for model formats\n6. Consider using ONNX for model exchange"
+            "text": "Import of 'pickle' on line 22. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.",
+            "markdown": "**Use of pickle for serialization**\n\nImport of 'pickle' on line 22. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.\n\n**Code:**\n```python\nimport pickle\n```\n\n**Remediation:**\nSecure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
           },
           "locations": [
             {
@@ -354,14 +313,260 @@
             "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_22_pickle-22"
           },
           "properties": {
-            "security-severity": "7.5",
+            "security-severity": "5.0",
             "confidence": 0.85,
             "category": "LLM05: Supply Chain Vulnerabilities"
           },
           "fixes": [
             {
               "description": {
-                "text": "Secure Serialization:\n1. Use safer alternatives like safetensors for PyTorch/TensorFlow\n2. Never deserialize models from untrusted sources\n3. Scan serialized models before loading\n4. Use sandboxed environments for model loading\n5. Implement allowlists for model formats\n6. Consider using ONNX for model exchange"
+                "text": "Secure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "This file downloads external content (lines [43]) and executes code (lines [24, 51, 60]). This pattern enables remote code execution attacks if the fetched content is not properly validated.",
+            "markdown": "**Network fetch combined with code execution**\n\nThis file downloads external content (lines [43]) and executes code (lines [24, 51, 60]). This pattern enables remote code execution attacks if the fetched content is not properly validated.\n\n**Code:**\n```python\ndef vulnerable_load_pickle_model(path: str):\n    \"\"\"Vulnerable: Loading model with pickle.\"\"\"\n    import pickle\n    with open(path, \"rb\") as f:\n        model = pickle.load(f)  # VULNERABLE - arbitrary code execution\n    return model\n\n\n# VULN:LLM05:HIGH:LINE=32 - torch.load without weights_only\ndef vulnerable_torch_load(path: str):\n```\n\n**Remediation:**\nSecure Remote Code Patterns:\n1. NEVER execute code fetched from network without verification\n2. Use cryptographic signatures to verify downloaded code\n3. Pin URLs and verify checksums\n4. Use package managers instead of direct downloads\n5. Sandbox execution in isolated environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_load_pickle_model(path: str):\n    \"\"\"Vulnerable: Loading model with pickle.\"\"\"\n    import pickle\n    with open(path, \"rb\") as f:\n        model = pickle.load(f)  # VULNERABLE - arbitrary code execution\n    return model\n\n\n# VULN:LLM05:HIGH:LINE=32 - torch.load without weights_only\ndef vulnerable_torch_load(path: str):"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_24_fetch_exec-24"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Remote Code Patterns:\n1. NEVER execute code fetched from network without verification\n2. Use cryptographic signatures to verify downloaded code\n3. Pin URLs and verify checksums\n4. Use package managers instead of direct downloads\n5. Sandbox execution in isolated environments"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "trust_remote_code=True enables arbitrary code execution on line 14.",
+            "markdown": "**Unsafe model loading pattern**\n\ntrust_remote_code=True enables arbitrary code execution on line 14.\n\n**Code:**\n```python\n    from transformers import AutoModelForCausalLM, AutoTokenizer\n    # VULNERABLE - no checksum or signature verification\n    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)\n    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)\n    return model, tokenizer\n\n```\n\n**Remediation:**\nSecure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    from transformers import AutoModelForCausalLM, AutoTokenizer\n    # VULNERABLE - no checksum or signature verification\n    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)\n    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)\n    return model, tokenizer\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_14_unsafe_load-14"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "trust_remote_code=True enables arbitrary code execution on line 15.",
+            "markdown": "**Unsafe model loading pattern**\n\ntrust_remote_code=True enables arbitrary code execution on line 15.\n\n**Code:**\n```python\n    # VULNERABLE - no checksum or signature verification\n    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)\n    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)\n    return model, tokenizer\n\n\n```\n\n**Remediation:**\nSecure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    # VULNERABLE - no checksum or signature verification\n    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)\n    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)\n    return model, tokenizer\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_15_unsafe_load-15"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "torch.load without weights_only=True can execute arbitrary code on line 33.",
+            "markdown": "**Unsafe model loading pattern**\n\ntorch.load without weights_only=True can execute arbitrary code on line 33.\n\n**Code:**\n```python\n    import torch\n    # VULNERABLE - pickle under the hood\n    model = torch.load(path)\n    return model\n\n\n```\n\n**Remediation:**\nSecure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    import torch\n    # VULNERABLE - pickle under the hood\n    model = torch.load(path)\n    return model\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_33_unsafe_load-33"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Loading dynamic LangChain tools without verification on line 65.",
+            "markdown": "**Dynamic tool/plugin loading**\n\nLoading dynamic LangChain tools without verification on line 65.\n\n**Code:**\n```python\n    from langchain_community.tools import load_tools\n    # VULNERABLE - loading unverified community tools\n    tools = load_tools([tool_name])\n    return tools\n\n\n```\n\n**Remediation:**\nSecure Tool Loading:\n1. Validate tool names against an allowlist\n2. Only load tools from trusted sources\n3. Review tool permissions before loading\n4. Sandbox tool execution"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    from langchain_community.tools import load_tools\n    # VULNERABLE - loading unverified community tools\n    tools = load_tools([tool_name])\n    return tools\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_65_dynamic_tool-65"
+          },
+          "properties": {
+            "security-severity": "5.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Tool Loading:\n1. Validate tool names against an allowlist\n2. Only load tools from trusted sources\n3. Review tool permissions before loading\n4. Sandbox tool execution"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "eval() on non-literal content on line 75. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 75. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n        config_str = f.read()\n    # VULNERABLE - eval on config file\n    config = eval(config_str)\n    return config\n\n\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "        config_str = f.read()\n    # VULNERABLE - eval on config file\n    config = eval(config_str)\n    return config\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_75_code_exec-75"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
               }
             }
           ]
@@ -370,14 +575,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-08T17:49:21.951396+00:00",
+          "endTimeUtc": "2026-01-10T14:35:57.711805+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260108174921"
+        "id": "ai-security-cli/static-scan/20260110143557"
       }
     }
   ]

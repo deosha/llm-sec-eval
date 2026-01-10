@@ -1,15 +1,15 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-08T19:25:38.404983Z",
+  "generated_at": "2026-01-10T14:49:56.470084Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin",
     "files_scanned": 1,
-    "overall_score": 13.43,
-    "confidence": 0.59,
-    "duration_seconds": 0.006,
-    "findings_count": 2,
+    "overall_score": 0.0,
+    "confidence": 0.56,
+    "duration_seconds": 0.009,
+    "findings_count": 5,
     "severity_breakdown": {
-      "CRITICAL": 1,
+      "CRITICAL": 4,
       "HIGH": 1,
       "MEDIUM": 0,
       "LOW": 0,
@@ -157,14 +157,14 @@
     {
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
-      "score": 51,
-      "confidence": 0.82,
+      "score": 0,
+      "confidence": 0.74,
       "subscores": {
         "LLM01": 100,
         "LLM02": 100,
         "LLM03": 100,
         "LLM04": 100,
-        "LLM05": 100,
+        "LLM05": 16,
         "LLM06": 100,
         "LLM07": 51,
         "LLM08": 100,
@@ -176,18 +176,54 @@
         "Insecure Output Handling (no vulnerabilities found)",
         "Training Data Poisoning (no vulnerabilities found)",
         "Model Denial of Service (no vulnerabilities found)",
-        "Supply Chain Vulnerabilities (no vulnerabilities found)",
         "Sensitive Information Disclosure (no vulnerabilities found)",
         "Excessive Agency (no vulnerabilities found)",
         "Overreliance (no vulnerabilities found)",
         "Model Theft (no vulnerabilities found)"
       ],
       "gaps": [
+        "Supply Chain Vulnerabilities: 3 critical",
         "Insecure Plugin Design: 1 critical, 1 high"
       ]
     }
   ],
   "findings": [
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_13_fetch_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Network fetch combined with code execution",
+      "description": "This file downloads external content (lines [62, 65]) and executes code (lines [13, 15, 17]). This pattern enables remote code execution attacks if the fetched content is not properly validated.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 13,
+      "code_snippet": "\nclient = OpenAI(api_key=os.environ.get(\"OPENAI_API_KEY\"))\n\n\n# VULN:LLM07:CRITICAL:LINE=16 - Shell command execution from LLM\ndef vulnerable_shell_tool(llm_output: dict) -> str:\n    \"\"\"Vulnerable: Executes shell commands based on LLM output.\"\"\"\n    command = llm_output.get(\"command\", \"\")\n    # VULNERABLE - arbitrary command execution\n    result = subprocess.run(command, shell=True, capture_output=True, text=True)",
+      "recommendation": "Secure Remote Code Patterns:\n1. NEVER execute code fetched from network without verification\n2. Use cryptographic signatures to verify downloaded code\n3. Pin URLs and verify checksums\n4. Use package managers instead of direct downloads\n5. Sandbox execution in isolated environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_111_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "eval() on non-literal content on line 111. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 111,
+      "code_snippet": "    expression = llm_output.get(\"expression\", \"\")\n    # VULNERABLE - eval on user/LLM input\n    result = eval(expression)\n    return result\n\n",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_98_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "exec() on non-literal content on line 98. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 98,
+      "code_snippet": "        \"\"\"Load and execute plugin code.\"\"\"\n        # VULNERABLE - executing arbitrary code\n        exec(code, {\"__builtins__\": __builtins__}, self.plugins)\n\n    def run_plugin(self, name: str, *args):\n        \"\"\"Run a loaded plugin.\"\"\"",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
     {
       "id": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_95_dynamic",
       "category": "LLM07: Insecure Plugin Design",

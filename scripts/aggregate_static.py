@@ -25,12 +25,18 @@ def load_ground_truth(testbed_path: Path) -> Dict:
 
 
 def load_aisec_results(results_path: Path) -> List[Dict]:
-    """Load AI Security CLI scan results."""
+    """Load AI Security CLI scan results.
+
+    NOTE: INFO severity findings are filtered out since they are advisory-only
+    and should not count as findings for precision/recall calculations.
+    """
     scan_path = results_path / "scan.json"
     if scan_path.exists():
         with open(scan_path) as f:
             data = json.load(f)
-            return data.get("findings", [])
+            findings = data.get("findings", [])
+            # Filter out INFO severity (advisory-only findings)
+            return [f for f in findings if f.get("severity", "").upper() != "INFO"]
     return []
 
 

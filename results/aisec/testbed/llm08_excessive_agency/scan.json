@@ -1,19 +1,19 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-08T19:25:38.509286Z",
+  "generated_at": "2026-01-10T14:49:56.578036Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency",
     "files_scanned": 1,
     "overall_score": 0.0,
-    "confidence": 0.58,
-    "duration_seconds": 0.009,
-    "findings_count": 35,
+    "confidence": 0.59,
+    "duration_seconds": 0.011,
+    "findings_count": 33,
     "severity_breakdown": {
-      "CRITICAL": 16,
-      "HIGH": 12,
+      "CRITICAL": 18,
+      "HIGH": 5,
       "MEDIUM": 7,
       "LOW": 0,
-      "INFO": 0
+      "INFO": 3
     }
   },
   "category_scores": [
@@ -158,13 +158,13 @@
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
       "score": 0,
-      "confidence": 0.82,
+      "confidence": 0.81,
       "subscores": {
         "LLM01": 28,
         "LLM02": 0,
         "LLM03": 100,
         "LLM04": 0,
-        "LLM05": 48,
+        "LLM05": 34,
         "LLM06": 100,
         "LLM07": 100,
         "LLM08": 32,
@@ -179,11 +179,11 @@
       ],
       "gaps": [
         "Prompt Injection: 2 critical",
-        "Insecure Output Handling: 5 critical, 6 high",
+        "Insecure Output Handling: 8 critical",
         "Model Denial of Service: 3 critical, 4 high",
-        "Supply Chain Vulnerabilities: 7 medium",
+        "Supply Chain Vulnerabilities: 1 high, 7 medium",
         "Excessive Agency: 2 critical",
-        "Overreliance: 4 critical, 2 high"
+        "Overreliance: 3 critical"
       ]
     }
   ],
@@ -215,14 +215,14 @@
     {
       "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_17",
       "category": "LLM02: Insecure Output Handling",
-      "severity": "HIGH",
+      "severity": "CRITICAL",
       "confidence": 0.7,
-      "title": "LLM output used in dangerous xss sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 17 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "title": "LLM output used in dangerous sql_injection sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'execute(' on line 17 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 17,
       "code_snippet": "    prompt = f\"Write Python code to: {user_request}. Output only code, no explanation.\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]",
-      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+      "recommendation": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
     },
     {
       "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_24",
@@ -239,14 +239,14 @@
     {
       "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_37",
       "category": "LLM02: Insecure Output Handling",
-      "severity": "HIGH",
+      "severity": "CRITICAL",
       "confidence": 0.7,
-      "title": "LLM output used in dangerous xss sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 37 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "title": "LLM output used in dangerous sql_injection sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'execute(' on line 37 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 37,
       "code_snippet": "        prompt = f\"Generate SQL to: {user_request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
-      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+      "recommendation": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
     },
     {
       "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_44",
@@ -266,7 +266,7 @@
       "severity": "CRITICAL",
       "confidence": 0.9,
       "title": "LLM output used in dangerous command_injection sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'subprocess.' on line 55 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'run(' on line 55 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 55,
       "code_snippet": "        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
@@ -278,47 +278,23 @@
       "severity": "CRITICAL",
       "confidence": 0.9,
       "title": "LLM output used in dangerous command_injection sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'subprocess.' on line 62 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'run(' on line 62 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 62,
       "code_snippet": "        # VULNERABLE - system-level access without approval\n        result = subprocess.run(command, shell=True, capture_output=True, text=True)\n        return result.stdout\n",
       "recommendation": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
     },
     {
-      "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_75",
-      "category": "LLM02: Insecure Output Handling",
-      "severity": "HIGH",
-      "confidence": 0.7,
-      "title": "LLM output used in dangerous xss sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 75 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-      "line_number": 75,
-      "code_snippet": "        prompt = f\"Should I process this payment request: {user_request}? If yes, respond with the amount.\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
-      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-    },
-    {
-      "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_100",
-      "category": "LLM02: Insecure Output Handling",
-      "severity": "HIGH",
-      "confidence": 0.7,
-      "title": "LLM output used in dangerous xss sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 100 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-      "line_number": 100,
-      "code_snippet": "        prompt = f\"Draft and send an email for: {request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
-      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-    },
-    {
       "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_117",
       "category": "LLM02: Insecure Output Handling",
-      "severity": "HIGH",
+      "severity": "CRITICAL",
       "confidence": 0.7,
-      "title": "LLM output used in dangerous xss sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 117 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
+      "title": "LLM output used in dangerous sql_injection sink",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'execute(' on line 117 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 117,
       "code_snippet": "        prompt = f\"Perform this action: {action}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
-      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+      "recommendation": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
     },
     {
       "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_123",
@@ -331,18 +307,6 @@
       "line_number": 123,
       "code_snippet": "        # VULNERABLE - no audit trail\n        result = self._execute(response.choices[0].message.content)\n        return result\n",
       "recommendation": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-    },
-    {
-      "id": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_140",
-      "category": "LLM02: Insecure Output Handling",
-      "severity": "HIGH",
-      "confidence": 0.7,
-      "title": "LLM output used in dangerous xss sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 140 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-      "line_number": 140,
-      "code_snippet": "        prompt = f\"Suggest an action for: {request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
-      "recommendation": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
     },
     {
       "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_14",
@@ -434,11 +398,11 @@
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 17. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "description": "Model ''gpt-4'' is used without version pinning on line 17. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 17,
       "code_snippet": "    \"\"\"Vulnerable: Automatically executes code generated by LLM.\"\"\"\n    prompt = f\"Write Python code to: {user_request}. Output only code, no explanation.\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
-      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_37_unpinned",
@@ -446,11 +410,11 @@
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 37. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "description": "Model ''gpt-4'' is used without version pinning on line 37. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 37,
       "code_snippet": "    def process_request(self, user_request: str) -> str:\n        prompt = f\"Generate SQL to: {user_request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )",
-      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_55_unpinned",
@@ -458,11 +422,11 @@
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 55. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "description": "Model ''gpt-4'' is used without version pinning on line 55. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 55,
       "code_snippet": "    def execute_task(self, task: str) -> str:\n        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )",
-      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_75_unpinned",
@@ -470,11 +434,11 @@
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 75. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "description": "Model ''gpt-4'' is used without version pinning on line 75. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 75,
       "code_snippet": "    def process_request(self, user_request: str) -> str:\n        prompt = f\"Should I process this payment request: {user_request}? If yes, respond with the amount.\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )",
-      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_100_unpinned",
@@ -482,11 +446,11 @@
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 100. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "description": "Model ''gpt-4'' is used without version pinning on line 100. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 100,
       "code_snippet": "    def handle_request(self, request: str) -> str:\n        prompt = f\"Draft and send an email for: {request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )",
-      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_117_unpinned",
@@ -494,11 +458,11 @@
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 117. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "description": "Model ''gpt-4'' is used without version pinning on line 117. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 117,
       "code_snippet": "    def perform_action(self, action: str) -> str:\n        prompt = f\"Perform this action: {action}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )",
-      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_140_unpinned",
@@ -506,11 +470,23 @@
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 140. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. Always pin to specific versions (e.g., 'gpt-4-0613' instead of 'gpt-4').",
+      "description": "Model ''gpt-4'' is used without version pinning on line 140. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 140,
       "code_snippet": "    def process_request(self, request: str) -> str:\n        prompt = f\"Suggest an action for: {request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )",
-      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines\n5. Test thoroughly before upgrading model versions\n6. Monitor for model deprecation notices"
+      "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_24_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "exec() on non-literal content on line 24. ",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+      "line_number": 24,
+      "code_snippet": "\n    # VULNERABLE - auto-execution without human review\n    exec(code)\n    return \"Code executed\"\n\n",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
     },
     {
       "id": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_14_exec",
@@ -537,66 +513,6 @@
       "recommendation": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
     },
     {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_35_critical_decision",
-      "category": "LLM09: Overreliance",
-      "severity": "CRITICAL",
-      "confidence": 0.9,
-      "title": "Critical decision without oversight in 'process_request'",
-      "description": "Function 'process_request' on line 35 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-      "line_number": 35,
-      "code_snippet": "        self.db = db_connection\n\n    def process_request(self, user_request: str) -> str:\n        prompt = f\"Generate SQL to: {user_request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time\n\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_53_critical_decision",
-      "category": "LLM09: Overreliance",
-      "severity": "CRITICAL",
-      "confidence": 0.9,
-      "title": "Critical decision without oversight in 'execute_task'",
-      "description": "Function 'execute_task' on line 53 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-      "line_number": 53,
-      "code_snippet": "    \"\"\"Vulnerable: Agent can execute system commands.\"\"\"\n\n    def execute_task(self, task: str) -> str:\n        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nImplement confidence thresholds for automated actions:\n\n1. Add confidence scoring:\n   - Request confidence scores from LLM\n   - Calculate custom confidence metrics\n   - Track historical accuracy\n\n2. Set thresholds:\n   - High confidence (>0.9): Auto-execute\n   - Medium confidence (0.7-0.9): Human review\n   - Low confidence (<0.7): Reject or escalate\n\n3. Validate output:\n   - Use schema validation (Pydantic)\n   - Check output format and constraints\n   - Verify against expected patterns\n\n4. Implement fallbacks:\n   - Have backup strategies for low confidence\n   - Use simpler/safer alternatives\n   - Escalate to human operators\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time\n\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_73_critical_decision",
-      "category": "LLM09: Overreliance",
-      "severity": "CRITICAL",
-      "confidence": 0.9,
-      "title": "Critical decision without oversight in 'process_request'",
-      "description": "Function 'process_request' on line 73 makes critical financial, security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-      "line_number": 73,
-      "code_snippet": "        self.payment = payment_api\n\n    def process_request(self, user_request: str) -> str:\n        prompt = f\"Should I process this payment request: {user_request}? If yes, respond with the amount.\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
-      "recommendation": "Critical financial, security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_115_critical_decision",
-      "category": "LLM09: Overreliance",
-      "severity": "HIGH",
-      "confidence": 0.9,
-      "title": "Critical decision without oversight in 'perform_action'",
-      "description": "Function 'perform_action' on line 115 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-      "line_number": 115,
-      "code_snippet": "    \"\"\"Vulnerable: Agent actions are not logged.\"\"\"\n\n    def perform_action(self, action: str) -> str:\n        prompt = f\"Perform this action: {action}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nImplement confidence thresholds for automated actions:\n\n1. Add confidence scoring:\n   - Request confidence scores from LLM\n   - Calculate custom confidence metrics\n   - Track historical accuracy\n\n2. Set thresholds:\n   - High confidence (>0.9): Auto-execute\n   - Medium confidence (0.7-0.9): Human review\n   - Low confidence (<0.7): Reject or escalate\n\n3. Validate output:\n   - Use schema validation (Pydantic)\n   - Check output format and constraints\n   - Verify against expected patterns\n\n4. Implement fallbacks:\n   - Have backup strategies for low confidence\n   - Use simpler/safer alternatives\n   - Escalate to human operators\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
-    },
-    {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_138_critical_decision",
-      "category": "LLM09: Overreliance",
-      "severity": "HIGH",
-      "confidence": 0.9,
-      "title": "Critical decision without oversight in 'process_request'",
-      "description": "Function 'process_request' on line 138 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-      "line_number": 138,
-      "code_snippet": "        self.approve = approval_callback\n\n    def process_request(self, request: str) -> str:\n        prompt = f\"Suggest an action for: {request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
-      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
-    },
-    {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_14_direct_execution",
       "category": "LLM09: Overreliance",
       "severity": "CRITICAL",
@@ -606,7 +522,67 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 14,
       "code_snippet": "\n# VULN:LLM08:CRITICAL:LINE=16 - Auto-execution of LLM-generated code\ndef vulnerable_auto_execute(user_request: str) -> str:\n    \"\"\"Vulnerable: Automatically executes code generated by LLM.\"\"\"\n    prompt = f\"Write Python code to: {user_request}. Output only code, no explanation.\"\n    response = client.chat.completions.create(",
-      "recommendation": "Implement confidence thresholds for automated actions:\n\n1. Add confidence scoring:\n   - Request confidence scores from LLM\n   - Calculate custom confidence metrics\n   - Track historical accuracy\n\n2. Set thresholds:\n   - High confidence (>0.9): Auto-execute\n   - Medium confidence (0.7-0.9): Human review\n   - Low confidence (<0.7): Reject or escalate\n\n3. Validate output:\n   - Use schema validation (Pydantic)\n   - Check output format and constraints\n   - Verify against expected patterns\n\n4. Implement fallbacks:\n   - Have backup strategies for low confidence\n   - Use simpler/safer alternatives\n   - Escalate to human operators\n\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring"
+      "recommendation": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nImplement confidence thresholds for automated actions:\n\n1. Add confidence scoring:\n   - Request confidence scores from LLM\n   - Calculate custom confidence metrics\n   - Track historical accuracy\n\n2. Set thresholds:\n   - High confidence (>0.9): Auto-execute\n   - Medium confidence (0.7-0.9): Human review\n   - Low confidence (<0.7): Reject or escalate\n\n3. Validate output:\n   - Use schema validation (Pydantic)\n   - Check output format and constraints\n   - Verify against expected patterns\n\n4. Implement fallbacks:\n   - Have backup strategies for low confidence\n   - Use simpler/safer alternatives\n   - Escalate to human operators"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_35_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "CRITICAL",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'process_request'",
+      "description": "Function 'process_request' on line 35 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+      "line_number": 35,
+      "code_snippet": "        self.db = db_connection\n\n    def process_request(self, user_request: str) -> str:\n        prompt = f\"Generate SQL to: {user_request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
+      "recommendation": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_53_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "CRITICAL",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'execute_task'",
+      "description": "Function 'execute_task' on line 53 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+      "line_number": 53,
+      "code_snippet": "    \"\"\"Vulnerable: Agent can execute system commands.\"\"\"\n\n    def execute_task(self, task: str) -> str:\n        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
+      "recommendation": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nImplement confidence thresholds for automated actions:\n\n1. Add confidence scoring:\n   - Request confidence scores from LLM\n   - Calculate custom confidence metrics\n   - Track historical accuracy\n\n2. Set thresholds:\n   - High confidence (>0.9): Auto-execute\n   - Medium confidence (0.7-0.9): Human review\n   - Low confidence (<0.7): Reject or escalate\n\n3. Validate output:\n   - Use schema validation (Pydantic)\n   - Check output format and constraints\n   - Verify against expected patterns\n\n4. Implement fallbacks:\n   - Have backup strategies for low confidence\n   - Use simpler/safer alternatives\n   - Escalate to human operators"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_73_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'process_request'",
+      "description": "Function 'process_request' on line 73 makes critical financial, security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+      "line_number": 73,
+      "code_snippet": "        self.payment = payment_api\n\n    def process_request(self, user_request: str) -> str:\n        prompt = f\"Should I process this payment request: {user_request}? If yes, respond with the amount.\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
+      "recommendation": "Critical financial, security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_115_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'perform_action'",
+      "description": "Function 'perform_action' on line 115 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+      "line_number": 115,
+      "code_snippet": "    \"\"\"Vulnerable: Agent actions are not logged.\"\"\"\n\n    def perform_action(self, action: str) -> str:\n        prompt = f\"Perform this action: {action}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nImplement confidence thresholds for automated actions:\n\n1. Add confidence scoring:\n   - Request confidence scores from LLM\n   - Calculate custom confidence metrics\n   - Track historical accuracy\n\n2. Set thresholds:\n   - High confidence (>0.9): Auto-execute\n   - Medium confidence (0.7-0.9): Human review\n   - Low confidence (<0.7): Reject or escalate\n\n3. Validate output:\n   - Use schema validation (Pydantic)\n   - Check output format and constraints\n   - Verify against expected patterns\n\n4. Implement fallbacks:\n   - Have backup strategies for low confidence\n   - Use simpler/safer alternatives\n   - Escalate to human operators"
+    },
+    {
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_138_critical_decision",
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "confidence": 0.9,
+      "title": "Critical decision without oversight in 'process_request'",
+      "description": "Function 'process_request' on line 138 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+      "line_number": 138,
+      "code_snippet": "        self.approve = approval_callback\n\n    def process_request(self, request: str) -> str:\n        prompt = f\"Suggest an action for: {request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",",
+      "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
     }
   ],
   "metadata": {}

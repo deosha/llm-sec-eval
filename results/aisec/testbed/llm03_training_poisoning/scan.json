@@ -1,17 +1,17 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-08T19:25:37.999068Z",
+  "generated_at": "2026-01-10T14:49:56.051280Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning",
     "files_scanned": 1,
-    "overall_score": 13.26,
-    "confidence": 0.62,
-    "duration_seconds": 0.005,
-    "findings_count": 2,
+    "overall_score": 11.06,
+    "confidence": 0.59,
+    "duration_seconds": 0.006,
+    "findings_count": 3,
     "severity_breakdown": {
       "CRITICAL": 1,
       "HIGH": 1,
-      "MEDIUM": 0,
+      "MEDIUM": 1,
       "LOW": 0,
       "INFO": 0
     }
@@ -156,14 +156,14 @@
     {
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
-      "score": 47,
-      "confidence": 0.88,
+      "score": 40,
+      "confidence": 0.86,
       "subscores": {
         "LLM01": 100,
         "LLM02": 100,
         "LLM03": 100,
         "LLM04": 100,
-        "LLM05": 83,
+        "LLM05": 76,
         "LLM06": 100,
         "LLM07": 100,
         "LLM08": 100,
@@ -181,7 +181,7 @@
         "Overreliance (no vulnerabilities found)"
       ],
       "gaps": [
-        "Supply Chain Vulnerabilities: 1 high",
+        "Supply Chain Vulnerabilities: 1 high, 1 medium",
         "Model Theft: 1 critical"
       ]
     }
@@ -192,12 +192,24 @@
       "category": "LLM05: Supply Chain Vulnerabilities",
       "severity": "HIGH",
       "confidence": 0.85,
-      "title": "Use of pickle for model serialization",
-      "description": "Import of 'pickle' on line 7 for model serialization. This library can execute arbitrary code during deserialization, making it vulnerable to supply chain attacks if loading untrusted models.",
+      "title": "Use of pickle for serialization",
+      "description": "Import of 'pickle' on line 7. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
       "line_number": 7,
       "code_snippet": "import pickle",
-      "recommendation": "Secure Serialization:\n1. Use safer alternatives like safetensors for PyTorch/TensorFlow\n2. Never deserialize models from untrusted sources\n3. Scan serialized models before loading\n4. Use sandboxed environments for model loading\n5. Implement allowlists for model formats\n6. Consider using ONNX for model exchange"
+      "recommendation": "Secure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_54_unsafe_load",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "title": "Unsafe model loading pattern",
+      "description": "torch.load without weights_only=True can execute arbitrary code on line 54.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+      "line_number": 54,
+      "code_snippet": "    # Download and load without verification\n    model_path = download_file(url)\n    model = torch.load(model_path)  # VULNERABLE - pickle under the hood\n    return model\n\n",
+      "recommendation": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
     },
     {
       "id": "LLM10_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_79_exposed_artifacts",

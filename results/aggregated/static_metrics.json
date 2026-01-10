@@ -3,11 +3,11 @@
     "LLM01": {
       "aisec": {
         "tp": 5,
-        "fp": 26,
+        "fp": 14,
         "fn": 0,
-        "precision": 0.161,
+        "precision": 0.263,
         "recall": 1.0,
-        "f1": 0.278
+        "f1": 0.417
       },
       "semgrep": {
         "tp": 0,
@@ -28,12 +28,12 @@
     },
     "LLM02": {
       "aisec": {
-        "tp": 0,
-        "fp": 5,
-        "fn": 7,
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1": 0
+        "tp": 2,
+        "fp": 9,
+        "fn": 5,
+        "precision": 0.182,
+        "recall": 0.286,
+        "f1": 0.222
       },
       "semgrep": {
         "tp": 2,
@@ -54,12 +54,12 @@
     },
     "LLM03": {
       "aisec": {
-        "tp": 0,
+        "tp": 1,
         "fp": 2,
-        "fn": 5,
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1": 0
+        "fn": 4,
+        "precision": 0.333,
+        "recall": 0.2,
+        "f1": 0.25
       },
       "semgrep": {
         "tp": 0,
@@ -81,11 +81,11 @@
     "LLM04": {
       "aisec": {
         "tp": 6,
-        "fp": 24,
+        "fp": 10,
         "fn": 0,
-        "precision": 0.2,
+        "precision": 0.375,
         "recall": 1.0,
-        "f1": 0.333
+        "f1": 0.545
       },
       "semgrep": {
         "tp": 0,
@@ -106,12 +106,12 @@
     },
     "LLM05": {
       "aisec": {
-        "tp": 1,
-        "fp": 0,
-        "fn": 6,
-        "precision": 1.0,
-        "recall": 0.143,
-        "f1": 0.25
+        "tp": 5,
+        "fp": 2,
+        "fn": 2,
+        "precision": 0.714,
+        "recall": 0.714,
+        "f1": 0.714
       },
       "semgrep": {
         "tp": 0,
@@ -133,11 +133,11 @@
     "LLM06": {
       "aisec": {
         "tp": 5,
-        "fp": 17,
+        "fp": 7,
         "fn": 2,
-        "precision": 0.227,
+        "precision": 0.417,
         "recall": 0.714,
-        "f1": 0.345
+        "f1": 0.526
       },
       "semgrep": {
         "tp": 0,
@@ -158,12 +158,12 @@
     },
     "LLM07": {
       "aisec": {
-        "tp": 1,
-        "fp": 1,
-        "fn": 6,
-        "precision": 0.5,
-        "recall": 0.143,
-        "f1": 0.222
+        "tp": 3,
+        "fp": 2,
+        "fn": 4,
+        "precision": 0.6,
+        "recall": 0.429,
+        "f1": 0.5
       },
       "semgrep": {
         "tp": 1,
@@ -185,11 +185,11 @@
     "LLM08": {
       "aisec": {
         "tp": 6,
-        "fp": 29,
+        "fp": 24,
         "fn": 0,
-        "precision": 0.171,
+        "precision": 0.2,
         "recall": 1.0,
-        "f1": 0.293
+        "f1": 0.333
       },
       "semgrep": {
         "tp": 2,
@@ -211,11 +211,11 @@
     "LLM09": {
       "aisec": {
         "tp": 7,
-        "fp": 27,
+        "fp": 14,
         "fn": 0,
-        "precision": 0.206,
+        "precision": 0.333,
         "recall": 1.0,
-        "f1": 0.341
+        "f1": 0.5
       },
       "semgrep": {
         "tp": 0,
@@ -237,11 +237,11 @@
     "LLM10": {
       "aisec": {
         "tp": 6,
-        "fp": 17,
+        "fp": 8,
         "fn": 1,
-        "precision": 0.261,
+        "precision": 0.429,
         "recall": 0.857,
-        "f1": 0.4
+        "f1": 0.571
       },
       "semgrep": {
         "tp": 0,
@@ -263,12 +263,12 @@
   },
   "by_tool": {
     "aisec": {
-      "tp": 37,
-      "fp": 148,
-      "fn": 27,
-      "precision": 0.2,
-      "recall": 0.578,
-      "f1": 0.297
+      "tp": 46,
+      "fp": 92,
+      "fn": 18,
+      "precision": 0.333,
+      "recall": 0.719,
+      "f1": 0.455
     },
     "semgrep": {
       "tp": 5,
@@ -292,13 +292,13 @@
       "project": "llm01_prompt_injection",
       "category": "LLM01",
       "tool": "aisec",
-      "precision": 0.161,
+      "precision": 0.263,
       "recall": 1.0,
-      "f1": 0.278,
+      "f1": 0.417,
       "tp": 5,
-      "fp": 26,
+      "fp": 14,
       "fn": 0,
-      "total_findings": 31,
+      "total_findings": 19,
       "ground_truth_count": 5
     },
     {
@@ -331,13 +331,13 @@
       "project": "llm02_insecure_output",
       "category": "LLM02",
       "tool": "aisec",
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1": 0,
-      "tp": 0,
-      "fp": 5,
-      "fn": 7,
-      "total_findings": 5,
+      "precision": 0.182,
+      "recall": 0.286,
+      "f1": 0.222,
+      "tp": 2,
+      "fp": 9,
+      "fn": 5,
+      "total_findings": 11,
       "ground_truth_count": 7
     },
     {
@@ -370,13 +370,13 @@
       "project": "llm03_training_poisoning",
       "category": "LLM03",
       "tool": "aisec",
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1": 0,
-      "tp": 0,
+      "precision": 0.333,
+      "recall": 0.2,
+      "f1": 0.25,
+      "tp": 1,
       "fp": 2,
-      "fn": 5,
-      "total_findings": 2,
+      "fn": 4,
+      "total_findings": 3,
       "ground_truth_count": 5
     },
     {
@@ -409,13 +409,13 @@
       "project": "llm04_model_dos",
       "category": "LLM04",
       "tool": "aisec",
-      "precision": 0.2,
+      "precision": 0.375,
       "recall": 1.0,
-      "f1": 0.333,
+      "f1": 0.545,
       "tp": 6,
-      "fp": 24,
+      "fp": 10,
       "fn": 0,
-      "total_findings": 30,
+      "total_findings": 16,
       "ground_truth_count": 6
     },
     {
@@ -448,13 +448,13 @@
       "project": "llm05_supply_chain",
       "category": "LLM05",
       "tool": "aisec",
-      "precision": 1.0,
-      "recall": 0.143,
-      "f1": 0.25,
-      "tp": 1,
-      "fp": 0,
-      "fn": 6,
-      "total_findings": 1,
+      "precision": 0.714,
+      "recall": 0.714,
+      "f1": 0.714,
+      "tp": 5,
+      "fp": 2,
+      "fn": 2,
+      "total_findings": 7,
       "ground_truth_count": 7
     },
     {
@@ -487,13 +487,13 @@
       "project": "llm06_sensitive_info",
       "category": "LLM06",
       "tool": "aisec",
-      "precision": 0.227,
+      "precision": 0.417,
       "recall": 0.714,
-      "f1": 0.345,
+      "f1": 0.526,
       "tp": 5,
-      "fp": 17,
+      "fp": 7,
       "fn": 2,
-      "total_findings": 22,
+      "total_findings": 12,
       "ground_truth_count": 7
     },
     {
@@ -526,13 +526,13 @@
       "project": "llm07_insecure_plugin",
       "category": "LLM07",
       "tool": "aisec",
-      "precision": 0.5,
-      "recall": 0.143,
-      "f1": 0.222,
-      "tp": 1,
-      "fp": 1,
-      "fn": 6,
-      "total_findings": 2,
+      "precision": 0.6,
+      "recall": 0.429,
+      "f1": 0.5,
+      "tp": 3,
+      "fp": 2,
+      "fn": 4,
+      "total_findings": 5,
       "ground_truth_count": 7
     },
     {
@@ -565,13 +565,13 @@
       "project": "llm08_excessive_agency",
       "category": "LLM08",
       "tool": "aisec",
-      "precision": 0.171,
+      "precision": 0.2,
       "recall": 1.0,
-      "f1": 0.293,
+      "f1": 0.333,
       "tp": 6,
-      "fp": 29,
+      "fp": 24,
       "fn": 0,
-      "total_findings": 35,
+      "total_findings": 30,
       "ground_truth_count": 6
     },
     {
@@ -604,13 +604,13 @@
       "project": "llm09_overreliance",
       "category": "LLM09",
       "tool": "aisec",
-      "precision": 0.206,
+      "precision": 0.333,
       "recall": 1.0,
-      "f1": 0.341,
+      "f1": 0.5,
       "tp": 7,
-      "fp": 27,
+      "fp": 14,
       "fn": 0,
-      "total_findings": 34,
+      "total_findings": 21,
       "ground_truth_count": 7
     },
     {
@@ -643,13 +643,13 @@
       "project": "llm10_model_theft",
       "category": "LLM10",
       "tool": "aisec",
-      "precision": 0.261,
+      "precision": 0.429,
       "recall": 0.857,
-      "f1": 0.4,
+      "f1": 0.571,
       "tp": 6,
-      "fp": 17,
+      "fp": 8,
       "fn": 1,
-      "total_findings": 23,
+      "total_findings": 14,
       "ground_truth_count": 7
     },
     {
