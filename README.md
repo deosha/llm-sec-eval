@@ -1,6 +1,6 @@
 # LLM Security Evaluation Framework
 
-Evaluation framework for [AI Security CLI](https://github.com/deosha/ai-security-cli) - benchmarking OWASP LLM Top 10 detection against traditional SAST tools.
+Evaluation framework for [AI Security CLI](https://github.com/deosha/aisentry) - benchmarking OWASP LLM Top 10 detection against traditional SAST tools.
 
 > **Important**: See [Comparison Analysis](results/aggregated/comparison_analysis.md) for full methodology context and limitations.
 
@@ -119,7 +119,7 @@ llm-sec-eval/
 ### Prerequisites
 
 ```bash
-pip install ai-security-cli bandit semgrep
+pip install aisentry bandit semgrep
 ```
 
 ### Run Full Evaluation
@@ -139,10 +139,10 @@ make aggregate
 
 ```bash
 # Static scan
-ai-security-cli scan ./testbed/llm01_prompt_injection -o json -f results.json
+aisentry scan ./testbed/llm01_prompt_injection -o json -f results.json
 
 # Scan real-world repo
-ai-security-cli scan ./repos/langchain -o json -f langchain_scan.json
+aisentry scan ./repos/langchain -o json -f langchain_scan.json
 
 # Compare with Bandit
 bandit -r ./testbed/llm01_prompt_injection -f json -o bandit.json

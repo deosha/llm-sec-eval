@@ -2,9 +2,9 @@
   "methodology": {
     "path_matching": "testbed-relative with basename fallback",
     "severity_filter": [
-      "CRITICAL",
       "MEDIUM",
-      "HIGH"
+      "HIGH",
+      "CRITICAL"
     ],
     "deduplication": "file+line before scoring",
     "span_matching": "semgrep uses [start,end] span",

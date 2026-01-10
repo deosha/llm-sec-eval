@@ -11,13 +11,13 @@
 
 | Shows | Does NOT Show |
 |-------|---------------|
-| Unique coverage of ai-security-cli for LLM patterns | Overall tool quality for general Python security |
+| Unique coverage of aisentry for LLM patterns | Overall tool quality for general Python security |
 | Baseline detection of generic SAST on LLM testbed | What tuned Semgrep rules could achieve |
 | Complementary tool coverage | Superiority of one tool over another |
 
 ## Methodology Context
 
-This comparison evaluates ai-security-cli (specialized LLM scanner) against generic SAST tools
+This comparison evaluates aisentry (specialized LLM scanner) against generic SAST tools
 (Semgrep, Bandit) on the OWASP LLM Top 10 testbed (73 labeled vulnerabilities).
 
 **Critical caveats:**
@@ -30,7 +30,7 @@ This comparison evaluates ai-security-cli (specialized LLM scanner) against gene
 
 | Tool | Version | Configuration |
 |------|---------|---------------|
-| ai-security-cli | 1.0.0b4 | Default LLM detectors |
+| aisentry | 1.0.0b4 | Default LLM detectors |
 | Semgrep | 1.50+ | `semgrep --config=p/python` |
 | Bandit | 1.7+ | `bandit -r . -f json` |
 
@@ -40,7 +40,7 @@ This comparison evaluates ai-security-cli (specialized LLM scanner) against gene
 
 Categories where generic SAST tools **should** perform well:
 
-| Category | Pattern Type | ai-security-cli | Semgrep | Bandit | Generic Detectable? |
+| Category | Pattern Type | aisentry | Semgrep | Bandit | Generic Detectable? |
 |----------|--------------|-----------------|---------|--------|---------------------|
 | LLM02 | eval/exec/SQL | F1=0.35 | F1=0.43 | **F1=0.82** | ✅ Yes |
 | LLM03 | pickle.load | F1=0.57 | F1=0.00 | F1=0.60 | ✅ Yes |
@@ -56,7 +56,7 @@ Categories where generic SAST tools **should** perform well:
 
 Categories where generic SAST tools are **not expected** to detect:
 
-| Category | Pattern Type | ai-security-cli | Semgrep | Bandit | Generic Detectable? |
+| Category | Pattern Type | aisentry | Semgrep | Bandit | Generic Detectable? |
 |----------|--------------|-----------------|---------|--------|---------------------|
 | LLM01 | Prompt injection | **F1=0.60** | F1=0.00 | F1=0.15 | ❌ No rules exist |
 | LLM04 | Model DoS | **F1=0.80** | F1=0.00 | F1=0.00 | ❌ No rules exist |
@@ -67,12 +67,12 @@ Categories where generic SAST tools are **not expected** to detect:
 
 **Observations:**
 - Low scores for Semgrep/Bandit here are **expected behavior, not deficiencies**
-- ai-security-cli provides unique coverage for LLM01, LLM04, LLM06, LLM10
+- aisentry provides unique coverage for LLM01, LLM04, LLM06, LLM10
 - LLM09 overlap is due to shared exec patterns, not LLM-specific awareness
 
 ## Overall Summary
 
-| Metric | ai-security-cli | Semgrep | Bandit |
+| Metric | aisentry | Semgrep | Bandit |
 |--------|-----------------|---------|--------|
 | Precision | 68.5% | 83.3% | 58.3% |
 | Recall | 50.7% | 6.8% | 38.4% |
@@ -82,7 +82,7 @@ Categories where generic SAST tools are **not expected** to detect:
 
 1. **Use both tools together** - Generic SAST + specialized LLM scanning provides broader coverage
 2. **Bandit for baseline** - Strong at eval/exec/pickle patterns
-3. **ai-security-cli for LLM-specific** - Essential for prompt injection, model DoS, sensitive info
+3. **aisentry for LLM-specific** - Essential for prompt injection, model DoS, sensitive info
 4. **Semgrep for custom rules** - Consider custom LLM rules to extend coverage
 
 ## Threats to Validity
@@ -90,10 +90,10 @@ Categories where generic SAST tools are **not expected** to detect:
 1. **Testbed Design Bias**: The 73 vulnerabilities were labeled for LLM-specific issues.
    ~60% have no equivalent generic detection rules. This tests tools OUTSIDE their intended scope.
 
-2. **Rule Set Asymmetry**: ai-security-cli has custom LLM rules; Semgrep/Bandit use default configs.
+2. **Rule Set Asymmetry**: aisentry has custom LLM rules; Semgrep/Bandit use default configs.
    A fairer test would include Semgrep with custom LLM-focused rules.
 
-3. **Author-Curated Dataset**: Testbed was created by ai-security-cli authors.
+3. **Author-Curated Dataset**: Testbed was created by aisentry authors.
    External validation on real-world LLM codebases would strengthen findings.
 
 4. **Detection ≠ Actionability**: Results show detection rates, not false positive burden
