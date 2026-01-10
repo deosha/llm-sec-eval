@@ -1,16 +1,16 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:52:03.914671Z",
+  "generated_at": "2026-01-10T15:46:22.722044Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning",
     "files_scanned": 1,
-    "overall_score": 11.06,
-    "confidence": 0.59,
+    "overall_score": 0.11,
+    "confidence": 0.6,
     "duration_seconds": 0.006,
-    "findings_count": 3,
+    "findings_count": 5,
     "severity_breakdown": {
-      "CRITICAL": 1,
-      "HIGH": 1,
+      "CRITICAL": 2,
+      "HIGH": 2,
       "MEDIUM": 1,
       "LOW": 0,
       "INFO": 0
@@ -156,12 +156,12 @@
     {
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
-      "score": 40,
-      "confidence": 0.86,
+      "score": 0,
+      "confidence": 0.85,
       "subscores": {
         "LLM01": 100,
         "LLM02": 100,
-        "LLM03": 100,
+        "LLM03": 49,
         "LLM04": 100,
         "LLM05": 76,
         "LLM06": 100,
@@ -173,7 +173,6 @@
       "detected_controls": [
         "Prompt Injection (no vulnerabilities found)",
         "Insecure Output Handling (no vulnerabilities found)",
-        "Training Data Poisoning (no vulnerabilities found)",
         "Model Denial of Service (no vulnerabilities found)",
         "Sensitive Information Disclosure (no vulnerabilities found)",
         "Insecure Plugin Design (no vulnerabilities found)",
@@ -181,12 +180,37 @@
         "Overreliance (no vulnerabilities found)"
       ],
       "gaps": [
+        "Training Data Poisoning: 1 critical, 1 high",
         "Supply Chain Vulnerabilities: 1 high, 1 medium",
         "Model Theft: 1 critical"
       ]
     }
   ],
   "findings": [
+    {
+      "id": "LLM03_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_24_unsafe_load",
+      "category": "LLM03: Training Data Poisoning",
+      "severity": "CRITICAL",
+      "confidence": 0.85,
+      "title": "Unsafe data loading with pickle.load in training context",
+      "description": "Function 'vulnerable_load_dataset' uses pickle.load on line 24. Pickle-based deserialization can execute arbitrary code, allowing attackers to inject malicious code through poisoned training data or models.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+      "line_number": 24,
+      "code_snippet": "    with open(path, \"rb\") as f:\n        dataset = pickle.load(f)  # VULNERABLE - arbitrary code execution\n    return dataset\n",
+      "recommendation": "Secure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+    },
+    {
+      "id": "LLM03_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_54_unsafe_load",
+      "category": "LLM03: Training Data Poisoning",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "title": "Unsafe data loading with torch.load in training context",
+      "description": "Function 'vulnerable_load_torch_model' uses torch.load on line 54. Pickle-based deserialization can execute arbitrary code, allowing attackers to inject malicious code through poisoned training data or models.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+      "line_number": 54,
+      "code_snippet": "    model_path = download_file(url)\n    model = torch.load(model_path)  # VULNERABLE - pickle under the hood\n    return model\n",
+      "recommendation": "Secure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+    },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_7_pickle",
       "category": "LLM05: Supply Chain Vulnerabilities",

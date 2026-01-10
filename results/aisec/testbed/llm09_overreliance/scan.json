@@ -1,19 +1,19 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:52:04.556482Z",
+  "generated_at": "2026-01-10T15:46:24.008949Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance",
     "files_scanned": 1,
     "overall_score": 0.79,
     "confidence": 0.57,
     "duration_seconds": 0.011,
-    "findings_count": 26,
+    "findings_count": 28,
     "severity_breakdown": {
       "CRITICAL": 5,
-      "HIGH": 7,
+      "HIGH": 10,
       "MEDIUM": 9,
       "LOW": 0,
-      "INFO": 5
+      "INFO": 4
     }
   },
   "category_scores": [
@@ -44,9 +44,9 @@
       "category_id": "2_model_security",
       "category_name": "Model Security & Integrity",
       "score": 0,
-      "confidence": 0.35,
+      "confidence": 0.37,
       "subscores": {
-        "model_protection": 0,
+        "model_protection": 16,
         "extraction_defense": 25,
         "supply_chain_security": 0,
         "api_key_security": 0,
@@ -56,7 +56,9 @@
         "model_provenance": 0,
         "supply_chain_verification": 0
       },
-      "detected_controls": [],
+      "detected_controls": [
+        "Encryption in transit"
+      ],
       "gaps": [
         "Model protection needs improvement",
         "Consider implementing encryption and access controls",
@@ -155,7 +157,7 @@
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
       "score": 0,
-      "confidence": 0.79,
+      "confidence": 0.78,
       "subscores": {
         "LLM01": 0,
         "LLM02": 100,
@@ -164,8 +166,8 @@
         "LLM05": 40,
         "LLM06": 100,
         "LLM07": 100,
-        "LLM08": 93,
-        "LLM09": 82,
+        "LLM08": 65,
+        "LLM09": 65,
         "LLM10": 100
       },
       "detected_controls": [
@@ -179,8 +181,8 @@
         "Prompt Injection: 3 critical",
         "Model Denial of Service: 2 critical, 6 high",
         "Supply Chain Vulnerabilities: 8 medium",
-        "Excessive Agency: 1 medium",
-        "Overreliance: 1 high"
+        "Excessive Agency: 2 high, 1 medium",
+        "Overreliance: 2 high"
       ]
     }
   ],
@@ -210,15 +212,15 @@
       "recommendation": "Mitigations:\n1. Use structured prompt templates (e.g., LangChain PromptTemplate)\n2. Implement input sanitization to remove prompt injection patterns\n3. Use separate 'user' and 'system' message roles (ChatML format)\n4. Apply input validation and length limits\n5. Use allowlists for expected input formats\n6. Consider prompt injection detection libraries"
     },
     {
-      "id": "LLM01_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_106",
+      "id": "LLM01_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_108",
       "category": "LLM01: Prompt Injection",
       "severity": "CRITICAL",
       "confidence": 0.9,
       "title": "User input 'data' embedded in LLM prompt",
       "description": "User input 'data' flows to LLM call via f-string in variable 'prompt'. Function 'vulnerable_critical_decision' may be vulnerable to prompt injection attacks.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
-      "line_number": 106,
-      "code_snippet": "    \"\"\"Vulnerable: Makes critical business decisions based on LLM analysis.\"\"\"\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
+      "line_number": 108,
+      "code_snippet": "    import requests\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
       "recommendation": "Mitigations:\n1. Use structured prompt templates (e.g., LangChain PromptTemplate)\n2. Implement input sanitization to remove prompt injection patterns\n3. Use separate 'user' and 'system' message roles (ChatML format)\n4. Apply input validation and length limits\n5. Use allowlists for expected input formats\n6. Consider prompt injection detection libraries"
     },
     {
@@ -290,30 +292,30 @@
       "description": "Function 'vulnerable_auto_publish' on line 89 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
       "line_number": 89,
-      "code_snippet": "def vulnerable_auto_publish(topic: str) -> str:\n    \"\"\"Vulnerable: Auto-publishes LLM-generated content without review.\"\"\"\n    prompt = f\"Write a blog post about: {topic}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    content = response.choices[0].message.content\n\n    # VULNERABLE - auto-publish without fact-checking\n    publish_to_website(content)",
+      "code_snippet": "def vulnerable_auto_publish(topic: str) -> str:\n    \"\"\"Vulnerable: Auto-publishes LLM-generated content without review.\"\"\"\n    import requests\n    prompt = f\"Write a blog post about: {topic}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    content = response.choices[0].message.content\n\n    # VULNERABLE - auto-publish without fact-checking (detectable HTTP POST)",
       "recommendation": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
     },
     {
-      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_104",
+      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_105",
       "category": "LLM04: Model Denial of Service",
       "severity": "HIGH",
       "confidence": 0.7,
       "title": "Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits",
-      "description": "Function 'vulnerable_critical_decision' on line 104 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "description": "Function 'vulnerable_critical_decision' on line 105 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
-      "line_number": 104,
-      "code_snippet": "def vulnerable_critical_decision(data: dict) -> str:\n    \"\"\"Vulnerable: Makes critical business decisions based on LLM analysis.\"\"\"\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    recommendation = response.choices[0].message.content\n\n    # VULNERABLE - acting on LLM recommendation without verification\n    execute_trade(recommendation)",
+      "line_number": 105,
+      "code_snippet": "def vulnerable_critical_decision(data: dict) -> str:\n    \"\"\"Vulnerable: Makes critical business decisions based on LLM analysis.\"\"\"\n    import requests\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    recommendation = response.choices[0].message.content\n\n    # VULNERABLE - acting on LLM recommendation without verification (detectable HTTP POST)",
       "recommendation": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
     },
     {
-      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_129",
+      "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_121",
       "category": "LLM04: Model Denial of Service",
       "severity": "CRITICAL",
       "confidence": 0.8,
       "title": "Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits",
-      "description": "Function 'safe_verified_response' on line 129 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "description": "Function 'safe_verified_response' on line 121 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
-      "line_number": 129,
+      "line_number": 121,
       "code_snippet": "def safe_verified_response(query: str) -> dict:\n    \"\"\"Safe: Includes confidence, sources, and disclaimers.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": query}],\n        # Using logprobs for confidence would be ideal\n    )\n\n    return {\n        \"answer\": response.choices[0].message.content,\n        \"confidence\": \"medium\",  # Assess confidence",
       "recommendation": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
     },
@@ -378,38 +380,38 @@
       "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
-      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_92_unpinned",
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_93_unpinned",
       "category": "LLM05: Supply Chain Vulnerabilities",
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 92. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
+      "description": "Model ''gpt-4'' is used without version pinning on line 93. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
-      "line_number": 92,
-      "code_snippet": "    \"\"\"Vulnerable: Auto-publishes LLM-generated content without review.\"\"\"\n    prompt = f\"Write a blog post about: {topic}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
+      "line_number": 93,
+      "code_snippet": "    import requests\n    prompt = f\"Write a blog post about: {topic}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
       "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
-      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_107_unpinned",
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_109_unpinned",
       "category": "LLM05: Supply Chain Vulnerabilities",
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 107. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
+      "description": "Model ''gpt-4'' is used without version pinning on line 109. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
-      "line_number": 107,
-      "code_snippet": "    \"\"\"Vulnerable: Makes critical business decisions based on LLM analysis.\"\"\"\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
+      "line_number": 109,
+      "code_snippet": "    import requests\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )",
       "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
     {
-      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_131_unpinned",
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_123_unpinned",
       "category": "LLM05: Supply Chain Vulnerabilities",
       "severity": "MEDIUM",
       "confidence": 0.75,
       "title": "Unpinned model version in API call",
-      "description": "Model ''gpt-4'' is used without version pinning on line 131. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
+      "description": "Model ''gpt-4'' is used without version pinning on line 123. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
-      "line_number": 131,
+      "line_number": 123,
       "code_snippet": "def safe_verified_response(query: str) -> dict:\n    \"\"\"Safe: Includes confidence, sources, and disclaimers.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": query}],\n        # Using logprobs for confidence would be ideal",
       "recommendation": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
     },
@@ -424,6 +426,30 @@
       "line_number": 63,
       "code_snippet": "\n# VULN:LLM09:MEDIUM:LINE=64 - No confidence indicators\ndef vulnerable_no_confidence(query: str) -> dict:\n    \"\"\"Vulnerable: Returns answers without confidence or uncertainty indicators.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
       "recommendation": "High-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+    },
+    {
+      "id": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_89_api",
+      "category": "LLM08: Excessive Agency",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Unrestricted API access from LLM in 'vulnerable_auto_publish'",
+      "description": "Function 'vulnerable_auto_publish' on line 89 makes HTTP/API requests based on LLM outputs without URL validation or allowlisting. This allows the LLM to make requests to arbitrary endpoints, potentially exfiltrating data, performing SSRF attacks, or accessing unauthorized resources.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 89,
+      "code_snippet": "\n# VULN:LLM09:HIGH:LINE=91 - Auto-publishing LLM content\ndef vulnerable_auto_publish(topic: str) -> str:\n    \"\"\"Vulnerable: Auto-publishes LLM-generated content without review.\"\"\"\n    import requests\n    prompt = f\"Write a blog post about: {topic}\"",
+      "recommendation": "API Access Control:\n1. Implement strict URL allowlists for permitted endpoints\n2. Validate and sanitize all URLs before making requests\n3. Use separate API keys with minimal permissions\n4. Implement rate limiting on outbound requests\n5. Log all API calls with full context\n6. Block private/internal IP ranges (SSRF prevention)\n7. Validate response content before processing\n8. Set timeouts on API calls\n9. Use circuit breakers for failing endpoints\n10. Monitor for unusual access patterns"
+    },
+    {
+      "id": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_105_api",
+      "category": "LLM08: Excessive Agency",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Unrestricted API access from LLM in 'vulnerable_critical_decision'",
+      "description": "Function 'vulnerable_critical_decision' on line 105 makes HTTP/API requests based on LLM outputs without URL validation or allowlisting. This allows the LLM to make requests to arbitrary endpoints, potentially exfiltrating data, performing SSRF attacks, or accessing unauthorized resources.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 105,
+      "code_snippet": "\n# VULN:LLM09:HIGH:LINE=107 - Critical decisions without verification\ndef vulnerable_critical_decision(data: dict) -> str:\n    \"\"\"Vulnerable: Makes critical business decisions based on LLM analysis.\"\"\"\n    import requests\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"",
+      "recommendation": "API Access Control:\n1. Implement strict URL allowlists for permitted endpoints\n2. Validate and sanitize all URLs before making requests\n3. Use separate API keys with minimal permissions\n4. Implement rate limiting on outbound requests\n5. Log all API calls with full context\n6. Block private/internal IP ranges (SSRF prevention)\n7. Validate response content before processing\n8. Set timeouts on API calls\n9. Use circuit breakers for failing endpoints\n10. Monitor for unusual access patterns"
     },
     {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_35_critical_decision",
@@ -474,15 +500,15 @@
       "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
     },
     {
-      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_104_critical_decision",
+      "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py_105_critical_decision",
       "category": "LLM09: Overreliance",
-      "severity": "INFO",
+      "severity": "HIGH",
       "confidence": 0.9,
       "title": "Critical decision without oversight in 'vulnerable_critical_decision'",
-      "description": "Function 'vulnerable_critical_decision' on line 104 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+      "description": "Function 'vulnerable_critical_decision' on line 105 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
-      "line_number": 104,
-      "code_snippet": "\n# VULN:LLM09:MEDIUM:LINE=107 - Critical decisions without verification\ndef vulnerable_critical_decision(data: dict) -> str:\n    \"\"\"Vulnerable: Makes critical business decisions based on LLM analysis.\"\"\"\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"\n    response = client.chat.completions.create(",
+      "line_number": 105,
+      "code_snippet": "\n# VULN:LLM09:HIGH:LINE=107 - Critical decisions without verification\ndef vulnerable_critical_decision(data: dict) -> str:\n    \"\"\"Vulnerable: Makes critical business decisions based on LLM analysis.\"\"\"\n    import requests\n    prompt = f\"Analyze this data and recommend: buy, sell, or hold. Data: {data}\"",
       "recommendation": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
     },
     {

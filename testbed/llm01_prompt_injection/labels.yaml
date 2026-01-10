@@ -10,8 +10,8 @@ metadata:
 static_findings:
   - id: LLM01-STATIC-001
     file: app.py
-    line: 16
-    line_tolerance: 2  # Allow ±2 lines for matching
+    line: 30
+    line_tolerance: 2
     category: LLM01
     severity: high
     confidence: 0.9
@@ -21,7 +21,7 @@ static_findings:
 
   - id: LLM01-STATIC-002
     file: app.py
-    line: 28
+    line: 41
     line_tolerance: 2
     category: LLM01
     severity: high
@@ -32,7 +32,7 @@ static_findings:
 
   - id: LLM01-STATIC-003
     file: app.py
-    line: 40
+    line: 53
     line_tolerance: 2
     category: LLM01
     severity: medium
@@ -43,7 +43,7 @@ static_findings:
 
   - id: LLM01-STATIC-004
     file: app.py
-    line: 55
+    line: 69
     line_tolerance: 2
     category: LLM01
     severity: high
@@ -54,7 +54,7 @@ static_findings:
 
   - id: LLM01-STATIC-005
     file: app.py
-    line: 68
+    line: 82
     line_tolerance: 2
     category: LLM01
     severity: medium
@@ -62,6 +62,87 @@ static_findings:
     description: "Template substitution with user input"
     pattern: "template injection"
     vulnerable_code: 'template.substitute(query=user_query, ctx=str(context))'
+
+  # Multi-hop taint tracking tests
+  - id: LLM01-STATIC-006
+    file: app.py
+    line: 101
+    line_tolerance: 3
+    category: LLM01
+    severity: medium
+    confidence: 0.7
+    description: "2-hop taint: user_input → intermediate → prompt"
+    pattern: "multi-hop taint"
+    vulnerable_code: 'messages=[{"role": "user", "content": processed}]'
+
+  - id: LLM01-STATIC-007
+    file: app.py
+    line: 116
+    line_tolerance: 3
+    category: LLM01
+    severity: medium
+    confidence: 0.65
+    description: "Taint flow through helper function returning messages"
+    pattern: "helper function taint"
+    vulnerable_code: 'messages = _build_messages(user_input)'
+
+  # Provider variants - Anthropic
+  - id: LLM01-STATIC-008
+    file: app.py
+    line: 284
+    line_tolerance: 5
+    category: LLM01
+    severity: high
+    confidence: 0.85
+    description: "Anthropic messages.create with f-string injection"
+    pattern: "anthropic f-string"
+    vulnerable_code: 'anthropic_client.messages.create(...content: f"Context: {user_input}...")'
+
+  - id: LLM01-STATIC-009
+    file: app.py
+    line: 299
+    line_tolerance: 5
+    category: LLM01
+    severity: high
+    confidence: 0.85
+    description: "Anthropic system prompt with user input"
+    pattern: "anthropic system injection"
+    vulnerable_code: 'system=f"...User preferences: {user_input}"'
+
+  # Framework variants - LangChain
+  - id: LLM01-STATIC-010
+    file: app.py
+    line: 332
+    line_tolerance: 5
+    category: LLM01
+    severity: high
+    confidence: 0.8
+    description: "LangChain SystemMessage with f-string injection"
+    pattern: "langchain f-string"
+    vulnerable_code: 'SystemMessage(content=f"You help with: {user_input}")'
+
+  - id: LLM01-STATIC-011
+    file: app.py
+    line: 348
+    line_tolerance: 5
+    category: LLM01
+    severity: high
+    confidence: 0.8
+    description: "LangChain PromptTemplate with user input in template string"
+    pattern: "langchain template injection"
+    vulnerable_code: 'template = f"Answer about {user_input}: {{question}}"'
+
+  # Local model variants - Ollama
+  - id: LLM01-STATIC-012
+    file: app.py
+    line: 382
+    line_tolerance: 5
+    category: LLM01
+    severity: medium
+    confidence: 0.75
+    description: "Ollama API with f-string in prompt"
+    pattern: "ollama f-string"
+    vulnerable_code: '"prompt": f"Context: {user_input}. Now respond."'
 
 live_tests:
   - id: LLM01-LIVE-001

@@ -1,16 +1,16 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:52:04.228260Z",
+  "generated_at": "2026-01-10T15:46:23.369073Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info",
     "files_scanned": 1,
-    "overall_score": 2.26,
+    "overall_score": 2.27,
     "confidence": 0.59,
-    "duration_seconds": 0.008,
-    "findings_count": 17,
+    "duration_seconds": 0.009,
+    "findings_count": 25,
     "severity_breakdown": {
       "CRITICAL": 6,
-      "HIGH": 1,
+      "HIGH": 9,
       "MEDIUM": 0,
       "LOW": 5,
       "INFO": 5
@@ -160,14 +160,14 @@
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
       "score": 0,
-      "confidence": 0.82,
+      "confidence": 0.8,
       "subscores": {
         "LLM01": 64,
         "LLM02": 100,
         "LLM03": 100,
         "LLM04": 0,
         "LLM05": 82,
-        "LLM06": 64,
+        "LLM06": 0,
         "LLM07": 100,
         "LLM08": 100,
         "LLM09": 96,
@@ -184,7 +184,7 @@
         "Prompt Injection: 1 critical",
         "Model Denial of Service: 4 critical, 1 high",
         "Supply Chain Vulnerabilities: 5 low",
-        "Sensitive Information Disclosure: 1 critical"
+        "Sensitive Information Disclosure: 1 critical, 8 high"
       ]
     }
   ],
@@ -332,6 +332,102 @@
       "line_number": 10,
       "code_snippet": "\n# VULN:LLM06:CRITICAL:LINE=11 - Hardcoded API key\nAPI_KEY = \"sk-1234567890abcdef1234567890abcdef1234567890abcdef\"  # VULNERABLE\nclient = OpenAI(api_key=API_KEY)\n",
       "recommendation": "Remove hardcoded secrets immediately:\n1. Use environment variables: os.getenv('API_KEY')\n2. Use secret management: AWS Secrets Manager, Azure Key Vault, HashiCorp Vault\n3. Use configuration files (never commit to git): config.ini, .env\n4. Rotate the exposed secret immediately\n5. Scan git history for leaked secrets: git-secrets, truffleHog\n6. Add secret scanning to CI/CD pipeline"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_18_secret_in_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.8,
+      "title": "Sensitive data passed into LLM prompt",
+      "description": "Variable 'secret_key' containing sensitive data is included in a prompt string on line 18. This can lead to data leakage through model outputs, logs, or training data.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 18,
+      "code_snippet": "    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
+      "recommendation": "Sensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_36_secret_in_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.8,
+      "title": "Sensitive data passed into LLM prompt",
+      "description": "Variable 'user_data' containing sensitive data is included in a prompt string on line 36. This can lead to data leakage through model outputs, logs, or training data.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 36,
+      "code_snippet": "        \"credit_card\": \"4111-1111-1111-1111\"  # VULNERABLE - CC exposed\n    }\n    prompt = f\"User profile for context: {user_data}. Help this user with their request.\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\",",
+      "recommendation": "Sensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_70_secret_in_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.8,
+      "title": "Sensitive data passed into LLM prompt",
+      "description": "Variable 'user_data' containing sensitive data is included in a prompt string on line 70. This can lead to data leakage through model outputs, logs, or training data.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 70,
+      "code_snippet": "\n    # VULNERABLE - logging PII\n    logger.debug(f\"User data: {user_data}\")\n    logger.debug(f\"User input: {user_input}\")\n",
+      "recommendation": "Sensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields\n\nSecure Logging:\n1. Never log PII, credentials, or sensitive user data\n2. Implement log redaction for sensitive fields\n3. Use structured logging with data classification\n4. Set appropriate log levels (avoid DEBUG in prod)\n5. Ensure log storage has proper access controls"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_14_sensitive_system_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Sensitive information in system prompt",
+      "description": "System prompt contains sensitive keyword 'secret' on line 14. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 14,
+      "code_snippet": "\n\n# VULN:LLM06:CRITICAL:LINE=17 - Secret in prompt\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"",
+      "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_17_sensitive_system_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Sensitive information in system prompt",
+      "description": "System prompt contains sensitive keyword 'password' on line 17. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 17,
+      "code_snippet": "def vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(",
+      "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_48_sensitive_system_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Sensitive information in system prompt",
+      "description": "System prompt contains sensitive keyword 'confidential' on line 48. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 48,
+      "code_snippet": "    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.",
+      "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_50_sensitive_system_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Sensitive information in system prompt",
+      "description": "System prompt contains sensitive keyword 'secret' on line 50. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 50,
+      "code_snippet": "    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n    response = client.chat.completions.create(",
+      "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_49_sensitive_system_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Sensitive information in system prompt",
+      "description": "System prompt contains sensitive keyword 'internal' on line 49. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 49,
+      "code_snippet": "    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt",
+      "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
     },
     {
       "id": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_15_critical_decision",

@@ -285,12 +285,135 @@
       },
       "results": [
         {
+          "ruleId": "LLM01",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "User input parameter 'user_request' is directly passed to LLM API call 'client.chat.completions.create'. This is a high-confidence prompt injection vector.",
+            "markdown": "**User input 'user_request' embedded in LLM prompt**\n\nUser input parameter 'user_request' is directly passed to LLM API call 'client.chat.completions.create'. This is a high-confidence prompt injection vector.\n\n**Code:**\n```python\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nMitigations:\n1. Use structured prompt templates (e.g., LangChain PromptTemplate)\n2. Implement input sanitization to remove prompt injection patterns\n3. Use separate 'user' and 'system' message roles (ChatML format)\n4. Apply input validation and length limits\n5. Use allowlists for expected input formats\n6. Consider prompt injection detection libraries"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM01_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_37-37"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.95,
+            "category": "LLM01: Prompt Injection"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations:\n1. Use structured prompt templates (e.g., LangChain PromptTemplate)\n2. Implement input sanitization to remove prompt injection patterns\n3. Use separate 'user' and 'system' message roles (ChatML format)\n4. Apply input validation and length limits\n5. Use allowlists for expected input formats\n6. Consider prompt injection detection libraries"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM01",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "User input parameter 'user_request' is directly passed to LLM API call 'client.chat.completions.create'. This is a high-confidence prompt injection vector.",
+            "markdown": "**User input 'user_request' embedded in LLM prompt**\n\nUser input parameter 'user_request' is directly passed to LLM API call 'client.chat.completions.create'. This is a high-confidence prompt injection vector.\n\n**Code:**\n```python\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nMitigations:\n1. Use structured prompt templates (e.g., LangChain PromptTemplate)\n2. Implement input sanitization to remove prompt injection patterns\n3. Use separate 'user' and 'system' message roles (ChatML format)\n4. Apply input validation and length limits\n5. Use allowlists for expected input formats\n6. Consider prompt injection detection libraries"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM01_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_57-57"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.95,
+            "category": "LLM01: Prompt Injection"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations:\n1. Use structured prompt templates (e.g., LangChain PromptTemplate)\n2. Implement input sanitization to remove prompt injection patterns\n3. Use separate 'user' and 'system' message roles (ChatML format)\n4. Apply input validation and length limits\n5. Use allowlists for expected input formats\n6. Consider prompt injection detection libraries"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM01",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "User input parameter 'user_request' is directly passed to LLM API call 'client.chat.completions.create'. This is a high-confidence prompt injection vector.",
+            "markdown": "**User input 'user_request' embedded in LLM prompt**\n\nUser input parameter 'user_request' is directly passed to LLM API call 'client.chat.completions.create'. This is a high-confidence prompt injection vector.\n\n**Code:**\n```python\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nMitigations:\n1. Use structured prompt templates (e.g., LangChain PromptTemplate)\n2. Implement input sanitization to remove prompt injection patterns\n3. Use separate 'user' and 'system' message roles (ChatML format)\n4. Apply input validation and length limits\n5. Use allowlists for expected input formats\n6. Consider prompt injection detection libraries"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM01_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_100-100"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.95,
+            "category": "LLM01: Prompt Injection"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations:\n1. Use structured prompt templates (e.g., LangChain PromptTemplate)\n2. Implement input sanitization to remove prompt injection patterns\n3. Use separate 'user' and 'system' message roles (ChatML format)\n4. Apply input validation and length limits\n5. Use allowlists for expected input formats\n6. Consider prompt injection detection libraries"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "LLM02",
           "ruleIndex": 1,
           "level": "error",
           "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 18 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous xss sink**\n\nLLM output from 'client.chat.completions.create' is used in 'Response' on line 18 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nMitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+            "text": "LLM output from 'client.chat.completions.create' is used in 'eval(' on line 18 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous code_execution sink**\n\nLLM output from 'client.chat.completions.create' is used in 'eval(' on line 18 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nMitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
           },
           "locations": [
             {
@@ -313,14 +436,260 @@
             "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_18-18"
           },
           "properties": {
-            "security-severity": "7.5",
-            "confidence": 0.7,
+            "security-severity": "9.0",
+            "confidence": 0.8999999999999999,
             "category": "LLM02: Insecure Output Handling"
           },
           "fixes": [
             {
               "description": {
-                "text": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
+                "text": "Mitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'client.chat.completions.create' is used in 'eval(' on line 37 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous code_execution sink**\n\nLLM output from 'client.chat.completions.create' is used in 'eval(' on line 37 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]\n```\n\n**Remediation:**\nMitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_37-37"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8999999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'client.chat.completions.create' is used in 'eval(' on line 42 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous code_execution sink**\n\nLLM output from 'client.chat.completions.create' is used in 'eval(' on line 42 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    llm_code = response.choices[0].message.content\n    result = eval(llm_code)  # VULNERABLE - eval on direct LLM output\n    return str(result)\n\n```\n\n**Remediation:**\nMitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    llm_code = response.choices[0].message.content\n    result = eval(llm_code)  # VULNERABLE - eval on direct LLM output\n    return str(result)\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_42-42"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8999999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'client.chat.completions.create' is used in 'exec(' on line 57 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous code_execution sink**\n\nLLM output from 'client.chat.completions.create' is used in 'exec(' on line 57 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]\n```\n\n**Remediation:**\nMitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_57-57"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8999999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'client.chat.completions.create' is used in 'exec(' on line 62 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous code_execution sink**\n\nLLM output from 'client.chat.completions.create' is used in 'exec(' on line 62 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    code = response.choices[0].message.content\n    exec(code)  # VULNERABLE - exec on direct LLM output\n\n\n```\n\n**Remediation:**\nMitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    code = response.choices[0].message.content\n    exec(code)  # VULNERABLE - exec on direct LLM output\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_62-62"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.9999999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'client.chat.completions.create' is used in 'run(' on line 100 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous command_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'run(' on line 100 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Shell command to: {user_request}\"}]\n```\n\n**Remediation:**\nMitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Shell command to: {user_request}\"}]"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_100-100"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8999999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'client.chat.completions.create' is used in 'run(' on line 105 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous command_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'run(' on line 105 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    cmd = response.choices[0].message.content\n    result = subprocess.run(cmd, shell=True, capture_output=True)  # VULNERABLE\n    return result.stdout.decode()\n\n```\n\n**Remediation:**\nMitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 105,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    cmd = response.choices[0].message.content\n    result = subprocess.run(cmd, shell=True, capture_output=True)  # VULNERABLE\n    return result.stdout.decode()\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_105-105"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8999999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
               }
             }
           ]
@@ -331,7 +700,7 @@
           "level": "error",
           "message": {
             "text": "Function 'get_llm_response' on line 16 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
-            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'get_llm_response' on line 16 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'get_llm_response' on line 16 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output (helper function pattern)\ndef vulnerable_eval(user_request: str) -> str:\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
           },
           "locations": [
             {
@@ -344,7 +713,7 @@
                   "startLine": 16,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "def get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:"
+                    "text": "def get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output (helper function pattern)\ndef vulnerable_eval(user_request: str) -> str:"
                   }
                 }
               }
@@ -356,6 +725,129 @@
           "properties": {
             "security-severity": "7.5",
             "confidence": 0.7,
+            "category": "LLM04: Model Denial of Service"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM04",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_eval_direct' on line 35 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_eval_direct' on line 35 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]\n    )\n    llm_code = response.choices[0].message.content\n    result = eval(llm_code)  # VULNERABLE - eval on direct LLM output\n    return str(result)\n\n\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]\n    )\n    llm_code = response.choices[0].message.content\n    result = eval(llm_code)  # VULNERABLE - eval on direct LLM output\n    return str(result)\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_35-35"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8,
+            "category": "LLM04: Model Denial of Service"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM04",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_exec_direct' on line 55 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_exec_direct' on line 55 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]\n    )\n    code = response.choices[0].message.content\n    exec(code)  # VULNERABLE - exec on direct LLM output\n\n\n# VULN:LLM02:HIGH:LINE=49 - SQL Injection via LLM output\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]\n    )\n    code = response.choices[0].message.content\n    exec(code)  # VULNERABLE - exec on direct LLM output\n\n\n# VULN:LLM02:HIGH:LINE=49 - SQL Injection via LLM output"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_55-55"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8,
+            "category": "LLM04: Model Denial of Service"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM04",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_shell_direct' on line 98 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_shell_direct' on line 98 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_shell_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Shell command to: {user_request}\"}]\n    )\n    cmd = response.choices[0].message.content\n    result = subprocess.run(cmd, shell=True, capture_output=True)  # VULNERABLE\n    return result.stdout.decode()\n\n\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_shell_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Shell command to: {user_request}\"}]\n    )\n    cmd = response.choices[0].message.content\n    result = subprocess.run(cmd, shell=True, capture_output=True)  # VULNERABLE\n    return result.stdout.decode()\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_98-98"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8,
             "category": "LLM04: Model Denial of Service"
           },
           "fixes": [
@@ -410,10 +902,10 @@
         {
           "ruleId": "LLM05",
           "ruleIndex": 4,
-          "level": "error",
+          "level": "warning",
           "message": {
-            "text": "Import of 'pickle' on line 87. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.",
-            "markdown": "**Use of pickle for serialization**\n\nImport of 'pickle' on line 87. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.\n\n**Code:**\n```python\nimport pickle\n```\n\n**Remediation:**\nSecure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
+            "text": "Model ''gpt-4'' is used without version pinning on line 37. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
+            "markdown": "**Unpinned model version in API call**\n\nModel ''gpt-4'' is used without version pinning on line 37. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.\n\n**Code:**\n```python\ndef vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]\n    )\n```\n\n**Remediation:**\nSupply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
           },
           "locations": [
             {
@@ -423,7 +915,130 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 87,
+                  "startLine": 37,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]\n    )"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_37_unpinned-37"
+          },
+          "properties": {
+            "security-severity": "5.0",
+            "confidence": 0.75,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Model ''gpt-4'' is used without version pinning on line 57. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
+            "markdown": "**Unpinned model version in API call**\n\nModel ''gpt-4'' is used without version pinning on line 57. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.\n\n**Code:**\n```python\ndef vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]\n    )\n```\n\n**Remediation:**\nSupply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]\n    )"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_57_unpinned-57"
+          },
+          "properties": {
+            "security-severity": "5.0",
+            "confidence": 0.75,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Model ''gpt-4'' is used without version pinning on line 100. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.",
+            "markdown": "**Unpinned model version in API call**\n\nModel ''gpt-4'' is used without version pinning on line 100. Unpinned models can change unexpectedly, introducing breaking changes, security vulnerabilities, or behavioral shifts. This file contains dynamic code execution patterns, increasing risk.\n\n**Code:**\n```python\ndef vulnerable_shell_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Shell command to: {user_request}\"}]\n    )\n```\n\n**Remediation:**\nSupply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_shell_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Shell command to: {user_request}\"}]\n    )"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_100_unpinned-100"
+          },
+          "properties": {
+            "security-severity": "5.0",
+            "confidence": 0.75,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Supply Chain Security Best Practices:\n1. Pin model versions explicitly (model='gpt-4-0613')\n2. Use model registries with version control\n3. Document model versions in requirements.txt or similar\n4. Implement model versioning in CI/CD pipelines"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Import of 'pickle' on line 122. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.",
+            "markdown": "**Use of pickle for serialization**\n\nImport of 'pickle' on line 122. This library can execute arbitrary code during deserialization. File fetches external data - HIGH RISK if deserializing remote content.\n\n**Code:**\n```python\nimport pickle\n```\n\n**Remediation:**\nSecure Serialization:\n1. Use safer alternatives like safetensors\n2. Never deserialize from untrusted sources\n3. Consider using ONNX for model exchange"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 122,
                   "startColumn": 1,
                   "snippet": {
                     "text": "import pickle"
@@ -433,7 +1048,7 @@
             }
           ],
           "fingerprints": {
-            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_87_pickle-87"
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_122_pickle-122"
           },
           "properties": {
             "security-severity": "7.5",
@@ -453,8 +1068,8 @@
           "ruleIndex": 4,
           "level": "error",
           "message": {
-            "text": "This file downloads external content (lines [80]) and executes code (lines [25, 26, 27]). This pattern enables remote code execution attacks if the fetched content is not properly validated.",
-            "markdown": "**Network fetch combined with code execution**\n\nThis file downloads external content (lines [80]) and executes code (lines [25, 26, 27]). This pattern enables remote code execution attacks if the fetched content is not properly validated.\n\n**Code:**\n```python\n    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution\n```\n\n**Remediation:**\nSecure Remote Code Patterns:\n1. NEVER execute code fetched from network without verification\n2. Use cryptographic signatures to verify downloaded code\n3. Pin URLs and verify checksums\n4. Use package managers instead of direct downloads\n5. Sandbox execution in isolated environments"
+            "text": "This file downloads external content (lines [115, 258]) and executes code (lines [25, 26, 27]). This pattern enables remote code execution attacks if the fetched content is not properly validated.",
+            "markdown": "**Network fetch combined with code execution**\n\nThis file downloads external content (lines [115, 258]) and executes code (lines [25, 26, 27]). This pattern enables remote code execution attacks if the fetched content is not properly validated.\n\n**Code:**\n```python\n    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output (helper function pattern)\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output via helper.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution\n```\n\n**Remediation:**\nSecure Remote Code Patterns:\n1. NEVER execute code fetched from network without verification\n2. Use cryptographic signatures to verify downloaded code\n3. Pin URLs and verify checksums\n4. Use package managers instead of direct downloads\n5. Sandbox execution in isolated environments"
           },
           "locations": [
             {
@@ -467,7 +1082,7 @@
                   "startLine": 25,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution"
+                    "text": "    )\n    return response.choices[0].message.content\n\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output (helper function pattern)\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output via helper.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution"
                   }
                 }
               }
@@ -495,7 +1110,7 @@
           "level": "error",
           "message": {
             "text": "eval() on non-literal content on line 26. File fetches external content - HIGH RISK.",
-            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 26. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 26. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output (helper function pattern)\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output via helper.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
           },
           "locations": [
             {
@@ -508,7 +1123,7 @@
                   "startLine": 26,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)"
+                    "text": "\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output (helper function pattern)\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output via helper.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)"
                   }
                 }
               }
@@ -536,7 +1151,7 @@
           "level": "error",
           "message": {
             "text": "eval() on non-literal content on line 27. File fetches external content - HIGH RISK.",
-            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 27. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 27. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output (helper function pattern)\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output via helper.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
           },
           "locations": [
             {
@@ -549,7 +1164,7 @@
                   "startLine": 27,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution"
+                    "text": "# VULN:LLM02:CRITICAL:LINE=29 - Eval with LLM output (helper function pattern)\ndef vulnerable_eval(user_request: str) -> str:\n    \"\"\"Vulnerable: Using eval() on LLM output via helper.\"\"\"\n    prompt = f\"Generate a Python expression to calculate: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    result = eval(llm_code)  # VULNERABLE - arbitrary code execution"
                   }
                 }
               }
@@ -617,49 +1232,8 @@
           "ruleIndex": 4,
           "level": "error",
           "message": {
-            "text": "exec() on non-literal content on line 35. File fetches external content - HIGH RISK.",
-            "markdown": "**Code execution on external content**\n\nexec() on non-literal content on line 35. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n\n# VULN:LLM02:CRITICAL:LINE=39 - Exec with LLM output\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 35,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "\n# VULN:LLM02:CRITICAL:LINE=39 - Exec with LLM output\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_35_code_exec-35"
-          },
-          "properties": {
-            "security-severity": "9.0",
-            "confidence": 0.7,
-            "category": "LLM05: Supply Chain Vulnerabilities"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM05",
-          "ruleIndex": 4,
-          "level": "error",
-          "message": {
-            "text": "exec() on non-literal content on line 36. File fetches external content - HIGH RISK.",
-            "markdown": "**Code execution on external content**\n\nexec() on non-literal content on line 36. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n# VULN:LLM02:CRITICAL:LINE=39 - Exec with LLM output\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+            "text": "eval() on non-literal content on line 36. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 36. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n# VULN:LLM02:CRITICAL:LINE=37 - Eval with direct LLM call\ndef vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
           },
           "locations": [
             {
@@ -672,7 +1246,7 @@
                   "startLine": 36,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "# VULN:LLM02:CRITICAL:LINE=39 - Exec with LLM output\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution"
+                    "text": "# VULN:LLM02:CRITICAL:LINE=37 - Eval with direct LLM call\ndef vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]"
                   }
                 }
               }
@@ -699,8 +1273,8 @@
           "ruleIndex": 4,
           "level": "error",
           "message": {
-            "text": "exec() on non-literal content on line 39. File fetches external content - HIGH RISK.",
-            "markdown": "**Code execution on external content**\n\nexec() on non-literal content on line 39. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution\n\n\n# VULN:LLM02:HIGH:LINE=49 - SQL Injection via LLM output\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+            "text": "eval() on non-literal content on line 42. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 42. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n    )\n    llm_code = response.choices[0].message.content\n    result = eval(llm_code)  # VULNERABLE - eval on direct LLM output\n    return str(result)\n\n\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
           },
           "locations": [
             {
@@ -710,17 +1284,17 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 39,
+                  "startLine": 42,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution\n\n\n# VULN:LLM02:HIGH:LINE=49 - SQL Injection via LLM output"
+                    "text": "    )\n    llm_code = response.choices[0].message.content\n    result = eval(llm_code)  # VULNERABLE - eval on direct LLM output\n    return str(result)\n\n"
                   }
                 }
               }
             }
           ],
           "fingerprints": {
-            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_39_code_exec-39"
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_42_code_exec-42"
           },
           "properties": {
             "security-severity": "9.0",
@@ -736,12 +1310,545 @@
           ]
         },
         {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "eval() on non-literal content on line 221. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 221. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n\n# SAFE: ast.literal_eval for safe data parsing\ndef safe_literal_eval(user_request: str) -> dict:\n    \"\"\"Safe: Using ast.literal_eval instead of eval for data.\"\"\"\n    import ast\n    prompt = f\"Generate a Python dict for: {user_request}\"\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 221,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n# SAFE: ast.literal_eval for safe data parsing\ndef safe_literal_eval(user_request: str) -> dict:\n    \"\"\"Safe: Using ast.literal_eval instead of eval for data.\"\"\"\n    import ast\n    prompt = f\"Generate a Python dict for: {user_request}\""
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_221_code_exec-221"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "eval() on non-literal content on line 227. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\neval() on non-literal content on line 227. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n    llm_data = get_llm_response(prompt)\n    # SAFE - literal_eval only parses literals, not arbitrary code\n    data = ast.literal_eval(llm_data)\n    return data\n\n\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 227,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    llm_data = get_llm_response(prompt)\n    # SAFE - literal_eval only parses literals, not arbitrary code\n    data = ast.literal_eval(llm_data)\n    return data\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_227_code_exec-227"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "exec() on non-literal content on line 47. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\nexec() on non-literal content on line 47. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n\n# VULN:LLM02:CRITICAL:LINE=51 - Exec with LLM output (helper pattern)\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code via helper.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n# VULN:LLM02:CRITICAL:LINE=51 - Exec with LLM output (helper pattern)\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code via helper.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_47_code_exec-47"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "exec() on non-literal content on line 48. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\nexec() on non-literal content on line 48. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n# VULN:LLM02:CRITICAL:LINE=51 - Exec with LLM output (helper pattern)\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code via helper.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "# VULN:LLM02:CRITICAL:LINE=51 - Exec with LLM output (helper pattern)\ndef vulnerable_exec(user_request: str) -> None:\n    \"\"\"Vulnerable: Using exec() on LLM-generated code via helper.\"\"\"\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_48_code_exec-48"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "exec() on non-literal content on line 51. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\nexec() on non-literal content on line 51. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution\n\n\n# VULN:LLM02:CRITICAL:LINE=59 - Exec with direct LLM call\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    prompt = f\"Write Python code to: {user_request}\"\n    llm_code = get_llm_response(prompt)\n    exec(llm_code)  # VULNERABLE - arbitrary code execution\n\n\n# VULN:LLM02:CRITICAL:LINE=59 - Exec with direct LLM call"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_51_code_exec-51"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "exec() on non-literal content on line 56. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\nexec() on non-literal content on line 56. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n# VULN:LLM02:CRITICAL:LINE=59 - Exec with direct LLM call\ndef vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "# VULN:LLM02:CRITICAL:LINE=59 - Exec with direct LLM call\ndef vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_56_code_exec-56"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM05",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "exec() on non-literal content on line 62. File fetches external content - HIGH RISK.",
+            "markdown": "**Code execution on external content**\n\nexec() on non-literal content on line 62. File fetches external content - HIGH RISK.\n\n**Code:**\n```python\n    )\n    code = response.choices[0].message.content\n    exec(code)  # VULNERABLE - exec on direct LLM output\n\n\n# VULN:LLM02:HIGH:LINE=49 - SQL Injection via LLM output\n```\n\n**Remediation:**\nSecure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    )\n    code = response.choices[0].message.content\n    exec(code)  # VULNERABLE - exec on direct LLM output\n\n\n# VULN:LLM02:HIGH:LINE=49 - SQL Injection via LLM output"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_62_code_exec-62"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM05: Supply Chain Vulnerabilities"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_eval_direct' on line 35 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.",
+            "markdown": "**Direct execution of LLM-generated code in 'vulnerable_eval_direct'**\n\nFunction 'vulnerable_eval_direct' on line 35 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.\n\n**Code:**\n```python\n    return str(result)\n\n\n# VULN:LLM02:CRITICAL:LINE=37 - Eval with direct LLM call\ndef vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]\n    )\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    return str(result)\n\n\n# VULN:LLM02:CRITICAL:LINE=37 - Eval with direct LLM call\ndef vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Generate Python expression: {user_request}\"}]\n    )"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_35_exec-35"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.85,
+            "category": "LLM08: Excessive Agency"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_exec_direct' on line 55 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.",
+            "markdown": "**Direct execution of LLM-generated code in 'vulnerable_exec_direct'**\n\nFunction 'vulnerable_exec_direct' on line 55 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.\n\n**Code:**\n```python\n    exec(llm_code)  # VULNERABLE - arbitrary code execution\n\n\n# VULN:LLM02:CRITICAL:LINE=59 - Exec with direct LLM call\ndef vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]\n    )\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    exec(llm_code)  # VULNERABLE - arbitrary code execution\n\n\n# VULN:LLM02:CRITICAL:LINE=59 - Exec with direct LLM call\ndef vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Write Python code: {user_request}\"}]\n    )"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_55_exec-55"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.85,
+            "category": "LLM08: Excessive Agency"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_shell_direct' on line 98 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.",
+            "markdown": "**Direct execution of LLM-generated code in 'vulnerable_shell_direct'**\n\nFunction 'vulnerable_shell_direct' on line 98 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.\n\n**Code:**\n```python\n    return result.stdout.decode()\n\n\n# VULN:LLM02:CRITICAL:LINE=92 - Command injection with direct LLM call\ndef vulnerable_shell_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Shell command to: {user_request}\"}]\n    )\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    return result.stdout.decode()\n\n\n# VULN:LLM02:CRITICAL:LINE=92 - Command injection with direct LLM call\ndef vulnerable_shell_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": f\"Shell command to: {user_request}\"}]\n    )"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_98_exec-98"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.85,
+            "category": "LLM08: Excessive Agency"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "LLM09",
           "ruleIndex": 8,
           "level": "error",
           "message": {
-            "text": "Function 'get_llm_response' on line 16 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-            "markdown": "**Critical decision without oversight in 'get_llm_response'**\n\nFunction 'get_llm_response' on line 16 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.\n\n**Code:**\n```python\n\n\ndef get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+            "text": "Function 'vulnerable_eval_direct' on line 35 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.",
+            "markdown": "**Critical decision without oversight in 'vulnerable_eval_direct'**\n\nFunction 'vulnerable_eval_direct' on line 35 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.\n\n**Code:**\n```python\n\n# VULN:LLM02:CRITICAL:LINE=37 - Eval with direct LLM call\ndef vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n# VULN:LLM02:CRITICAL:LINE=37 - Eval with direct LLM call\ndef vulnerable_eval_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: eval() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_35_critical_decision-35"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.9,
+            "category": "LLM09: Overreliance"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM09",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_exec_direct' on line 55 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.",
+            "markdown": "**Critical decision without oversight in 'vulnerable_exec_direct'**\n\nFunction 'vulnerable_exec_direct' on line 55 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.\n\n**Code:**\n```python\n\n# VULN:LLM02:CRITICAL:LINE=59 - Exec with direct LLM call\ndef vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n# VULN:LLM02:CRITICAL:LINE=59 - Exec with direct LLM call\ndef vulnerable_exec_direct(user_request: str) -> None:\n    \"\"\"Vulnerable: exec() on direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_55_critical_decision-55"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.9,
+            "category": "LLM09: Overreliance"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM09",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_shell_direct' on line 98 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.",
+            "markdown": "**Critical decision without oversight in 'vulnerable_shell_direct'**\n\nFunction 'vulnerable_shell_direct' on line 98 makes critical security decisions based on LLM output without human oversight or verification. Action edges detected (HTTP/file/DB/subprocess) - risk of automated execution.\n\n**Code:**\n```python\n\n# VULN:LLM02:CRITICAL:LINE=92 - Command injection with direct LLM call\ndef vulnerable_shell_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n# VULN:LLM02:CRITICAL:LINE=92 - Command injection with direct LLM call\ndef vulnerable_shell_direct(user_request: str) -> str:\n    \"\"\"Vulnerable: subprocess with direct LLM output.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_98_critical_decision-98"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.9,
+            "category": "LLM09: Overreliance"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM09",
+          "ruleIndex": 8,
+          "level": "note",
+          "message": {
+            "text": "Function 'get_llm_response' on line 16 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+            "markdown": "**Critical decision without oversight in 'get_llm_response'**\n\nFunction 'get_llm_response' on line 16 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.\n\n**Code:**\n```python\n\n\ndef get_llm_response(prompt: str) -> str:\n    \"\"\"Get response from LLM.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
           },
           "locations": [
             {
@@ -764,14 +1871,14 @@
             "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output/app.py_16_critical_decision-16"
           },
           "properties": {
-            "security-severity": "7.5",
+            "security-severity": "1.0",
             "confidence": 0.9,
             "category": "LLM09: Overreliance"
           },
           "fixes": [
             {
               "description": {
-                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
               }
             }
           ]
@@ -780,14 +1887,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T14:35:57.089816+00:00",
+          "endTimeUtc": "2026-01-10T15:46:22.614608+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm02_insecure_output"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110143557"
+        "id": "ai-security-cli/static-scan/20260110154622"
       }
     }
   ]

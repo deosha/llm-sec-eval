@@ -1,30 +1,30 @@
 {
   "errors": [],
-  "generated_at": "2026-01-10T14:36:32Z",
+  "generated_at": "2026-01-10T15:47:01Z",
   "metrics": {
     "_totals": {
-      "CONFIDENCE.HIGH": 11,
-      "CONFIDENCE.LOW": 0,
-      "CONFIDENCE.MEDIUM": 1,
+      "CONFIDENCE.HIGH": 18,
+      "CONFIDENCE.LOW": 6,
+      "CONFIDENCE.MEDIUM": 5,
       "CONFIDENCE.UNDEFINED": 0,
       "SEVERITY.HIGH": 0,
-      "SEVERITY.LOW": 4,
-      "SEVERITY.MEDIUM": 8,
+      "SEVERITY.LOW": 8,
+      "SEVERITY.MEDIUM": 21,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 54,
+      "loc": 174,
       "nosec": 0,
       "skipped_tests": 0
     },
     "testbed/llm05_supply_chain/app.py": {
-      "CONFIDENCE.HIGH": 11,
-      "CONFIDENCE.LOW": 0,
-      "CONFIDENCE.MEDIUM": 1,
+      "CONFIDENCE.HIGH": 18,
+      "CONFIDENCE.LOW": 6,
+      "CONFIDENCE.MEDIUM": 5,
       "CONFIDENCE.UNDEFINED": 0,
       "SEVERITY.HIGH": 0,
-      "SEVERITY.LOW": 4,
-      "SEVERITY.MEDIUM": 8,
+      "SEVERITY.LOW": 8,
+      "SEVERITY.MEDIUM": 21,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 54,
+      "loc": 174,
       "nosec": 0,
       "skipped_tests": 0
     }
@@ -251,7 +251,171 @@
       "test_name": "blacklist"
     },
     {
-      "code": "84 \n85     model = AutoModelForCausalLM.from_pretrained(\n86         model_name,\n87         trust_remote_code=False,  # Don't trust remote code\n88         revision=\"main\"\n89     )\n90 \n",
+      "code": "86     import requests\n87     response = requests.get(script_url)\n88     code = response.text\n",
+      "col_offset": 15,
+      "end_col_offset": 39,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 400,
+        "link": "https://cwe.mitre.org/data/definitions/400.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Call to requests without timeout",
+      "line_number": 87,
+      "line_range": [
+        87
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
+      "test_id": "B113",
+      "test_name": "request_without_timeout"
+    },
+    {
+      "code": "89     # VULNERABLE - fetching and executing remote code\n90     exec(code)\n91 \n",
+      "col_offset": 4,
+      "end_col_offset": 14,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Use of exec detected.",
+      "line_number": 90,
+      "line_range": [
+        90
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b102_exec_used.html",
+      "test_id": "B102",
+      "test_name": "exec_used"
+    },
+    {
+      "code": "96     import requests\n97     response = requests.get(url)\n98     script_path = \"/tmp/script.sh\"\n",
+      "col_offset": 15,
+      "end_col_offset": 32,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 400,
+        "link": "https://cwe.mitre.org/data/definitions/400.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Call to requests without timeout",
+      "line_number": 97,
+      "line_range": [
+        97
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
+      "test_id": "B113",
+      "test_name": "request_without_timeout"
+    },
+    {
+      "code": "97     response = requests.get(url)\n98     script_path = \"/tmp/script.sh\"\n99     with open(script_path, \"w\") as f:\n",
+      "col_offset": 18,
+      "end_col_offset": 34,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 377,
+        "link": "https://cwe.mitre.org/data/definitions/377.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 98,
+      "line_range": [
+        98
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "101     # VULNERABLE - executing downloaded script\n102     subprocess.run([\"bash\", script_path], check=True)\n103 \n",
+      "col_offset": 4,
+      "end_col_offset": 53,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 102,
+      "line_range": [
+        102
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "101     # VULNERABLE - executing downloaded script\n102     subprocess.run([\"bash\", script_path], check=True)\n103 \n",
+      "col_offset": 4,
+      "end_col_offset": 53,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 102,
+      "line_range": [
+        102
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "111 \n112     response = requests.get(module_url)\n113     with tempfile.NamedTemporaryFile(suffix='.py', delete=False) as f:\n",
+      "col_offset": 15,
+      "end_col_offset": 39,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 400,
+        "link": "https://cwe.mitre.org/data/definitions/400.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Call to requests without timeout",
+      "line_number": 112,
+      "line_range": [
+        112
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
+      "test_id": "B113",
+      "test_name": "request_without_timeout"
+    },
+    {
+      "code": "135     # Download with explicit checksum\n136     model_path = hf_hub_download(\n137         repo_id=model_name,\n138         filename=\"model.safetensors\",\n139         revision=\"main\"\n140     )\n141 \n",
+      "col_offset": 17,
+      "end_col_offset": 5,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 494,
+        "link": "https://cwe.mitre.org/data/definitions/494.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Unsafe Hugging Face Hub download without revision pinning in hf_hub_download()",
+      "line_number": 136,
+      "line_range": [
+        136,
+        137,
+        138,
+        139,
+        140
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b615_huggingface_unsafe_download.html",
+      "test_id": "B615",
+      "test_name": "huggingface_unsafe_download"
+    },
+    {
+      "code": "148 \n149     model = AutoModelForCausalLM.from_pretrained(\n150         model_name,\n151         trust_remote_code=False,  # Don't trust remote code\n152     )\n153     return model\n",
       "col_offset": 12,
       "end_col_offset": 5,
       "filename": "testbed/llm05_supply_chain/app.py",
@@ -262,17 +426,206 @@
       },
       "issue_severity": "MEDIUM",
       "issue_text": "Unsafe Hugging Face Hub download without revision pinning in from_pretrained()",
-      "line_number": 85,
+      "line_number": 149,
       "line_range": [
-        85,
-        86,
-        87,
-        88,
-        89
+        149,
+        150,
+        151,
+        152
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b615_huggingface_unsafe_download.html",
       "test_id": "B615",
       "test_name": "huggingface_unsafe_download"
+    },
+    {
+      "code": "191     # Download with verification\n192     response = requests.get(url, verify=True)\n193     response.raise_for_status()\n",
+      "col_offset": 15,
+      "end_col_offset": 45,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 400,
+        "link": "https://cwe.mitre.org/data/definitions/400.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Call to requests without timeout",
+      "line_number": 192,
+      "line_range": [
+        192
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
+      "test_id": "B113",
+      "test_name": "request_without_timeout"
+    },
+    {
+      "code": "201 \n202     local_path = \"/tmp/verified_model.bin\"\n203     with open(local_path, \"wb\") as f:\n",
+      "col_offset": 17,
+      "end_col_offset": 42,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 377,
+        "link": "https://cwe.mitre.org/data/definitions/377.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 202,
+      "line_range": [
+        202
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "222     # SAFE - installing pinned version from allowlist\n223     subprocess.run(\n224         [\"pip\", \"install\", f\"{package_name}=={version}\"],\n225         check=True\n226     )\n227     return __import__(package_name)\n",
+      "col_offset": 4,
+      "end_col_offset": 5,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 223,
+      "line_range": [
+        223,
+        224,
+        225,
+        226
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "222     # SAFE - installing pinned version from allowlist\n223     subprocess.run(\n224         [\"pip\", \"install\", f\"{package_name}=={version}\"],\n225         check=True\n226     )\n227     return __import__(package_name)\n",
+      "col_offset": 4,
+      "end_col_offset": 5,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 223,
+      "line_range": [
+        223,
+        224,
+        225,
+        226
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "241 \n242     model = AutoModelForCausalLM.from_pretrained(\n243         abs_path,\n244         trust_remote_code=False,\n245         local_files_only=True  # Don't download anything\n246     )\n247     return model\n",
+      "col_offset": 12,
+      "end_col_offset": 5,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 494,
+        "link": "https://cwe.mitre.org/data/definitions/494.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Unsafe Hugging Face Hub download without revision pinning in from_pretrained()",
+      "line_number": 242,
+      "line_range": [
+        242,
+        243,
+        244,
+        245,
+        246
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b615_huggingface_unsafe_download.html",
+      "test_id": "B615",
+      "test_name": "huggingface_unsafe_download"
+    },
+    {
+      "code": "269     # Download file and signature\n270     response = requests.get(url, verify=True)\n271     sig_response = requests.get(signature_url, verify=True)\n",
+      "col_offset": 15,
+      "end_col_offset": 45,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 400,
+        "link": "https://cwe.mitre.org/data/definitions/400.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Call to requests without timeout",
+      "line_number": 270,
+      "line_range": [
+        270
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
+      "test_id": "B113",
+      "test_name": "request_without_timeout"
+    },
+    {
+      "code": "270     response = requests.get(url, verify=True)\n271     sig_response = requests.get(signature_url, verify=True)\n272 \n",
+      "col_offset": 19,
+      "end_col_offset": 59,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 400,
+        "link": "https://cwe.mitre.org/data/definitions/400.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Call to requests without timeout",
+      "line_number": 271,
+      "line_range": [
+        271
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
+      "test_id": "B113",
+      "test_name": "request_without_timeout"
+    },
+    {
+      "code": "273     # Write to temp files\n274     content_path = \"/tmp/downloaded_file\"\n275     sig_path = \"/tmp/downloaded_file.sig\"\n",
+      "col_offset": 19,
+      "end_col_offset": 41,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 377,
+        "link": "https://cwe.mitre.org/data/definitions/377.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 274,
+      "line_range": [
+        274
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "274     content_path = \"/tmp/downloaded_file\"\n275     sig_path = \"/tmp/downloaded_file.sig\"\n276 \n",
+      "col_offset": 15,
+      "end_col_offset": 41,
+      "filename": "testbed/llm05_supply_chain/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 377,
+        "link": "https://cwe.mitre.org/data/definitions/377.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 275,
+      "line_range": [
+        275
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
     }
   ]
 }

@@ -1,30 +1,30 @@
 {
   "errors": [],
-  "generated_at": "2026-01-10T14:36:31Z",
+  "generated_at": "2026-01-10T15:47:01Z",
   "metrics": {
     "_totals": {
-      "CONFIDENCE.HIGH": 6,
-      "CONFIDENCE.LOW": 2,
+      "CONFIDENCE.HIGH": 13,
+      "CONFIDENCE.LOW": 3,
       "CONFIDENCE.MEDIUM": 0,
       "CONFIDENCE.UNDEFINED": 0,
-      "SEVERITY.HIGH": 1,
-      "SEVERITY.LOW": 2,
-      "SEVERITY.MEDIUM": 5,
+      "SEVERITY.HIGH": 3,
+      "SEVERITY.LOW": 4,
+      "SEVERITY.MEDIUM": 9,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 74,
+      "loc": 177,
       "nosec": 0,
       "skipped_tests": 0
     },
     "testbed/llm02_insecure_output/app.py": {
-      "CONFIDENCE.HIGH": 6,
-      "CONFIDENCE.LOW": 2,
+      "CONFIDENCE.HIGH": 13,
+      "CONFIDENCE.LOW": 3,
       "CONFIDENCE.MEDIUM": 0,
       "CONFIDENCE.UNDEFINED": 0,
-      "SEVERITY.HIGH": 1,
-      "SEVERITY.LOW": 2,
-      "SEVERITY.MEDIUM": 5,
+      "SEVERITY.HIGH": 3,
+      "SEVERITY.LOW": 4,
+      "SEVERITY.MEDIUM": 9,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 74,
+      "loc": 177,
       "nosec": 0,
       "skipped_tests": 0
     }
@@ -71,7 +71,27 @@
       "test_name": "blacklist"
     },
     {
-      "code": "38     llm_code = get_llm_response(prompt)\n39     exec(llm_code)  # VULNERABLE - arbitrary code execution\n40 \n",
+      "code": "41     llm_code = response.choices[0].message.content\n42     result = eval(llm_code)  # VULNERABLE - eval on direct LLM output\n43     return str(result)\n",
+      "col_offset": 13,
+      "end_col_offset": 27,
+      "filename": "testbed/llm02_insecure_output/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Use of possibly insecure function - consider using safer ast.literal_eval.",
+      "line_number": 42,
+      "line_range": [
+        42
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/blacklists/blacklist_calls.html#b307-eval",
+      "test_id": "B307",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "50     llm_code = get_llm_response(prompt)\n51     exec(llm_code)  # VULNERABLE - arbitrary code execution\n52 \n",
       "col_offset": 4,
       "end_col_offset": 18,
       "filename": "testbed/llm02_insecure_output/app.py",
@@ -82,16 +102,36 @@
       },
       "issue_severity": "MEDIUM",
       "issue_text": "Use of exec detected.",
-      "line_number": 39,
+      "line_number": 51,
       "line_range": [
-        39
+        51
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b102_exec_used.html",
       "test_id": "B102",
       "test_name": "exec_used"
     },
     {
-      "code": "48     cursor = conn.cursor()\n49     query = f\"SELECT * FROM users WHERE {where_clause}\"  # VULNERABLE\n50     cursor.execute(query)\n",
+      "code": "61     code = response.choices[0].message.content\n62     exec(code)  # VULNERABLE - exec on direct LLM output\n63 \n",
+      "col_offset": 4,
+      "end_col_offset": 14,
+      "filename": "testbed/llm02_insecure_output/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Use of exec detected.",
+      "line_number": 62,
+      "line_range": [
+        62
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b102_exec_used.html",
+      "test_id": "B102",
+      "test_name": "exec_used"
+    },
+    {
+      "code": "71     cursor = conn.cursor()\n72     query = f\"SELECT * FROM users WHERE {where_clause}\"  # VULNERABLE\n73     cursor.execute(query)\n",
       "col_offset": 14,
       "end_col_offset": 40,
       "filename": "testbed/llm02_insecure_output/app.py",
@@ -102,16 +142,16 @@
       },
       "issue_severity": "MEDIUM",
       "issue_text": "Possible SQL injection vector through string-based query construction.",
-      "line_number": 49,
+      "line_number": 72,
       "line_range": [
-        49
+        72
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b608_hardcoded_sql_expressions.html",
       "test_id": "B608",
       "test_name": "hardcoded_sql_expressions"
     },
     {
-      "code": "69     shell_cmd = get_llm_response(prompt)\n70     result = subprocess.run(shell_cmd, shell=True, capture_output=True)  # VULNERABLE\n71     return result.stdout.decode()\n",
+      "code": "92     shell_cmd = get_llm_response(prompt)\n93     result = subprocess.run(shell_cmd, shell=True, capture_output=True)  # VULNERABLE\n94     return result.stdout.decode()\n",
       "col_offset": 13,
       "end_col_offset": 71,
       "filename": "testbed/llm02_insecure_output/app.py",
@@ -122,16 +162,36 @@
       },
       "issue_severity": "HIGH",
       "issue_text": "subprocess call with shell=True identified, security issue.",
-      "line_number": 70,
+      "line_number": 93,
       "line_range": [
-        70
+        93
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b602_subprocess_popen_with_shell_equals_true.html",
       "test_id": "B602",
       "test_name": "subprocess_popen_with_shell_equals_true"
     },
     {
-      "code": "79     url = get_llm_response(prompt)\n80     response = requests.get(url)  # VULNERABLE - SSRF\n81     return response.text\n",
+      "code": "104     cmd = response.choices[0].message.content\n105     result = subprocess.run(cmd, shell=True, capture_output=True)  # VULNERABLE\n106     return result.stdout.decode()\n",
+      "col_offset": 13,
+      "end_col_offset": 65,
+      "filename": "testbed/llm02_insecure_output/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "subprocess call with shell=True identified, security issue.",
+      "line_number": 105,
+      "line_range": [
+        105
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+      "test_id": "B602",
+      "test_name": "subprocess_popen_with_shell_equals_true"
+    },
+    {
+      "code": "114     url = get_llm_response(prompt)\n115     response = requests.get(url)  # VULNERABLE - SSRF\n116     return response.text\n",
       "col_offset": 15,
       "end_col_offset": 32,
       "filename": "testbed/llm02_insecure_output/app.py",
@@ -142,16 +202,16 @@
       },
       "issue_severity": "MEDIUM",
       "issue_text": "Call to requests without timeout",
-      "line_number": 80,
+      "line_number": 115,
       "line_range": [
-        80
+        115
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
       "test_id": "B113",
       "test_name": "request_without_timeout"
     },
     {
-      "code": "86     \"\"\"Vulnerable: Deserializing LLM-generated data.\"\"\"\n87     import pickle\n88     import base64\n",
+      "code": "121     \"\"\"Vulnerable: Deserializing LLM-generated data.\"\"\"\n122     import pickle\n123     import base64\n",
       "col_offset": 4,
       "end_col_offset": 17,
       "filename": "testbed/llm02_insecure_output/app.py",
@@ -162,16 +222,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Consider possible security implications associated with pickle module.",
-      "line_number": 87,
+      "line_number": 122,
       "line_range": [
-        87
+        122
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/blacklists/blacklist_imports.html#b403-import-pickle",
       "test_id": "B403",
       "test_name": "blacklist"
     },
     {
-      "code": "90     encoded = get_llm_response(prompt)\n91     data = pickle.loads(base64.b64decode(encoded))  # VULNERABLE\n92     return data\n",
+      "code": "125     encoded = get_llm_response(prompt)\n126     data = pickle.loads(base64.b64decode(encoded))  # VULNERABLE\n127     return data\n",
       "col_offset": 11,
       "end_col_offset": 50,
       "filename": "testbed/llm02_insecure_output/app.py",
@@ -182,13 +242,113 @@
       },
       "issue_severity": "MEDIUM",
       "issue_text": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
-      "line_number": 91,
+      "line_number": 126,
       "line_range": [
-        91
+        126
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/blacklists/blacklist_calls.html#b301-pickle",
       "test_id": "B301",
       "test_name": "blacklist"
+    },
+    {
+      "code": "161     # SAFE - shell=False with list args prevents command injection\n162     result = subprocess.run([\"ls\", \"-la\", filename], shell=False, capture_output=True)\n163     return result.stdout.decode()\n",
+      "col_offset": 13,
+      "end_col_offset": 86,
+      "filename": "testbed/llm02_insecure_output/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 162,
+      "line_range": [
+        162
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "161     # SAFE - shell=False with list args prevents command injection\n162     result = subprocess.run([\"ls\", \"-la\", filename], shell=False, capture_output=True)\n163     return result.stdout.decode()\n",
+      "col_offset": 13,
+      "end_col_offset": 86,
+      "filename": "testbed/llm02_insecure_output/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 162,
+      "line_range": [
+        162
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "173     safe_cmd = f\"cat {shlex.quote(filename)}\"\n174     result = subprocess.run(safe_cmd, shell=True, capture_output=True)\n175     return result.stdout.decode()\n",
+      "col_offset": 13,
+      "end_col_offset": 70,
+      "filename": "testbed/llm02_insecure_output/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "subprocess call with shell=True identified, security issue.",
+      "line_number": 174,
+      "line_range": [
+        174
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+      "test_id": "B602",
+      "test_name": "subprocess_popen_with_shell_equals_true"
+    },
+    {
+      "code": "200     safe_response = escape(llm_response)\n201     return Markup(f\"<div class='response'>{safe_response}</div>\")\n202 \n",
+      "col_offset": 11,
+      "end_col_offset": 65,
+      "filename": "testbed/llm02_insecure_output/app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 79,
+        "link": "https://cwe.mitre.org/data/definitions/79.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Potential XSS with ``markupsafe.Markup`` detected. Do not use ``Markup`` on untrusted data.",
+      "line_number": 201,
+      "line_range": [
+        201
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b704_markupsafe_markup_xss.html",
+      "test_id": "B704",
+      "test_name": "markupsafe_markup_xss"
+    },
+    {
+      "code": "257 \n258     response = requests.get(url)\n259     return response.text\n",
+      "col_offset": 15,
+      "end_col_offset": 32,
+      "filename": "testbed/llm02_insecure_output/app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 400,
+        "link": "https://cwe.mitre.org/data/definitions/400.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Call to requests without timeout",
+      "line_number": 258,
+      "line_range": [
+        258
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
+      "test_id": "B113",
+      "test_name": "request_without_timeout"
     }
   ]
 }

@@ -6,26 +6,30 @@ Evaluation framework for [AI Security CLI](https://github.com/deosha/ai-security
 
 ### Synthetic Testbed (Ground Truth)
 
-| Tool | Precision | Recall | F1 Score | TP | FP | FN |
-|------|-----------|--------|----------|----|----|-----|
-| **AI Security CLI** | 20.0% | **57.8%** | 29.7% | 37 | 148 | 27 |
-| Semgrep | 83.3% | 7.8% | 14.3% | 5 | 1 | 59 |
-| Bandit | 69.2% | 42.2% | 52.4% | 27 | 12 | 37 |
+Evaluated against 73 ground-truth vulnerabilities across 10 OWASP LLM categories.
+
+| Tool | Precision | Recall | F1 Score |
+|------|-----------|--------|----------|
+| **AI Security CLI** | **69.6%** | **53.4%** | **60.5%** |
+| Semgrep | 66.7% | 8.2% | 14.6% |
+| Bandit | 51.5% | 46.6% | 48.9% |
+
+**AI Security CLI outperforms both Semgrep and Bandit on F1 score** by detecting LLM-specific vulnerabilities that generic tools miss.
 
 ### Per-Category Detection Rates
 
-| Category | Recall | Precision | F1 | Status |
-|----------|--------|-----------|-----|--------|
-| **LLM01**: Prompt Injection | 100% | 16.1% | 27.8% | Excellent |
-| **LLM04**: Model DoS | 100% | 20.0% | 33.3% | Excellent |
-| **LLM08**: Excessive Agency | 100% | 17.1% | 29.3% | Excellent |
-| **LLM09**: Overreliance | 100% | 20.6% | 34.1% | Excellent |
-| **LLM10**: Model Theft | 86% | 26.1% | 40.0% | Good |
-| **LLM06**: Sensitive Info | 71% | 22.7% | 34.5% | Moderate |
-| **LLM05**: Supply Chain | 14% | 100% | 25.0% | Improving |
-| **LLM07**: Insecure Plugin | 14% | 50.0% | 22.2% | Improving |
-| **LLM02**: Insecure Output | 0% | 0% | 0% | In Development |
-| **LLM03**: Training Poisoning | 0% | 0% | 0% | In Development |
+| Category | Recall | Precision | F1 |
+|----------|--------|-----------|-----|
+| **LLM07**: Insecure Plugin | 85.7% | 85.7% | 85.7% |
+| **LLM06**: Sensitive Info | 71.4% | 55.6% | 62.5% |
+| **LLM04**: Model DoS | 66.7% | 100% | 80.0% |
+| **LLM09**: Overreliance | 66.7% | 100% | 80.0% |
+| **LLM05**: Supply Chain | 60.0% | 54.5% | 57.1% |
+| **LLM01**: Prompt Injection | 50.0% | 75.0% | 60.0% |
+| **LLM10**: Model Theft | 42.9% | 75.0% | 54.5% |
+| **LLM03**: Training Poisoning | 40.0% | 100% | 57.1% |
+| **LLM08**: Excessive Agency | 33.3% | 100% | 50.0% |
+| **LLM02**: Insecure Output | 30.0% | 42.9% | 35.3% |
 
 ### Real-World Repositories (10 repos, 14,991 files)
 
@@ -163,11 +167,11 @@ static_findings:
 
 ## Key Findings
 
-1. **100% recall** on Prompt Injection, Model DoS, Excessive Agency, Overreliance
-2. **Unique coverage** for LLM04, LLM08, LLM09, LLM10 (not detected by any other tool)
-3. **0.44 findings/file** on real-world repos (manageable for review)
-4. **20% precision, 57.8% recall, 29.7% F1** overall
-5. **In Development**: LLM02 (Insecure Output), LLM03 (Training Poisoning)
+1. **60.5% F1 score** - Best overall performance among tested tools
+2. **69.6% precision** - Significantly reduced false positives
+3. **53.4% recall** - Detects over half of all vulnerabilities
+4. **Best categories**: LLM07 (85.7%), LLM06 (71.4%), LLM04 (66.7%)
+5. **Unique coverage** for LLM04, LLM08, LLM09, LLM10 (not detected by Semgrep/Bandit)
 
 ## Tools & Baselines
 

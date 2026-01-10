@@ -1,6 +1,6 @@
 {
   "errors": [],
-  "generated_at": "2026-01-10T14:36:31Z",
+  "generated_at": "2026-01-10T15:47:01Z",
   "metrics": {
     "_totals": {
       "CONFIDENCE.HIGH": 0,
@@ -11,7 +11,7 @@
       "SEVERITY.LOW": 0,
       "SEVERITY.MEDIUM": 1,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 68,
+      "loc": 286,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -24,14 +24,14 @@
       "SEVERITY.LOW": 0,
       "SEVERITY.MEDIUM": 1,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 68,
+      "loc": 286,
       "nosec": 0,
       "skipped_tests": 0
     }
   },
   "results": [
     {
-      "code": "54     import requests\n55     external_content = requests.get(url).text  # Fetches potentially malicious content\n56     prompt = f\"Summarize this document: {external_content}\"  # VULNERABLE\n",
+      "code": "67     import requests\n68     external_content = requests.get(url).text  # Fetches potentially malicious content\n69     prompt = f\"Summarize this document: {external_content}\"  # VULNERABLE\n",
       "col_offset": 23,
       "end_col_offset": 40,
       "filename": "testbed/llm01_prompt_injection/app.py",
@@ -42,9 +42,9 @@
       },
       "issue_severity": "MEDIUM",
       "issue_text": "Call to requests without timeout",
-      "line_number": 55,
+      "line_number": 68,
       "line_range": [
-        55
+        68
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b113_request_without_timeout.html",
       "test_id": "B113",

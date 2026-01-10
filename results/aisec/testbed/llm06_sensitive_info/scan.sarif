@@ -326,211 +326,6 @@
           ]
         },
         {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 19 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous xss sink**\n\nLLM output from 'client.chat.completions.create' is used in 'Response' on line 19 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nMitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 19,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_19-19"
-          },
-          "properties": {
-            "security-severity": "7.5",
-            "confidence": 0.7,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 37 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous xss sink**\n\nLLM output from 'client.chat.completions.create' is used in 'Response' on line 37 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    prompt = f\"User profile for context: {user_data}. Help this user with their request.\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nMitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 37,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "    prompt = f\"User profile for context: {user_data}. Help this user with their request.\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_37-37"
-          },
-          "properties": {
-            "security-severity": "7.5",
-            "confidence": 0.7,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 52 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous xss sink**\n\nLLM output from 'client.chat.completions.create' is used in 'Response' on line 52 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[\n```\n\n**Remediation:**\nMitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 52,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "    \"\"\"  # VULNERABLE - business secrets in system prompt\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=["
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_52-52"
-          },
-          "properties": {
-            "security-severity": "7.5",
-            "confidence": 0.7,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 73 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous xss sink**\n\nLLM output from 'client.chat.completions.create' is used in 'Response' on line 73 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": user_input}]\n```\n\n**Remediation:**\nMitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 73,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": user_input}]"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_73-73"
-          },
-          "properties": {
-            "security-severity": "7.5",
-            "confidence": 0.7,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'Response' on line 109 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous xss sink**\n\nLLM output from 'client.chat.completions.create' is used in 'Response' on line 109 without sanitization. This creates a xss vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    client = OpenAI(api_key=api_key)\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": \"Hello\"}]\n```\n\n**Remediation:**\nMitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 109,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "    client = OpenAI(api_key=api_key)\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": \"Hello\"}]"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_109-109"
-          },
-          "properties": {
-            "security-severity": "7.5",
-            "confidence": 0.7,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for XSS:\n1. Use auto-escaping templates (Jinja2, Django templates)\n2. Apply HTML escaping: html.escape(response)\n3. Use Content Security Policy (CSP) headers\n4. Sanitize with bleach.clean() for rich text\n5. Never use innerHTML or dangerouslySetInnerHTML with LLM output"
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "LLM04",
           "ruleIndex": 3,
           "level": "error",
@@ -982,12 +777,340 @@
           ]
         },
         {
-          "ruleId": "LLM09",
-          "ruleIndex": 8,
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
           "level": "error",
           "message": {
-            "text": "Function 'vulnerable_secret_in_prompt' on line 15 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-            "markdown": "**Critical decision without oversight in 'vulnerable_secret_in_prompt'**\n\nFunction 'vulnerable_secret_in_prompt' on line 15 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.\n\n**Code:**\n```python\n\n# VULN:LLM06:CRITICAL:LINE=17 - Secret in prompt\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+            "text": "Variable 'secret_key' containing sensitive data is included in a prompt string on line 18. This can lead to data leakage through model outputs, logs, or training data.",
+            "markdown": "**Sensitive data passed into LLM prompt**\n\nVariable 'secret_key' containing sensitive data is included in a prompt string on line 18. This can lead to data leakage through model outputs, logs, or training data.\n\n**Code:**\n```python\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nSensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_18_secret_in_prompt-18"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.8,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Sensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "Variable 'user_data' containing sensitive data is included in a prompt string on line 36. This can lead to data leakage through model outputs, logs, or training data.",
+            "markdown": "**Sensitive data passed into LLM prompt**\n\nVariable 'user_data' containing sensitive data is included in a prompt string on line 36. This can lead to data leakage through model outputs, logs, or training data.\n\n**Code:**\n```python\n        \"credit_card\": \"4111-1111-1111-1111\"  # VULNERABLE - CC exposed\n    }\n    prompt = f\"User profile for context: {user_data}. Help this user with their request.\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n```\n\n**Remediation:**\nSensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "        \"credit_card\": \"4111-1111-1111-1111\"  # VULNERABLE - CC exposed\n    }\n    prompt = f\"User profile for context: {user_data}. Help this user with their request.\"  # VULNERABLE\n    response = client.chat.completions.create(\n        model=\"gpt-4\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_36_secret_in_prompt-36"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.8,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Sensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "Variable 'user_data' containing sensitive data is included in a prompt string on line 70. This can lead to data leakage through model outputs, logs, or training data.",
+            "markdown": "**Sensitive data passed into LLM prompt**\n\nVariable 'user_data' containing sensitive data is included in a prompt string on line 70. This can lead to data leakage through model outputs, logs, or training data.\n\n**Code:**\n```python\n\n    # VULNERABLE - logging PII\n    logger.debug(f\"User data: {user_data}\")\n    logger.debug(f\"User input: {user_input}\")\n\n```\n\n**Remediation:**\nSensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields\n\nSecure Logging:\n1. Never log PII, credentials, or sensitive user data\n2. Implement log redaction for sensitive fields\n3. Use structured logging with data classification\n4. Set appropriate log levels (avoid DEBUG in prod)\n5. Ensure log storage has proper access controls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 70,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n    # VULNERABLE - logging PII\n    logger.debug(f\"User data: {user_data}\")\n    logger.debug(f\"User input: {user_input}\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_70_secret_in_prompt-70"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.8,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Sensitive Data in Prompts:\n1. Never include PII (SSN, credit cards, emails) in prompts\n2. Redact or anonymize sensitive data before sending to LLM\n3. Use data masking: 'SSN: ***-**-1234'\n4. Consider using PII detection libraries before LLM calls\n5. Implement data classification to identify sensitive fields\n\nSecure Logging:\n1. Never log PII, credentials, or sensitive user data\n2. Implement log redaction for sensitive fields\n3. Use structured logging with data classification\n4. Set appropriate log levels (avoid DEBUG in prod)\n5. Ensure log storage has proper access controls"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "System prompt contains sensitive keyword 'password' on line 17. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'password' on line 17. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create("
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_17_sensitive_system_prompt-17"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.75,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "System prompt contains sensitive keyword 'secret' on line 14. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'secret' on line 14. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\n\n\n# VULN:LLM06:CRITICAL:LINE=17 - Secret in prompt\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n\n# VULN:LLM06:CRITICAL:LINE=17 - Secret in prompt\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\""
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_14_sensitive_system_prompt-14"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.75,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "System prompt contains sensitive keyword 'internal' on line 49. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'internal' on line 49. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_49_sensitive_system_prompt-49"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.75,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "System prompt contains sensitive keyword 'confidential' on line 48. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'confidential' on line 48. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\n    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members."
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_48_sensitive_system_prompt-48"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.75,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "System prompt contains sensitive keyword 'secret' on line 50. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'secret' on line 50. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n    response = client.chat.completions.create(\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n    response = client.chat.completions.create("
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_50_sensitive_system_prompt-50"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.75,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM09",
+          "ruleIndex": 8,
+          "level": "note",
+          "message": {
+            "text": "Function 'vulnerable_secret_in_prompt' on line 15 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+            "markdown": "**Critical decision without oversight in 'vulnerable_secret_in_prompt'**\n\nFunction 'vulnerable_secret_in_prompt' on line 15 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.\n\n**Code:**\n```python\n\n# VULN:LLM06:CRITICAL:LINE=17 - Secret in prompt\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
           },
           "locations": [
             {
@@ -1010,14 +1133,14 @@
             "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_15_critical_decision-15"
           },
           "properties": {
-            "security-severity": "7.5",
+            "security-severity": "1.0",
             "confidence": 0.9,
             "category": "LLM09: Overreliance"
           },
           "fixes": [
             {
               "description": {
-                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
               }
             }
           ]
@@ -1025,10 +1148,10 @@
         {
           "ruleId": "LLM09",
           "ruleIndex": 8,
-          "level": "error",
+          "level": "note",
           "message": {
-            "text": "Function 'vulnerable_pii_exposure' on line 27 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-            "markdown": "**Critical decision without oversight in 'vulnerable_pii_exposure'**\n\nFunction 'vulnerable_pii_exposure' on line 27 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.\n\n**Code:**\n```python\n\n# VULN:LLM06:HIGH:LINE=29 - PII in training/context\ndef vulnerable_pii_exposure(user_id: int) -> str:\n    \"\"\"Vulnerable: PII data included in prompt context.\"\"\"\n    # Simulating fetching user PII\n    user_data = {\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+            "text": "Function 'vulnerable_pii_exposure' on line 27 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+            "markdown": "**Critical decision without oversight in 'vulnerable_pii_exposure'**\n\nFunction 'vulnerable_pii_exposure' on line 27 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.\n\n**Code:**\n```python\n\n# VULN:LLM06:HIGH:LINE=29 - PII in training/context\ndef vulnerable_pii_exposure(user_id: int) -> str:\n    \"\"\"Vulnerable: PII data included in prompt context.\"\"\"\n    # Simulating fetching user PII\n    user_data = {\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
           },
           "locations": [
             {
@@ -1051,14 +1174,14 @@
             "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_27_critical_decision-27"
           },
           "properties": {
-            "security-severity": "7.5",
+            "security-severity": "1.0",
             "confidence": 0.9,
             "category": "LLM09: Overreliance"
           },
           "fixes": [
             {
               "description": {
-                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
               }
             }
           ]
@@ -1066,10 +1189,10 @@
         {
           "ruleId": "LLM09",
           "ruleIndex": 8,
-          "level": "error",
+          "level": "note",
           "message": {
-            "text": "Function 'vulnerable_system_prompt' on line 45 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-            "markdown": "**Critical decision without oversight in 'vulnerable_system_prompt'**\n\nFunction 'vulnerable_system_prompt' on line 45 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.\n\n**Code:**\n```python\n\n# VULN:LLM06:HIGH:LINE=47 - System prompt leakage risk\ndef vulnerable_system_prompt() -> str:\n    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+            "text": "Function 'vulnerable_system_prompt' on line 45 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+            "markdown": "**Critical decision without oversight in 'vulnerable_system_prompt'**\n\nFunction 'vulnerable_system_prompt' on line 45 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.\n\n**Code:**\n```python\n\n# VULN:LLM06:HIGH:LINE=47 - System prompt leakage risk\ndef vulnerable_system_prompt() -> str:\n    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
           },
           "locations": [
             {
@@ -1092,14 +1215,14 @@
             "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_45_critical_decision-45"
           },
           "properties": {
-            "security-severity": "7.5",
+            "security-severity": "1.0",
             "confidence": 0.9,
             "category": "LLM09: Overreliance"
           },
           "fixes": [
             {
               "description": {
-                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
               }
             }
           ]
@@ -1107,10 +1230,10 @@
         {
           "ruleId": "LLM09",
           "ruleIndex": 8,
-          "level": "error",
+          "level": "note",
           "message": {
-            "text": "Function 'vulnerable_logging' on line 63 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-            "markdown": "**Critical decision without oversight in 'vulnerable_logging'**\n\nFunction 'vulnerable_logging' on line 63 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.\n\n**Code:**\n```python\n\n# VULN:LLM06:MEDIUM:LINE=65 - Logging sensitive data\ndef vulnerable_logging(user_input: str, user_data: dict) -> str:\n    \"\"\"Vulnerable: Logging user PII and prompts.\"\"\"\n    import logging\n    logging.basicConfig(level=logging.DEBUG)\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+            "text": "Function 'vulnerable_logging' on line 63 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+            "markdown": "**Critical decision without oversight in 'vulnerable_logging'**\n\nFunction 'vulnerable_logging' on line 63 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.\n\n**Code:**\n```python\n\n# VULN:LLM06:MEDIUM:LINE=65 - Logging sensitive data\ndef vulnerable_logging(user_input: str, user_data: dict) -> str:\n    \"\"\"Vulnerable: Logging user PII and prompts.\"\"\"\n    import logging\n    logging.basicConfig(level=logging.DEBUG)\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
           },
           "locations": [
             {
@@ -1133,14 +1256,14 @@
             "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_63_critical_decision-63"
           },
           "properties": {
-            "security-severity": "7.5",
+            "security-severity": "1.0",
             "confidence": 0.9,
             "category": "LLM09: Overreliance"
           },
           "fixes": [
             {
               "description": {
-                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
               }
             }
           ]
@@ -1148,10 +1271,10 @@
         {
           "ruleId": "LLM09",
           "ruleIndex": 8,
-          "level": "error",
+          "level": "note",
           "message": {
-            "text": "Function 'safe_secret_handling' on line 102 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.",
-            "markdown": "**Critical decision without oversight in 'safe_secret_handling'**\n\nFunction 'safe_secret_handling' on line 102 makes critical security decisions based on LLM output without human oversight or verification. This creates risk of incorrect or harmful decisions being executed automatically.\n\n**Code:**\n```python\n\n# SAFE: Proper secrets handling (for comparison)\ndef safe_secret_handling() -> str:\n    \"\"\"Safe: Secrets from environment, not in code or prompts.\"\"\"\n    api_key = os.environ.get(\"OPENAI_API_KEY\")\n    if not api_key:\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+            "text": "Function 'safe_secret_handling' on line 102 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.",
+            "markdown": "**Critical decision without oversight in 'safe_secret_handling'**\n\nFunction 'safe_secret_handling' on line 102 makes critical security decisions based on LLM output without human oversight or verification. No action edges detected - advisory only.\n\n**Code:**\n```python\n\n# SAFE: Proper secrets handling (for comparison)\ndef safe_secret_handling() -> str:\n    \"\"\"Safe: Secrets from environment, not in code or prompts.\"\"\"\n    api_key = os.environ.get(\"OPENAI_API_KEY\")\n    if not api_key:\n```\n\n**Remediation:**\nCritical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
           },
           "locations": [
             {
@@ -1174,14 +1297,14 @@
             "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_102_critical_decision-102"
           },
           "properties": {
-            "security-severity": "7.5",
+            "security-severity": "1.0",
             "confidence": 0.9,
             "category": "LLM09: Overreliance"
           },
           "fixes": [
             {
               "description": {
-                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards\n\nAdd verification mechanisms for LLM output:\n\n1. Implement validation:\n   - Schema validation (Pydantic)\n   - Format checking (regex, parsing)\n   - Constraint verification\n\n2. Add fact-checking:\n   - Cross-reference with trusted sources\n   - Use RAG for grounding\n   - Verify claims against knowledge base\n\n3. Include disclaimers:\n   - \"AI-generated content, verify independently\"\n   - \"For informational purposes only\"\n   - \"Consult professional for critical decisions\"\n\n4. Track accuracy:\n   - Monitor user corrections\n   - Collect feedback\n   - Improve over time"
+                "text": "Critical security decision requires human oversight:\n\n1. Implement human-in-the-loop review:\n   - Add review queue for high-stakes decisions\n   - Require explicit human approval before execution\n   - Log all decisions for audit trail\n\n2. Add verification mechanisms:\n   - Cross-reference with trusted sources\n   - Implement multi-step verification\n   - Use confidence thresholds\n\n3. Include safety checks:\n   - Set limits on transaction amounts\n   - Require secondary confirmation\n   - Implement rollback mechanisms\n\n4. Add disclaimers:\n   - Inform users output may be incorrect\n   - Recommend professional consultation\n   - Document limitations clearly\n\n5. Monitor and review:\n   - Track decision outcomes\n   - Review failures and near-misses\n   - Continuously improve safeguards"
               }
             }
           ]
@@ -1190,14 +1313,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T14:35:57.920797+00:00",
+          "endTimeUtc": "2026-01-10T15:46:23.471749+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110143557"
+        "id": "ai-security-cli/static-scan/20260110154623"
       }
     }
   ]

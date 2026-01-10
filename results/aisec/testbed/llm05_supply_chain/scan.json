@@ -1,16 +1,16 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:52:04.122236Z",
+  "generated_at": "2026-01-10T15:46:23.151262Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain",
     "files_scanned": 1,
     "overall_score": 0.0,
-    "confidence": 0.56,
-    "duration_seconds": 0.006,
-    "findings_count": 7,
+    "confidence": 0.57,
+    "duration_seconds": 0.014,
+    "findings_count": 13,
     "severity_breakdown": {
-      "CRITICAL": 2,
-      "HIGH": 3,
+      "CRITICAL": 6,
+      "HIGH": 5,
       "MEDIUM": 2,
       "LOW": 0,
       "INFO": 0
@@ -21,7 +21,7 @@
       "category_id": "1_prompt_security",
       "category_name": "Prompt Security",
       "score": 0,
-      "confidence": 0.43,
+      "confidence": 0.44,
       "subscores": {
         "input_validation": 0,
         "jailbreak_prevention": 0,
@@ -32,9 +32,10 @@
         "output_filtering": 0,
         "jailbreak_detection": 0
       },
-      "detected_controls": [],
+      "detected_controls": [
+        "Pattern Detection input validation detected"
+      ],
       "gaps": [
-        "No input validation detected",
         "No jailbreak prevention mechanisms detected",
         "No context window protection detected",
         "No attack detection tools found"
@@ -161,11 +162,11 @@
       "category_id": "0_owasp_vulnerabilities",
       "category_name": "OWASP LLM Vulnerabilities",
       "score": 0,
-      "confidence": 0.71,
+      "confidence": 0.73,
       "subscores": {
         "LLM01": 100,
         "LLM02": 100,
-        "LLM03": 100,
+        "LLM03": 49,
         "LLM04": 100,
         "LLM05": 0,
         "LLM06": 100,
@@ -177,7 +178,6 @@
       "detected_controls": [
         "Prompt Injection (no vulnerabilities found)",
         "Insecure Output Handling (no vulnerabilities found)",
-        "Training Data Poisoning (no vulnerabilities found)",
         "Model Denial of Service (no vulnerabilities found)",
         "Sensitive Information Disclosure (no vulnerabilities found)",
         "Insecure Plugin Design (no vulnerabilities found)",
@@ -186,11 +186,36 @@
         "Model Theft (no vulnerabilities found)"
       ],
       "gaps": [
-        "Supply Chain Vulnerabilities: 2 critical, 3 high, 2 medium"
+        "Training Data Poisoning: 1 critical, 1 high",
+        "Supply Chain Vulnerabilities: 5 critical, 4 high, 2 medium"
       ]
     }
   ],
   "findings": [
+    {
+      "id": "LLM03_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_24_unsafe_load",
+      "category": "LLM03: Training Data Poisoning",
+      "severity": "CRITICAL",
+      "confidence": 0.85,
+      "title": "Unsafe data loading with pickle.load in training context",
+      "description": "Function 'vulnerable_load_pickle_model' uses pickle.load on line 24. Pickle-based deserialization can execute arbitrary code, allowing attackers to inject malicious code through poisoned training data or models.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 24,
+      "code_snippet": "    with open(path, \"rb\") as f:\n        model = pickle.load(f)  # VULNERABLE - arbitrary code execution\n    return model\n",
+      "recommendation": "Secure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+    },
+    {
+      "id": "LLM03_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_33_unsafe_load",
+      "category": "LLM03: Training Data Poisoning",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "title": "Unsafe data loading with torch.load in training context",
+      "description": "Function 'vulnerable_torch_load' uses torch.load on line 33. Pickle-based deserialization can execute arbitrary code, allowing attackers to inject malicious code through poisoned training data or models.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 33,
+      "code_snippet": "    # VULNERABLE - pickle under the hood\n    model = torch.load(path)\n    return model\n",
+      "recommendation": "Secure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+    },
     {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_22_pickle",
       "category": "LLM05: Supply Chain Vulnerabilities",
@@ -209,7 +234,7 @@
       "severity": "CRITICAL",
       "confidence": 0.7,
       "title": "Network fetch combined with code execution",
-      "description": "This file downloads external content (lines [43]) and executes code (lines [24, 51, 60]). This pattern enables remote code execution attacks if the fetched content is not properly validated.",
+      "description": "This file downloads external content (lines [43, 87, 97]) and executes code (lines [24, 51, 60]). This pattern enables remote code execution attacks if the fetched content is not properly validated.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
       "line_number": 24,
       "code_snippet": "def vulnerable_load_pickle_model(path: str):\n    \"\"\"Vulnerable: Loading model with pickle.\"\"\"\n    import pickle\n    with open(path, \"rb\") as f:\n        model = pickle.load(f)  # VULNERABLE - arbitrary code execution\n    return model\n\n\n# VULN:LLM05:HIGH:LINE=32 - torch.load without weights_only\ndef vulnerable_torch_load(path: str):",
@@ -252,6 +277,18 @@
       "recommendation": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
     },
     {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_175_unsafe_load",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Unsafe model loading pattern",
+      "description": "torch.load without weights_only=True can execute arbitrary code on line 175.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 175,
+      "code_snippet": "\n    # weights_only=True prevents pickle code execution\n    model = torch.load(model_path, weights_only=True)\n    return model\n\n",
+      "recommendation": "Secure Model Loading:\n1. Set trust_remote_code=False\n2. Use torch.load(..., weights_only=True)\n3. Verify model sources and checksums\n4. Use safetensors format instead of pickle"
+    },
+    {
       "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_65_dynamic_tool",
       "category": "LLM05: Supply Chain Vulnerabilities",
       "severity": "MEDIUM",
@@ -273,6 +310,42 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
       "line_number": 75,
       "code_snippet": "        config_str = f.read()\n    # VULNERABLE - eval on config file\n    config = eval(config_str)\n    return config\n\n",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_80_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "exec() on non-literal content on line 80. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 80,
+      "code_snippet": "\n# =============================================================================\n# CONFIRMER PATTERNS - Dynamic fetch + exec (should be HIGH/CRITICAL)\n# =============================================================================\n\n# VULN:LLM05:CRITICAL:LINE=83 - Download + exec pattern (strong confirmer)",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_84_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "exec() on non-literal content on line 84. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 84,
+      "code_snippet": "\n# VULN:LLM05:CRITICAL:LINE=83 - Download + exec pattern (strong confirmer)\ndef vulnerable_fetch_and_exec(script_url: str):\n    \"\"\"Vulnerable: Fetching and executing remote code.\"\"\"\n    import requests\n    response = requests.get(script_url)",
+      "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM05_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_90_code_exec",
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "confidence": 0.7,
+      "title": "Code execution on external content",
+      "description": "exec() on non-literal content on line 90. File fetches external content - HIGH RISK.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 90,
+      "code_snippet": "    code = response.text\n    # VULNERABLE - fetching and executing remote code\n    exec(code)\n\n\n# VULN:LLM05:CRITICAL:LINE=93 - Download + subprocess pattern",
       "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
     }
   ],

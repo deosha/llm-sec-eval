@@ -285,6 +285,88 @@
       },
       "results": [
         {
+          "ruleId": "LLM03",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_load_dataset' uses pickle.load on line 24. Pickle-based deserialization can execute arbitrary code, allowing attackers to inject malicious code through poisoned training data or models.",
+            "markdown": "**Unsafe data loading with pickle.load in training context**\n\nFunction 'vulnerable_load_dataset' uses pickle.load on line 24. Pickle-based deserialization can execute arbitrary code, allowing attackers to inject malicious code through poisoned training data or models.\n\n**Code:**\n```python\n    with open(path, \"rb\") as f:\n        dataset = pickle.load(f)  # VULNERABLE - arbitrary code execution\n    return dataset\n\n```\n\n**Remediation:**\nSecure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    with open(path, \"rb\") as f:\n        dataset = pickle.load(f)  # VULNERABLE - arbitrary code execution\n    return dataset\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM03_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_24_unsafe_load-24"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.85,
+            "category": "LLM03: Training Data Poisoning"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM03",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_load_torch_model' uses torch.load on line 54. Pickle-based deserialization can execute arbitrary code, allowing attackers to inject malicious code through poisoned training data or models.",
+            "markdown": "**Unsafe data loading with torch.load in training context**\n\nFunction 'vulnerable_load_torch_model' uses torch.load on line 54. Pickle-based deserialization can execute arbitrary code, allowing attackers to inject malicious code through poisoned training data or models.\n\n**Code:**\n```python\n    model_path = download_file(url)\n    model = torch.load(model_path)  # VULNERABLE - pickle under the hood\n    return model\n\n```\n\n**Remediation:**\nSecure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    model_path = download_file(url)\n    model = torch.load(model_path)  # VULNERABLE - pickle under the hood\n    return model\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM03_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py_54_unsafe_load-54"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.85,
+            "category": "LLM03: Training Data Poisoning"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "LLM05",
           "ruleIndex": 4,
           "level": "error",
@@ -411,14 +493,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T14:35:57.294085+00:00",
+          "endTimeUtc": "2026-01-10T15:46:22.823659+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110143557"
+        "id": "ai-security-cli/static-scan/20260110154622"
       }
     }
   ]

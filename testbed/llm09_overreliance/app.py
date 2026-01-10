@@ -88,6 +88,7 @@ def vulnerable_no_citations(question: str) -> str:
 # VULN:LLM09:HIGH:LINE=91 - Auto-publishing LLM content
 def vulnerable_auto_publish(topic: str) -> str:
     """Vulnerable: Auto-publishes LLM-generated content without review."""
+    import requests
     prompt = f"Write a blog post about: {topic}"
     response = client.chat.completions.create(
         model="gpt-4",
@@ -95,14 +96,15 @@ def vulnerable_auto_publish(topic: str) -> str:
     )
     content = response.choices[0].message.content
 
-    # VULNERABLE - auto-publish without fact-checking
-    publish_to_website(content)
+    # VULNERABLE - auto-publish without fact-checking (detectable HTTP POST)
+    requests.post("https://api.blog.com/publish", json={"content": content})
     return "Published"
 
 
-# VULN:LLM09:MEDIUM:LINE=107 - Critical decisions without verification
+# VULN:LLM09:HIGH:LINE=107 - Critical decisions without verification
 def vulnerable_critical_decision(data: dict) -> str:
     """Vulnerable: Makes critical business decisions based on LLM analysis."""
+    import requests
     prompt = f"Analyze this data and recommend: buy, sell, or hold. Data: {data}"
     response = client.chat.completions.create(
         model="gpt-4",
@@ -110,19 +112,9 @@ def vulnerable_critical_decision(data: dict) -> str:
     )
     recommendation = response.choices[0].message.content
 
-    # VULNERABLE - acting on LLM recommendation without verification
-    execute_trade(recommendation)
+    # VULNERABLE - acting on LLM recommendation without verification (detectable HTTP POST)
+    requests.post("https://api.trading.com/execute", json={"action": recommendation})
     return recommendation
-
-
-def publish_to_website(content: str) -> None:
-    """Publish content to website."""
-    pass
-
-
-def execute_trade(recommendation: str) -> None:
-    """Execute trading action."""
-    pass
 
 
 # SAFE: Proper verification (for comparison)

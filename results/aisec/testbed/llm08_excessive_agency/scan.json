@@ -1,15 +1,15 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:52:04.441240Z",
+  "generated_at": "2026-01-10T15:46:23.792661Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency",
     "files_scanned": 1,
     "overall_score": 0.0,
     "confidence": 0.59,
     "duration_seconds": 0.012,
-    "findings_count": 33,
+    "findings_count": 34,
     "severity_breakdown": {
-      "CRITICAL": 18,
+      "CRITICAL": 19,
       "HIGH": 5,
       "MEDIUM": 7,
       "LOW": 0,
@@ -166,7 +166,7 @@
         "LLM04": 0,
         "LLM05": 34,
         "LLM06": 100,
-        "LLM07": 100,
+        "LLM07": 64,
         "LLM08": 32,
         "LLM09": 0,
         "LLM10": 100
@@ -174,7 +174,6 @@
       "detected_controls": [
         "Training Data Poisoning (no vulnerabilities found)",
         "Sensitive Information Disclosure (no vulnerabilities found)",
-        "Insecure Plugin Design (no vulnerabilities found)",
         "Model Theft (no vulnerabilities found)"
       ],
       "gaps": [
@@ -182,6 +181,7 @@
         "Insecure Output Handling: 8 critical",
         "Model Denial of Service: 3 critical, 4 high",
         "Supply Chain Vulnerabilities: 1 high, 7 medium",
+        "Insecure Plugin Design: 1 critical",
         "Excessive Agency: 2 critical",
         "Overreliance: 3 critical"
       ]
@@ -266,7 +266,7 @@
       "severity": "CRITICAL",
       "confidence": 0.9,
       "title": "LLM output used in dangerous command_injection sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'shell=True' on line 55 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'commands.' on line 55 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 55,
       "code_snippet": "        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
@@ -278,7 +278,7 @@
       "severity": "CRITICAL",
       "confidence": 0.9,
       "title": "LLM output used in dangerous command_injection sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'shell=True' on line 62 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'subprocess.' on line 62 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 62,
       "code_snippet": "        # VULNERABLE - system-level access without approval\n        result = subprocess.run(command, shell=True, capture_output=True, text=True)\n        return result.stdout\n",
@@ -487,6 +487,18 @@
       "line_number": 24,
       "code_snippet": "\n    # VULNERABLE - auto-execution without human review\n    exec(code)\n    return \"Code executed\"\n\n",
       "recommendation": "Secure Code Execution:\n1. NEVER use eval/exec on untrusted input\n2. Use safe alternatives (json.loads, ast.literal_eval)\n3. Validate and sanitize all external content\n4. Use sandboxed execution environments"
+    },
+    {
+      "id": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_53_tool",
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "CRITICAL",
+      "confidence": 0.9,
+      "title": "Insecure tool function 'execute_task' executes dangerous operations",
+      "description": "Tool function 'execute_task' on line 53 takes LLM output as a parameter and performs dangerous operations (shell_exec) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+      "line_number": 53,
+      "code_snippet": "# VULN:LLM08:CRITICAL:LINE=51 - Agent with system-level access\nclass VulnerableSystemAgent:\n    \"\"\"Vulnerable: Agent can execute system commands.\"\"\"\n\n    def execute_task(self, task: str) -> str:\n        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )",
+      "recommendation": "Secure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
     },
     {
       "id": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_14_exec",

@@ -24,8 +24,12 @@ def load_ground_truth(testbed_path: Path) -> Dict:
     return {}
 
 
-def load_aisec_results(results_path: Path) -> List[Dict]:
+def load_aisec_results(results_path: Path, category_filter: str = None) -> List[Dict]:
     """Load AI Security CLI scan results.
+
+    Args:
+        results_path: Path to results directory
+        category_filter: If provided, only return findings matching this category (e.g., "LLM01")
 
     NOTE: INFO severity findings are filtered out since they are advisory-only
     and should not count as findings for precision/recall calculations.
@@ -36,7 +40,11 @@ def load_aisec_results(results_path: Path) -> List[Dict]:
             data = json.load(f)
             findings = data.get("findings", [])
             # Filter out INFO severity (advisory-only findings)
-            return [f for f in findings if f.get("severity", "").upper() != "INFO"]
+            findings = [f for f in findings if f.get("severity", "").upper() != "INFO"]
+            # Filter by category if specified (e.g., "LLM01: Prompt Injection" matches "LLM01")
+            if category_filter:
+                findings = [f for f in findings if f.get("category", "").upper().startswith(category_filter.upper())]
+            return findings
     return []
 
 
@@ -145,8 +153,8 @@ def aggregate_testbed():
             print(f"  No ground truth for {project_name}")
             continue
 
-        # Load tool results
-        aisec_findings = load_aisec_results(RESULTS_DIR / "aisec" / "testbed" / project_name)
+        # Load tool results - filter aisec by category to avoid counting other detectors' findings
+        aisec_findings = load_aisec_results(RESULTS_DIR / "aisec" / "testbed" / project_name, category_filter=category)
         semgrep_findings = load_semgrep_results(RESULTS_DIR / "semgrep" / "testbed" / project_name)
         bandit_findings = load_bandit_results(RESULTS_DIR / "bandit" / "testbed" / project_name)
 

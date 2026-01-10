@@ -488,19 +488,224 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "LLM07",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Tool function 'vulnerable_shell_tool' on line 14 takes LLM output as a parameter and performs dangerous operations (shell_exec) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.",
+            "markdown": "**Insecure tool function 'vulnerable_shell_tool' executes dangerous operations**\n\nTool function 'vulnerable_shell_tool' on line 14 takes LLM output as a parameter and performs dangerous operations (shell_exec) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.\n\n**Code:**\n```python\nclient = OpenAI(api_key=os.environ.get(\"OPENAI_API_KEY\"))\n\n\n# VULN:LLM07:CRITICAL:LINE=16 - Shell command execution from LLM\ndef vulnerable_shell_tool(llm_output: dict) -> str:\n    \"\"\"Vulnerable: Executes shell commands based on LLM output.\"\"\"\n    command = llm_output.get(\"command\", \"\")\n    # VULNERABLE - arbitrary command execution\n    result = subprocess.run(command, shell=True, capture_output=True, text=True)\n    return result.stdout\n```\n\n**Remediation:**\nSecure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "client = OpenAI(api_key=os.environ.get(\"OPENAI_API_KEY\"))\n\n\n# VULN:LLM07:CRITICAL:LINE=16 - Shell command execution from LLM\ndef vulnerable_shell_tool(llm_output: dict) -> str:\n    \"\"\"Vulnerable: Executes shell commands based on LLM output.\"\"\"\n    command = llm_output.get(\"command\", \"\")\n    # VULNERABLE - arbitrary command execution\n    result = subprocess.run(command, shell=True, capture_output=True, text=True)\n    return result.stdout"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_14_tool-14"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.9,
+            "category": "LLM07: Insecure Plugin Design"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM07",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Tool function 'vulnerable_file_tool' on line 23 takes LLM output as a parameter and performs dangerous operations (file_access) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.",
+            "markdown": "**Insecure tool function 'vulnerable_file_tool' executes dangerous operations**\n\nTool function 'vulnerable_file_tool' on line 23 takes LLM output as a parameter and performs dangerous operations (file_access) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.\n\n**Code:**\n```python\n    return result.stdout\n\n\n# VULN:LLM07:HIGH:LINE=26 - File system access without restrictions\ndef vulnerable_file_tool(llm_output: dict) -> str:\n    \"\"\"Vulnerable: Unrestricted file access based on LLM output.\"\"\"\n    file_path = llm_output.get(\"path\", \"\")\n    operation = llm_output.get(\"operation\", \"read\")\n\n    # VULNERABLE - can read/write any file\n```\n\n**Remediation:**\nSecure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    return result.stdout\n\n\n# VULN:LLM07:HIGH:LINE=26 - File system access without restrictions\ndef vulnerable_file_tool(llm_output: dict) -> str:\n    \"\"\"Vulnerable: Unrestricted file access based on LLM output.\"\"\"\n    file_path = llm_output.get(\"path\", \"\")\n    operation = llm_output.get(\"operation\", \"read\")\n\n    # VULNERABLE - can read/write any file"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_23_tool-23"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.85,
+            "category": "LLM07: Insecure Plugin Design"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM07",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Tool function 'vulnerable_db_tool' on line 41 takes LLM output as a parameter and performs dangerous operations (sql_exec) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.",
+            "markdown": "**Insecure tool function 'vulnerable_db_tool' executes dangerous operations**\n\nTool function 'vulnerable_db_tool' on line 41 takes LLM output as a parameter and performs dangerous operations (sql_exec) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.\n\n**Code:**\n```python\n    return \"Unknown operation\"\n\n\n# VULN:LLM07:HIGH:LINE=44 - Database query without parameterization\ndef vulnerable_db_tool(llm_output: dict) -> list:\n    \"\"\"Vulnerable: Direct SQL execution from LLM output.\"\"\"\n    import sqlite3\n    query = llm_output.get(\"query\", \"\")\n\n    conn = sqlite3.connect(\"app.db\")\n```\n\n**Remediation:**\nSecure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    return \"Unknown operation\"\n\n\n# VULN:LLM07:HIGH:LINE=44 - Database query without parameterization\ndef vulnerable_db_tool(llm_output: dict) -> list:\n    \"\"\"Vulnerable: Direct SQL execution from LLM output.\"\"\"\n    import sqlite3\n    query = llm_output.get(\"query\", \"\")\n\n    conn = sqlite3.connect(\"app.db\")"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_41_tool-41"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.85,
+            "category": "LLM07: Insecure Plugin Design"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM07",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Tool function 'vulnerable_http_tool' on line 54 takes LLM output as a parameter and performs dangerous operations (http_request) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.",
+            "markdown": "**Insecure tool function 'vulnerable_http_tool' executes dangerous operations**\n\nTool function 'vulnerable_http_tool' on line 54 takes LLM output as a parameter and performs dangerous operations (http_request) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.\n\n**Code:**\n```python\n    return cursor.fetchall()\n\n\n# VULN:LLM07:CRITICAL:LINE=58 - HTTP requests without URL validation\ndef vulnerable_http_tool(llm_output: dict) -> str:\n    \"\"\"Vulnerable: Makes HTTP requests to LLM-specified URLs.\"\"\"\n    import requests\n    url = llm_output.get(\"url\", \"\")\n    method = llm_output.get(\"method\", \"GET\")\n\n```\n\n**Remediation:**\nSecure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    return cursor.fetchall()\n\n\n# VULN:LLM07:CRITICAL:LINE=58 - HTTP requests without URL validation\ndef vulnerable_http_tool(llm_output: dict) -> str:\n    \"\"\"Vulnerable: Makes HTTP requests to LLM-specified URLs.\"\"\"\n    import requests\n    url = llm_output.get(\"url\", \"\")\n    method = llm_output.get(\"method\", \"GET\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_54_tool-54"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.85,
+            "category": "LLM07: Insecure Plugin Design"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM07",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Tool function 'vulnerable_calculator_tool' on line 107 takes LLM output as a parameter and performs dangerous operations (code_exec) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.",
+            "markdown": "**Insecure tool function 'vulnerable_calculator_tool' executes dangerous operations**\n\nTool function 'vulnerable_calculator_tool' on line 107 takes LLM output as a parameter and performs dangerous operations (code_exec) without proper validation. Attackers can craft malicious LLM outputs to execute arbitrary commands, access files, or perform SQL injection.\n\n**Code:**\n```python\n            return self.plugins[name](*args)\n\n\n# VULN:LLM07:MEDIUM:LINE=110 - No input validation on tool parameters\ndef vulnerable_calculator_tool(llm_output: dict) -> float:\n    \"\"\"Vulnerable: Calculator tool with eval.\"\"\"\n    expression = llm_output.get(\"expression\", \"\")\n    # VULNERABLE - eval on user/LLM input\n    result = eval(expression)\n    return result\n```\n\n**Remediation:**\nSecure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 107,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "            return self.plugins[name](*args)\n\n\n# VULN:LLM07:MEDIUM:LINE=110 - No input validation on tool parameters\ndef vulnerable_calculator_tool(llm_output: dict) -> float:\n    \"\"\"Vulnerable: Calculator tool with eval.\"\"\"\n    expression = llm_output.get(\"expression\", \"\")\n    # VULNERABLE - eval on user/LLM input\n    result = eval(expression)\n    return result"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM07_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py_107_tool-107"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.9,
+            "category": "LLM07: Insecure Plugin Design"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Secure Tool/Plugin Implementation:\n1. NEVER execute shell commands from LLM output directly\n2. Use allowlists for permitted commands/operations\n3. Validate all file paths against allowed directories\n4. Use parameterized queries - never raw SQL from LLM\n5. Validate URLs against allowlist before HTTP requests\n6. Implement strict input schemas (JSON Schema, Pydantic)\n7. Add rate limiting and request throttling\n8. Log all tool invocations for audit\n9. Use principle of least privilege\n10. Implement human-in-the-loop for destructive operations"
+              }
+            }
+          ]
         }
       ],
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T14:35:58.128575+00:00",
+          "endTimeUtc": "2026-01-10T15:46:23.681733+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110143558"
+        "id": "ai-security-cli/static-scan/20260110154623"
       }
     }
   ]

@@ -7,64 +7,108 @@ metadata:
   owasp_url: "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
 
 static_findings:
+  # eval() vulnerabilities
   - id: LLM02-STATIC-001
     file: app.py
-    line: 29
+    line: 30
     line_tolerance: 2
     category: LLM02
     severity: critical
     confidence: 0.95
-    description: "eval() with LLM-generated code"
+    description: "eval() with LLM-generated code (via helper function)"
     pattern: "eval execution"
     vulnerable_code: 'eval(llm_code)'
+    note: "Helper function pattern - requires interprocedural tracking"
 
   - id: LLM02-STATIC-002
     file: app.py
-    line: 39
+    line: 42
     line_tolerance: 2
     category: LLM02
     severity: critical
     confidence: 0.95
-    description: "exec() with LLM-generated code"
-    pattern: "exec execution"
-    vulnerable_code: 'exec(llm_code)'
+    description: "eval() with direct LLM output"
+    pattern: "eval execution direct"
+    vulnerable_code: 'eval(llm_code)  # after direct LLM call'
 
+  # exec() vulnerabilities
   - id: LLM02-STATIC-003
     file: app.py
-    line: 49
+    line: 51
+    line_tolerance: 2
+    category: LLM02
+    severity: critical
+    confidence: 0.95
+    description: "exec() with LLM-generated code (via helper function)"
+    pattern: "exec execution"
+    vulnerable_code: 'exec(llm_code)'
+    note: "Helper function pattern - requires interprocedural tracking"
+
+  - id: LLM02-STATIC-004
+    file: app.py
+    line: 62
+    line_tolerance: 2
+    category: LLM02
+    severity: critical
+    confidence: 0.95
+    description: "exec() with direct LLM output"
+    pattern: "exec execution direct"
+    vulnerable_code: 'exec(code)  # after direct LLM call'
+
+  # SQL Injection
+  - id: LLM02-STATIC-005
+    file: app.py
+    line: 73
     line_tolerance: 2
     category: LLM02
     severity: high
     confidence: 0.9
     description: "SQL query built with LLM output"
     pattern: "SQL injection"
-    vulnerable_code: "f-string SQL query with LLM output"
+    vulnerable_code: "cursor.execute(f-string with LLM output)"
+    note: "Helper function pattern - requires interprocedural tracking"
 
-  - id: LLM02-STATIC-004
+  # XSS
+  - id: LLM02-STATIC-006
     file: app.py
-    line: 60
-    line_tolerance: 2
+    line: 85
+    line_tolerance: 3
     category: LLM02
     severity: high
     confidence: 0.85
     description: "Unescaped LLM output in HTML response"
     pattern: "XSS"
-    vulnerable_code: "f-string HTML with unescaped LLM response"
+    vulnerable_code: "Response(html, mimetype='text/html')"
+    note: "Helper function pattern - requires interprocedural tracking"
 
-  - id: LLM02-STATIC-005
+  # Command Injection
+  - id: LLM02-STATIC-007
     file: app.py
-    line: 71
+    line: 93
     line_tolerance: 2
     category: LLM02
     severity: critical
     confidence: 0.95
-    description: "Shell command from LLM output"
+    description: "Shell command from LLM output (via helper function)"
     pattern: "command injection"
     vulnerable_code: 'subprocess.run(shell_cmd, shell=True, ...)'
+    note: "Helper function pattern - requires interprocedural tracking"
 
-  - id: LLM02-STATIC-006
+  - id: LLM02-STATIC-008
     file: app.py
-    line: 81
+    line: 105
+    line_tolerance: 2
+    category: LLM02
+    severity: critical
+    confidence: 0.95
+    description: "Shell command with direct LLM output"
+    pattern: "command injection direct"
+    vulnerable_code: 'subprocess.run(cmd, shell=True, ...)  # after direct LLM call'
+
+  # SSRF
+  - id: LLM02-STATIC-009
+    file: app.py
+    line: 115
     line_tolerance: 2
     category: LLM02
     severity: high
@@ -72,10 +116,12 @@ static_findings:
     description: "URL from LLM used in request without validation"
     pattern: "SSRF"
     vulnerable_code: 'requests.get(url)'
+    note: "Helper function pattern - requires interprocedural tracking"
 
-  - id: LLM02-STATIC-007
+  # Deserialization
+  - id: LLM02-STATIC-010
     file: app.py
-    line: 92
+    line: 126
     line_tolerance: 2
     category: LLM02
     severity: medium
@@ -83,6 +129,7 @@ static_findings:
     description: "Pickle deserialization of LLM output"
     pattern: "deserialization"
     vulnerable_code: 'pickle.loads(base64.b64decode(encoded))'
+    note: "Helper function pattern - requires interprocedural tracking"
 
 live_tests:
   - id: LLM02-LIVE-001
