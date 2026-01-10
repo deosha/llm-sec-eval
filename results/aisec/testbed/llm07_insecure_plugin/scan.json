@@ -1,12 +1,12 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:49:56.470084Z",
+  "generated_at": "2026-01-10T14:52:04.333569Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin",
     "files_scanned": 1,
     "overall_score": 0.0,
     "confidence": 0.56,
-    "duration_seconds": 0.009,
+    "duration_seconds": 0.008,
     "findings_count": 5,
     "severity_breakdown": {
       "CRITICAL": 4,

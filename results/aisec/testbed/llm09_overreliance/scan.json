@@ -1,12 +1,12 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:49:56.685380Z",
+  "generated_at": "2026-01-10T14:52:04.556482Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance",
     "files_scanned": 1,
     "overall_score": 0.79,
     "confidence": 0.57,
-    "duration_seconds": 0.01,
+    "duration_seconds": 0.011,
     "findings_count": 26,
     "severity_breakdown": {
       "CRITICAL": 5,

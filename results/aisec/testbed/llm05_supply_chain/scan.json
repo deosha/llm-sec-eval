@@ -1,6 +1,6 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:49:56.257978Z",
+  "generated_at": "2026-01-10T14:52:04.122236Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain",
     "files_scanned": 1,

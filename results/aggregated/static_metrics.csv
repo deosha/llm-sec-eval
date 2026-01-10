@@ -1,5 +1,5 @@
 project,category,tool,precision,recall,f1,tp,fp,fn
-llm01_prompt_injection,LLM01,aisec,0.263,1.0,0.417,5,14,0
+llm01_prompt_injection,LLM01,aisec,0.294,1.0,0.455,5,12,0
 llm01_prompt_injection,LLM01,semgrep,0,0.0,0,0,0,5
 llm01_prompt_injection,LLM01,bandit,1.0,0.2,0.333,1,0,4
 llm02_insecure_output,LLM02,aisec,0.182,0.286,0.222,2,9,5

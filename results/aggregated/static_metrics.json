@@ -3,11 +3,11 @@
     "LLM01": {
       "aisec": {
         "tp": 5,
-        "fp": 14,
+        "fp": 12,
         "fn": 0,
-        "precision": 0.263,
+        "precision": 0.294,
         "recall": 1.0,
-        "f1": 0.417
+        "f1": 0.455
       },
       "semgrep": {
         "tp": 0,
@@ -264,11 +264,11 @@
   "by_tool": {
     "aisec": {
       "tp": 46,
-      "fp": 92,
+      "fp": 90,
       "fn": 18,
-      "precision": 0.333,
+      "precision": 0.338,
       "recall": 0.719,
-      "f1": 0.455
+      "f1": 0.46
     },
     "semgrep": {
       "tp": 5,
@@ -292,13 +292,13 @@
       "project": "llm01_prompt_injection",
       "category": "LLM01",
       "tool": "aisec",
-      "precision": 0.263,
+      "precision": 0.294,
       "recall": 1.0,
-      "f1": 0.417,
+      "f1": 0.455,
       "tp": 5,
-      "fp": 14,
+      "fp": 12,
       "fn": 0,
-      "total_findings": 19,
+      "total_findings": 17,
       "ground_truth_count": 5
     },
     {

@@ -1,12 +1,12 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T14:49:56.578036Z",
+  "generated_at": "2026-01-10T14:52:04.441240Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency",
     "files_scanned": 1,
     "overall_score": 0.0,
     "confidence": 0.59,
-    "duration_seconds": 0.011,
+    "duration_seconds": 0.012,
     "findings_count": 33,
     "severity_breakdown": {
       "CRITICAL": 18,
@@ -266,7 +266,7 @@
       "severity": "CRITICAL",
       "confidence": 0.9,
       "title": "LLM output used in dangerous command_injection sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'run(' on line 55 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'shell=True' on line 55 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 55,
       "code_snippet": "        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
@@ -278,7 +278,7 @@
       "severity": "CRITICAL",
       "confidence": 0.9,
       "title": "LLM output used in dangerous command_injection sink",
-      "description": "LLM output from 'client.chat.completions.create' is used in 'run(' on line 62 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+      "description": "LLM output from 'client.chat.completions.create' is used in 'shell=True' on line 62 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
       "line_number": 62,
       "code_snippet": "        # VULNERABLE - system-level access without approval\n        result = subprocess.run(command, shell=True, capture_output=True, text=True)\n        return result.stdout\n",
