@@ -1,12 +1,12 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T15:46:22.932142Z",
+  "generated_at": "2026-01-10T21:37:27.255717Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos",
     "files_scanned": 1,
     "overall_score": 0.0,
     "confidence": 0.58,
-    "duration_seconds": 0.009,
+    "duration_seconds": 0.013,
     "findings_count": 23,
     "severity_breakdown": {
       "CRITICAL": 2,
@@ -216,8 +216,8 @@
       "category": "LLM04: Model Denial of Service",
       "severity": "CRITICAL",
       "confidence": 0.8,
-      "title": "Model DoS vulnerability: No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits",
-      "description": "Function 'vulnerable_recursive_generation' on line 63 has 4 DoS risk(s): No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "title": "Model DoS vulnerability: LLM calls in loops, No rate limiting, No timeout configuration, No token/context limits",
+      "description": "Function 'vulnerable_recursive_generation' on line 63 has 4 DoS risk(s): LLM calls in loops, No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
       "line_number": 63,
       "code_snippet": "def vulnerable_recursive_generation(prompt: str, depth: int = 0) -> str:\n    \"\"\"Vulnerable: Allows recursive/chained prompt generation.\"\"\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    result = response.choices[0].message.content\n\n    # VULNERABLE - can recurse indefinitely\n    if \"CONTINUE\" in result and depth < 100:\n        return vulnerable_recursive_generation(result, depth + 1)",

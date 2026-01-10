@@ -5,9 +5,9 @@
     {
       "tool": {
         "driver": {
-          "name": "ai-security-cli",
+          "name": "aisentry",
           "version": "1.0.0",
-          "informationUri": "https://github.com/ai-security-cli/ai-security-cli",
+          "informationUri": "https://github.com/aisentry/aisentry",
           "rules": [
             {
               "id": "LLM01",
@@ -371,8 +371,8 @@
           "ruleIndex": 3,
           "level": "error",
           "message": {
-            "text": "Function 'vulnerable_pii_exposure' on line 27 has 5 DoS risk(s): No rate limiting, No input length validation, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
-            "markdown": "**Model DoS vulnerability: No rate limiting, No input length validation, LLM calls in loops, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_pii_exposure' on line 27 has 5 DoS risk(s): No rate limiting, No input length validation, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_pii_exposure(user_id: int) -> str:\n    \"\"\"Vulnerable: PII data included in prompt context.\"\"\"\n    # Simulating fetching user PII\n    user_data = {\n        \"name\": \"John Doe\",\n        \"ssn\": \"123-45-6789\",  # VULNERABLE - SSN exposed\n        \"email\": \"john.doe@example.com\",\n        \"credit_card\": \"4111-1111-1111-1111\"  # VULNERABLE - CC exposed\n    }\n    prompt = f\"User profile for context: {user_data}. Help this user with their request.\"  # VULNERABLE\n    response = client.chat.completions.create(\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+            "text": "Function 'vulnerable_pii_exposure' on line 27 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_pii_exposure' on line 27 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_pii_exposure(user_id: int) -> str:\n    \"\"\"Vulnerable: PII data included in prompt context.\"\"\"\n    # Simulating fetching user PII\n    user_data = {\n        \"name\": \"John Doe\",\n        \"ssn\": \"123-45-6789\",  # VULNERABLE - SSN exposed\n        \"email\": \"john.doe@example.com\",\n        \"credit_card\": \"4111-1111-1111-1111\"  # VULNERABLE - CC exposed\n    }\n    prompt = f\"User profile for context: {user_data}. Help this user with their request.\"  # VULNERABLE\n    response = client.chat.completions.create(\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
           },
           "locations": [
             {
@@ -412,8 +412,8 @@
           "ruleIndex": 3,
           "level": "error",
           "message": {
-            "text": "Function 'vulnerable_system_prompt' on line 45 has 4 DoS risk(s): No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
-            "markdown": "**Model DoS vulnerability: No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_system_prompt' on line 45 has 4 DoS risk(s): No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_system_prompt() -> str:\n    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[\n            {\"role\": \"system\", \"content\": system_prompt},\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+            "text": "Function 'vulnerable_system_prompt' on line 45 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_system_prompt' on line 45 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_system_prompt() -> str:\n    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[\n            {\"role\": \"system\", \"content\": system_prompt},\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
           },
           "locations": [
             {
@@ -436,8 +436,8 @@
             "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_45-45"
           },
           "properties": {
-            "security-severity": "9.0",
-            "confidence": 0.8,
+            "security-severity": "7.5",
+            "confidence": 0.7,
             "category": "LLM04: Model Denial of Service"
           },
           "fixes": [
@@ -904,47 +904,6 @@
           "ruleIndex": 5,
           "level": "error",
           "message": {
-            "text": "System prompt contains sensitive keyword 'password' on line 17. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
-            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'password' on line 17. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "def vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create("
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_17_sensitive_system_prompt-17"
-          },
-          "properties": {
-            "security-severity": "7.5",
-            "confidence": 0.75,
-            "category": "LLM06: Sensitive Information Disclosure"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM06",
-          "ruleIndex": 5,
-          "level": "error",
-          "message": {
             "text": "System prompt contains sensitive keyword 'secret' on line 14. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
             "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'secret' on line 14. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\n\n\n# VULN:LLM06:CRITICAL:LINE=17 - Secret in prompt\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
           },
@@ -986,8 +945,8 @@
           "ruleIndex": 5,
           "level": "error",
           "message": {
-            "text": "System prompt contains sensitive keyword 'internal' on line 49. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
-            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'internal' on line 49. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+            "text": "System prompt contains sensitive keyword 'password' on line 17. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'password' on line 17. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\ndef vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create(\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
           },
           "locations": [
             {
@@ -997,17 +956,17 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 49,
+                  "startLine": 17,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt"
+                    "text": "def vulnerable_secret_in_prompt(user_query: str) -> str:\n    \"\"\"Vulnerable: API key exposed in prompt.\"\"\"\n    secret_key = \"super_secret_admin_password_123\"\n    prompt = f\"You have access to the admin system. Password: {secret_key}. User asks: {user_query}\"  # VULNERABLE\n    response = client.chat.completions.create("
                   }
                 }
               }
             }
           ],
           "fingerprints": {
-            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_49_sensitive_system_prompt-49"
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_17_sensitive_system_prompt-17"
           },
           "properties": {
             "security-severity": "7.5",
@@ -1049,6 +1008,47 @@
           ],
           "fingerprints": {
             "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_48_sensitive_system_prompt-48"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.75,
+            "category": "LLM06: Sensitive Information Disclosure"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM06",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "System prompt contains sensitive keyword 'internal' on line 49. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+            "markdown": "**Sensitive information in system prompt**\n\nSystem prompt contains sensitive keyword 'internal' on line 49. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.\n\n**Code:**\n```python\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n```\n\n**Remediation:**\nSystem Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_49_sensitive_system_prompt-49"
           },
           "properties": {
             "security-severity": "7.5",
@@ -1313,14 +1313,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T15:46:23.471749+00:00",
+          "endTimeUtc": "2026-01-10T21:37:27.836871+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110154623"
+        "id": "aisentry/static-scan/20260110213727"
       }
     }
   ]

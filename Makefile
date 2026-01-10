@@ -61,8 +61,8 @@ eval-testbed-static:
 		name=$$(basename $$dir); \
 		echo "  Scanning $$name..."; \
 		mkdir -p results/aisec/testbed/$$name; \
-		ai-security-cli scan $$dir -o json -f results/aisec/testbed/$$name/scan.json 2>/dev/null || true; \
-		ai-security-cli scan $$dir -o sarif -f results/aisec/testbed/$$name/scan.sarif 2>/dev/null || true; \
+		aisentry scan $$dir -o json -f results/aisec/testbed/$$name/scan.json 2>/dev/null || true; \
+		aisentry scan $$dir -o sarif -f results/aisec/testbed/$$name/scan.sarif 2>/dev/null || true; \
 	done
 	@echo "Running Semgrep on testbed..."
 	@for dir in testbed/llm*; do \
@@ -88,7 +88,7 @@ eval-testbed-audit:
 	@for dir in testbed/llm*; do \
 		name=$$(basename $$dir); \
 		mkdir -p results/aisec/testbed/$$name; \
-		ai-security-cli audit $$dir -o json -f results/aisec/testbed/$$name/audit.json 2>/dev/null || true; \
+		aisentry audit $$dir -o json -f results/aisec/testbed/$$name/audit.json 2>/dev/null || true; \
 	done
 
 eval-testbed-live:
@@ -98,7 +98,7 @@ eval-testbed-live:
 		exit 1; \
 	fi
 	mkdir -p results/aisec/testbed/live
-	ai-security-cli test -p openai -m gpt-4o --mode $(MODE) \
+	aisentry test -p openai -m gpt-4o --mode $(MODE) \
 		--timeout $(TIMEOUT) -o json \
 		-f results/aisec/testbed/live/openai.json
 
@@ -115,11 +115,11 @@ eval-langchain: clone-langchain
 	@mkdir -p results/aisec/langchain results/semgrep/langchain results/bandit/langchain
 	@for subset in $(LANGCHAIN_SUBSET); do \
 		if [ -d "$(LANGCHAIN_PATH)/$$subset" ]; then \
-			ai-security-cli scan $(LANGCHAIN_PATH)/$$subset -o json \
+			aisentry scan $(LANGCHAIN_PATH)/$$subset -o json \
 				-f results/aisec/langchain/scan_$$(echo $$subset | tr '/' '_').json 2>/dev/null || true; \
 		fi; \
 	done
-	ai-security-cli audit $(LANGCHAIN_PATH) -o json -f results/aisec/langchain/audit.json 2>/dev/null || true
+	aisentry audit $(LANGCHAIN_PATH) -o json -f results/aisec/langchain/audit.json 2>/dev/null || true
 
 clone-langchain:
 	@if [ ! -d "$(LANGCHAIN_PATH)" ]; then \
@@ -134,9 +134,9 @@ LLAMAINDEX_SUBSET := llama_index/core
 eval-llamaindex: clone-llamaindex
 	@echo "Evaluating LlamaIndex..."
 	@mkdir -p results/aisec/llamaindex
-	ai-security-cli scan $(LLAMAINDEX_PATH)/$(LLAMAINDEX_SUBSET) -o json \
+	aisentry scan $(LLAMAINDEX_PATH)/$(LLAMAINDEX_SUBSET) -o json \
 		-f results/aisec/llamaindex/scan.json 2>/dev/null || true
-	ai-security-cli audit $(LLAMAINDEX_PATH) -o json \
+	aisentry audit $(LLAMAINDEX_PATH) -o json \
 		-f results/aisec/llamaindex/audit.json 2>/dev/null || true
 
 clone-llamaindex:
@@ -152,9 +152,9 @@ HAYSTACK_SUBSET := haystack/core
 eval-haystack: clone-haystack
 	@echo "Evaluating Haystack..."
 	@mkdir -p results/aisec/haystack
-	ai-security-cli scan $(HAYSTACK_PATH)/$(HAYSTACK_SUBSET) -o json \
+	aisentry scan $(HAYSTACK_PATH)/$(HAYSTACK_SUBSET) -o json \
 		-f results/aisec/haystack/scan.json 2>/dev/null || true
-	ai-security-cli audit $(HAYSTACK_PATH) -o json \
+	aisentry audit $(HAYSTACK_PATH) -o json \
 		-f results/aisec/haystack/audit.json 2>/dev/null || true
 
 clone-haystack:
@@ -205,7 +205,7 @@ clean-results:
 
 versions:
 	@echo "Tool Versions:"
-	@echo "  ai-security-cli: $$(ai-security-cli --version 2>/dev/null || echo 'not installed')"
+	@echo "  aisentry: $$(aisentry --version 2>/dev/null || echo 'not installed')"
 	@echo "  semgrep: $$(semgrep --version 2>/dev/null || echo 'not installed')"
 	@echo "  bandit: $$(bandit --version 2>/dev/null || echo 'not installed')"
 	@echo "  detect-secrets: $$(detect-secrets --version 2>/dev/null || echo 'not installed')"

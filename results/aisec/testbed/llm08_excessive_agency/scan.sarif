@@ -5,9 +5,9 @@
     {
       "tool": {
         "driver": {
-          "name": "ai-security-cli",
+          "name": "aisentry",
           "version": "1.0.0",
-          "informationUri": "https://github.com/ai-security-cli/ai-security-cli",
+          "informationUri": "https://github.com/aisentry/aisentry",
           "rules": [
             {
               "id": "LLM01",
@@ -371,49 +371,8 @@
           "ruleIndex": 1,
           "level": "error",
           "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'execute(' on line 17 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous sql_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'execute(' on line 17 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    prompt = f\"Write Python code to: {user_request}. Output only code, no explanation.\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nMitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "    prompt = f\"Write Python code to: {user_request}. Output only code, no explanation.\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_17-17"
-          },
-          "properties": {
-            "security-severity": "9.0",
-            "confidence": 0.7,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'exec(' on line 24 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous code_execution sink**\n\nLLM output from 'client.chat.completions.create' is used in 'exec(' on line 24 without sanitization. This creates a code_execution vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    # VULNERABLE - auto-execution without human review\n    exec(code)\n    return \"Code executed\"\n\n```\n\n**Remediation:**\nMitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+            "text": "LLM output variable 'code' flows to 'exec' on line 24 via direct flow. This creates a code_execution vulnerability.",
+            "markdown": "**LLM output flows to code_execution sink**\n\nLLM output variable 'code' flows to 'exec' on line 24 via direct flow. This creates a code_execution vulnerability.\n\n**Code:**\n```python\n    # VULNERABLE - auto-execution without human review\n    exec(code)\n    return \"Code executed\"\n\n```\n\n**Remediation:**\nMitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required"
           },
           "locations": [
             {
@@ -437,13 +396,13 @@
           },
           "properties": {
             "security-severity": "9.0",
-            "confidence": 0.9999999999999999,
+            "confidence": 0.95,
             "category": "LLM02: Insecure Output Handling"
           },
           "fixes": [
             {
               "description": {
-                "text": "Mitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required\n4. Use allowlists for permitted operations\n5. Consider structured output formats (JSON) instead"
+                "text": "Mitigations for Code Execution:\n1. Never pass LLM output to eval() or exec()\n2. Use safe alternatives (ast.literal_eval for data)\n3. Implement sandboxing if code execution is required"
               }
             }
           ]
@@ -453,131 +412,8 @@
           "ruleIndex": 1,
           "level": "error",
           "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'execute(' on line 37 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous sql_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'execute(' on line 37 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n        prompt = f\"Generate SQL to: {user_request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nMitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 37,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "        prompt = f\"Generate SQL to: {user_request}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_37-37"
-          },
-          "properties": {
-            "security-severity": "9.0",
-            "confidence": 0.7,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'execute(' on line 44 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous sql_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'execute(' on line 44 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n        # VULNERABLE - unrestricted write access\n        self.db.execute(sql)\n        self.db.commit()\n        return \"Query executed\"\n```\n\n**Remediation:**\nMitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 44,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "        # VULNERABLE - unrestricted write access\n        self.db.execute(sql)\n        self.db.commit()\n        return \"Query executed\""
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_44-44"
-          },
-          "properties": {
-            "security-severity": "9.0",
-            "confidence": 0.7999999999999999,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'commands.' on line 55 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous command_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'commands.' on line 55 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nMitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 55,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_55-55"
-          },
-          "properties": {
-            "security-severity": "9.0",
-            "confidence": 0.8999999999999999,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'shell=True' on line 62 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous command_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'shell=True' on line 62 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n        # VULNERABLE - system-level access without approval\n        result = subprocess.run(command, shell=True, capture_output=True, text=True)\n        return result.stdout\n\n```\n\n**Remediation:**\nMitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+            "text": "LLM output variable 'command' flows to 'subprocess.run' on line 62 via direct flow. This creates a command_injection vulnerability.",
+            "markdown": "**LLM output flows to command_injection sink**\n\nLLM output variable 'command' flows to 'subprocess.run' on line 62 via direct flow. This creates a command_injection vulnerability.\n\n**Code:**\n```python\n        # VULNERABLE - system-level access without approval\n        result = subprocess.run(command, shell=True, capture_output=True, text=True)\n        return result.stdout\n\n```\n\n**Remediation:**\nMitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable"
           },
           "locations": [
             {
@@ -601,13 +437,13 @@
           },
           "properties": {
             "security-severity": "9.0",
-            "confidence": 0.8999999999999999,
+            "confidence": 0.95,
             "category": "LLM02: Insecure Output Handling"
           },
           "fixes": [
             {
               "description": {
-                "text": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+                "text": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable"
               }
             }
           ]
@@ -617,49 +453,8 @@
           "ruleIndex": 1,
           "level": "error",
           "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'execute(' on line 117 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous sql_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'execute(' on line 117 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n        prompt = f\"Perform this action: {action}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nMitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 117,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "        prompt = f\"Perform this action: {action}\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_117-117"
-          },
-          "properties": {
-            "security-severity": "9.0",
-            "confidence": 0.7,
-            "category": "LLM02: Insecure Output Handling"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM02",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "LLM output from 'client.chat.completions.create' is used in 'execute(' on line 123 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.",
-            "markdown": "**LLM output used in dangerous sql_injection sink**\n\nLLM output from 'client.chat.completions.create' is used in 'execute(' on line 123 without sanitization. This creates a sql_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n        # VULNERABLE - no audit trail\n        result = self._execute(response.choices[0].message.content)\n        return result\n\n```\n\n**Remediation:**\nMitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
+            "text": "LLM output variable 'response' flows to 'self._execute' on line 123 via direct flow. This creates a sql_injection vulnerability.",
+            "markdown": "**LLM output flows to sql_injection sink**\n\nLLM output variable 'response' flows to 'self._execute' on line 123 via direct flow. This creates a sql_injection vulnerability.\n\n**Code:**\n```python\n        # VULNERABLE - no audit trail\n        result = self._execute(response.choices[0].message.content)\n        return result\n\n```\n\n**Remediation:**\nMitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)"
           },
           "locations": [
             {
@@ -683,13 +478,54 @@
           },
           "properties": {
             "security-severity": "9.0",
-            "confidence": 0.7,
+            "confidence": 0.95,
             "category": "LLM02: Insecure Output Handling"
           },
           "fixes": [
             {
               "description": {
-                "text": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)\n4. Apply strict input validation\n5. Use read-only database connections where possible"
+                "text": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output variable 'suggested_action' flows to 'self._execute_safe' on line 148 via direct flow. This creates a sql_injection vulnerability.",
+            "markdown": "**LLM output flows to sql_injection sink**\n\nLLM output variable 'suggested_action' flows to 'self._execute_safe' on line 148 via direct flow. This creates a sql_injection vulnerability.\n\n**Code:**\n```python\n        if self.approve(suggested_action):\n            return self._execute_safe(suggested_action)\n        return \"Action rejected by human\"\n\n```\n\n**Remediation:**\nMitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 148,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "        if self.approve(suggested_action):\n            return self._execute_safe(suggested_action)\n        return \"Action rejected by human\"\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_148-148"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.95,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for SQL Injection:\n1. Use parameterized queries: cursor.execute(query, (param,))\n2. Never concatenate LLM output into SQL\n3. Use ORM query builders (SQLAlchemy, Django ORM)"
               }
             }
           ]
@@ -1355,8 +1191,8 @@
           "ruleIndex": 7,
           "level": "error",
           "message": {
-            "text": "Function 'vulnerable_auto_execute' on line 14 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.",
-            "markdown": "**Direct execution of LLM-generated code in 'vulnerable_auto_execute'**\n\nFunction 'vulnerable_auto_execute' on line 14 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.\n\n**Code:**\n```python\nclient = OpenAI(api_key=os.environ.get(\"OPENAI_API_KEY\"))\n\n\n# VULN:LLM08:CRITICAL:LINE=16 - Auto-execution of LLM-generated code\ndef vulnerable_auto_execute(user_request: str) -> str:\n    \"\"\"Vulnerable: Automatically executes code generated by LLM.\"\"\"\n    prompt = f\"Write Python code to: {user_request}. Output only code, no explanation.\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
+            "text": "In function 'vulnerable_auto_execute', LLM output variable 'code' flows to 'exec' on line 24 via direct flow. This grants excessive agency to the LLM, allowing it to execute arbitrary code without human oversight.",
+            "markdown": "**LLM output flows to code execution in 'vulnerable_auto_execute'**\n\nIn function 'vulnerable_auto_execute', LLM output variable 'code' flows to 'exec' on line 24 via direct flow. This grants excessive agency to the LLM, allowing it to execute arbitrary code without human oversight.\n\n**Code:**\n```python\n\n    # VULNERABLE - auto-execution without human review\n    exec(code)\n    return \"Code executed\"\n\n\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
           },
           "locations": [
             {
@@ -1366,17 +1202,17 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 14,
+                  "startLine": 24,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "client = OpenAI(api_key=os.environ.get(\"OPENAI_API_KEY\"))\n\n\n# VULN:LLM08:CRITICAL:LINE=16 - Auto-execution of LLM-generated code\ndef vulnerable_auto_execute(user_request: str) -> str:\n    \"\"\"Vulnerable: Automatically executes code generated by LLM.\"\"\"\n    prompt = f\"Write Python code to: {user_request}. Output only code, no explanation.\"\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]"
+                    "text": "\n    # VULNERABLE - auto-execution without human review\n    exec(code)\n    return \"Code executed\"\n\n"
                   }
                 }
               }
             }
           ],
           "fingerprints": {
-            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_14_exec-14"
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_24_exec_taint-24"
           },
           "properties": {
             "security-severity": "9.0",
@@ -1396,8 +1232,8 @@
           "ruleIndex": 7,
           "level": "error",
           "message": {
-            "text": "Function 'execute_task' on line 53 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.",
-            "markdown": "**Direct execution of LLM-generated code in 'execute_task'**\n\nFunction 'execute_task' on line 53 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.\n\n**Code:**\n```python\n# VULN:LLM08:CRITICAL:LINE=51 - Agent with system-level access\nclass VulnerableSystemAgent:\n    \"\"\"Vulnerable: Agent can execute system commands.\"\"\"\n\n    def execute_task(self, task: str) -> str:\n        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
+            "text": "In function 'execute_task', LLM output variable 'command' flows to 'subprocess.run' on line 62 via direct flow. This grants excessive agency to the LLM, allowing it to execute arbitrary code without human oversight.",
+            "markdown": "**LLM output flows to code execution in 'execute_task'**\n\nIn function 'execute_task', LLM output variable 'command' flows to 'subprocess.run' on line 62 via direct flow. This grants excessive agency to the LLM, allowing it to execute arbitrary code without human oversight.\n\n**Code:**\n```python\n\n        # VULNERABLE - system-level access without approval\n        result = subprocess.run(command, shell=True, capture_output=True, text=True)\n        return result.stdout\n\n\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
           },
           "locations": [
             {
@@ -1407,21 +1243,103 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 53,
+                  "startLine": 62,
                   "startColumn": 1,
                   "snippet": {
-                    "text": "# VULN:LLM08:CRITICAL:LINE=51 - Agent with system-level access\nclass VulnerableSystemAgent:\n    \"\"\"Vulnerable: Agent can execute system commands.\"\"\"\n\n    def execute_task(self, task: str) -> str:\n        prompt = f\"What shell command should I run to: {task}?\"\n        response = client.chat.completions.create(\n            model=\"gpt-4\",\n            messages=[{\"role\": \"user\", \"content\": prompt}]\n        )"
+                    "text": "\n        # VULNERABLE - system-level access without approval\n        result = subprocess.run(command, shell=True, capture_output=True, text=True)\n        return result.stdout\n\n"
                   }
                 }
               }
             }
           ],
           "fingerprints": {
-            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_53_exec-53"
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_62_exec_taint-62"
           },
           "properties": {
             "security-severity": "9.0",
-            "confidence": 0.85,
+            "confidence": 0.7,
+            "category": "LLM08: Excessive Agency"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "In function 'perform_action', LLM output variable 'response' flows to 'self._execute' on line 123 via direct flow. This grants excessive agency to the LLM, allowing it to execute arbitrary code without human oversight.",
+            "markdown": "**LLM output flows to code execution in 'perform_action'**\n\nIn function 'perform_action', LLM output variable 'response' flows to 'self._execute' on line 123 via direct flow. This grants excessive agency to the LLM, allowing it to execute arbitrary code without human oversight.\n\n**Code:**\n```python\n\n        # VULNERABLE - no audit trail\n        result = self._execute(response.choices[0].message.content)\n        return result\n\n    def _execute(self, instruction: str) -> str:\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 123,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n        # VULNERABLE - no audit trail\n        result = self._execute(response.choices[0].message.content)\n        return result\n\n    def _execute(self, instruction: str) -> str:"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_123_exec_taint-123"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM08: Excessive Agency"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "In function 'process_request', LLM output variable 'suggested_action' flows to 'self._execute_safe' on line 148 via direct flow. This grants excessive agency to the LLM, allowing it to execute arbitrary code without human oversight.",
+            "markdown": "**LLM output flows to code execution in 'process_request'**\n\nIn function 'process_request', LLM output variable 'suggested_action' flows to 'self._execute_safe' on line 148 via direct flow. This grants excessive agency to the LLM, allowing it to execute arbitrary code without human oversight.\n\n**Code:**\n```python\n        # Require human approval\n        if self.approve(suggested_action):\n            return self._execute_safe(suggested_action)\n        return \"Action rejected by human\"\n\n    def _execute_safe(self, action: str) -> str:\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 148,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "        # Require human approval\n        if self.approve(suggested_action):\n            return self._execute_safe(suggested_action)\n        return \"Action rejected by human\"\n\n    def _execute_safe(self, action: str) -> str:"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency/app.py_148_exec_taint-148"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
             "category": "LLM08: Excessive Agency"
           },
           "fixes": [
@@ -1682,14 +1600,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T15:46:23.899309+00:00",
+          "endTimeUtc": "2026-01-10T21:37:28.289538+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm08_excessive_agency"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110154623"
+        "id": "aisentry/static-scan/20260110213728"
       }
     }
   ]

@@ -5,9 +5,9 @@
     {
       "tool": {
         "driver": {
-          "name": "ai-security-cli",
+          "name": "aisentry",
           "version": "1.0.0",
-          "informationUri": "https://github.com/ai-security-cli/ai-security-cli",
+          "informationUri": "https://github.com/aisentry/aisentry",
           "rules": [
             {
               "id": "LLM01",
@@ -285,6 +285,129 @@
       },
       "results": [
         {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'subprocess.run' is used in 'subprocess.' on line 51 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous command_injection sink**\n\nLLM output from 'subprocess.run' is used in 'subprocess.' on line 51 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    # VULNERABLE - arbitrary package installation\n    subprocess.run([\"pip\", \"install\", package_name], check=True)\n    return __import__(package_name)\n\n```\n\n**Remediation:**\nMitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    # VULNERABLE - arbitrary package installation\n    subprocess.run([\"pip\", \"install\", package_name], check=True)\n    return __import__(package_name)\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_51-51"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8999999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'subprocess.run' is used in 'subprocess.' on line 102 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous command_injection sink**\n\nLLM output from 'subprocess.run' is used in 'subprocess.' on line 102 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    # VULNERABLE - executing downloaded script\n    subprocess.run([\"bash\", script_path], check=True)\n\n\n```\n\n**Remediation:**\nMitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 102,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    # VULNERABLE - executing downloaded script\n    subprocess.run([\"bash\", script_path], check=True)\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_102-102"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.8999999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM02",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "LLM output from 'subprocess.run' is used in 'subprocess.' on line 223 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.",
+            "markdown": "**LLM output used in dangerous command_injection sink**\n\nLLM output from 'subprocess.run' is used in 'subprocess.' on line 223 without sanitization. This creates a command_injection vulnerability where malicious LLM output can compromise application security.\n\n**Code:**\n```python\n    # SAFE - installing pinned version from allowlist\n    subprocess.run(\n        [\"pip\", \"install\", f\"{package_name}=={version}\"],\n        check=True\n```\n\n**Remediation:**\nMitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 223,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    # SAFE - installing pinned version from allowlist\n    subprocess.run(\n        [\"pip\", \"install\", f\"{package_name}=={version}\"],\n        check=True"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM02_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_223-223"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7499999999999999,
+            "category": "LLM02: Insecure Output Handling"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Mitigations for Command Injection:\n1. Never pass LLM output to shell commands\n2. Use subprocess with shell=False and list arguments\n3. Apply allowlist validation for expected values\n4. Use shlex.quote() if shell execution is unavoidable\n5. Consider alternative APIs that don't use shell"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "LLM03",
           "ruleIndex": 2,
           "level": "error",
@@ -362,6 +485,211 @@
             {
               "description": {
                 "text": "Secure Data Loading:\n1. Use safetensors instead of pickle for model weights\n2. For torch.load, use weights_only=True\n3. Verify checksums/signatures before loading\n4. Only load data from trusted, verified sources\n5. Implement content scanning before deserialization\n6. Consider using JSON/YAML for configuration data"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM04",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_load_huggingface_model' on line 10 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_load_huggingface_model' on line 10 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_load_huggingface_model(model_name: str):\n    \"\"\"Vulnerable: Loading model from Hugging Face without verification.\"\"\"\n    from transformers import AutoModelForCausalLM, AutoTokenizer\n    # VULNERABLE - no checksum or signature verification\n    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)\n    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)\n    return model, tokenizer\n\n\n# VULN:LLM05:HIGH:LINE=22 - Pickle model loading\ndef vulnerable_load_pickle_model(path: str):\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_load_huggingface_model(model_name: str):\n    \"\"\"Vulnerable: Loading model from Hugging Face without verification.\"\"\"\n    from transformers import AutoModelForCausalLM, AutoTokenizer\n    # VULNERABLE - no checksum or signature verification\n    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)\n    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)\n    return model, tokenizer\n\n\n# VULN:LLM05:HIGH:LINE=22 - Pickle model loading\ndef vulnerable_load_pickle_model(path: str):"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_10-10"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.7,
+            "category": "LLM04: Model Denial of Service"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM04",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_dynamic_install' on line 48 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_dynamic_install' on line 48 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_dynamic_install(package_name: str):\n    \"\"\"Vulnerable: Installing packages dynamically without verification.\"\"\"\n    # VULNERABLE - arbitrary package installation\n    subprocess.run([\"pip\", \"install\", package_name], check=True)\n    return __import__(package_name)\n\n\n# VULN:LLM05:MEDIUM:LINE=61 - Using unpinned dependencies\n# Note: This vulnerability is in requirements.txt, not code\n# requirements.txt contains: langchain, openai, transformers (no versions)\n\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_dynamic_install(package_name: str):\n    \"\"\"Vulnerable: Installing packages dynamically without verification.\"\"\"\n    # VULNERABLE - arbitrary package installation\n    subprocess.run([\"pip\", \"install\", package_name], check=True)\n    return __import__(package_name)\n\n\n# VULN:LLM05:MEDIUM:LINE=61 - Using unpinned dependencies\n# Note: This vulnerability is in requirements.txt, not code\n# requirements.txt contains: langchain, openai, transformers (no versions)\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_48-48"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.7,
+            "category": "LLM04: Model Denial of Service"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM04",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_download_and_run' on line 94 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_download_and_run' on line 94 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_download_and_run(url: str):\n    \"\"\"Vulnerable: Downloading and running external script.\"\"\"\n    import requests\n    response = requests.get(url)\n    script_path = \"/tmp/script.sh\"\n    with open(script_path, \"w\") as f:\n        f.write(response.text)\n    # VULNERABLE - executing downloaded script\n    subprocess.run([\"bash\", script_path], check=True)\n\n\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def vulnerable_download_and_run(url: str):\n    \"\"\"Vulnerable: Downloading and running external script.\"\"\"\n    import requests\n    response = requests.get(url)\n    script_path = \"/tmp/script.sh\"\n    with open(script_path, \"w\") as f:\n        f.write(response.text)\n    # VULNERABLE - executing downloaded script\n    subprocess.run([\"bash\", script_path], check=True)\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_94-94"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.7,
+            "category": "LLM04: Model Denial of Service"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM04",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Function 'safe_load_model_with_checksum' on line 129 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'safe_load_model_with_checksum' on line 129 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef safe_load_model_with_checksum(model_name: str, expected_sha256: str):\n    \"\"\"Safe: Load model with SHA256 checksum verification.\"\"\"\n    import hashlib\n    from transformers import AutoModelForCausalLM\n    from huggingface_hub import hf_hub_download\n\n    # Download with explicit checksum\n    model_path = hf_hub_download(\n        repo_id=model_name,\n        filename=\"model.safetensors\",\n        revision=\"main\"\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 129,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def safe_load_model_with_checksum(model_name: str, expected_sha256: str):\n    \"\"\"Safe: Load model with SHA256 checksum verification.\"\"\"\n    import hashlib\n    from transformers import AutoModelForCausalLM\n    from huggingface_hub import hf_hub_download\n\n    # Download with explicit checksum\n    model_path = hf_hub_download(\n        repo_id=model_name,\n        filename=\"model.safetensors\",\n        revision=\"main\""
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_129-129"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.7,
+            "category": "LLM04: Model Denial of Service"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM04",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Function 'safe_load_local_model' on line 231 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'safe_load_local_model' on line 231 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef safe_load_local_model(model_dir: str):\n    \"\"\"Safe: Loading model from verified local directory.\"\"\"\n    import os\n    from transformers import AutoModelForCausalLM\n\n    # Validate path is within allowed directory\n    ALLOWED_MODEL_DIR = \"/opt/models\"\n    abs_path = os.path.abspath(model_dir)\n    if not abs_path.startswith(ALLOWED_MODEL_DIR):\n        raise ValueError(f\"Model path must be within {ALLOWED_MODEL_DIR}\")\n\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 231,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "def safe_load_local_model(model_dir: str):\n    \"\"\"Safe: Loading model from verified local directory.\"\"\"\n    import os\n    from transformers import AutoModelForCausalLM\n\n    # Validate path is within allowed directory\n    ALLOWED_MODEL_DIR = \"/opt/models\"\n    abs_path = os.path.abspath(model_dir)\n    if not abs_path.startswith(ALLOWED_MODEL_DIR):\n        raise ValueError(f\"Model path must be within {ALLOWED_MODEL_DIR}\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_231-231"
+          },
+          "properties": {
+            "security-severity": "7.5",
+            "confidence": 0.7,
+            "category": "LLM04: Model Denial of Service"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
               }
             }
           ]
@@ -816,19 +1144,265 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "LLM08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_dynamic_install' on line 48 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.",
+            "markdown": "**Direct execution of LLM-generated code in 'vulnerable_dynamic_install'**\n\nFunction 'vulnerable_dynamic_install' on line 48 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.\n\n**Code:**\n```python\n    return local_path\n\n\n# VULN:LLM05:HIGH:LINE=52 - Installing packages at runtime\ndef vulnerable_dynamic_install(package_name: str):\n    \"\"\"Vulnerable: Installing packages dynamically without verification.\"\"\"\n    # VULNERABLE - arbitrary package installation\n    subprocess.run([\"pip\", \"install\", package_name], check=True)\n    return __import__(package_name)\n\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    return local_path\n\n\n# VULN:LLM05:HIGH:LINE=52 - Installing packages at runtime\ndef vulnerable_dynamic_install(package_name: str):\n    \"\"\"Vulnerable: Installing packages dynamically without verification.\"\"\"\n    # VULNERABLE - arbitrary package installation\n    subprocess.run([\"pip\", \"install\", package_name], check=True)\n    return __import__(package_name)\n"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_48_exec-48"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.85,
+            "category": "LLM08: Excessive Agency"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_download_and_run' on line 94 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.",
+            "markdown": "**Direct execution of LLM-generated code in 'vulnerable_download_and_run'**\n\nFunction 'vulnerable_download_and_run' on line 94 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.\n\n**Code:**\n```python\n    exec(code)\n\n\n# VULN:LLM05:CRITICAL:LINE=93 - Download + subprocess pattern\ndef vulnerable_download_and_run(url: str):\n    \"\"\"Vulnerable: Downloading and running external script.\"\"\"\n    import requests\n    response = requests.get(url)\n    script_path = \"/tmp/script.sh\"\n    with open(script_path, \"w\") as f:\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits\n\nAPI Access Control:\n1. Implement strict URL allowlists for permitted endpoints\n2. Validate and sanitize all URLs before making requests\n3. Use separate API keys with minimal permissions\n4. Implement rate limiting on outbound requests\n5. Log all API calls with full context\n6. Block private/internal IP ranges (SSRF prevention)\n7. Validate response content before processing\n8. Set timeouts on API calls\n9. Use circuit breakers for failing endpoints\n10. Monitor for unusual access patterns"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    exec(code)\n\n\n# VULN:LLM05:CRITICAL:LINE=93 - Download + subprocess pattern\ndef vulnerable_download_and_run(url: str):\n    \"\"\"Vulnerable: Downloading and running external script.\"\"\"\n    import requests\n    response = requests.get(url)\n    script_path = \"/tmp/script.sh\"\n    with open(script_path, \"w\") as f:"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_94_exec-94"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.85,
+            "category": "LLM08: Excessive Agency"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution\n\nHigh-Risk Operation Safety:\n1. Require explicit user confirmation for destructive actions\n2. Display clear preview of what will be changed/deleted\n3. Implement \"undo\" functionality where possible\n4. Use transaction rollback for database operations\n5. Add time delays before executing irreversible actions\n6. Send notifications for critical operations\n7. Implement approval workflows for sensitive operations\n8. Maintain detailed audit logs of all actions\n9. Use \"dry-run\" mode to show what would happen\n10. Consider implementing operation quotas/limits\n\nAPI Access Control:\n1. Implement strict URL allowlists for permitted endpoints\n2. Validate and sanitize all URLs before making requests\n3. Use separate API keys with minimal permissions\n4. Implement rate limiting on outbound requests\n5. Log all API calls with full context\n6. Block private/internal IP ranges (SSRF prevention)\n7. Validate response content before processing\n8. Set timeouts on API calls\n9. Use circuit breakers for failing endpoints\n10. Monitor for unusual access patterns"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "Function 'safe_install_package' on line 210 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.",
+            "markdown": "**Direct execution of LLM-generated code in 'safe_install_package'**\n\nFunction 'safe_install_package' on line 210 directly executes code generated or influenced by an LLM using exec()/eval() or subprocess. This creates a critical security risk where malicious or buggy LLM outputs can execute arbitrary code, potentially compromising the entire system.\n\n**Code:**\n```python\n    return local_path\n\n\n# SAFE: Pinned package installation from allowlist\ndef safe_install_package(package_name: str):\n    \"\"\"Safe: Installing packages from allowlist with pinned versions.\"\"\"\n    ALLOWED_PACKAGES = {\n        \"numpy\": \"1.24.0\",\n        \"pandas\": \"2.0.0\",\n        \"scikit-learn\": \"1.3.0\",\n```\n\n**Remediation:**\nCode Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 210,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "    return local_path\n\n\n# SAFE: Pinned package installation from allowlist\ndef safe_install_package(package_name: str):\n    \"\"\"Safe: Installing packages from allowlist with pinned versions.\"\"\"\n    ALLOWED_PACKAGES = {\n        \"numpy\": \"1.24.0\",\n        \"pandas\": \"2.0.0\",\n        \"scikit-learn\": \"1.3.0\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM08_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_210_exec-210"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM08: Excessive Agency"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "Code Execution Security:\n1. NEVER execute LLM-generated code directly with exec()/eval()\n2. If code execution is necessary, use sandboxed environments (Docker, VM)\n3. Implement strict code validation and static analysis before execution\n4. Use allowlists for permitted functions/modules\n5. Set resource limits (CPU, memory, time) for execution\n6. Parse and validate code structure before running\n7. Consider using safer alternatives (JSON, declarative configs)\n8. Log all code execution attempts with full context\n9. Require human review for generated code\n10. Use tools like RestrictedPython for safer Python execution"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM09",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_dynamic_install' on line 48 directly executes LLM-generated code using subprocess.run. This is extremely dangerous and allows arbitrary code execution.",
+            "markdown": "**Direct execution of LLM output in 'vulnerable_dynamic_install'**\n\nFunction 'vulnerable_dynamic_install' on line 48 directly executes LLM-generated code using subprocess.run. This is extremely dangerous and allows arbitrary code execution.\n\n**Code:**\n```python\n\n# VULN:LLM05:HIGH:LINE=52 - Installing packages at runtime\ndef vulnerable_dynamic_install(package_name: str):\n    \"\"\"Vulnerable: Installing packages dynamically without verification.\"\"\"\n    # VULNERABLE - arbitrary package installation\n    subprocess.run([\"pip\", \"install\", package_name], check=True)\n```\n\n**Remediation:**\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n# VULN:LLM05:HIGH:LINE=52 - Installing packages at runtime\ndef vulnerable_dynamic_install(package_name: str):\n    \"\"\"Vulnerable: Installing packages dynamically without verification.\"\"\"\n    # VULNERABLE - arbitrary package installation\n    subprocess.run([\"pip\", \"install\", package_name], check=True)"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_48_direct_execution-48"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.85,
+            "category": "LLM09: Overreliance"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM09",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "Function 'vulnerable_download_and_run' on line 94 directly executes LLM-generated code using subprocess.run. This is extremely dangerous and allows arbitrary code execution.",
+            "markdown": "**Direct execution of LLM output in 'vulnerable_download_and_run'**\n\nFunction 'vulnerable_download_and_run' on line 94 directly executes LLM-generated code using subprocess.run. This is extremely dangerous and allows arbitrary code execution.\n\n**Code:**\n```python\n\n# VULN:LLM05:CRITICAL:LINE=93 - Download + subprocess pattern\ndef vulnerable_download_and_run(url: str):\n    \"\"\"Vulnerable: Downloading and running external script.\"\"\"\n    import requests\n    response = requests.get(url)\n```\n\n**Remediation:**\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nImplement confidence thresholds for automated actions:\n\n1. Add confidence scoring:\n   - Request confidence scores from LLM\n   - Calculate custom confidence metrics\n   - Track historical accuracy\n\n2. Set thresholds:\n   - High confidence (>0.9): Auto-execute\n   - Medium confidence (0.7-0.9): Human review\n   - Low confidence (<0.7): Reject or escalate\n\n3. Validate output:\n   - Use schema validation (Pydantic)\n   - Check output format and constraints\n   - Verify against expected patterns\n\n4. Implement fallbacks:\n   - Have backup strategies for low confidence\n   - Use simpler/safer alternatives\n   - Escalate to human operators"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n# VULN:LLM05:CRITICAL:LINE=93 - Download + subprocess pattern\ndef vulnerable_download_and_run(url: str):\n    \"\"\"Vulnerable: Downloading and running external script.\"\"\"\n    import requests\n    response = requests.get(url)"
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_94_direct_execution-94"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.85,
+            "category": "LLM09: Overreliance"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring\n\nImplement confidence thresholds for automated actions:\n\n1. Add confidence scoring:\n   - Request confidence scores from LLM\n   - Calculate custom confidence metrics\n   - Track historical accuracy\n\n2. Set thresholds:\n   - High confidence (>0.9): Auto-execute\n   - Medium confidence (0.7-0.9): Human review\n   - Low confidence (<0.7): Reject or escalate\n\n3. Validate output:\n   - Use schema validation (Pydantic)\n   - Check output format and constraints\n   - Verify against expected patterns\n\n4. Implement fallbacks:\n   - Have backup strategies for low confidence\n   - Use simpler/safer alternatives\n   - Escalate to human operators"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "LLM09",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "Function 'safe_install_package' on line 210 directly executes LLM-generated code using subprocess.run. This is extremely dangerous and allows arbitrary code execution.",
+            "markdown": "**Direct execution of LLM output in 'safe_install_package'**\n\nFunction 'safe_install_package' on line 210 directly executes LLM-generated code using subprocess.run. This is extremely dangerous and allows arbitrary code execution.\n\n**Code:**\n```python\n\n# SAFE: Pinned package installation from allowlist\ndef safe_install_package(package_name: str):\n    \"\"\"Safe: Installing packages from allowlist with pinned versions.\"\"\"\n    ALLOWED_PACKAGES = {\n        \"numpy\": \"1.24.0\",\n```\n\n**Remediation:**\nNEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 210,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "\n# SAFE: Pinned package installation from allowlist\ndef safe_install_package(package_name: str):\n    \"\"\"Safe: Installing packages from allowlist with pinned versions.\"\"\"\n    ALLOWED_PACKAGES = {\n        \"numpy\": \"1.24.0\","
+                  }
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "primaryLocationLineHash": "LLM09_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py_210_direct_execution-210"
+          },
+          "properties": {
+            "security-severity": "9.0",
+            "confidence": 0.7,
+            "category": "LLM09: Overreliance"
+          },
+          "fixes": [
+            {
+              "description": {
+                "text": "NEVER directly execute LLM-generated code:\n\n1. Remove direct execution:\n   - Do not use eval(), exec(), or os.system()\n   - Avoid dynamic code execution\n   - Use safer alternatives (allow-lists)\n\n2. If code generation is required:\n   - Generate code for review only\n   - Require human approval before execution\n   - Use sandboxing (containers, VMs)\n   - Implement strict security policies\n\n3. Use structured outputs:\n   - Return data, not code\n   - Use JSON schemas\n   - Define clear interfaces\n\n4. Add safeguards:\n   - Static code analysis before execution\n   - Whitelist allowed operations\n   - Rate limiting and monitoring"
+              }
+            }
+          ]
         }
       ],
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T15:46:23.260062+00:00",
+          "endTimeUtc": "2026-01-10T21:37:27.611232+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110154623"
+        "id": "aisentry/static-scan/20260110213727"
       }
     }
   ]

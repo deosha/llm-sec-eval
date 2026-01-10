@@ -5,9 +5,9 @@
     {
       "tool": {
         "driver": {
-          "name": "ai-security-cli",
+          "name": "aisentry",
           "version": "1.0.0",
-          "informationUri": "https://github.com/ai-security-cli/ai-security-cli",
+          "informationUri": "https://github.com/aisentry/aisentry",
           "rules": [
             {
               "id": "LLM01",
@@ -1436,14 +1436,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T15:46:24.119362+00:00",
+          "endTimeUtc": "2026-01-10T21:37:28.533300+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110154624"
+        "id": "aisentry/static-scan/20260110213728"
       }
     }
   ]

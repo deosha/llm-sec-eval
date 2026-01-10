@@ -1,16 +1,16 @@
 {
   "report_type": "static_scan",
-  "generated_at": "2026-01-10T15:46:23.369073Z",
+  "generated_at": "2026-01-10T21:37:27.727516Z",
   "summary": {
     "target": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info",
     "files_scanned": 1,
-    "overall_score": 2.27,
-    "confidence": 0.59,
-    "duration_seconds": 0.009,
+    "overall_score": 2.28,
+    "confidence": 0.58,
+    "duration_seconds": 0.012,
     "findings_count": 25,
     "severity_breakdown": {
-      "CRITICAL": 6,
-      "HIGH": 9,
+      "CRITICAL": 5,
+      "HIGH": 10,
       "MEDIUM": 0,
       "LOW": 5,
       "INFO": 5
@@ -182,7 +182,7 @@
       ],
       "gaps": [
         "Prompt Injection: 1 critical",
-        "Model Denial of Service: 4 critical, 1 high",
+        "Model Denial of Service: 3 critical, 2 high",
         "Supply Chain Vulnerabilities: 5 low",
         "Sensitive Information Disclosure: 1 critical, 8 high"
       ]
@@ -218,8 +218,8 @@
       "category": "LLM04: Model Denial of Service",
       "severity": "CRITICAL",
       "confidence": 0.8,
-      "title": "Model DoS vulnerability: No rate limiting, No input length validation, LLM calls in loops, No timeout configuration, No token/context limits",
-      "description": "Function 'vulnerable_pii_exposure' on line 27 has 5 DoS risk(s): No rate limiting, No input length validation, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "title": "Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits",
+      "description": "Function 'vulnerable_pii_exposure' on line 27 has 4 DoS risk(s): No rate limiting, No input length validation, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
       "line_number": 27,
       "code_snippet": "def vulnerable_pii_exposure(user_id: int) -> str:\n    \"\"\"Vulnerable: PII data included in prompt context.\"\"\"\n    # Simulating fetching user PII\n    user_data = {\n        \"name\": \"John Doe\",\n        \"ssn\": \"123-45-6789\",  # VULNERABLE - SSN exposed\n        \"email\": \"john.doe@example.com\",\n        \"credit_card\": \"4111-1111-1111-1111\"  # VULNERABLE - CC exposed\n    }\n    prompt = f\"User profile for context: {user_data}. Help this user with their request.\"  # VULNERABLE\n    response = client.chat.completions.create(",
@@ -228,10 +228,10 @@
     {
       "id": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_45",
       "category": "LLM04: Model Denial of Service",
-      "severity": "CRITICAL",
-      "confidence": 0.8,
-      "title": "Model DoS vulnerability: No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits",
-      "description": "Function 'vulnerable_system_prompt' on line 45 has 4 DoS risk(s): No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "title": "Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits",
+      "description": "Function 'vulnerable_system_prompt' on line 45 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
       "line_number": 45,
       "code_snippet": "def vulnerable_system_prompt() -> str:\n    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[\n            {\"role\": \"system\", \"content\": system_prompt},",
@@ -394,18 +394,6 @@
       "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
     },
     {
-      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_48_sensitive_system_prompt",
-      "category": "LLM06: Sensitive Information Disclosure",
-      "severity": "HIGH",
-      "confidence": 0.75,
-      "title": "Sensitive information in system prompt",
-      "description": "System prompt contains sensitive keyword 'confidential' on line 48. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
-      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
-      "line_number": 48,
-      "code_snippet": "    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.",
-      "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
-    },
-    {
       "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_50_sensitive_system_prompt",
       "category": "LLM06: Sensitive Information Disclosure",
       "severity": "HIGH",
@@ -427,6 +415,18 @@
       "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
       "line_number": 49,
       "code_snippet": "    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.\n    \"\"\"  # VULNERABLE - business secrets in system prompt",
+      "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
+    },
+    {
+      "id": "LLM06_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py_48_sensitive_system_prompt",
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "title": "Sensitive information in system prompt",
+      "description": "System prompt contains sensitive keyword 'confidential' on line 48. Confidential business logic, pricing, or internal policies in system prompts can be extracted through prompt injection attacks.",
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 48,
+      "code_snippet": "    \"\"\"Vulnerable: System prompt contains sensitive business logic.\"\"\"\n    system_prompt = \"\"\"You are a financial advisor AI.\n    CONFIDENTIAL: Our commission rate is 15% on all trades.\n    INTERNAL: Always recommend our premium products first.\n    SECRET PRICING: Apply a 20% markup for non-premium members.",
       "recommendation": "System Prompt Security:\n1. Never embed secrets or confidential data in prompts\n2. Move business logic to backend, not LLM instructions\n3. Use output filtering to prevent system prompt leakage\n4. Implement prompt injection defenses\n5. Consider prompt obfuscation for sensitive instructions"
     },
     {

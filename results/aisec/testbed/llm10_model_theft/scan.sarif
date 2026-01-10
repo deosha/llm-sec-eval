@@ -5,9 +5,9 @@
     {
       "tool": {
         "driver": {
-          "name": "ai-security-cli",
+          "name": "aisentry",
           "version": "1.0.0",
-          "informationUri": "https://github.com/ai-security-cli/ai-security-cli",
+          "informationUri": "https://github.com/aisentry/aisentry",
           "rules": [
             {
               "id": "LLM01",
@@ -289,47 +289,6 @@
           "ruleIndex": 3,
           "level": "error",
           "message": {
-            "text": "Function 'vulnerable_no_rate_limit' on line 16 has 3 DoS risk(s): LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
-            "markdown": "**Model DoS vulnerability: LLM calls in loops, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_no_rate_limit' on line 16 has 3 DoS risk(s): LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_no_rate_limit():\n    \"\"\"Vulnerable: No rate limiting allows model extraction queries.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - unlimited queries for extraction\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return jsonify({\"response\": response.choices[0].message.content})\n\n\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 16,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "def vulnerable_no_rate_limit():\n    \"\"\"Vulnerable: No rate limiting allows model extraction queries.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - unlimited queries for extraction\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return jsonify({\"response\": response.choices[0].message.content})\n\n"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_16-16"
-          },
-          "properties": {
-            "security-severity": "7.5",
-            "confidence": 0.7,
-            "category": "LLM04: Model Denial of Service"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM04",
-          "ruleIndex": 3,
-          "level": "error",
-          "message": {
             "text": "Function 'vulnerable_no_auth' on line 44 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
             "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_no_auth' on line 44 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_no_auth():\n    \"\"\"Vulnerable: API endpoint without authentication.\"\"\"\n    # VULNERABLE - no API key or auth required\n    prompt = request.json.get(\"prompt\", \"\")\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}]\n    )\n    return jsonify({\"response\": response.choices[0].message.content})\n\n\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
           },
@@ -371,8 +330,8 @@
           "ruleIndex": 3,
           "level": "error",
           "message": {
-            "text": "Function 'vulnerable_logprobs' on line 70 has 4 DoS risk(s): No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
-            "markdown": "**Model DoS vulnerability: No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_logprobs' on line 70 has 4 DoS risk(s): No rate limiting, LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_logprobs():\n    \"\"\"Vulnerable: Returns logprobs enabling model distillation.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - logprobs can be used for distillation\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n        logprobs=True,\n        top_logprobs=5\n    )\n    return jsonify({\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
+            "text": "Function 'vulnerable_logprobs' on line 70 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
+            "markdown": "**Model DoS vulnerability: No rate limiting, No timeout configuration, No token/context limits**\n\nFunction 'vulnerable_logprobs' on line 70 has 3 DoS risk(s): No rate limiting, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef vulnerable_logprobs():\n    \"\"\"Vulnerable: Returns logprobs enabling model distillation.\"\"\"\n    prompt = request.json.get(\"prompt\", \"\")\n    # VULNERABLE - logprobs can be used for distillation\n    response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n        logprobs=True,\n        top_logprobs=5\n    )\n    return jsonify({\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
           },
           "locations": [
             {
@@ -393,47 +352,6 @@
           ],
           "fingerprints": {
             "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_70-70"
-          },
-          "properties": {
-            "security-severity": "9.0",
-            "confidence": 0.8,
-            "category": "LLM04: Model Denial of Service"
-          },
-          "fixes": [
-            {
-              "description": {
-                "text": "Model DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "LLM04",
-          "ruleIndex": 3,
-          "level": "error",
-          "message": {
-            "text": "Function 'safe_protected_api' on line 116 has 3 DoS risk(s): LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.",
-            "markdown": "**Model DoS vulnerability: LLM calls in loops, No timeout configuration, No token/context limits**\n\nFunction 'safe_protected_api' on line 116 has 3 DoS risk(s): LLM calls in loops, No timeout configuration, No token/context limits. These missing protections enable attackers to exhaust model resources through excessive requests, large inputs, or recursive calls, leading to service degradation or unavailability.\n\n**Code:**\n```python\ndef safe_protected_api():\n    \"\"\"Safe: Properly protected model API.\"\"\"\n    # Authentication\n    api_key = request.headers.get(\"X-API-Key\")\n    if not api_key or not validate_api_key(api_key):\n        return jsonify({\"error\": \"Unauthorized\"}), 401\n\n    # Rate limiting\n    if is_rate_limited(api_key):\n        return jsonify({\"error\": \"Rate limited\"}), 429\n\n```\n\n**Remediation:**\nModel DoS Mitigations:\n1. Implement rate limiting per user/IP (@limiter.limit('10/minute'))\n2. Validate and limit input length (max 1000 chars)\n3. Set token limits (max_tokens=500)\n4. Configure timeouts (timeout=30 seconds)\n5. Avoid LLM calls in unbounded loops\n6. Implement circuit breakers for cascading failures\n7. Monitor and alert on resource usage\n8. Use queuing for batch processing\n9. Implement cost controls and budgets"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 116,
-                  "startColumn": 1,
-                  "snippet": {
-                    "text": "def safe_protected_api():\n    \"\"\"Safe: Properly protected model API.\"\"\"\n    # Authentication\n    api_key = request.headers.get(\"X-API-Key\")\n    if not api_key or not validate_api_key(api_key):\n        return jsonify({\"error\": \"Unauthorized\"}), 401\n\n    # Rate limiting\n    if is_rate_limited(api_key):\n        return jsonify({\"error\": \"Rate limited\"}), 429\n"
-                  }
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "primaryLocationLineHash": "LLM04_/Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft/app.py_116-116"
           },
           "properties": {
             "security-severity": "7.5",
@@ -1026,14 +944,14 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-01-10T15:46:24.334168+00:00",
+          "endTimeUtc": "2026-01-10T21:37:28.757634+00:00",
           "workingDirectory": {
             "uri": "file:///Users/deo/secscan-cli/llm-sec-eval/testbed/llm10_model_theft"
           }
         }
       ],
       "automationDetails": {
-        "id": "ai-security-cli/static-scan/20260110154624"
+        "id": "aisentry/static-scan/20260110213728"
       }
     }
   ]

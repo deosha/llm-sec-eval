@@ -1,6 +1,6 @@
 {
   "errors": [],
-  "generated_at": "2026-01-10T15:47:02Z",
+  "generated_at": "2026-01-10T21:38:03Z",
   "metrics": {
     "_totals": {
       "CONFIDENCE.HIGH": 4,
@@ -11,7 +11,7 @@
       "SEVERITY.LOW": 1,
       "SEVERITY.MEDIUM": 4,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 80,
+      "loc": 82,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -24,7 +24,7 @@
       "SEVERITY.LOW": 1,
       "SEVERITY.MEDIUM": 4,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 80,
+      "loc": 82,
       "nosec": 0,
       "skipped_tests": 0
     }
@@ -111,7 +111,7 @@
       "test_name": "request_without_timeout"
     },
     {
-      "code": "97         # VULNERABLE - executing arbitrary code\n98         exec(code, {\"__builtins__\": __builtins__}, self.plugins)\n99 \n",
+      "code": "99         # VULNERABLE - executing LLM-generated code\n100         exec(code, {\"__builtins__\": __builtins__}, self.plugins)\n101 \n",
       "col_offset": 8,
       "end_col_offset": 64,
       "filename": "testbed/llm07_insecure_plugin/app.py",
@@ -122,16 +122,16 @@
       },
       "issue_severity": "MEDIUM",
       "issue_text": "Use of exec detected.",
-      "line_number": 98,
+      "line_number": 100,
       "line_range": [
-        98
+        100
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/plugins/b102_exec_used.html",
       "test_id": "B102",
       "test_name": "exec_used"
     },
     {
-      "code": "110     # VULNERABLE - eval on user/LLM input\n111     result = eval(expression)\n112     return result\n",
+      "code": "112     # VULNERABLE - eval on user/LLM input\n113     result = eval(expression)\n114     return result\n",
       "col_offset": 13,
       "end_col_offset": 29,
       "filename": "testbed/llm07_insecure_plugin/app.py",
@@ -142,9 +142,9 @@
       },
       "issue_severity": "MEDIUM",
       "issue_text": "Use of possibly insecure function - consider using safer ast.literal_eval.",
-      "line_number": 111,
+      "line_number": 113,
       "line_range": [
-        111
+        113
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.9.2/blacklists/blacklist_calls.html#b307-eval",
       "test_id": "B307",
