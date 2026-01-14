@@ -1,0 +1,62 @@
+\section{Threat Model}
+\label{sec:threat-model}
+
+\subsection{System Model}
+
+We consider applications that integrate LLM APIs to process user input and generate actions. The typical architecture consists of:
+
+\begin{enumerate}
+    \item \textbf{Input Handler}: Receives user-controlled data (web requests, CLI arguments, file uploads)
+    \item \textbf{Prompt Constructor}: Builds prompts that include user data
+    \item \textbf{LLM API}: External service that processes prompts and generates responses
+    \item \textbf{Output Handler}: Parses LLM responses and executes actions (database queries, system commands, API calls)
+\end{enumerate}
+
+\subsection{Attacker Capabilities}
+
+We assume an attacker who:
+\begin{itemize}
+    \item Controls input to the application (e.g., as a normal user)
+    \item Cannot directly access the LLM API or modify system prompts
+    \item Cannot modify application code or configuration
+    \item Has knowledge of common LLM behaviors and prompt injection techniques
+\end{itemize}
+
+\subsection{Attack Vectors}
+
+We consider three injection vectors, following the taxonomy of Greshake et al.~\cite{greshake2023}:
+
+\begin{description}
+    \item[Direct Injection] Attacker input is directly included in the LLM prompt. The attacker crafts input containing instructions that override the intended behavior.
+
+    \item[Indirect Injection] Malicious instructions are embedded in external data sources (websites, documents, emails) that the LLM retrieves and processes. The application developer did not intend for this data to be executable.
+
+    \item[Stored Injection] Malicious prompts are persisted (in databases, files, or caches) and executed when later retrieved. This enables attacks on other users or delayed exploitation.
+\end{description}
+
+\subsection{Security Goals}
+
+Our analysis aims to detect code patterns where:
+\begin{enumerate}
+    \item User-controlled data reaches an LLM API call
+    \item The LLM output flows to a dangerous sink
+    \item Insufficient validation exists between the LLM and the sink
+\end{enumerate}
+
+We do \emph{not} aim to detect all prompt injection vulnerabilities---only those that lead to dangerous program actions. An LLM that can be manipulated to output inappropriate text is outside our scope; we focus on cases where the manipulation can cause code execution, data exfiltration, or other concrete security violations.
+
+\subsection{Assumptions and Limitations}
+
+\paragraph{Assumptions.}
+\begin{itemize}
+    \item LLM outputs can be influenced by prompt injection (empirically validated~\cite{perez2022,greshake2023})
+    \item Dangerous sinks are correctly identified (our catalog covers major categories)
+    \item The analysis has access to source code (we do not analyze bytecode or binaries)
+\end{itemize}
+
+\paragraph{Limitations.}
+\begin{itemize}
+    \item \textbf{Intra-file analysis}: We currently analyze each file independently. Cross-file data flows may be missed.
+    \item \textbf{Dynamic features}: Highly dynamic code (e.g., \texttt{getattr} chains, runtime code generation) may evade analysis.
+    \item \textbf{Custom LLM wrappers}: We detect common SDK patterns but may miss custom LLM integrations.
+\end{itemize}

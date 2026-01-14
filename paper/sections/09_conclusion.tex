@@ -1,0 +1,22 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We introduced \emph{semantic influence}---a novel extension to taint analysis that tracks how user-controlled data propagates through LLM API calls to reach dangerous sinks. Unlike traditional taint analysis, which loses track at API boundaries, our model captures the empirical reality that LLM outputs remain influenced by their inputs even though they are syntactically independent.
+
+Our formalization introduces influence strength with position-dependent decay (0.85 for prompts, 0.70 for context, 0.50 for system messages) and multi-hop attenuation. We implemented this model in a practical static analyzer and evaluated it on real-world LLM applications.
+
+\paragraph{Key Results.}
+\begin{itemize}
+    \item \textbf{76\% precision, 60\% recall} on the OWASP LLM vulnerability testbed
+    \item \textbf{100\% precision} (zero false positives) on real security commits
+    \item \textbf{5,127 findings} across 11 popular LLM applications
+    \item \textbf{Multiple vulnerabilities} reported to maintainers, including SQL injection in OpenAI's official plugin template
+\end{itemize}
+
+\paragraph{Limitations and Future Work.}
+Our current implementation performs intra-file analysis only; extending to inter-procedural analysis across file boundaries would improve recall. The influence decay parameters are empirically chosen; a more principled approach might learn these from vulnerability data. Finally, while we focus on Python, the semantic influence model applies to any language with LLM integrations.
+
+\paragraph{Broader Impact.}
+As LLM-integrated applications become ubiquitous, the attack surface for prompt injection expands. Semantic influence analysis provides a foundation for securing this new class of applications by extending proven static analysis techniques to handle the unique challenge of LLM transformations.
+
+Our tool is available at \texttt{[URL]}.

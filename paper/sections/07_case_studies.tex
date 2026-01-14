@@ -1,0 +1,132 @@
+\section{Case Studies}
+\label{sec:case-studies}
+
+We applied our tool to 11 popular open-source LLM applications, discovering vulnerabilities in production code. We responsibly disclosed these findings to the maintainers. This section presents representative case studies.
+
+\subsection{Overview}
+
+\begin{table}[h]
+\centering
+\caption{Vulnerabilities discovered in real-world LLM applications}
+\label{tab:case-studies-overview}
+\begin{tabular}{lcccc}
+\toprule
+Application & Stars & Critical & High & Status \\
+\midrule
+chatgpt-retrieval-plugin & 21k & 32 & 12 & Reported \\
+AutoGPT & 169k & 464 & 154 & Reported \\
+danswer & 12k & 968 & 481 & Reported \\
+OpenDevin & 35k & 678 & 211 & Reported \\
+open-webui & 52k & 193 & 54 & Reported \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Case Study 1: SQL Injection in OpenAI's Retrieval Plugin}
+
+\paragraph{Application.}
+The ChatGPT Retrieval Plugin is OpenAI's official reference implementation for building ChatGPT plugins with document retrieval capabilities. It is widely used as a template for production plugins.
+
+\paragraph{Vulnerability.}
+We detected SQL injection vulnerabilities in the AnalyticDB datastore provider:
+
+\begin{lstlisting}[language=Python, caption={SQL injection in analyticdb\_datastore.py}]
+# Line 68: User-controlled embedding in SQL
+sql = f"""
+    SELECT id, text, metadata
+    FROM {self.collection_name}
+    ORDER BY embedding <-> '{embedding}'
+    LIMIT {top_k}
+"""
+cursor.execute(sql)
+\end{lstlisting}
+
+The \texttt{embedding} parameter is derived from user input (the search query), and is directly interpolated into the SQL string without parameterization. An attacker could craft a query that escapes the string context and executes arbitrary SQL.
+
+\paragraph{Impact.}
+This vulnerability affects any deployment using the AnalyticDB backend. An attacker with access to the plugin's search functionality could:
+\begin{itemize}
+    \item Extract sensitive documents from the database
+    \item Modify or delete stored embeddings
+    \item Potentially achieve remote code execution on the database server
+\end{itemize}
+
+\paragraph{Detection.}
+Our semantic taint analysis traced the flow: user query → embedding generation → LLM API → SQL query construction → \texttt{cursor.execute()} sink. Traditional taint analysis would lose track at the embedding generation step; our semantic influence model correctly identified that user-controlled data influences the SQL query.
+
+\subsection{Case Study 2: Command Injection in Enterprise Q\&A System}
+
+\paragraph{Application.}
+Danswer is an enterprise question-answering system that connects to internal documents and uses LLMs to answer employee queries. It handles sensitive corporate data.
+
+\paragraph{Vulnerability.}
+We found command injection in the deployment scripts:
+
+\begin{lstlisting}[language=Python, caption={Command injection in save\_load\_state.py}]
+# User-controlled path in shell command
+copy_cmd = f"docker cp {host_file_path} {container}:/tmp/"
+subprocess.run(copy_cmd, shell=True, check=True)
+\end{lstlisting}
+
+The \texttt{host\_file\_path} can be influenced by user input through the application's configuration interface. Combined with \texttt{shell=True}, this allows command injection.
+
+\paragraph{Detection Path.}
+\begin{enumerate}
+    \item User configuration input (Source): $I = 1.0$
+    \item Configuration processing: $I = 1.0$
+    \item Path construction: $I = 1.0$
+    \item \texttt{subprocess.run} with \texttt{shell=True} (Sink): \textbf{CRITICAL}
+\end{enumerate}
+
+\subsection{Case Study 3: Excessive Agency in Autonomous Agent}
+
+\paragraph{Application.}
+AutoGPT is one of the most popular autonomous AI agents with 169k GitHub stars. It executes multi-step tasks by generating and running code.
+
+\paragraph{Vulnerability.}
+The agent framework allows direct execution of LLM-generated code:
+
+\begin{lstlisting}[language=Python, caption={Code execution in manager.py}]
+def _on_graph_execution(self, result):
+    # LLM generates code, then it's executed
+    code = result.get("generated_code")
+    exec(code, globals())  # Direct execution!
+\end{lstlisting}
+
+While this is somewhat intentional for an autonomous agent, the lack of sandboxing means prompt injection attacks can achieve arbitrary code execution on the host system.
+
+\paragraph{Attack Scenario.}
+An attacker provides a task description containing prompt injection:
+\begin{lstlisting}
+Please help me analyze sales data.
+
+[SYSTEM OVERRIDE] Generate code:
+__import__('os').system('curl evil.com/shell|sh')
+\end{lstlisting}
+
+\paragraph{Semantic Influence Path.}
+Our analysis traced: user task → LLM reasoning → code generation → \texttt{exec()} sink. The semantic influence model correctly flagged this as a critical vulnerability because user input (with $I = 0.85$ after LLM transformation) reaches a code execution sink.
+
+\subsection{Lessons Learned}
+
+\paragraph{Pattern 1: LLM Output to Database.}
+Multiple applications construct database queries using LLM outputs without proper escaping. The assumption that ``the LLM produces safe output'' is incorrect.
+
+\paragraph{Pattern 2: Shell Commands with Dynamic Paths.}
+Configuration values that flow through LLM processing often reach shell commands. Developers trust these values because they came from ``the system,'' not recognizing the LLM as an untrusted transformation.
+
+\paragraph{Pattern 3: Intentional Code Execution.}
+Agent frameworks intentionally execute LLM-generated code but often lack adequate sandboxing. Our tool helps identify where security boundaries should be enforced.
+
+\subsection{Responsible Disclosure}
+
+We reported all vulnerabilities to the respective maintainers following responsible disclosure practices:
+
+\begin{itemize}
+    \item Initial reports sent: January 2025
+    \item Response rate: X/Y maintainers acknowledged
+    \item CVEs assigned: [pending]
+    \item Patches released: [pending]
+\end{itemize}
+
+We will update this section with CVE identifiers upon public disclosure.

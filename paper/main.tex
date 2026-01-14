@@ -1,0 +1,52 @@
+\documentclass[sigconf,anonymous]{acmart}
+
+% Packages
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Listings configuration
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{orange},
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+}
+
+% Checkmark and xmark
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\usepackage{pifont}
+
+% Title
+\title{Semantic Taint Analysis for Detecting Vulnerabilities\\in LLM-Integrated Applications}
+
+\author{Anonymous}
+\affiliation{Anonymous Institution}
+
+\begin{document}
+
+\input{sections/00_abstract}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_motivating_example}
+\input{sections/03_threat_model}
+\input{sections/04_semantic_influence}
+\input{sections/05_implementation}
+\input{sections/06_evaluation}
+\input{sections/07_case_studies}
+\input{sections/08_related_work}
+\input{sections/09_conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

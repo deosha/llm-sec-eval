@@ -1,0 +1,186 @@
+\section{Implementation}
+\label{sec:implementation}
+
+We implement our semantic influence model in a Python static analyzer. This section describes the key components and design decisions.
+
+\subsection{Architecture Overview}
+
+Our tool processes Python source files through four stages:
+
+\begin{enumerate}
+    \item \textbf{Parsing}: Build AST and extract code structures (functions, classes, calls)
+    \item \textbf{Pattern Detection}: Identify LLM API calls, user input sources, and dangerous sinks
+    \item \textbf{Taint Analysis}: Build taint graph with semantic influence propagation
+    \item \textbf{Vulnerability Detection}: Check for tainted data reaching sinks
+\end{enumerate}
+
+\begin{figure}[h]
+\centering
+\begin{verbatim}
+Source Code → AST Parser → Pattern Detector
+                              ↓
+            Findings ← Sink Checker ← Taint Graph
+\end{verbatim}
+\caption{Analysis pipeline architecture}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{LLM API Detection}
+
+We detect LLM API calls across major SDKs through pattern matching on function calls and import statements:
+
+\begin{table}[h]
+\centering
+\caption{Supported LLM SDK patterns}
+\label{tab:sdk-patterns}
+\begin{tabular}{ll}
+\toprule
+SDK & Detection Patterns \\
+\midrule
+OpenAI & \texttt{openai.chat.completions.create} \\
+       & \texttt{openai.Completion.create} \\
+Anthropic & \texttt{anthropic.messages.create} \\
+LangChain & \texttt{llm.invoke}, \texttt{chain.run} \\
+          & \texttt{ChatOpenAI}, \texttt{ChatAnthropic} \\
+LlamaIndex & \texttt{query\_engine.query} \\
+Generic & Function names containing \texttt{llm}, \texttt{chat}, \texttt{complete} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For each detected LLM call, we identify:
+\begin{itemize}
+    \item Input arguments and their positions (prompt, system, context)
+    \item Output variable assignment
+    \item SDK-specific response parsing patterns
+\end{itemize}
+
+\subsection{Taint Graph Construction}
+
+We represent data flow as a directed graph $G = (V, E)$ where:
+\begin{itemize}
+    \item Vertices $V$ represent program variables with taint state $\tau$
+    \item Edges $E$ represent data flow with propagation rules
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Taint graph data structures}]
+@dataclass
+class TaintNode:
+    variable: str
+    line: int
+    taint_types: Set[TaintType]
+    influence: float  # I in [0, 1]
+    llm_hops: int     # Number of LLM transformations
+
+@dataclass
+class TaintEdge:
+    source: TaintNode
+    target: TaintNode
+    edge_type: str  # "assign", "call", "llm_transform"
+    decay: float    # Influence decay factor
+\end{lstlisting}
+
+\paragraph{Source Identification.}
+We identify taint sources through pattern matching:
+
+\begin{itemize}
+    \item \texttt{request.get()}, \texttt{request.form[]} → Web input
+    \item \texttt{input()}, \texttt{sys.argv} → CLI input
+    \item \texttt{open().read()}, \texttt{json.load()} → File input
+    \item Function parameters with names like \texttt{user\_*}, \texttt{query}, \texttt{message}
+\end{itemize}
+
+\paragraph{Propagation.}
+For standard operations (assignment, string concatenation, function calls), we propagate taint without decay:
+\[
+\tau(\texttt{y = f(x)}) = \tau(x) \text{ if } f \text{ is data-preserving}
+\]
+
+For LLM calls, we apply the semantic influence transformation (Section~\ref{sec:semantic-influence}):
+\[
+\tau(\texttt{y = llm(x)}) = (T_x \cup \{\textsc{Semantic}\}, \alpha \cdot I_x)
+\]
+
+\subsection{Sink Detection}
+
+We maintain a catalog of dangerous sinks organized by CWE category:
+
+\begin{lstlisting}[language=Python, caption={Sink catalog excerpt}]
+DANGEROUS_SINKS = {
+    "code_execution": {
+        "functions": ["eval", "exec", "compile"],
+        "cwe": "CWE-94",
+        "severity": "CRITICAL",
+    },
+    "command_injection": {
+        "functions": ["os.system", "subprocess.run",
+                     "subprocess.Popen", "os.popen"],
+        "cwe": "CWE-78",
+        "severity": "CRITICAL",
+    },
+    "sql_injection": {
+        "functions": ["cursor.execute",
+                     "connection.execute"],
+        "cwe": "CWE-89",
+        "severity": "HIGH",
+    },
+    # ... additional categories
+}
+\end{lstlisting}
+
+When tainted data reaches a sink, we generate a finding if:
+\begin{enumerate}
+    \item The taint includes \textsc{Semantic} type (passed through LLM)
+    \item Influence strength exceeds threshold $\theta$
+    \item No sanitization is detected between LLM and sink
+\end{enumerate}
+
+\subsection{Confidence Scoring}
+
+Not all detected patterns represent true vulnerabilities. We compute a confidence score incorporating multiple signals:
+
+\begin{equation}
+\text{confidence} = I \cdot w_{\text{sink}} \cdot (1 - m_{\text{mitigation}})
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $I$ is the influence strength at the sink
+    \item $w_{\text{sink}} \in [0.7, 1.0]$ is sink-specific weight (higher for \texttt{eval} than \texttt{open})
+    \item $m_{\text{mitigation}} \in [0, 0.3]$ is reduction for detected mitigations
+\end{itemize}
+
+\paragraph{Mitigation Detection.}
+We reduce confidence when defensive patterns are present:
+
+\begin{itemize}
+    \item \textbf{Input validation}: Regex checks, allowlist filtering
+    \item \textbf{Output parsing}: JSON schema validation, type checking
+    \item \textbf{Sandboxing}: Docker execution, restricted environments
+    \item \textbf{Prompt templates}: Structured prompt construction (e.g., LangChain \texttt{PromptTemplate})
+\end{itemize}
+
+\subsection{Limitations}
+
+Our implementation has several limitations:
+
+\begin{description}
+    \item[Intra-file analysis] We analyze each file independently. Data flows across file boundaries require manual inspection of flagged entry points.
+
+    \item[Dynamic features] Highly dynamic Python patterns (\texttt{getattr}, \texttt{**kwargs}, runtime imports) may evade analysis.
+
+    \item[Custom LLM wrappers] We detect common SDK patterns but may miss custom LLM integrations that don't follow naming conventions.
+
+    \item[Context sensitivity] We use flow-insensitive analysis for scalability, which may produce false positives when variables are reassigned.
+\end{description}
+
+\subsection{Tool Availability}
+
+Our implementation is open source and available at \texttt{[URL]}. It can be installed via pip and integrated into CI/CD pipelines:
+
+\begin{lstlisting}[language=bash]
+pip install aisentry
+aisentry scan ./src --taint-analysis -o sarif
+\end{lstlisting}
+
+The tool outputs findings in SARIF format for integration with GitHub Code Scanning and other security platforms.

@@ -1,0 +1,111 @@
+\section{Semantic Influence Model}
+\label{sec:semantic-influence}
+
+Traditional taint analysis tracks the flow of untrusted data through program operations, marking outputs as tainted when they depend syntactically on tainted inputs. However, this model breaks down at LLM API boundaries: the LLM generates a \emph{new} string that has no syntactic relationship to its inputs, yet remains \emph{semantically influenced} by them. We introduce a formal model to capture this influence.
+
+\subsection{Definitions}
+
+\begin{definition}[Taint State]
+A \emph{taint state} $\tau$ is a tuple $(T, I)$ where:
+\begin{itemize}
+    \item $T \subseteq \{\textsc{User}, \textsc{File}, \textsc{Network}, \textsc{Semantic}\}$ is a set of taint types
+    \item $I \in [0, 1]$ is the \emph{influence strength}
+\end{itemize}
+A variable $v$ is \emph{tainted} if $\tau(v).T \neq \emptyset$.
+\end{definition}
+
+\begin{definition}[Semantic Influence]
+Let $x$ be a tainted variable with $\tau(x) = (T_x, I_x)$, and let $f_{\text{LLM}}$ be an LLM API call. The output $y = f_{\text{LLM}}(x, c)$, where $c$ is additional context, carries \emph{semantic influence} from $x$:
+\[
+\tau(y) = (T_x \cup \{\textsc{Semantic}\}, \alpha \cdot I_x)
+\]
+where $\alpha \in (0, 1)$ is the \emph{position-dependent decay factor}.
+\end{definition}
+
+The key insight is that while the LLM output $y$ is a newly generated string with no syntactic dependency on $x$, an adversary who controls $x$ can influence the semantic content of $y$ through prompt injection attacks. This influence propagates to any sink that consumes $y$.
+
+\subsection{Influence Decay Model}
+
+Not all inputs to an LLM have equal influence over its output. We model this through position-dependent decay factors:
+
+\begin{definition}[Position-Dependent Decay]
+For an LLM call $f_{\text{LLM}}(p, s, c)$ with prompt $p$, system message $s$, and context $c$, the decay factor $\alpha$ is:
+\[
+\alpha(x) = \begin{cases}
+    0.85 & \text{if } x \in p \text{ (user prompt)} \\
+    0.70 & \text{if } x \in c \text{ (context/history)} \\
+    0.50 & \text{if } x \in s \text{ (system prompt)}
+\end{cases}
+\]
+\end{definition}
+
+The rationale is empirical: user prompts have the most direct influence on LLM outputs, while system prompts have indirect influence that can often be overridden by prompt injection.
+
+\begin{definition}[Multi-Hop Decay]
+For a chain of $n$ LLM calls, influence decays exponentially:
+\[
+I_n = I_0 \cdot \prod_{i=1}^{n} \alpha_i \cdot \gamma^n
+\]
+where $\gamma = 0.9$ is the per-hop decay factor, reflecting that each LLM transformation dilutes the adversary's control.
+\end{definition}
+
+\subsection{Taint Propagation Rules}
+
+We define propagation rules that extend classical taint analysis to handle LLM transformations:
+
+\begin{equation}
+\frac{x = \texttt{input()}}{(T, I) \leftarrow (\{\textsc{User}\}, 1.0)} \quad \textsc{(Source)}
+\end{equation}
+
+\begin{equation}
+\frac{y = f(x) \quad \tau(x) = (T, I) \quad f \text{ is data-preserving}}{(T', I') \leftarrow (T, I)} \quad \textsc{(Propagate)}
+\end{equation}
+
+\begin{equation}
+\frac{y = f_{\text{LLM}}(x, c) \quad \tau(x) = (T, I)}{(T', I') \leftarrow (T \cup \{\textsc{Semantic}\}, \alpha \cdot I)} \quad \textsc{(LLM-Transform)}
+\end{equation}
+
+\begin{equation}
+\frac{\texttt{sink}(y) \quad \tau(y) = (T, I) \quad \textsc{Semantic} \in T \quad I > \theta}{\textsc{Vulnerability Detected}} \quad \textsc{(Sink-Check)}
+\end{equation}
+
+where $\theta$ is a configurable detection threshold (default: 0.5).
+
+\subsection{Dangerous Sink Categories}
+
+We define a catalog of dangerous sinks where semantically-influenced data can cause security violations:
+
+\begin{table}[h]
+\centering
+\caption{Dangerous Sink Categories}
+\label{tab:sinks}
+\begin{tabular}{llll}
+\toprule
+Category & Examples & CWE & Severity \\
+\midrule
+Code Execution & \texttt{eval}, \texttt{exec} & CWE-94 & Critical \\
+Command Injection & \texttt{os.system}, \texttt{subprocess} & CWE-78 & Critical \\
+SQL Injection & \texttt{cursor.execute} & CWE-89 & High \\
+SSRF & \texttt{requests.get} & CWE-918 & High \\
+File Operations & \texttt{open}, \texttt{write} & CWE-73 & Medium \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Soundness Considerations}
+
+Our analysis is \emph{sound} under the following assumptions:
+\begin{enumerate}
+    \item \textbf{LLM Controllability}: An adversary with control over LLM input can influence its output. This is empirically validated by prompt injection research~\cite{greshake2023,perez2022}.
+    \item \textbf{Monotonic Decay}: Influence can only decrease through transformations, never increase. This is conservative: we may miss vulnerabilities where the LLM amplifies malicious intent.
+    \item \textbf{Sink Completeness}: Our sink catalog covers the primary attack vectors. Additional sinks can be added without modifying the core model.
+\end{enumerate}
+
+The analysis may produce false positives when:
+\begin{itemize}
+    \item Input validation occurs after the LLM call but before the sink
+    \item The LLM is constrained to produce outputs in a safe format (e.g., structured JSON with schema validation)
+    \item The sink is not actually dangerous in context (e.g., logging)
+\end{itemize}
+
+We address these through confidence adjustment based on detected mitigations (Section~\ref{sec:implementation}).

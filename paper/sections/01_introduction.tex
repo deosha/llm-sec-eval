@@ -1,0 +1,46 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Large Language Models (LLMs) have rapidly transitioned from research artifacts to core components of production software systems. Applications ranging from customer service chatbots to autonomous coding agents now rely on LLM APIs to process user input and generate actions. This integration creates a new class of security vulnerabilities: \emph{LLM-mediated injection attacks}, where adversary-controlled input influences program behavior through an LLM intermediary.
+
+Consider a typical LLM-integrated application that processes user queries:
+
+\begin{lstlisting}[language=Python, caption={Vulnerable LLM integration pattern}]
+user_query = request.get("query")      # User-controlled
+response = llm.chat(user_query)        # LLM processes input
+action = json.loads(response)["cmd"]   # Extract command
+os.system(action)                      # Execute action
+\end{lstlisting}
+
+Traditional taint analysis would track \texttt{user\_query} as tainted and propagate this taint through string operations. However, the LLM call on line 2 presents a fundamental challenge: the output \texttt{response} is a \emph{newly generated string} with no syntactic relationship to \texttt{user\_query}. Classical taint analysis loses track of the data flow at this boundary.
+
+Yet from a security perspective, the LLM output remains \emph{semantically influenced} by the user input. An adversary can craft \texttt{user\_query} to manipulate the LLM's response, potentially injecting malicious commands that reach the \texttt{os.system} sink. This attack vector, known as prompt injection~\cite{greshake2023,perez2022}, has been demonstrated against production systems including Bing Chat, ChatGPT plugins, and autonomous agents.
+
+\paragraph{The Gap in Current Tools.}
+Existing static analysis tools fall into two categories, neither of which adequately addresses LLM-mediated vulnerabilities:
+
+\begin{enumerate}
+    \item \textbf{Traditional taint analysis} (e.g., Bandit, Semgrep) tracks syntactic data flow but loses taint at LLM boundaries. These tools detect direct injection (user input to sink) but miss the increasingly common pattern of LLM-mediated injection.
+
+    \item \textbf{Prompt injection detectors} (e.g., Rebuff, LakeraGuard) operate at runtime on prompt content, not on code structure. They cannot identify vulnerable code patterns before deployment.
+\end{enumerate}
+
+\paragraph{Our Approach.}
+We introduce \emph{semantic influence}---a novel extension to taint analysis that models how user-controlled data propagates through LLM API calls to reach dangerous sinks. Our key insight is that while LLM outputs are syntactically independent of their inputs, they remain semantically dependent: an adversary who controls the input can influence the output's meaning and structure.
+
+We formalize semantic influence as a taint type with an associated \emph{influence strength} that decays based on the input's position (prompt, context, or system message) and the number of LLM hops in the data flow path. This model captures the empirical reality that prompt injection attacks become less reliable through multiple LLM transformations.
+
+\paragraph{Contributions.}
+This paper makes the following contributions:
+
+\begin{enumerate}
+    \item \textbf{Semantic Influence Model}: We formalize how taint propagates through LLM API calls, introducing influence strength and position-dependent decay (Section~\ref{sec:semantic-influence}).
+
+    \item \textbf{Static Analysis Implementation}: We implement our model in a Python static analyzer that detects LLM-mediated vulnerabilities across major LLM SDKs (Section~\ref{sec:implementation}).
+
+    \item \textbf{Empirical Evaluation}: We evaluate our approach on \textbf{XX} real-world LLM applications, achieving \textbf{71\%} precision and \textbf{60\%} recall, and compare against existing tools (Section~\ref{sec:evaluation}).
+
+    \item \textbf{Vulnerability Discovery}: We report \textbf{N} previously unknown vulnerabilities in popular LLM frameworks, of which \textbf{M} have been assigned CVEs (Section~\ref{sec:case-studies}).
+\end{enumerate}
+
+Our tool and benchmark dataset are available at \texttt{[URL]}.

@@ -1,0 +1,62 @@
+\section{Related Work}
+\label{sec:related-work}
+
+Our work draws on and extends research in taint analysis, prompt injection, and LLM security.
+
+\subsection{Taint Analysis}
+
+Taint analysis has a long history in security research, beginning with Perl's taint mode~\cite{wall2000perl} for tracking untrusted input in CGI scripts. The technique was formalized and extended to Java~\cite{livshits2005finding}, JavaScript~\cite{guarnieri2011saving}, and Android~\cite{arzt2014flowdroid}.
+
+\paragraph{Static Taint Analysis.}
+Pixy~\cite{jovanovic2006pixy} introduced static taint analysis for PHP web applications, tracking data flow from user input to SQL queries. TAJ~\cite{tripp2009taj} scaled taint analysis to large Java applications through demand-driven analysis. FlowDroid~\cite{arzt2014flowdroid} provided precise inter-procedural taint analysis for Android, handling the component lifecycle model.
+
+These approaches share a common assumption: taint propagates through \emph{syntactic} data dependencies. When data flows through a function $f$, the output is tainted if any input is tainted. Our work extends this model to handle \emph{semantic} dependencies through LLM transformations, where outputs have no syntactic relationship to inputs but remain influenced by them.
+
+\paragraph{Taint Analysis Tools.}
+Modern static analyzers like Semgrep~\cite{semgrep}, CodeQL~\cite{codeql}, and Bandit~\cite{bandit} include taint tracking capabilities. However, none model LLM API boundaries as taint-preserving transformations. In our evaluation (Section~\ref{sec:evaluation}), these tools achieve low recall on LLM-mediated vulnerabilities because they lose taint at API call boundaries.
+
+\subsection{Prompt Injection}
+
+Prompt injection was first documented by Simon Willison in 2022~\cite{willison2022prompt} and has since been extensively studied.
+
+\paragraph{Attack Taxonomy.}
+Perez and Ribeiro~\cite{perez2022} demonstrated prompt injection attacks against GPT-3, showing that carefully crafted inputs can override system instructions. Greshake et al.~\cite{greshake2023} introduced the taxonomy of direct, indirect, and stored injection that we adopt in our threat model. Liu et al.~\cite{liu2023prompt} provided a comprehensive survey of prompt injection attacks and defenses.
+
+\paragraph{Runtime Defenses.}
+Several tools detect prompt injection at runtime by analyzing prompt content. Rebuff~\cite{rebuff} uses a classifier to detect injection attempts in user input. LakeraGuard~\cite{lakera} provides an API for real-time prompt filtering. These approaches are complementary to ours: they detect attacks at runtime, while we detect vulnerable code patterns statically before deployment.
+
+\paragraph{Difference from Our Work.}
+Prior work on prompt injection focuses on the \emph{attack} (crafting malicious prompts) or \emph{runtime defense} (filtering prompts). We address a different problem: statically identifying \emph{code patterns} where prompt injection could lead to security violations. An application might be vulnerable to prompt injection yet remain safe if the LLM output never reaches a dangerous sink---our analysis identifies exactly when the injection can cause harm.
+
+\subsection{LLM Security Analysis}
+
+Recent work has begun addressing security in LLM-integrated applications.
+
+\paragraph{Vulnerability Discovery.}
+Deng et al.~\cite{deng2023llmbugs} manually analyzed 21 LLM application vulnerabilities, identifying common patterns including insecure output handling and excessive agency. The OWASP LLM Top 10~\cite{owaspllm} codifies these patterns into a standard taxonomy. Our work provides automated detection of these vulnerability classes through static analysis.
+
+\paragraph{LLM-Assisted Analysis.}
+Several recent papers use LLMs to \emph{assist} static analysis. IRIS~\cite{zhang2024iris} uses LLMs to generate Datalog rules for taint analysis. LLift~\cite{li2024llift} applies LLMs to detect API misuse. These approaches are orthogonal to ours: they use LLMs as an analysis tool, while we analyze code that uses LLMs as a component.
+
+\paragraph{Agent Security.}
+Xi et al.~\cite{xi2023rise} surveyed security risks in LLM-based agents, including prompt injection and tool misuse. Ruan et al.~\cite{ruan2023identifying} identified risks in LLM-powered autonomous agents. Our semantic influence model provides a formal foundation for detecting these risks through static analysis.
+
+\subsection{Comparison with Our Approach}
+
+\begin{table}[h]
+\centering
+\caption{Comparison with related approaches}
+\label{tab:related-comparison}
+\begin{tabular}{lccc}
+\toprule
+Approach & Static & LLM-Aware & Sink-Focused \\
+\midrule
+Classic Taint (FlowDroid) & \cmark & \xmark & \cmark \\
+Prompt Detectors (Rebuff) & \xmark & \cmark & \xmark \\
+LLM-Assisted (IRIS) & \cmark & \xmark & \cmark \\
+\textbf{Semantic Influence (Ours)} & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+To our knowledge, we are the first to formalize taint propagation through LLM API boundaries and implement this in a practical static analyzer. Our semantic influence model bridges the gap between classic taint analysis (which loses track at LLM calls) and runtime prompt detection (which cannot identify vulnerable code patterns).
