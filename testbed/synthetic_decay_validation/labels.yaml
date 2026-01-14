@@ -1,0 +1,108 @@
+# Ground truth labels for synthetic decay validation benchmark
+# These samples specifically test decay parameters: α_p, α_c, α_s, γ
+
+category: synthetic_decay_validation
+description: >
+  Synthetic vulnerable code samples designed to validate decay parameter selection.
+  Covers RAG context injection (α_c), multi-hop chains (γ), and system prompt injection (α_s).
+
+static_findings:
+  # RAG Context Injection (α_c tests)
+  - file: rag_context_injection.py
+    line: 30
+    type: code_execution
+    decay_test: alpha_c
+    description: RAG context -> LLM -> exec()
+
+  - file: rag_context_injection.py
+    line: 45
+    type: sql_injection
+    decay_test: alpha_c
+    description: RAG context -> LLM -> SQL
+
+  - file: rag_context_injection.py
+    line: 58
+    type: path_traversal
+    decay_test: alpha_c
+    description: RAG context -> LLM -> file open
+
+  - file: rag_context_injection.py
+    line: 74
+    type: command_injection
+    decay_test: alpha_c
+    description: Multi-doc RAG -> LLM -> shell
+
+  # Multi-Hop Chain (γ tests)
+  - file: multi_hop_chains.py
+    line: 26
+    type: code_execution
+    decay_test: gamma_2hop
+    description: 2-hop chain to exec()
+
+  - file: multi_hop_chains.py
+    line: 50
+    type: command_injection
+    decay_test: gamma_3hop
+    description: 3-hop chain to shell
+
+  - file: multi_hop_chains.py
+    line: 76
+    type: sql_injection
+    decay_test: gamma_4hop
+    description: 4-hop chain to SQL (may be below threshold)
+
+  - file: multi_hop_chains.py
+    line: 101
+    type: code_execution
+    decay_test: gamma_branch
+    description: Branching multi-hop to exec()
+
+  - file: multi_hop_chains.py
+    line: 120
+    type: code_execution
+    decay_test: gamma_iterative
+    description: Iterative refinement chain to exec()
+
+  # System Prompt Injection (α_s tests)
+  - file: system_prompt_injection.py
+    line: 22
+    type: code_execution
+    decay_test: alpha_s
+    description: System prompt injection -> exec()
+
+  - file: system_prompt_injection.py
+    line: 38
+    type: command_injection
+    decay_test: alpha_s
+    description: System instruction injection -> shell
+
+  - file: system_prompt_injection.py
+    line: 57
+    type: sql_injection
+    decay_test: alpha_s_template
+    description: System template injection -> SQL
+
+  - file: system_prompt_injection.py
+    line: 75
+    type: path_traversal
+    decay_test: alpha_s_config
+    description: Config override in system -> file read
+
+  - file: system_prompt_injection.py
+    line: 92
+    type: command_injection
+    decay_test: alpha_s_tenant
+    description: Multi-tenant system injection -> os.system
+
+  - file: system_prompt_injection.py
+    line: 107
+    type: code_execution
+    decay_test: combined_alpha_s_c
+    description: Combined system + context injection -> eval()
+
+summary:
+  total_vulnerabilities: 15
+  by_decay_parameter:
+    alpha_c: 4  # Context position decay
+    alpha_s: 6  # System position decay
+    gamma: 5    # Multi-hop decay

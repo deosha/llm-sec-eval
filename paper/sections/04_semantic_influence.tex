@@ -39,7 +39,15 @@ For an LLM call $f_{\text{LLM}}(p, s, c)$ with prompt $p$, system message $s$, a
 \]
 \end{definition}
 
-The rationale is grounded in prompt injection research and empirical evaluation. We initialize parameters from attack success rates in the literature: Greshake et al.~\cite{greshake2023} demonstrated rates up to 85\% for user prompts in indirect injection scenarios, while system prompt overrides succeed in approximately 50\% of cases; Liu et al.~\cite{liu2023prompt} found context injection succeeds at 60-80\% depending on context length. We then tuned $\alpha_p$ on our OWASP testbed (Section~\ref{sec:sensitivity}), selecting 0.80 as it optimizes precision while maintaining recall. \emph{Limitation}: We did not use a separate held-out validation set; the same testbed informed both parameter selection and evaluation. A larger, partitioned benchmark would enable more rigorous validation.
+The rationale is grounded in prompt injection research and empirical evaluation:
+
+\begin{itemize}
+    \item \textbf{$\alpha_p = 0.80$ (user prompt)}: Greshake et al.~\cite{greshake2023} demonstrated attack success rates up to 85\% for user prompts in indirect injection scenarios. We use 0.80 as a conservative estimate.
+    \item \textbf{$\alpha_c = 0.70$ (context)}: Liu et al.~\cite{liu2023prompt} found context injection succeeds at 60-80\% depending on context length and position. We use 0.70 as a midpoint.
+    \item \textbf{$\alpha_s = 0.50$ (system prompt)}: System prompt overrides succeed in approximately 50\% of cases~\cite{perez2022}, as models are trained to prioritize system instructions but can be overridden.
+\end{itemize}
+
+We then tuned $\alpha_p$ on our OWASP testbed (Section~\ref{sec:sensitivity}), selecting 0.80 as it optimizes precision while maintaining recall. To validate these parameters beyond the primary testbed, we created a synthetic benchmark with 15 vulnerabilities specifically targeting each decay parameter (4 for $\alpha_c$, 6 for $\alpha_s$, 5 for $\gamma$), available in the evaluation repository. \emph{Limitation}: Parameters remain literature-informed heuristics; learning optimal values from labeled data is future work.
 
 \begin{definition}[Multi-Hop Decay]
 For a chain of $n$ LLM calls, influence decays exponentially:

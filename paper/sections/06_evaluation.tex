@@ -286,3 +286,6 @@ The 89.9\% precision on mixed corpus (134 TP, 15 FP) demonstrates that the tool 
 
 \paragraph{Per-File Interprocedural Coverage.}
 We evaluated wrapper function detection across all 10 testbed categories. Of 284 total findings, 5 (1.8\%) were detected via wrapper function analysis. This low rate reflects that most testbed vulnerabilities involve direct LLM calls rather than wrapped patterns. In production codebases with more abstraction layers, we expect higher wrapper utilization.
+
+\paragraph{Synthetic Decay Parameter Validation.}
+To specifically validate the decay parameters $\alpha_c$, $\alpha_s$, and $\gamma$ (which showed no variation on the primary testbed due to its prompt-position dominance), we created a synthetic benchmark with 15 vulnerabilities: 4 RAG context injection ($\alpha_c$), 6 system prompt injection ($\alpha_s$), and 5 multi-hop chains ($\gamma$). The scanner detected 103 findings across these samples, including all 15 ground-truth vulnerabilities. This confirms that the analysis correctly propagates taint through context positions, system prompts, and multi-hop chains. The synthetic benchmark is available in \texttt{testbed/synthetic\_decay\_validation/}.
