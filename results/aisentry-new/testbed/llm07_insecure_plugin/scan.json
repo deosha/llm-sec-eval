@@ -1,0 +1,116 @@
+{
+  "findings": [
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 18,
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "CRITICAL",
+      "title": "LLM output used in dangerous command_injection sink",
+      "confidence": 0.8999999999999999
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 13,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "title": "Network fetch combined with code execution",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 113,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "title": "Code execution on external content",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 100,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "title": "Code execution on external content",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 95,
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "CRITICAL",
+      "title": "Unsafe dynamic plugin loading in 'load_plugin_from_llm'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 102,
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "HIGH",
+      "title": "Plugin management function without authentication in 'run_plugin'",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 18,
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "CRITICAL",
+      "title": "LLM output flows to command_injection sink in tool 'vulnerable_shell_tool'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 49,
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "CRITICAL",
+      "title": "LLM output flows to sql_injection sink in tool 'vulnerable_db_tool'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 62,
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "HIGH",
+      "title": "LLM output flows to http_request sink in tool 'vulnerable_http_tool'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 65,
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "HIGH",
+      "title": "LLM output flows to http_request sink in tool 'vulnerable_http_tool'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 23,
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "HIGH",
+      "title": "Insecure tool function 'vulnerable_file_tool' executes dangerous operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 109,
+      "category": "LLM07: Insecure Plugin Design",
+      "severity": "CRITICAL",
+      "title": "Insecure tool function 'vulnerable_calculator_tool' executes dangerous operations",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 14,
+      "category": "LLM08: Excessive Agency",
+      "severity": "CRITICAL",
+      "title": "Direct execution of LLM-generated code in 'vulnerable_shell_tool'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm07_insecure_plugin/app.py",
+      "line_number": 14,
+      "category": "LLM09: Overreliance",
+      "severity": "CRITICAL",
+      "title": "Direct execution of LLM output in 'vulnerable_shell_tool'",
+      "confidence": 0.85
+    }
+  ]
+}

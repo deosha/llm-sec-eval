@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 49,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'request' embedded in LLM prompt",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 65,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'query' embedded in LLM prompt",
+      "confidence": 0.95
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 79,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'question' embedded in LLM prompt",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 108,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'data' embedded in LLM prompt",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 123,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'query' embedded in LLM prompt",
+      "confidence": 0.95
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 63,
+      "category": "LLM04: Model Denial of Service",
+      "severity": "CRITICAL",
+      "title": "Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 121,
+      "category": "LLM04: Model Denial of Service",
+      "severity": "CRITICAL",
+      "title": "Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 16,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 38,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 50,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 65,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 80,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 93,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 109,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 123,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 63,
+      "category": "LLM08: Excessive Agency",
+      "severity": "MEDIUM",
+      "title": "High-risk write operation without confirmation in 'vulnerable_no_confidence'",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 89,
+      "category": "LLM08: Excessive Agency",
+      "severity": "HIGH",
+      "title": "Unrestricted API access from LLM in 'vulnerable_auto_publish'",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 105,
+      "category": "LLM08: Excessive Agency",
+      "severity": "HIGH",
+      "title": "Unrestricted API access from LLM in 'vulnerable_critical_decision'",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 35,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_medical_advice'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 47,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_security_decision'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 63,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_no_confidence'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 77,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_no_citations'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 105,
+      "category": "LLM09: Overreliance",
+      "severity": "HIGH",
+      "title": "Critical decision without oversight in 'vulnerable_critical_decision'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm09_overreliance/app.py",
+      "line_number": 13,
+      "category": "LLM09: Overreliance",
+      "severity": "HIGH",
+      "title": "Automated action without confidence threshold in 'vulnerable_auto_apply_code'",
+      "confidence": 0.7
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+      "line_number": 24,
+      "category": "LLM03: Training Data Poisoning",
+      "severity": "CRITICAL",
+      "title": "Unsafe data loading with pickle.load in training context",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+      "line_number": 54,
+      "category": "LLM03: Training Data Poisoning",
+      "severity": "HIGH",
+      "title": "Unsafe data loading with torch.load in training context",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+      "line_number": 7,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "title": "Use of pickle for serialization",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+      "line_number": 54,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Unsafe model loading pattern",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm03_training_poisoning/app.py",
+      "line_number": 79,
+      "category": "LLM10: Model Theft",
+      "severity": "CRITICAL",
+      "title": "Model artifacts exposed without protection in 'download_file'",
+      "confidence": 0.9
+    }
+  ]
+}

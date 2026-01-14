@@ -1,0 +1,197 @@
+% AISentry Evaluation Results - LaTeX Tables
+% Generated for research paper
+
+% Table 1: Main Results - Testbed Evaluation
+\begin{table}[h]
+\centering
+\caption{Static Analysis Performance on OWASP LLM Top 10 Testbed (73 ground truth labels)}
+\label{tab:main-results}
+\begin{tabular}{lcccccc}
+\toprule
+Tool & Precision & Recall & F1 & TP & FP & FN \\
+\midrule
+\textbf{AISentry} & \textbf{0.759} & \textbf{0.603} & \textbf{0.672} & 44 & 14 & 29 \\
+Semgrep & 0.833 & 0.068 & 0.127 & 5 & 1 & 68 \\
+Bandit & 0.583 & 0.384 & 0.463 & 28 & 20 & 45 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 2: Per-Category Breakdown
+\begin{table}[h]
+\centering
+\caption{AISentry Detection Performance by OWASP LLM Category}
+\label{tab:per-category}
+\begin{tabular}{lccccc}
+\toprule
+Category & Precision & Recall & F1 & TP & Ground Truth \\
+\midrule
+LLM01: Prompt Injection & 0.800 & 0.667 & 0.727 & 8 & 12 \\
+LLM02: Insecure Output & 0.778 & 0.700 & 0.737 & 7 & 10 \\
+LLM03: Training Poisoning & 1.000 & 0.400 & 0.571 & 2 & 5 \\
+LLM04: Model DoS & 1.000 & 0.333 & 0.500 & 2 & 6 \\
+LLM05: Supply Chain & 0.556 & 0.500 & 0.526 & 5 & 10 \\
+LLM06: Sensitive Info & 0.600 & 0.857 & 0.706 & 6 & 7 \\
+LLM07: Insecure Plugin & 0.875 & 1.000 & 0.933 & 7 & 7 \\
+LLM08: Excessive Agency & 0.750 & 0.500 & 0.600 & 3 & 6 \\
+LLM09: Overreliance & 1.000 & 0.667 & 0.800 & 2 & 3 \\
+LLM10: Model Theft & 1.000 & 0.286 & 0.444 & 2 & 7 \\
+\midrule
+\textbf{Overall} & \textbf{0.759} & \textbf{0.603} & \textbf{0.672} & 44 & 73 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 3: ML Model Training Results
+\begin{table}[h]
+\centering
+\caption{ML Classifier Training Results (LightGBM, 5000 synthetic samples)}
+\label{tab:ml-training}
+\begin{tabular}{lcccc}
+\toprule
+Classifier & Precision & Recall & F1 & ROC-AUC \\
+\midrule
+Vulnerability (Binary) & 1.000 & 1.000 & 1.000 & 1.000 \\
+Attack Type (Multi-class) & 1.000 & 1.000 & 1.000 & -- \\
+\midrule
+\multicolumn{5}{l}{\textit{5-fold Cross-Validation: F1 = 1.000 $\pm$ 0.000}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 4: Feature Importance
+\begin{table}[h]
+\centering
+\caption{Top Feature Importance for Vulnerability Classification}
+\label{tab:feature-importance}
+\begin{tabular}{lc}
+\toprule
+Feature & Importance \\
+\midrule
+llm\_call\_count & 121.0 \\
+variable\_reuse\_count & 111.0 \\
+has\_input\_call & 109.0 \\
+llm\_output\_to\_sink & 101.0 \\
+cross\_function\_flow & 100.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 5: Semantic Taint Influence Parameters
+\begin{table}[h]
+\centering
+\caption{Semantic Taint Influence Decay Parameters}
+\label{tab:taint-params}
+\begin{tabular}{lcc}
+\toprule
+Input Position & Influence Factor ($\alpha$) & Description \\
+\midrule
+Prompt (user message) & 0.85 & Direct influence on output \\
+Context (history) & 0.70 & Moderate influence \\
+System prompt & 0.50 & Indirect influence \\
+Multi-hop ($n$ LLM calls) & $0.9^n$ & Exponential decay \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 6: Real-World LLM Projects
+\begin{table}[h]
+\centering
+\caption{Detection Results on 10 Real-World LLM Projects (15,016 Python files)}
+\label{tab:realworld-results}
+\begin{tabular}{lcccc}
+\toprule
+Repository & Files & Pattern & ML & Improvement \\
+\midrule
+dspy & 231 & 146 & 261 & +79\% \\
+guidance & 149 & 54 & 99 & +83\% \\
+haystack & 523 & 114 & 296 & +160\% \\
+langchain & 2,501 & 350 & 837 & +139\% \\
+litellm & 2,792 & 1,410 & 2,787 & +98\% \\
+llama\_index & 4,088 & 1,256 & 2,792 & +122\% \\
+openai-python & 1,134 & 24 & 125 & +421\% \\
+semantic-kernel & 1,241 & 114 & 773 & +578\% \\
+text-gen-webui & 93 & 106 & 212 & +100\% \\
+vllm & 2,264 & 868 & 2,043 & +135\% \\
+\midrule
+\textbf{Total} & 15,016 & 4,442 & 10,225 & \textbf{+130\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 7: Comparison Summary
+\begin{table}[h]
+\centering
+\caption{Tool Comparison Summary}
+\label{tab:comparison}
+\begin{tabular}{lccc}
+\toprule
+Metric & AISentry & Semgrep & Bandit \\
+\midrule
+Precision & 0.759 & 0.833 & 0.583 \\
+Recall & 0.603 & 0.068 & 0.384 \\
+F1 Score & 0.672 & 0.127 & 0.463 \\
+\midrule
+LLM-Specific Detection & \checkmark & -- & -- \\
+Semantic Taint Analysis & \checkmark & -- & -- \\
+ML Classification & \checkmark & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 8: Real-World Security Commit Evaluation
+\begin{table}[h]
+\centering
+\caption{Evaluation on Mined Security Commits (75 files from 23 commits)}
+\label{tab:mined-eval}
+\begin{tabular}{lccccc}
+\toprule
+Benchmark & Files & Findings & Precision & Recall & F1 \\
+\midrule
+Mined Security Commits & 75 & 119 & \textbf{1.000} & 0.432 & 0.603 \\
+(autogen, langchain) & & & & & \\
+\midrule
+\multicolumn{6}{l}{\textit{Source: Git commits with security keywords (fix, vuln, injection, etc.)}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 9: Detection Method Ablation
+\begin{table}[h]
+\centering
+\caption{Ablation Study: Detection Method Comparison on OWASP Testbed}
+\label{tab:ablation}
+\begin{tabular}{lccccc}
+\toprule
+Method & Precision & Recall & F1 & TP & FP \\
+\midrule
+Pattern-Only (Baseline) & 0.759 & 0.603 & 0.672 & 44 & 14 \\
++ ML Detection & 0.710 & 0.603 & 0.652 & 44 & 18 \\
++ Taint Analysis & 0.759 & 0.603 & 0.672 & 44 & 14 \\
+Full Ensemble & 0.710 & 0.603 & 0.652 & 44 & 18 \\
+\midrule
+\multicolumn{6}{l}{\textit{ML adds 4 FP but enables attack vector classification}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 10: Findings Distribution on Mined Commits
+\begin{table}[h]
+\centering
+\caption{Finding Distribution by Category on Mined Security Commits}
+\label{tab:mined-distribution}
+\begin{tabular}{lcc}
+\toprule
+Category & Findings & Percentage \\
+\midrule
+LLM01: Prompt Injection & 69 & 58.0\% \\
+LLM06: Sensitive Info & 22 & 18.5\% \\
+LLM08: Excessive Agency & 9 & 7.6\% \\
+LLM09: Overreliance & 6 & 5.0\% \\
+LLM05: Supply Chain & 5 & 4.2\% \\
+Other (LLM02, LLM04, SQL) & 8 & 6.7\% \\
+\midrule
+\textbf{Total} & 119 & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table}

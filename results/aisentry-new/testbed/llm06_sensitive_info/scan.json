@@ -1,0 +1,204 @@
+{
+  "findings": [
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 18,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'user_query' embedded in LLM prompt",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 73,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'user_input' embedded in LLM prompt",
+      "confidence": 0.95
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 15,
+      "category": "LLM04: Model Denial of Service",
+      "severity": "CRITICAL",
+      "title": "Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 27,
+      "category": "LLM04: Model Denial of Service",
+      "severity": "CRITICAL",
+      "title": "Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 63,
+      "category": "LLM04: Model Denial of Service",
+      "severity": "CRITICAL",
+      "title": "Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 19,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 37,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 52,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 73,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 109,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 10,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "CRITICAL",
+      "title": "Hardcoded secret detected: Secret Keyword",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 17,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "CRITICAL",
+      "title": "Hardcoded secret detected: Secret Keyword",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 86,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "CRITICAL",
+      "title": "Hardcoded secret detected: Secret Keyword",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 18,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "title": "Sensitive data passed into LLM prompt",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 36,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "title": "Sensitive data passed into LLM prompt",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 70,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "title": "Sensitive data passed into LLM prompt",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 14,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "title": "Sensitive information in system prompt",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 49,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "title": "Sensitive information in system prompt",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 48,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "title": "Sensitive information in system prompt",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 50,
+      "category": "LLM06: Sensitive Information Disclosure",
+      "severity": "HIGH",
+      "title": "Sensitive information in system prompt",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 15,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_secret_in_prompt'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 27,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_pii_exposure'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 45,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_system_prompt'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 63,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_logging'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm06_sensitive_info/app.py",
+      "line_number": 102,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'safe_secret_handling'",
+      "confidence": 0.9
+    }
+  ]
+}

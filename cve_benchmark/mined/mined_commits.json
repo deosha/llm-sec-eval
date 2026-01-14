@@ -1,0 +1,475 @@
+{
+  "total_commits_analyzed": 27,
+  "high_confidence_commits": 27,
+  "commits": [
+    {
+      "project": "autogen",
+      "hash": "b2cef7f47c3271bcd1a6f1bfe011eb224852e3ee",
+      "date": "2025-07-16",
+      "message": "Update AGS (Support Workbenches ++) (#6736)",
+      "files": [
+        "python/packages/autogen-studio/autogenstudio/cli.py",
+        "python/packages/autogen-studio/autogenstudio/database/db_manager.py",
+        "python/packages/autogen-studio/autogenstudio/datamodel/db.py",
+        "python/packages/autogen-studio/autogenstudio/datamodel/types.py",
+        "python/packages/autogen-studio/autogenstudio/gallery/builder.py",
+        "python/packages/autogen-studio/autogenstudio/lite/__init__.py",
+        "python/packages/autogen-studio/autogenstudio/lite/studio.py",
+        "python/packages/autogen-studio/autogenstudio/mcp/callbacks.py",
+        "python/packages/autogen-studio/autogenstudio/mcp/client.py",
+        "python/packages/autogen-studio/autogenstudio/mcp/utils.py"
+      ],
+      "keywords": [
+        "security",
+        "fix.*(security|vuln|inject|exploit)"
+      ],
+      "confidence": 0.8999999999999999,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "d094a3fd471ee70621c4dfdec7f06554022047fe",
+      "date": "2025-07-16",
+      "message": "Upgrade_mcp_version (#6814)",
+      "files": [
+        "python/packages/autogen-ext/src/autogen_ext/tools/mcp/_base.py",
+        "python/packages/autogen-ext/tests/tools/test_mcp_tools.py"
+      ],
+      "keywords": [
+        "security",
+        "fix.*(security|vuln|inject|exploit)"
+      ],
+      "confidence": 0.8999999999999999,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "4a5dd9eec90ae3ec31d285d91ab96c4d244547f6",
+      "date": "2025-04-18",
+      "message": "Make Docker Jupyter support to the Version 0.4 as Version 0.2 (#6231)",
+      "files": [
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/docker_jupyter/__init__.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/docker_jupyter/_docker_jupyter.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/docker_jupyter/_jupyter_server.py",
+        "python/packages/autogen-ext/tests/code_executors/test_docker_jupyter_code_executor.py"
+      ],
+      "keywords": [
+        "security",
+        "code.?execution"
+      ],
+      "confidence": 0.8999999999999999,
+      "category": "LLM02"
+    },
+    {
+      "project": "autogen",
+      "hash": "fe1feb3906febb5c6004558c69216e6121167f9a",
+      "date": "2025-03-14",
+      "message": "Enable Auth in AGS (#5928)",
+      "files": [
+        "python/packages/autogen-studio/autogenstudio/cli.py",
+        "python/packages/autogen-studio/autogenstudio/database/db_manager.py",
+        "python/packages/autogen-studio/autogenstudio/datamodel/types.py",
+        "python/packages/autogen-studio/autogenstudio/web/app.py",
+        "python/packages/autogen-studio/autogenstudio/web/auth/__init__.py",
+        "python/packages/autogen-studio/autogenstudio/web/auth/authroutes.py",
+        "python/packages/autogen-studio/autogenstudio/web/auth/dependencies.py",
+        "python/packages/autogen-studio/autogenstudio/web/auth/exceptions.py",
+        "python/packages/autogen-studio/autogenstudio/web/auth/manager.py",
+        "python/packages/autogen-studio/autogenstudio/web/auth/middleware.py"
+      ],
+      "keywords": [
+        "security",
+        "fix.*(security|vuln|inject|exploit)"
+      ],
+      "confidence": 0.8999999999999999,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "langchain",
+      "hash": "5dc8ba3c995ebef95bbc0847126ba18527cbef41",
+      "date": "2026-01-10",
+      "message": "chore(langchain): fix types in `test_injected_runtime_create_agent`, `test_create_agent_tool_validation` (#34568)",
+      "files": [
+        "libs/langchain_v1/tests/unit_tests/agents/test_create_agent_tool_validation.py",
+        "libs/langchain_v1/tests/unit_tests/agents/test_injected_runtime_create_agent.py"
+      ],
+      "keywords": [
+        "validat",
+        "fix.*(security|vuln|inject|exploit)"
+      ],
+      "confidence": 0.7,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "17d3aef9f558727057bc1819a468fea8699c2b7c",
+      "date": "2025-09-17",
+      "message": "Add security warnings and default to DockerCommandLineCodeExecutor (#7035)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/agents/_code_executor_agent.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/__init__.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/docker/_docker_code_executor.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/docker_jupyter/_docker_jupyter.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/local/__init__.py",
+        "python/packages/autogen-ext/src/autogen_ext/teams/magentic_one.py",
+        "python/packages/autogen-ext/tests/teams/test_magentic_one.py"
+      ],
+      "keywords": [
+        "security"
+      ],
+      "confidence": 0.7,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "3c73e08ea0f8266e975179d35da9037a1071aaa5",
+      "date": "2025-06-30",
+      "message": "Introduce streaming tool and support streaming for `AgentTool` and `TeamTool`. (#6712)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/agents/_assistant_agent.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/tools/_agent.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/tools/_task_runner_tool.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/tools/_team.py",
+        "python/packages/autogen-agentchat/tests/test_task_runner_tool.py",
+        "python/packages/autogen-core/src/autogen_core/tools/__init__.py",
+        "python/packages/autogen-core/src/autogen_core/tools/_base.py",
+        "python/packages/autogen-core/src/autogen_core/tools/_static_workbench.py",
+        "python/packages/autogen-core/src/autogen_core/tools/_workbench.py",
+        "python/packages/autogen-core/tests/test_workbench.py"
+      ],
+      "keywords": [
+        "vulnerab"
+      ],
+      "confidence": 0.7,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "b8b7a2db3a3dbf4f1ec86ddf20eca34b26f2db72",
+      "date": "2025-03-14",
+      "message": "Ensure SecretStr is cast to str on load for model clients (#5947)",
+      "files": [
+        "python/packages/autogen-ext/src/autogen_ext/models/anthropic/_anthropic_client.py",
+        "python/packages/autogen-ext/src/autogen_ext/models/openai/_openai_client.py"
+      ],
+      "keywords": [
+        "security"
+      ],
+      "confidence": 0.7,
+      "category": "LLM06"
+    },
+    {
+      "project": "langchain",
+      "hash": "e261924030309154e9971a78896d0275d1f4c6bd",
+      "date": "2026-01-09",
+      "message": "fix(core): improve error message for missing title in JSON schema functions (#34683)",
+      "files": [
+        "libs/core/langchain_core/utils/function_calling.py",
+        "libs/core/tests/unit_tests/utils/test_function_calling.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "langchain",
+      "hash": "d22cfaf7c6248f890b194b960db878ecc5620852",
+      "date": "2026-01-10",
+      "message": "fix(core): make `yield_keys` prefix keyword-only to match `BaseStore` (#34659)",
+      "files": [
+        "libs/core/langchain_core/stores.py",
+        "libs/langchain/langchain_classic/storage/file_system.py",
+        "libs/langchain/tests/unit_tests/storage/test_filesystem.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "langchain",
+      "hash": "8e3c6b109f2b50a8ab7fbe9153cae8692825ea88",
+      "date": "2026-01-09",
+      "message": "style(core): fix some noqa escapes (#34675)",
+      "files": [
+        "libs/core/langchain_core/_api/beta_decorator.py",
+        "libs/core/langchain_core/_api/deprecation.py",
+        "libs/core/langchain_core/language_models/chat_models.py",
+        "libs/core/langchain_core/load/_validation.py",
+        "libs/core/langchain_core/load/serializable.py",
+        "libs/core/langchain_core/messages/ai.py",
+        "libs/core/langchain_core/messages/base.py",
+        "libs/core/langchain_core/messages/block_translators/google_genai.py",
+        "libs/core/langchain_core/messages/block_translators/groq.py",
+        "libs/core/langchain_core/messages/block_translators/openai.py"
+      ],
+      "keywords": [
+        "escap[ei]"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "langchain",
+      "hash": "323c76504a8603c4c549cf87a41e842848226a89",
+      "date": "2026-01-09",
+      "message": "fix: add test confirming we don't inject args based on `args_schema` alone (#34677)",
+      "files": [
+        "libs/langchain_v1/tests/unit_tests/agents/test_kwargs_tool_runtime_injection.py"
+      ],
+      "keywords": [
+        "fix.*(security|vuln|inject|exploit)"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "langchain",
+      "hash": "ed2aa9f747610a0314e9683473520b82afd70cde",
+      "date": "2026-01-09",
+      "message": "fix: don't trace injected args only found in signature (#34670)",
+      "files": [
+        "libs/core/langchain_core/tools/base.py",
+        "libs/core/tests/unit_tests/test_tools.py"
+      ],
+      "keywords": [
+        "fix.*(security|vuln|inject|exploit)"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "c23b9454a87d2d8e019154dc9fe37681634115d4",
+      "date": "2025-07-05",
+      "message": "Fix GraphFlow to support multiple task execution without explicit reset (#6747)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/teams/_group_chat/_graph/_digraph_group_chat.py",
+        "python/packages/autogen-agentchat/tests/test_group_chat_graph.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "c99aa7416d44e16b9cd5bafcd709f6e2484ffe31",
+      "date": "2025-06-04",
+      "message": "Fix graph validation logic and add tests (#6630)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/teams/_group_chat/_graph/_digraph_group_chat.py",
+        "python/packages/autogen-agentchat/tests/test_group_chat_graph.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "1578cd955f33e298020f6b7e3b7bf1fefe311d37",
+      "date": "2025-05-21",
+      "message": "Include all output to error output in docker jupyter code executor (#6572)",
+      "files": [
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/docker_jupyter/_docker_jupyter.py"
+      ],
+      "keywords": [
+        "code.?execution"
+      ],
+      "confidence": 0.5,
+      "category": "LLM02"
+    },
+    {
+      "project": "autogen",
+      "hash": "9f8e892d276d9310dac8aaf12da2304def7712e9",
+      "date": "2025-04-29",
+      "message": "Added Graph Based Execution functionality to Autogen (#6333)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/agents/__init__.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/agents/_message_filter_agent.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/teams/__init__.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/teams/_group_chat/_graph/__init__.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/teams/_group_chat/_graph/_digraph_group_chat.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/teams/_group_chat/_graph/_graph_builder.py",
+        "python/packages/autogen-agentchat/tests/test_group_chat_graph.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "aad6caa768d00261c727552c188682905cf78b53",
+      "date": "2025-04-22",
+      "message": "Add self-debugging loop to `CodeExecutionAgent` (#6306)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/agents/_code_executor_agent.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/messages.py",
+        "python/packages/autogen-agentchat/tests/test_code_executor_agent.py"
+      ],
+      "keywords": [
+        "code.?execution"
+      ],
+      "confidence": 0.5,
+      "category": "LLM02"
+    },
+    {
+      "project": "autogen",
+      "hash": "7acfd8a9d80af2d13580eac19897f1556f52a43e",
+      "date": "2025-04-06",
+      "message": "Docker Code Exec delete temp files (#6211)",
+      "files": [
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/docker/_docker_code_executor.py",
+        "python/packages/autogen-ext/tests/code_executors/test_docker_commandline_code_executor.py"
+      ],
+      "keywords": [
+        "code.?execution"
+      ],
+      "confidence": 0.5,
+      "category": "LLM02"
+    },
+    {
+      "project": "autogen",
+      "hash": "27e1656e06ee3ac62a1cb2cb7bdae9ed63d6c371",
+      "date": "2025-04-05",
+      "message": "Remove redundancy code and improve validation logics in AgentChat (#6190)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/messages.py",
+        "python/packages/autogen-agentchat/src/autogen_agentchat/teams/_group_chat/_base_group_chat_manager.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "0d9b574d092f430a2542821a217dac006bc7b621",
+      "date": "2025-04-02",
+      "message": "Add Azure AI Search tool implementation (#5844)",
+      "files": [
+        "python/packages/autogen-ext/src/autogen_ext/tools/azure/__init__.py",
+        "python/packages/autogen-ext/src/autogen_ext/tools/azure/_ai_search.py",
+        "python/packages/autogen-ext/src/autogen_ext/tools/azure/_config.py",
+        "python/packages/autogen-ext/tests/tools/azure/conftest.py",
+        "python/packages/autogen-ext/tests/tools/azure/test_ai_search_tool.py"
+      ],
+      "keywords": [
+        "code.?execution"
+      ],
+      "confidence": 0.5,
+      "category": "LLM02"
+    },
+    {
+      "project": "autogen",
+      "hash": "86237c9fdff9d956c8e128514733cf2540fd6061",
+      "date": "2025-04-01",
+      "message": "Add output_format to AssistantAgent for structured output (#6071)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/agents/_assistant_agent.py",
+        "python/packages/autogen-agentchat/tests/test_assistant_agent.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "c4e07e86d8c48839927713ddc2672bc6fc3619ef",
+      "date": "2025-03-18",
+      "message": "Implement 'candidate_func' parameter to filter down the pool of candidates for selection (#5954)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/teams/_group_chat/_selector_group_chat.py",
+        "python/packages/autogen-agentchat/tests/test_group_chat.py",
+        "python/packages/autogen-agentchat/tests/test_group_chat_endpoint.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "39bfa35e281016827686aecb8980397bc024d282",
+      "date": "2025-03-04",
+      "message": "docs: Add note recommending PythonCodeExecutionTool as an alternative to CodeExecutorAgent (#5809)",
+      "files": [
+        "python/packages/autogen-agentchat/src/autogen_agentchat/agents/_code_executor_agent.py"
+      ],
+      "keywords": [
+        "code.?execution"
+      ],
+      "confidence": 0.5,
+      "category": "LLM02"
+    },
+    {
+      "project": "autogen",
+      "hash": "0b9a622b564790ea3cf051f9ba03b0cb64048439",
+      "date": "2025-03-04",
+      "message": "Fix: Auto-Convert Pydantic and Dataclass Arguments in AutoGen Tool Calls (#5737)",
+      "files": [
+        "python/packages/autogen-core/src/autogen_core/tools/_function_tool.py",
+        "python/packages/autogen-core/tests/test_tools.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "69c0b2b5efcbbadd6ea8967c8cdd693da4df5b1e",
+      "date": "2025-02-14",
+      "message": "fix: Add model info validation and improve error messaging (#5556)",
+      "files": [
+        "python/packages/autogen-core/src/autogen_core/models/__init__.py",
+        "python/packages/autogen-core/src/autogen_core/models/_model_client.py",
+        "python/packages/autogen-core/tests/test_models.py",
+        "python/packages/autogen-ext/src/autogen_ext/models/azure/_azure_ai_client.py",
+        "python/packages/autogen-ext/src/autogen_ext/models/openai/_openai_client.py",
+        "python/packages/autogen-ext/src/autogen_ext/models/semantic_kernel/_sk_chat_completion_adapter.py",
+        "python/packages/autogen-ext/tests/models/test_azure_ai_model_client.py"
+      ],
+      "keywords": [
+        "validat"
+      ],
+      "confidence": 0.5,
+      "category": "UNKNOWN"
+    },
+    {
+      "project": "autogen",
+      "hash": "e6423bb8628833e20cb80bcaf5f3b2cc4b883f26",
+      "date": "2025-02-13",
+      "message": "Make CodeExecutor Serializable/Declarative (#5527)",
+      "files": [
+        "python/packages/autogen-core/src/autogen_core/code_executor/_base.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/docker/_docker_code_executor.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/jupyter/_jupyter_code_executor.py",
+        "python/packages/autogen-ext/src/autogen_ext/code_executors/local/__init__.py",
+        "python/packages/autogen-ext/src/autogen_ext/tools/code_execution/_code_execution.py",
+        "python/packages/autogen-ext/tests/code_executors/test_commandline_code_executor.py",
+        "python/packages/autogen-ext/tests/code_executors/test_docker_commandline_code_executor.py",
+        "python/packages/autogen-ext/tests/code_executors/test_jupyter_code_executor.py",
+        "python/packages/autogen-ext/tests/tools/test_python_code_executor_tool.py"
+      ],
+      "keywords": [
+        "code.?execution"
+      ],
+      "confidence": 0.5,
+      "category": "LLM02"
+    }
+  ]
+}

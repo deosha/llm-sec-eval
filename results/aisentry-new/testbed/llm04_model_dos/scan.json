@@ -1,0 +1,204 @@
+{
+  "findings": [
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 30,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'prompt' embedded in LLM prompt",
+      "confidence": 0.95
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 55,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'prompt' embedded in LLM prompt",
+      "confidence": 0.95
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 65,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'prompt' embedded in LLM prompt",
+      "confidence": 0.95
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 103,
+      "category": "LLM01: Prompt Injection",
+      "severity": "CRITICAL",
+      "title": "User input 'prompt' embedded in LLM prompt",
+      "confidence": 0.95
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 63,
+      "category": "LLM04: Model Denial of Service",
+      "severity": "CRITICAL",
+      "title": "Model DoS vulnerability: LLM calls in loops, No rate limiting, No timeout configuration, No token/context limits",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 84,
+      "category": "LLM04: Model Denial of Service",
+      "severity": "CRITICAL",
+      "title": "Model DoS vulnerability: No rate limiting, No input length validation, No timeout configuration, No token/context limits",
+      "confidence": 0.8
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 20,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 30,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 44,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 55,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 65,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 103,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 87,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "LOW",
+      "title": "Unpinned model version in API call",
+      "confidence": 0.75
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 16,
+      "category": "LLM08: Excessive Agency",
+      "severity": "MEDIUM",
+      "title": "High-risk write/network operation without confirmation in 'vulnerable_no_input_limit'",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 40,
+      "category": "LLM08: Excessive Agency",
+      "severity": "MEDIUM",
+      "title": "High-risk write/network operation without confirmation in 'vulnerable_no_rate_limit'",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 84,
+      "category": "LLM08: Excessive Agency",
+      "severity": "MEDIUM",
+      "title": "High-risk write/network operation without confirmation in 'chat'",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 16,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_no_input_limit'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 28,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_no_output_limit'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 40,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_no_rate_limit'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 52,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_no_timeout'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 63,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'vulnerable_recursive_generation'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 97,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'safe_chat_with_limits'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 84,
+      "category": "LLM09: Overreliance",
+      "severity": "INFO",
+      "title": "Critical decision without oversight in 'chat'",
+      "confidence": 0.9
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 16,
+      "category": "LLM10: Model Theft",
+      "severity": "HIGH",
+      "title": "Model API without rate limiting in 'vulnerable_no_input_limit'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm04_model_dos/app.py",
+      "line_number": 40,
+      "category": "LLM10: Model Theft",
+      "severity": "LOW",
+      "title": "Model output without protection in 'vulnerable_no_rate_limit'",
+      "confidence": 0.7
+    }
+  ]
+}

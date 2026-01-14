@@ -1,0 +1,164 @@
+{
+  "findings": [
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 51,
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "CRITICAL",
+      "title": "LLM output used in dangerous command_injection sink",
+      "confidence": 0.8999999999999999
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 102,
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "CRITICAL",
+      "title": "LLM output used in dangerous command_injection sink",
+      "confidence": 0.8999999999999999
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 223,
+      "category": "LLM02: Insecure Output Handling",
+      "severity": "CRITICAL",
+      "title": "LLM output used in dangerous command_injection sink",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 24,
+      "category": "LLM03: Training Data Poisoning",
+      "severity": "CRITICAL",
+      "title": "Unsafe data loading with pickle.load in training context",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 33,
+      "category": "LLM03: Training Data Poisoning",
+      "severity": "HIGH",
+      "title": "Unsafe data loading with torch.load in training context",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 22,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "MEDIUM",
+      "title": "Use of pickle for serialization",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 24,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "title": "Network fetch combined with code execution",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 14,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "title": "Unsafe model loading pattern",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 15,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "title": "Unsafe model loading pattern",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 33,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "HIGH",
+      "title": "Unsafe model loading pattern",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 75,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "title": "Code execution on external content",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 80,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "title": "Code execution on external content",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 84,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "title": "Code execution on external content",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 90,
+      "category": "LLM05: Supply Chain Vulnerabilities",
+      "severity": "CRITICAL",
+      "title": "Code execution on external content",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 48,
+      "category": "LLM08: Excessive Agency",
+      "severity": "CRITICAL",
+      "title": "Direct execution of LLM-generated code in 'vulnerable_dynamic_install'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 94,
+      "category": "LLM08: Excessive Agency",
+      "severity": "CRITICAL",
+      "title": "Direct execution of LLM-generated code in 'vulnerable_download_and_run'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 210,
+      "category": "LLM08: Excessive Agency",
+      "severity": "CRITICAL",
+      "title": "Direct execution of LLM-generated code in 'safe_install_package'",
+      "confidence": 0.7
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 48,
+      "category": "LLM09: Overreliance",
+      "severity": "CRITICAL",
+      "title": "Direct execution of LLM output in 'vulnerable_dynamic_install'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 94,
+      "category": "LLM09: Overreliance",
+      "severity": "CRITICAL",
+      "title": "Direct execution of LLM output in 'vulnerable_download_and_run'",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "/Users/deo/secscan-cli/llm-sec-eval/testbed/llm05_supply_chain/app.py",
+      "line_number": 210,
+      "category": "LLM09: Overreliance",
+      "severity": "CRITICAL",
+      "title": "Direct execution of LLM output in 'safe_install_package'",
+      "confidence": 0.7
+    }
+  ]
+}
