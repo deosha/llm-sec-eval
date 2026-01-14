@@ -1,0 +1,8 @@
+{
+  "positive_files": 3,
+  "negative_files": 30,
+  "true_positives": 134,
+  "false_positives": 15,
+  "mixed_precision": 0.8993288590604027,
+  "files_with_fp": 4
+}

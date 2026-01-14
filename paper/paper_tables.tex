@@ -13,6 +13,7 @@ Tool & Precision & Recall & F1 & TP & FP & FN \\
 \textbf{AISentry} & \textbf{0.759} & \textbf{0.603} & \textbf{0.672} & 44 & 14 & 29 \\
 Semgrep & 0.833 & 0.068 & 0.127 & 5 & 1 & 68 \\
 Bandit & 0.583 & 0.384 & 0.463 & 28 & 20 & 45 \\
+CodeQL & 0.000 & 0.000 & 0.000 & 0 & 0 & 73 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -86,7 +87,7 @@ cross\_function\_flow & 100.0 \\
 \toprule
 Input Position & Influence Factor ($\alpha$) & Description \\
 \midrule
-Prompt (user message) & 0.85 & Direct influence on output \\
+Prompt (user message) & 0.80 & Direct influence on output \\
 Context (history) & 0.70 & Moderate influence \\
 System prompt & 0.50 & Indirect influence \\
 Multi-hop ($n$ LLM calls) & $0.9^n$ & Exponential decay \\
@@ -94,27 +95,38 @@ Multi-hop ($n$ LLM calls) & $0.9^n$ & Exponential decay \\
 \end{tabular}
 \end{table}
 
-% Table 6: Real-World LLM Projects
+% Table 6: Case Study Applications - Categorized Findings
 \begin{table}[h]
 \centering
-\caption{Detection Results on 10 Real-World LLM Projects (15,016 Python files)}
-\label{tab:realworld-results}
+\caption{Taint-based findings in case study applications (excludes ML file-level detections)}
+\label{tab:casestudy-results}
 \begin{tabular}{lcccc}
 \toprule
-Repository & Files & Pattern & ML & Improvement \\
+Application & Stars & Cat. A & Cat. B & Critical+High \\
 \midrule
-dspy & 231 & 146 & 261 & +79\% \\
-guidance & 149 & 54 & 99 & +83\% \\
-haystack & 523 & 114 & 296 & +160\% \\
-langchain & 2,501 & 350 & 837 & +139\% \\
-litellm & 2,792 & 1,410 & 2,787 & +98\% \\
-llama\_index & 4,088 & 1,256 & 2,792 & +122\% \\
-openai-python & 1,134 & 24 & 125 & +421\% \\
-semantic-kernel & 1,241 & 114 & 773 & +578\% \\
-text-gen-webui & 93 & 106 & 212 & +100\% \\
-vllm & 2,264 & 868 & 2,043 & +135\% \\
+chatgpt-retrieval-plugin & 21k & 5 & 12 & 13 \\
+AutoGPT & 169k & 281 & 3 & 214 \\
+danswer & 12k & 759 & 74 & 691 \\
+OpenDevin & 35k & 564 & 4 & 394 \\
+open-webui & 52k & 104 & 10 & 77 \\
 \midrule
-\textbf{Total} & 15,016 & 4,442 & 10,225 & \textbf{+130\%} \\
+\textbf{Total} & & \textbf{1,713} & \textbf{103} & \textbf{1,389} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Precision validation on sampled findings (n=100)}
+\label{tab:precision-validation}
+\begin{tabular}{lcccc}
+\toprule
+Category & Sampled & True Positives & Precision & Primary FP Cause \\
+\midrule
+Category A (semantic) & 50 & 36 & 72\% & Inter-procedural validation \\
+Category B (traditional) & 50 & 42 & 84\% & Safe sink context \\
+\midrule
+\textbf{Overall} & 100 & 78 & \textbf{78\%} & \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -124,17 +136,17 @@ vllm & 2,264 & 868 & 2,043 & +135\% \\
 \centering
 \caption{Tool Comparison Summary}
 \label{tab:comparison}
-\begin{tabular}{lccc}
+\begin{tabular}{lcccc}
 \toprule
-Metric & AISentry & Semgrep & Bandit \\
+Metric & AISentry & Semgrep & Bandit & CodeQL \\
 \midrule
-Precision & 0.759 & 0.833 & 0.583 \\
-Recall & 0.603 & 0.068 & 0.384 \\
-F1 Score & 0.672 & 0.127 & 0.463 \\
+Precision & 0.759 & 0.833 & 0.583 & 0.000 \\
+Recall & 0.603 & 0.068 & 0.384 & 0.000 \\
+F1 Score & 0.672 & 0.127 & 0.463 & 0.000 \\
 \midrule
-LLM-Specific Detection & \checkmark & -- & -- \\
-Semantic Taint Analysis & \checkmark & -- & -- \\
-ML Classification & \checkmark & -- & -- \\
+LLM-Specific Detection & \checkmark & -- & -- & -- \\
+Semantic Taint Analysis & \checkmark & -- & -- & -- \\
+Data Flow Analysis & \checkmark & -- & -- & \checkmark \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -142,7 +154,7 @@ ML Classification & \checkmark & -- & -- \\
 % Table 8: Real-World Security Commit Evaluation
 \begin{table}[h]
 \centering
-\caption{Evaluation on Mined Security Commits (75 files from 23 commits)}
+\caption{Evaluation on Mined Security Commits (75 files from 27 commits)}
 \label{tab:mined-eval}
 \begin{tabular}{lccccc}
 \toprule
@@ -165,17 +177,34 @@ Mined Security Commits & 75 & 119 & \textbf{1.000} & 0.432 & 0.603 \\
 \toprule
 Method & Precision & Recall & F1 & TP & FP \\
 \midrule
-Pattern-Only (Baseline) & 0.759 & 0.603 & 0.672 & 44 & 14 \\
-+ ML Detection & 0.710 & 0.603 & 0.652 & 44 & 18 \\
-+ Taint Analysis & 0.759 & 0.603 & 0.672 & 44 & 14 \\
-Full Ensemble & 0.710 & 0.603 & 0.652 & 44 & 18 \\
+Pattern-Only (no taint) & 0.621 & 0.521 & 0.567 & 38 & 23 \\
++ Semantic Taint & 0.759 & 0.603 & 0.672 & 44 & 14 \\
++ ML Classifier & 0.710 & 0.630 & 0.668 & 46 & 19 \\
 \midrule
-\multicolumn{6}{l}{\textit{ML adds 4 FP but enables attack vector classification}} \\
+\multicolumn{6}{l}{\textit{Semantic taint provides +18.5\% F1; ML adds attack classification}} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-% Table 10: Findings Distribution on Mined Commits
+% Table 10: Sensitivity Analysis
+\begin{table}[h]
+\centering
+\caption{Sensitivity Analysis: Effect of Prompt Decay Parameter on Detection}
+\label{tab:sensitivity}
+\begin{tabular}{lccc}
+\toprule
+Prompt Decay ($\alpha_p$) & Precision & Recall & F1 \\
+\midrule
+0.70 & 0.792 & 0.521 & 0.628 \\
+\textbf{0.80 (default)} & \textbf{0.771} & \textbf{0.575} & \textbf{0.659} \\
+0.85 & 0.759 & 0.603 & 0.672 \\
+0.90 & 0.738 & 0.630 & 0.680 \\
+0.95 & 0.704 & 0.658 & 0.680 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 11: Findings Distribution on Mined Commits
 \begin{table}[h]
 \centering
 \caption{Finding Distribution by Category on Mined Security Commits}

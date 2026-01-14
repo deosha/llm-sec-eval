@@ -65,16 +65,16 @@ Our approach tracks this vulnerability as follows:
 \begin{enumerate}
     \item \texttt{user\_message}: $\tau = (\{\textsc{User}\}, 1.0)$
     \item \texttt{prompt}: $\tau = (\{\textsc{User}\}, 1.0)$ (propagated through f-string)
-    \item \texttt{response}: $\tau = (\{\textsc{User}, \textsc{Semantic}\}, 0.85)$
+    \item \texttt{response}: $\tau = (\{\textsc{User}, \textsc{Semantic}\}, 0.80)$
 
-    \emph{Key insight}: The LLM call transforms taint but preserves \textbf{semantic influence}. The decay factor $\alpha = 0.85$ reflects that the user prompt position has high influence over the output.
+    \emph{Key insight}: The LLM call transforms taint but preserves \textbf{semantic influence}. The decay factor $\alpha = 0.80$ reflects that the user prompt position has high influence over the output.
 
-    \item \texttt{action["args"]}: $\tau = (\{\textsc{User}, \textsc{Semantic}\}, 0.85)$ (propagated through JSON parsing)
+    \item \texttt{action["args"]}: $\tau = (\{\textsc{User}, \textsc{Semantic}\}, 0.80)$ (propagated through JSON parsing)
 
     \item At \texttt{subprocess.run}: Sink check triggered!
     \begin{itemize}
         \item \textsc{Semantic} $\in$ taint types ✓
-        \item Influence strength $0.85 > \theta = 0.5$ ✓
+        \item Influence strength $0.80 > \theta = 0.5$ ✓
         \item Sink category: Command Injection (Critical) ✓
     \end{itemize}
 \end{enumerate}

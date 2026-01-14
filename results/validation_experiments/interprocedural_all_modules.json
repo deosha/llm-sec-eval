@@ -1,0 +1,48 @@
+{
+  "categories_analyzed": 10,
+  "total_findings": 284,
+  "wrapper_related_findings": 5,
+  "wrapper_detection_rate": 0.017605633802816902,
+  "per_category": {
+    "LLM01_prompt_injection": {
+      "total_findings": 73,
+      "wrapper_related": 5
+    },
+    "LLM02_insecure_output": {
+      "total_findings": 56,
+      "wrapper_related": 0
+    },
+    "LLM03_training_poisoning": {
+      "total_findings": 5,
+      "wrapper_related": 0
+    },
+    "LLM04_model_dos": {
+      "total_findings": 25,
+      "wrapper_related": 0
+    },
+    "LLM05_supply_chain": {
+      "total_findings": 20,
+      "wrapper_related": 0
+    },
+    "LLM06_sensitive_info": {
+      "total_findings": 25,
+      "wrapper_related": 0
+    },
+    "LLM07_insecure_plugin": {
+      "total_findings": 14,
+      "wrapper_related": 0
+    },
+    "LLM08_excessive_agency": {
+      "total_findings": 28,
+      "wrapper_related": 0
+    },
+    "LLM09_overreliance": {
+      "total_findings": 24,
+      "wrapper_related": 0
+    },
+    "LLM10_model_theft": {
+      "total_findings": 14,
+      "wrapper_related": 0
+    }
+  }
+}

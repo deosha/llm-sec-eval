@@ -1,0 +1,36 @@
+{
+  "category_a": {
+    "categories": [
+      "LLM01_prompt_injection",
+      "LLM02_insecure_output",
+      "LLM06_sensitive_info",
+      "LLM08_excessive_agency"
+    ],
+    "tp": 49,
+    "fp": 69,
+    "fn": 9,
+    "precision": 0.4152542372881356,
+    "precision_ci_95": [
+      0.33038729052795845,
+      0.5054651605232424
+    ]
+  },
+  "category_b": {
+    "categories": [
+      "LLM03_training_poisoning",
+      "LLM04_model_dos",
+      "LLM05_supply_chain",
+      "LLM07_insecure_plugin",
+      "LLM09_overreliance",
+      "LLM10_model_theft"
+    ],
+    "tp": 33,
+    "fp": 41,
+    "fn": 16,
+    "precision": 0.44594594594594594,
+    "precision_ci_95": [
+      0.33815638584551055,
+      0.5590708037292155
+    ]
+  }
+}

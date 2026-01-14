@@ -1,0 +1,100 @@
+{
+  "overall": {
+    "precision": 0.4270833333333333,
+    "precision_ci_95": [
+      0.35921925017624723,
+      0.4978080616921198
+    ],
+    "recall": 0.7663551401869159,
+    "recall_ci_95": [
+      0.677807919851313,
+      0.836439438541204
+    ],
+    "tp": 82,
+    "fp": 110,
+    "fn": 25,
+    "total_findings": 192
+  },
+  "per_category": {
+    "LLM01_prompt_injection": {
+      "tp": 19,
+      "fp": 29,
+      "fn": 2,
+      "precision": 0.3958333333333333,
+      "recall": 0.9047619047619048,
+      "n_findings": 48
+    },
+    "LLM02_insecure_output": {
+      "tp": 11,
+      "fp": 20,
+      "fn": 3,
+      "precision": 0.3548387096774194,
+      "recall": 0.7857142857142857,
+      "n_findings": 31
+    },
+    "LLM03_training_poisoning": {
+      "tp": 2,
+      "fp": 2,
+      "fn": 3,
+      "precision": 0.5,
+      "recall": 0.4,
+      "n_findings": 4
+    },
+    "LLM04_model_dos": {
+      "tp": 9,
+      "fp": 5,
+      "fn": 1,
+      "precision": 0.6428571428571429,
+      "recall": 0.9,
+      "n_findings": 14
+    },
+    "LLM05_supply_chain": {
+      "tp": 10,
+      "fp": 5,
+      "fn": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.7692307692307693,
+      "n_findings": 15
+    },
+    "LLM06_sensitive_info": {
+      "tp": 13,
+      "fp": 7,
+      "fn": 1,
+      "precision": 0.65,
+      "recall": 0.9285714285714286,
+      "n_findings": 20
+    },
+    "LLM07_insecure_plugin": {
+      "tp": 6,
+      "fp": 6,
+      "fn": 3,
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "n_findings": 12
+    },
+    "LLM08_excessive_agency": {
+      "tp": 6,
+      "fp": 13,
+      "fn": 3,
+      "precision": 0.3157894736842105,
+      "recall": 0.6666666666666666,
+      "n_findings": 19
+    },
+    "LLM09_overreliance": {
+      "tp": 2,
+      "fp": 17,
+      "fn": 2,
+      "precision": 0.10526315789473684,
+      "recall": 0.5,
+      "n_findings": 19
+    },
+    "LLM10_model_theft": {
+      "tp": 4,
+      "fp": 6,
+      "fn": 4,
+      "precision": 0.4,
+      "recall": 0.5,
+      "n_findings": 10
+    }
+  }
+}

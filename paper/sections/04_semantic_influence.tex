@@ -32,21 +32,21 @@ Not all inputs to an LLM have equal influence over its output. We model this thr
 For an LLM call $f_{\text{LLM}}(p, s, c)$ with prompt $p$, system message $s$, and context $c$, the decay factor $\alpha$ is:
 \[
 \alpha(x) = \begin{cases}
-    0.85 & \text{if } x \in p \text{ (user prompt)} \\
+    0.80 & \text{if } x \in p \text{ (user prompt)} \\
     0.70 & \text{if } x \in c \text{ (context/history)} \\
     0.50 & \text{if } x \in s \text{ (system prompt)}
 \end{cases}
 \]
 \end{definition}
 
-The rationale is empirical: user prompts have the most direct influence on LLM outputs, while system prompts have indirect influence that can often be overridden by prompt injection.
+The rationale is grounded in prompt injection research and empirical evaluation. We initialize parameters from attack success rates in the literature: Greshake et al.~\cite{greshake2023} demonstrated rates up to 85\% for user prompts in indirect injection scenarios, while system prompt overrides succeed in approximately 50\% of cases; Liu et al.~\cite{liu2023prompt} found context injection succeeds at 60-80\% depending on context length. We then tuned $\alpha_p$ on our OWASP testbed (Section~\ref{sec:sensitivity}), selecting 0.80 as it optimizes precision while maintaining recall. \emph{Limitation}: We did not use a separate held-out validation set; the same testbed informed both parameter selection and evaluation. A larger, partitioned benchmark would enable more rigorous validation.
 
 \begin{definition}[Multi-Hop Decay]
 For a chain of $n$ LLM calls, influence decays exponentially:
 \[
-I_n = I_0 \cdot \prod_{i=1}^{n} \alpha_i \cdot \gamma^n
+I_n = I_0 \cdot \left(\prod_{i=1}^{n} \alpha_i\right) \cdot \gamma^n
 \]
-where $\gamma = 0.9$ is the per-hop decay factor, reflecting that each LLM transformation dilutes the adversary's control.
+where $\alpha_i$ is the position-dependent decay at hop $i$, and $\gamma = 0.9$ is an additional per-hop attenuation factor. This models the empirical observation that each LLM transformation dilutes adversarial control beyond what position alone predicts. For example, a two-hop flow through user prompts yields $I_2 = 1.0 \cdot 0.80^2 \cdot 0.9^2 = 0.52$.
 \end{definition}
 
 \subsection{Taint Propagation Rules}
@@ -109,3 +109,45 @@ The analysis may produce false positives when:
 \end{itemize}
 
 We address these through confidence adjustment based on detected mitigations (Section~\ref{sec:implementation}).
+
+\subsection{Per-File Interprocedural Analysis}
+\label{sec:interprocedural}
+
+A significant challenge in LLM application security is the prevalence of \emph{wrapper functions}---functions that encapsulate LLM API calls to provide a cleaner interface. We support interprocedural analysis \emph{within individual files}; cross-file analysis is left for future work. Consider:
+
+\begin{lstlisting}[language=Python,basicstyle=\small\ttfamily]
+def get_llm_response(prompt: str) -> str:
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
+
+def vulnerable_eval(user_request: str) -> str:
+    prompt = f"Generate code for: {user_request}"
+    llm_code = get_llm_response(prompt)  # Wrapper call
+    return eval(llm_code)  # VULNERABLE
+\end{lstlisting}
+
+Intra-procedural analysis cannot detect this vulnerability because the taint flow crosses function boundaries. We implement two inter-procedural analysis modes:
+
+\subsubsection{Function Summary Analysis}
+We construct \emph{function summaries} that capture each function's taint behavior:
+
+\begin{definition}[Function Summary]
+A function summary $\mathcal{S}_f$ is a tuple $(C, R, P, H, D)$ where:
+\begin{itemize}
+    \item $C \in \{\top, \bot\}$ indicates whether $f$ contains an LLM call
+    \item $R \in \{\top, \bot\}$ indicates whether $f$ returns LLM-tainted data
+    \item $P \subseteq \text{params}(f)$ is the set of parameters that flow to the return value
+    \item $H \in \mathbb{N}$ is the number of LLM hops added by $f$
+    \item $D \in [0, 1]$ is the influence decay through $f$
+\end{itemize}
+\end{definition}
+
+During analysis, we first identify \emph{LLM wrapper functions}---functions where $C = \top$ and $R = \top$. Then, for each call to a wrapper function, we propagate semantic taint to the call's return value with appropriate decay.
+
+\subsubsection{Extended Analysis (Experimental)}
+For cases where function summaries are insufficient, we provide an experimental fixed-point iteration mode that propagates taint through function calls and returns until convergence. This handles nested wrapper calls and multi-function flows.
+
+The tradeoff is computational cost: function summaries are $O(F)$ where $F$ is the number of functions, while fixed-point analysis is $O(F \cdot E)$ where $E$ is the number of edges in the call graph. \emph{Limitation}: Our evaluation (Section~\ref{sec:evaluation}) demonstrates function summary analysis on a single synthetic module; the fixed-point mode has not been extensively validated. In practice, function summaries suffice for the wrapper patterns we observe in case study codebases.

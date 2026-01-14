@@ -23,7 +23,10 @@ Prompt injection was first documented by Simon Willison in 2022~\cite{willison20
 Perez and Ribeiro~\cite{perez2022} demonstrated prompt injection attacks against GPT-3, showing that carefully crafted inputs can override system instructions. Greshake et al.~\cite{greshake2023} introduced the taxonomy of direct, indirect, and stored injection that we adopt in our threat model. Liu et al.~\cite{liu2023prompt} provided a comprehensive survey of prompt injection attacks and defenses.
 
 \paragraph{Runtime Defenses.}
-Several tools detect prompt injection at runtime by analyzing prompt content. Rebuff~\cite{rebuff} uses a classifier to detect injection attempts in user input. LakeraGuard~\cite{lakera} provides an API for real-time prompt filtering. These approaches are complementary to ours: they detect attacks at runtime, while we detect vulnerable code patterns statically before deployment.
+Several tools detect prompt injection at runtime by analyzing prompt content. Rebuff~\cite{rebuff} uses a classifier to detect injection attempts in user input. LakeraGuard~\cite{lakera} provides an API for real-time prompt filtering. NeMo Guardrails~\cite{rebedea2023nemo} offers programmable safety rails for LLM applications. These approaches are complementary to ours: they detect attacks at runtime, while we detect vulnerable code patterns statically before deployment.
+
+\paragraph{Empirical Studies.}
+Toyer et al.~\cite{toyer2023tensor} conducted a large-scale study of prompt injection through the Tensor Trust game, providing empirical data on attack success rates. Wei et al.~\cite{wei2023jailbroken} analyzed failure modes of LLM safety training, showing how adversarial inputs can bypass safeguards. These studies inform our decay parameter choices and validate the threat model.
 
 \paragraph{Difference from Our Work.}
 Prior work on prompt injection focuses on the \emph{attack} (crafting malicious prompts) or \emph{runtime defense} (filtering prompts). We address a different problem: statically identifying \emph{code patterns} where prompt injection could lead to security violations. An application might be vulnerable to prompt injection yet remain safe if the LLM output never reaches a dangerous sink---our analysis identifies exactly when the injection can cause harm.
@@ -52,7 +55,9 @@ Xi et al.~\cite{xi2023rise} surveyed security risks in LLM-based agents, includi
 Approach & Static & LLM-Aware & Sink-Focused \\
 \midrule
 Classic Taint (FlowDroid) & \cmark & \xmark & \cmark \\
+CodeQL~\cite{codeql} & \cmark & \xmark & \cmark \\
 Prompt Detectors (Rebuff) & \xmark & \cmark & \xmark \\
+NeMo Guardrails~\cite{rebedea2023nemo} & \xmark & \cmark & \xmark \\
 LLM-Assisted (IRIS) & \cmark & \xmark & \cmark \\
 \textbf{Semantic Influence (Ours)} & \cmark & \cmark & \cmark \\
 \bottomrule

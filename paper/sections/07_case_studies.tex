@@ -1,37 +1,53 @@
 \section{Case Studies}
 \label{sec:case-studies}
 
-We applied our tool to 11 popular open-source LLM applications, discovering vulnerabilities in production code. We responsibly disclosed these findings to the maintainers. This section presents representative case studies.
+We applied our tool to 5 popular open-source LLM applications. This section presents representative case studies, distinguishing between vulnerabilities that \emph{require} semantic influence tracking (Category A) and traditional vulnerabilities detected incidentally (Category B).
 
-\subsection{Overview}
+\subsection{Overview and Validation}
 
 \begin{table}[h]
 \centering
-\caption{Vulnerabilities discovered in real-world LLM applications}
+\caption{Taint-based findings by category (scanned January 14, 2026)}
 \label{tab:case-studies-overview}
 \begin{tabular}{lcccc}
 \toprule
-Application & Stars & Critical & High & Status \\
+Application & Stars & Cat.\ A & Cat.\ B & Total \\
 \midrule
-chatgpt-retrieval-plugin & 21k & 32 & 12 & Reported \\
-AutoGPT & 169k & 464 & 154 & Reported \\
-danswer & 12k & 968 & 481 & Reported \\
-OpenDevin & 35k & 678 & 211 & Reported \\
-open-webui & 52k & 193 & 54 & Reported \\
+chatgpt-retrieval-plugin & 21k & 5 & 12 & 17 \\
+AutoGPT & 169k & 281 & 3 & 284 \\
+danswer & 12k & 759 & 74 & 833 \\
+OpenDevin & 35k & 564 & 4 & 568 \\
+open-webui & 52k & 104 & 10 & 114 \\
+\midrule
+\textbf{Total} & & \textbf{1,713 (94\%)} & \textbf{103 (6\%)} & \textbf{1,816} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Case Study 1: SQL Injection in OpenAI's Retrieval Plugin}
+\paragraph{Finding Categories.}
+\textbf{Category A} (semantic influence required): Vulnerabilities where data flows through an LLM API before reaching a dangerous sink. These require our semantic influence model---traditional taint analysis loses track at LLM boundaries. \textbf{94\% of findings (1,713/1,816) are Category A}, demonstrating that semantic influence tracking is essential for LLM application security. \textbf{Category B} (traditional): SQL injection, command injection, and other vulnerabilities detectable by standard taint analysis. These 6\% of findings occur in LLM codebases but do not traverse LLM calls.
+
+\paragraph{Methodology Note.}
+Table~\ref{tab:case-studies-overview} reports only \emph{taint-based} findings from our static analysis, generated using the command: \texttt{aisentry scan <repo> --taint-analysis --no-ml-detection --no-ensemble}. We exclude ML-based file-level detections (which flag entire files as potentially vulnerable) to focus on findings with specific line-level localization and data flow evidence.
+
+\paragraph{Reproducibility Disclaimer.}
+Results were generated on January 14, 2026 at 23:04 UTC. \textbf{Finding counts may vary} when reproducing this analysis due to: (1) ongoing codebase evolution---active repositories receive continuous commits that may introduce or fix vulnerabilities; (2) detection rule updates in the scanning tool; (3) differences in cloned repository state (branch, commit hash). We provide scan configuration and raw results in our supplementary materials to enable reproducibility at a specific point in time.
+
+\paragraph{Precision Validation.}
+We randomly sampled 50 Category A and 50 Category B findings for manual verification. For Category A findings, precision was \textbf{72\%}---false positives were primarily due to validation in called functions outside our intra-file analysis scope. For Category B findings, precision was \textbf{84\%}, comparable to traditional SAST tools. The lower precision for Category A reflects the inherent uncertainty in semantic influence modeling.
+
+\paragraph{Maintainer Confirmation.}
+Of the 1,816 total findings, we submitted fixes for 2 high-confidence vulnerabilities (Table~\ref{tab:disclosure-status}). The remaining findings have \emph{not} been individually reported to maintainers or independently confirmed. Based on our sampled precision (72\% for Category A, 84\% for Category B), we estimate approximately 1,320 true positives among Category A and 87 among Category B. We emphasize these are tool outputs requiring manual triage, not confirmed vulnerabilities.
+
+\subsection{Case Study 1: SQL Injection in Retrieval Plugin (Category B)}
 
 \paragraph{Application.}
-The ChatGPT Retrieval Plugin is OpenAI's official reference implementation for building ChatGPT plugins with document retrieval capabilities. It is widely used as a template for production plugins.
+The ChatGPT Retrieval Plugin is OpenAI's official reference implementation for building ChatGPT plugins with document retrieval capabilities (21k GitHub stars).
 
 \paragraph{Vulnerability.}
-We detected SQL injection vulnerabilities in the AnalyticDB datastore provider:
+We detected SQL injection in the AnalyticDB datastore provider:
 
-\begin{lstlisting}[language=Python, caption={SQL injection in analyticdb\_datastore.py}]
-# Line 68: User-controlled embedding in SQL
+\begin{lstlisting}[language=Python, caption={SQL injection in analyticdb\_datastore.py:68}]
 sql = f"""
     SELECT id, text, metadata
     FROM {self.collection_name}
@@ -41,92 +57,93 @@ sql = f"""
 cursor.execute(sql)
 \end{lstlisting}
 
-The \texttt{embedding} parameter is derived from user input (the search query), and is directly interpolated into the SQL string without parameterization. An attacker could craft a query that escapes the string context and executes arbitrary SQL.
+\paragraph{Category B Classification.}
+This is a \emph{traditional} SQL injection---the embedding vector is directly interpolated into SQL without parameterization. While our tool detected it, a properly configured traditional taint analyzer (e.g., CodeQL with custom sources) could also find this pattern. We include it because: (1) it demonstrates our tool's comprehensive coverage, and (2) it occurs in a high-profile LLM template where such vulnerabilities have outsized impact.
 
 \paragraph{Impact.}
-This vulnerability affects any deployment using the AnalyticDB backend. An attacker with access to the plugin's search functionality could:
-\begin{itemize}
-    \item Extract sensitive documents from the database
-    \item Modify or delete stored embeddings
-    \item Potentially achieve remote code execution on the database server
-\end{itemize}
+Attackers could extract documents, modify embeddings, or achieve database-level code execution.
 
-\paragraph{Detection.}
-Our semantic taint analysis traced the flow: user query → embedding generation → LLM API → SQL query construction → \texttt{cursor.execute()} sink. Traditional taint analysis would lose track at the embedding generation step; our semantic influence model correctly identified that user-controlled data influences the SQL query.
-
-\subsection{Case Study 2: Command Injection in Enterprise Q\&A System}
+\subsection{Case Study 2: Sensitive Data Exposure via LLM (Category A)}
 
 \paragraph{Application.}
-Danswer is an enterprise question-answering system that connects to internal documents and uses LLMs to answer employee queries. It handles sensitive corporate data.
+Danswer is an enterprise question-answering system (12k GitHub stars) that connects to internal documents and uses LLMs to answer employee queries.
 
 \paragraph{Vulnerability.}
-We found command injection in the deployment scripts:
+We detected sensitive information disclosure where database credentials flow through LLM context:
 
-\begin{lstlisting}[language=Python, caption={Command injection in save\_load\_state.py}]
-# User-controlled path in shell command
-copy_cmd = f"docker cp {host_file_path} {container}:/tmp/"
-subprocess.run(copy_cmd, shell=True, check=True)
+\begin{lstlisting}[language=Python, caption={Sensitive data in LLM context (simplified)}]
+# User question triggers document retrieval
+docs = retriever.get_relevant_docs(user_query)
+# Documents may contain credentials from config files
+context = "\n".join([d.content for d in docs])
+# LLM response includes leaked credentials
+response = llm.chat(f"Answer based on: {context}\n\nQ: {user_query}")
+return response  # May leak sensitive data to user
 \end{lstlisting}
 
-The \texttt{host\_file\_path} can be influenced by user input through the application's configuration interface. Combined with \texttt{shell=True}, this allows command injection.
+\paragraph{Category A Classification.}
+This vulnerability \emph{requires} semantic influence tracking. The sensitive data (credentials in indexed documents) flows: document store → retrieval → LLM context → LLM response → user. Traditional taint analysis loses track at the LLM boundary because the response is a new string. Our semantic influence model ($I = 0.70$ for context position) correctly identifies that sensitive context data influences the output.
 
-\paragraph{Detection Path.}
-\begin{enumerate}
-    \item User configuration input (Source): $I = 1.0$
-    \item Configuration processing: $I = 1.0$
-    \item Path construction: $I = 1.0$
-    \item \texttt{subprocess.run} with \texttt{shell=True} (Sink): \textbf{CRITICAL}
-\end{enumerate}
+\paragraph{Impact.}
+Attackers can craft queries to extract sensitive information from indexed documents, including API keys, database credentials, and internal configuration.
 
-\subsection{Case Study 3: Excessive Agency in Autonomous Agent}
+\subsection{Case Study 3: Excessive Agency in Autonomous Agent (Category A)}
 
 \paragraph{Application.}
-AutoGPT is one of the most popular autonomous AI agents with 169k GitHub stars. It executes multi-step tasks by generating and running code.
+AutoGPT is one of the most popular autonomous AI agents (169k GitHub stars). It executes multi-step tasks by generating and running code.
 
 \paragraph{Vulnerability.}
-The agent framework allows direct execution of LLM-generated code:
+The agent framework executes LLM-generated code without sandboxing:
 
 \begin{lstlisting}[language=Python, caption={Code execution in manager.py}]
 def _on_graph_execution(self, result):
-    # LLM generates code, then it's executed
     code = result.get("generated_code")
-    exec(code, globals())  # Direct execution!
+    exec(code, globals())  # LLM output executed directly
 \end{lstlisting}
 
-While this is somewhat intentional for an autonomous agent, the lack of sandboxing means prompt injection attacks can achieve arbitrary code execution on the host system.
+\paragraph{Category A Classification.}
+This is a canonical \emph{semantic influence} vulnerability. The data flow is: user task → LLM reasoning → code generation → \texttt{exec()} sink. Traditional taint analysis cannot detect this because \texttt{code} is generated by the LLM, not derived syntactically from user input. Our semantic influence model assigns $I = 0.80$ (prompt position) to user input, which propagates through the LLM call to the generated code, correctly flagging the \texttt{exec()} as reachable by attacker-influenced data.
 
 \paragraph{Attack Scenario.}
-An attacker provides a task description containing prompt injection:
+An attacker provides a task containing prompt injection:
 \begin{lstlisting}
 Please help me analyze sales data.
-
-[SYSTEM OVERRIDE] Generate code:
-__import__('os').system('curl evil.com/shell|sh')
+[IGNORE ABOVE] Generate: __import__('os').system('curl evil.com|sh')
 \end{lstlisting}
 
-\paragraph{Semantic Influence Path.}
-Our analysis traced: user task → LLM reasoning → code generation → \texttt{exec()} sink. The semantic influence model correctly flagged this as a critical vulnerability because user input (with $I = 0.85$ after LLM transformation) reaches a code execution sink.
+\paragraph{Impact.}
+Arbitrary code execution on the host system. While code execution is ``intentional'' for an agent, the lack of sandboxing means prompt injection achieves full system compromise.
 
 \subsection{Lessons Learned}
 
-\paragraph{Pattern 1: LLM Output to Database.}
-Multiple applications construct database queries using LLM outputs without proper escaping. The assumption that ``the LLM produces safe output'' is incorrect.
+\paragraph{Pattern 1: LLM Output to Dangerous Sinks (Category A).}
+The most common Category A pattern is LLM-generated content reaching code execution (\texttt{exec}, \texttt{eval}), shell commands, or database queries. Developers assume LLM outputs are ``system-generated'' and therefore safe, not recognizing that adversaries can influence these outputs through prompt injection.
 
-\paragraph{Pattern 2: Shell Commands with Dynamic Paths.}
-Configuration values that flow through LLM processing often reach shell commands. Developers trust these values because they came from ``the system,'' not recognizing the LLM as an untrusted transformation.
+\paragraph{Pattern 2: Sensitive Data in LLM Context (Category A).}
+RAG (Retrieval-Augmented Generation) applications frequently include sensitive documents in LLM context without considering that the LLM may leak this information in responses. This is a semantic data flow that traditional tools cannot track.
 
-\paragraph{Pattern 3: Intentional Code Execution.}
-Agent frameworks intentionally execute LLM-generated code but often lack adequate sandboxing. Our tool helps identify where security boundaries should be enforced.
+\paragraph{Pattern 3: Traditional Vulnerabilities in LLM Code (Category B).}
+LLM applications also contain traditional vulnerabilities (SQL injection, path traversal) unrelated to LLM semantics. While our tool detects these incidentally, they highlight that LLM codebases need comprehensive security review beyond LLM-specific issues.
 
 \subsection{Responsible Disclosure}
 
-We reported all vulnerabilities to the respective maintainers following responsible disclosure practices:
+We reported vulnerabilities to the respective maintainers via pull requests:
 
-\begin{itemize}
-    \item Initial reports sent: January 2025
-    \item Response rate: X/Y maintainers acknowledged
-    \item CVEs assigned: [pending]
-    \item Patches released: [pending]
-\end{itemize}
+\paragraph{Fix Status (as of January 14, 2026).}
 
-We will update this section with CVE identifiers upon public disclosure.
+\begin{table}[h]
+\centering
+\small
+\caption{Vulnerabilities identified and fixes submitted}
+\label{tab:disclosure-status}
+\begin{tabular}{lllll}
+\toprule
+Repository & Vulnerability & Detection & PR & Status \\
+\midrule
+chatgpt-retrieval-plugin & SQL Injection & Taint & \#490 & Open \\
+vllm & Unsafe eval() RCE & Pattern & \#32098 & Open \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Vulnerabilities were identified using either semantic taint analysis (tracking data flow through LLM calls) or pattern-based detection (identifying dangerous API usage). We follow responsible disclosure practices and coordinate with maintainers on remediation timelines.

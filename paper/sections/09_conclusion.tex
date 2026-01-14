@@ -3,14 +3,14 @@
 
 We introduced \emph{semantic influence}---a novel extension to taint analysis that tracks how user-controlled data propagates through LLM API calls to reach dangerous sinks. Unlike traditional taint analysis, which loses track at API boundaries, our model captures the empirical reality that LLM outputs remain influenced by their inputs even though they are syntactically independent.
 
-Our formalization introduces influence strength with position-dependent decay (0.85 for prompts, 0.70 for context, 0.50 for system messages) and multi-hop attenuation. We implemented this model in a practical static analyzer and evaluated it on real-world LLM applications.
+Our formalization introduces influence strength with position-dependent decay (0.80 for prompts, 0.70 for context, 0.50 for system messages) and multi-hop attenuation. We implemented this model in a practical static analyzer and evaluated it on real-world LLM applications.
 
 \paragraph{Key Results.}
 \begin{itemize}
     \item \textbf{76\% precision, 60\% recall} on the OWASP LLM vulnerability testbed
-    \item \textbf{100\% precision} (zero false positives) on real security commits
-    \item \textbf{5,127 findings} across 11 popular LLM applications
-    \item \textbf{Multiple vulnerabilities} reported to maintainers, including SQL injection in OpenAI's official plugin template
+    \item Zero false positives on security commit benchmark (positive-only corpus; see Section~\ref{sec:evaluation} for caveats)
+    \item \textbf{1,816 taint-based findings} across 5 popular LLM applications, 94\% requiring semantic influence
+    \item \textbf{2 vulnerabilities} reported to maintainers via pull requests
 \end{itemize}
 
 \paragraph{Limitations and Future Work.}
@@ -19,4 +19,4 @@ Our current implementation performs intra-file analysis only; extending to inter
 \paragraph{Broader Impact.}
 As LLM-integrated applications become ubiquitous, the attack surface for prompt injection expands. Semantic influence analysis provides a foundation for securing this new class of applications by extending proven static analysis techniques to handle the unique challenge of LLM transformations.
 
-Our tool is available at \texttt{[URL]}.
+Our tool is available at \url{https://github.com/deosha/aisentry} and evaluation artifacts at \url{https://github.com/deosha/llm-sec-eval}.
