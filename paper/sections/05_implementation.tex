@@ -184,7 +184,7 @@ Multiple mitigations accumulate (capped at 0.30). These values are heuristically
 Our implementation has several limitations:
 
 \begin{description}
-    \item[Single-file scope] We support interprocedural analysis within each file (function summaries, wrapper detection) but analyze files independently. Cross-file data flows require manual inspection of flagged entry points.
+    \item[Single-file scope] We support interprocedural analysis within each file (function summaries, wrapper detection) but analyze files independently. Cross-file data flows require manual inspection of flagged entry points. This is a significant limitation for production LLM services where user input, prompts, and sinks often span multiple modules. Extending to cross-file analysis would require whole-program call graph construction, which we leave to future work.
 
     \item[Dynamic features] Highly dynamic Python patterns (\texttt{getattr}, \texttt{**kwargs}, runtime imports) may evade analysis.
 

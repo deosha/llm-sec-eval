@@ -25,7 +25,9 @@ open-webui & 52k & 104 & 10 & 114 \\
 \end{table}
 
 \paragraph{Finding Categories.}
-\textbf{Category A} (semantic influence required): Vulnerabilities where data flows through an LLM API before reaching a dangerous sink. These require our semantic influence model---traditional taint analysis loses track at LLM boundaries. \textbf{94\% of findings (1,713/1,816) are Category A}, demonstrating that semantic influence tracking is essential for LLM application security. \textbf{Category B} (traditional): SQL injection, command injection, and other vulnerabilities detectable by standard taint analysis. These 6\% of findings occur in LLM codebases but do not traverse LLM calls.
+\textbf{Category A} (semantic influence required): Vulnerabilities where data flows through an LLM API before reaching a dangerous sink. These require our semantic influence model---traditional taint analysis loses track at LLM boundaries. \textbf{Category B} (traditional): SQL injection, command injection, and other vulnerabilities detectable by standard taint analysis. These findings occur in LLM codebases but do not traverse LLM calls.
+
+Based on tool classification, \textbf{94\% of findings (1,713/1,816) are Category A}. This classification is determined automatically by whether the detected flow includes an LLM call. Our 50-sample manual review validated 72\% of Category A findings as true positives, but did not independently verify that all 1,713 are genuinely semantic (vs. misclassified traditional flows). The 94\% figure thus reflects tool output, not ground-truth verification of all findings.
 
 \paragraph{Methodology Note.}
 Table~\ref{tab:case-studies-overview} reports only \emph{taint-based} findings from our static analysis, generated using the command: \texttt{aisentry scan <repo> --taint-analysis --no-ml-detection --no-ensemble}. We exclude ML-based file-level detections (which flag entire files as potentially vulnerable) to focus on findings with specific line-level localization and data flow evidence.

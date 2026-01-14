@@ -40,7 +40,7 @@ This paper makes the following contributions:
 
     \item \textbf{Empirical Evaluation}: We evaluate our approach on \textbf{5} real-world LLM applications, achieving \textbf{76\%} precision and \textbf{60\%} recall, and compare against existing tools (Section~\ref{sec:evaluation}).
 
-    \item \textbf{Vulnerability Discovery}: We report \textbf{1,816} taint-based findings across popular LLM frameworks, of which \textbf{94\% require semantic influence tracking} and cannot be detected by traditional tools (Section~\ref{sec:case-studies}).
+    \item \textbf{Vulnerability Discovery}: We report \textbf{1,816} taint-based findings across popular LLM frameworks, of which \textbf{94\% are classified as requiring semantic influence tracking} (based on presence of LLM calls in the detected flow) and cannot be detected by traditional tools (Section~\ref{sec:case-studies}).
 \end{enumerate}
 
 Our tool is available at \url{https://github.com/deosha/aisentry} and the evaluation benchmark at \url{https://github.com/deosha/llm-sec-eval}.

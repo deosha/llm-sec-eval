@@ -1,0 +1,302 @@
+[
+  {
+    "params": {
+      "STRONG": 0.75,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 2,
+    "fn": 70,
+    "precision": 0.6,
+    "recall": 0.041,
+    "f1": 0.077,
+    "swept_param": "STRONG"
+  },
+  {
+    "params": {
+      "STRONG": 0.8,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 2,
+    "fn": 70,
+    "precision": 0.6,
+    "recall": 0.041,
+    "f1": 0.077,
+    "swept_param": "STRONG"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "STRONG"
+  },
+  {
+    "params": {
+      "STRONG": 0.9,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "STRONG"
+  },
+  {
+    "params": {
+      "STRONG": 0.95,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "STRONG"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.6,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "MODERATE"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.65,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "MODERATE"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "MODERATE"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.75,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "MODERATE"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.8,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "MODERATE"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.4,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "WEAK"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.45,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "WEAK"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "WEAK"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.55,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "WEAK"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.6,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "WEAK"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.8
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "HOP_DECAY"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.85
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "HOP_DECAY"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.9
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "HOP_DECAY"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 0.95
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "HOP_DECAY"
+  },
+  {
+    "params": {
+      "STRONG": 0.85,
+      "MODERATE": 0.7,
+      "WEAK": 0.5,
+      "HOP_DECAY": 1.0
+    },
+    "tp": 3,
+    "fp": 4,
+    "fn": 70,
+    "precision": 0.429,
+    "recall": 0.041,
+    "f1": 0.075,
+    "swept_param": "HOP_DECAY"
+  }
+]
