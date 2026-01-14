@@ -162,7 +162,7 @@ Not all detected patterns represent true vulnerabilities. We compute a confidenc
 
 where:
 \begin{itemize}
-    \item $I$ is the influence strength at the sink
+    \item $C$ is the controllability at the sink
     \item $w_{\text{sink}} \in [0.7, 1.0]$ is sink-specific weight (e.g., 1.0 for \texttt{eval}/\texttt{exec}, 0.9 for \texttt{subprocess}, 0.7 for \texttt{open})
     \item $m_{\text{mitigation}} \in [0, 0.3]$ is reduction for detected mitigations (see below)
 \end{itemize}

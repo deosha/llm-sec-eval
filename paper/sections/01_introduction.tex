@@ -28,13 +28,13 @@ Existing static analysis tools fall into two categories, neither of which adequa
 \paragraph{Our Approach.}
 We introduce \emph{semantic influence}---a novel extension to taint analysis that models how user-controlled data propagates through LLM API calls to reach dangerous sinks. Our key insight is that while LLM outputs are syntactically independent of their inputs, they remain semantically dependent: an adversary who controls the input can influence the output's meaning and structure.
 
-We formalize semantic influence as a taint type with an associated \emph{influence strength} that decays based on the input's position (prompt, context, or system message) and the number of LLM hops in the data flow path. This model captures the empirical reality that prompt injection attacks become less reliable through multiple LLM transformations.
+We formalize semantic influence as a taint type with an associated \emph{controllability} (probability of adversarial influence) that decays based on the input's position (prompt, context, or system message) and the number of LLM hops in the data flow path. This model captures the empirical reality that prompt injection attacks become less reliable through multiple LLM transformations. We explicitly separate controllability from impact (sink severity), combining them only for final risk scoring.
 
 \paragraph{Contributions.}
 This paper makes the following contributions:
 
 \begin{enumerate}
-    \item \textbf{Semantic Influence Model}: We formalize how taint propagates through LLM API calls, introducing influence strength and position-dependent decay (Section~\ref{sec:semantic-influence}).
+    \item \textbf{Semantic Influence Model}: We formalize how taint propagates through LLM API calls, introducing controllability (separated from impact) and position-dependent decay (Section~\ref{sec:semantic-influence}).
 
     \item \textbf{Static Analysis Implementation}: We implement our model in a Python static analyzer that detects LLM-mediated vulnerabilities across major LLM SDKs (Section~\ref{sec:implementation}).
 

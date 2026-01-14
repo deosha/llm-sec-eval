@@ -3,7 +3,7 @@
 
 We introduced \emph{semantic influence}---a novel extension to taint analysis that tracks how user-controlled data propagates through LLM API calls to reach dangerous sinks. Unlike traditional taint analysis, which loses track at API boundaries, our model captures the empirical reality that LLM outputs remain influenced by their inputs even though they are syntactically independent.
 
-Our formalization introduces influence strength with position-dependent decay (0.80 for prompts, 0.70 for context, 0.50 for system messages) and multi-hop attenuation. We implemented this model in a practical static analyzer and evaluated it on real-world LLM applications.
+Our formalization introduces controllability (separated from impact severity) with position-dependent decay (0.80 for prompts, 0.70 for context, 0.50 for system messages) and multi-hop attenuation. We implemented this model in a practical static analyzer and evaluated it on real-world LLM applications.
 
 \paragraph{Key Results.}
 \begin{itemize}
